@@ -31,6 +31,12 @@
           <string>com.craftreactnative.craftrn-templates-demoapp</string>
         </array>
       </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>exp+craftrn-templates-demo-app</string>
+        </array>
+      </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>1</string>
