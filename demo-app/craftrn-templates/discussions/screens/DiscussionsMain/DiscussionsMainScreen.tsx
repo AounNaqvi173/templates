@@ -1,8 +1,11 @@
 import { useRouter } from 'expo-router';
 import React, { useLayoutEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import { Discussion, discussionsData } from '../../data/discussions';
 import { ArchiveBottomSheet } from './ArchiveBottomSheet';
 import { DeleteBottomSheet } from './DeleteBottomSheet';
@@ -14,7 +17,6 @@ export const DiscussionsMainScreen = () => {
   const [archiveBottomSheetVisible, setArchiveBottomSheetVisible] =
     useState(false);
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { styles, theme } = useStyles(stylesheet);
 
   useLayoutEffect(() => {
@@ -44,7 +46,7 @@ export const DiscussionsMainScreen = () => {
           />
         )}
         contentContainerStyle={{
-          paddingBottom: insets.bottom,
+          paddingBottom: UnistylesRuntime.insets.bottom,
         }}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />

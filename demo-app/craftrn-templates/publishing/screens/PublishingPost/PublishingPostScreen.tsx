@@ -1,14 +1,11 @@
 import { Avatar } from '@/craftrn-ui/components/Avatar';
-import { buttonRoundConfig } from '@/craftrn-ui/components/ButtonRound';
 import { Text } from '@/craftrn-ui/components/Text';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { ComponentType, useMemo } from 'react';
 import { ImageBackground, Platform, View } from 'react-native';
 import Animated, {
-  interpolate,
   useAnimatedScrollHandler,
-  useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
@@ -20,6 +17,7 @@ import {
 import { publishingPostsData } from '../../data/posts';
 import { usersData } from '../../data/users';
 import { formatDate } from '../../utils/date';
+import { AnimatedHeader } from './AnimatedHeader';
 import { RelatedReading } from './RelatedReading';
 
 const modalCardTopOffset = Platform.select({
@@ -65,7 +63,8 @@ const GradientComponent = () => {
 };
 
 export const PublishingPostScreen: ComponentType = () => {
-  const { styles, theme } = useStyles(stylesheet);
+  const navigation = useNavigation();
+  const { styles } = useStyles(stylesheet);
   const { id } = useLocalSearchParams<{ id: string }>();
   const headerHeight = useHeaderHeight();
   const modalHeaderHeight = useModalCardHeaderHeight();
@@ -73,17 +72,6 @@ export const PublishingPostScreen: ComponentType = () => {
   const scrollHandler = useAnimatedScrollHandler(event => {
     scrollPosition.value = event.contentOffset.y;
   });
-
-  const headerAnimatedStyle = useAnimatedStyle(
-    () => ({
-      opacity: interpolate(
-        scrollPosition.value,
-        [0, GRADIENT_HEIGHT, GRADIENT_HEIGHT + 50],
-        [0, 0, 1],
-      ),
-    }),
-    [scrollPosition],
-  );
 
   const publishingPost = useMemo(
     () => publishingPostsData.find(item => item.id === id),
@@ -104,28 +92,19 @@ export const PublishingPostScreen: ComponentType = () => {
 
   return (
     <View style={styles.container}>
-      <Animated.View
-        style={[
-          styles.header,
-          headerAnimatedStyle,
-          {
-            marginTop: -headerHeight,
-            paddingLeft:
-              theme.spacing.large * 2 + buttonRoundConfig.buttonSizeMedium,
-            height: headerHeight,
-          },
-        ]}
-      >
-        <Text style={styles.headerTitle} numberOfLines={1}>
-          {publishingPost.title}
-        </Text>
-      </Animated.View>
-
+      <AnimatedHeader
+        scrollPosition={scrollPosition}
+        title={publishingPost.title}
+        gradientHeight={GRADIENT_HEIGHT}
+      />
       <Animated.ScrollView
         onScroll={scrollHandler}
-        style={{ marginTop: -headerHeight }}
+        style={styles.scrollView(headerHeight)}
         contentContainerStyle={{
-          paddingBottom: modalHeaderHeight,
+          paddingBottom:
+            Platform.OS === 'ios'
+              ? modalHeaderHeight
+              : UnistylesRuntime.insets.bottom,
         }}
       >
         <View style={styles.headingSection}>
@@ -194,22 +173,12 @@ const stylesheet = createStyleSheet(theme => ({
     flex: 1,
     backgroundColor: theme.colors.backgroundSecondary,
   },
-  header: {
-    paddingRight: theme.spacing.large,
-    position: 'absolute',
-    justifyContent: 'center',
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: theme.colors.backgroundPrimary,
-    zIndex: 1,
-  },
-  headerTitle: {
-    fontWeight: 'bold',
-  },
   headingSection: {
     height: IMAGE_HEIGHT,
   },
+  scrollView: (headerHeight: number) => ({
+    marginTop: Platform.OS === 'ios' ? -headerHeight : 0,
+  }),
   gradientOverlay: {
     flex: 1,
     justifyContent: 'flex-end',

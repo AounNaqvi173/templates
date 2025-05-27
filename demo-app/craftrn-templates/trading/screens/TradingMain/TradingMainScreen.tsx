@@ -1,15 +1,18 @@
 import { Text } from '@/craftrn-ui/components/Text';
 import { useRouter } from 'expo-router';
 import React, { ComponentType, useCallback } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import { AssetListItem } from '../../components/AssetListItem';
 import { ExchangeRate } from '../../components/ExchangeRate';
 import { assets, AssetsItem } from '../../data/assets';
@@ -69,7 +72,6 @@ const sectionHeaderStylesheet = createStyleSheet(theme => ({
 export const TradingMainScreen: ComponentType = () => {
   const { styles, theme } = useStyles(mainStylesheet);
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const scrollPosition = useSharedValue(0);
 
   const headerAnimatedStyle = useAnimatedStyle(() => ({
@@ -85,16 +87,7 @@ export const TradingMainScreen: ComponentType = () => {
 
   return (
     <>
-      <Animated.View
-        style={[
-          styles.header,
-          headerAnimatedStyle,
-          {
-            paddingTop:
-              Platform.OS === 'ios' ? insets.top : theme.spacing.medium,
-          },
-        ]}
-      >
+      <Animated.View style={[styles.header, headerAnimatedStyle]}>
         <Text variant="body1" style={styles.headerValue}>
           {portfolioData.value}
         </Text>
@@ -110,13 +103,7 @@ export const TradingMainScreen: ComponentType = () => {
         onScroll={useAnimatedScrollHandler(event => {
           scrollPosition.value = event.contentOffset.y;
         })}
-        contentContainerStyle={[
-          styles.scrollContent,
-          {
-            paddingTop: insets.top + 8,
-            paddingBottom: insets.bottom + theme.spacing.xlarge,
-          },
-        ]}
+        contentContainerStyle={styles.scrollContent}
       >
         <PortfolioHeader />
         <SectionHeader title="Highlights" />
@@ -174,6 +161,7 @@ const mainStylesheet = createStyleSheet(theme => ({
     left: 0,
     right: 0,
     backgroundColor: theme.colors.backgroundPrimary,
+    paddingTop: UnistylesRuntime.insets.top,
     zIndex: 1,
   },
   headerValue: {
@@ -190,6 +178,8 @@ const mainStylesheet = createStyleSheet(theme => ({
   },
   scrollContent: {
     gap: theme.spacing.small,
+    paddingTop: UnistylesRuntime.insets.top + 8,
+    paddingBottom: UnistylesRuntime.insets.bottom + theme.spacing.xlarge,
   },
   exchangeRatesContainer: {
     gap: theme.spacing.medium,

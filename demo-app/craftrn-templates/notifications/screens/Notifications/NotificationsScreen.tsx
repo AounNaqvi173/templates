@@ -1,6 +1,6 @@
 import { ButtonRound } from '@/craftrn-ui/components/ButtonRound';
 import { More } from '@/tetrisly-icons/More';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from 'expo-router';
 import React, {
   ComponentType,
   useLayoutEffect,
@@ -8,8 +8,11 @@ import React, {
   useState,
 } from 'react';
 import { FlatList, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import { AnimatedKeyboardView } from '../../components/AnimatedKeyboardView';
 import { Notification, notificationsData } from '../../data/notifications';
 import { MoreOptionsBottomSheet } from './MoreOptionsBottomSheet';
@@ -22,7 +25,6 @@ export const NotificationsScreen: ComponentType = () => {
   const [selectedTab, setSelectedTab] = useState(INITIAL_ACTIVE_TAB);
   const navigation = useNavigation();
   const { styles, theme } = useStyles(stylesheet);
-  const insets = useSafeAreaInsets();
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
 
   useLayoutEffect(() => {
@@ -63,7 +65,7 @@ export const NotificationsScreen: ComponentType = () => {
         keyExtractor={({ id }) => id}
         keyboardShouldPersistTaps="always"
         contentContainerStyle={{
-          paddingBottom: insets.bottom,
+          paddingBottom: UnistylesRuntime.insets.bottom,
         }}
         ItemSeparatorComponent={() => <View style={styles.divider} />}
         scrollIndicatorInsets={{ right: 1 }}

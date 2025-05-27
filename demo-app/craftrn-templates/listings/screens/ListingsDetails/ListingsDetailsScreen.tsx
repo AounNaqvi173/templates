@@ -5,10 +5,10 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { StarFilled } from '@/tetrisly-icons/StarFilled';
 import { Upload } from '@/tetrisly-icons/Upload';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { useNavigation } from '@react-navigation/native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import React, { ComponentType, useLayoutEffect, useMemo } from 'react';
-import { Share, View } from 'react-native';
+import { Platform, Share, View } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -23,6 +23,7 @@ import {
 } from 'react-native-unistyles';
 import { Shadow } from '../../components/Shadow';
 import { listingsData } from '../../data/listings';
+import { AnimatedHeader } from './AnimatedHeader';
 
 const CAROUSEL_HEIGHT = 300;
 
@@ -38,7 +39,7 @@ export const ListingsDetailsScreen: ComponentType = () => {
   });
 
   const carouselAnimatedStyle = useAnimatedStyle(() => {
-    // Only apply scaling when scroll position is negative (pull down)
+    // Apply scaling when scroll position is negative (pull down)
     const scale =
       scrollPosition.value < 0
         ? interpolate(scrollPosition.value, [-100, 0], [1.7, 1], 'clamp')
@@ -49,16 +50,7 @@ export const ListingsDetailsScreen: ComponentType = () => {
     };
   });
 
-  const headerAnimatedStyle = useAnimatedStyle(
-    () => ({
-      opacity: interpolate(
-        scrollPosition.value,
-        [0, CAROUSEL_HEIGHT - 100, CAROUSEL_HEIGHT - 50],
-        [0, 0, 1],
-      ),
-    }),
-    [scrollPosition],
-  );
+  // Header animation styles moved to AnimatedHeader component
 
   const listingItem = useMemo(
     () => listingsData.find(item => item.id === id),
@@ -92,13 +84,15 @@ export const ListingsDetailsScreen: ComponentType = () => {
 
   return (
     <View style={styles.container}>
-      <Animated.View
-        style={[styles.header({ headerHeight }), headerAnimatedStyle]}
+      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      <AnimatedHeader
+        scrollPosition={scrollPosition}
+        carouselHeight={CAROUSEL_HEIGHT}
       />
       <Animated.ScrollView
         ref={scrollRef}
         onScroll={scrollHandler}
-        style={{ marginTop: -headerHeight }}
+        style={{ marginTop: Platform.OS === 'ios' ? -headerHeight : 0 }}
       >
         <Animated.View
           style={[styles.carouselContainer, carouselAnimatedStyle]}
@@ -208,18 +202,7 @@ const stylesheet = createStyleSheet(theme => ({
   headerRight: {
     marginTop: theme.spacing.xxsmall,
   },
-  header: ({ headerHeight }: { headerHeight: number }) => ({
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: theme.colors.backgroundPrimary,
-    zIndex: 1,
-    marginTop: -headerHeight,
-    height: headerHeight,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.borderPrimary,
-  }),
+  // Header styles moved to AnimatedHeader component
   carouselContainer: {
     backgroundColor: theme.colors.backgroundTertiary,
   },

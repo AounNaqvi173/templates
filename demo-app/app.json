@@ -21,7 +21,8 @@
       "package": "com.craftreactnative.craftrn_templates_demoapp",
       "runtimeVersion": {
         "policy": "appVersion"
-      }
+      },
+      "edgeToEdgeEnabled": true
     },
     "web": {
       "bundler": "metro",

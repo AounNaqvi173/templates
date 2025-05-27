@@ -62,6 +62,18 @@ export const assets: AssetsData = [
       'https://media.istockphoto.com/id/537287169/vector/flag-of-china.jpg?s=612x612&w=0&k=20&c=PZMieLTEfmwDg7hcnXR3uPfMEld5MOtZRBoVQqi9dZI=',
   },
   {
+    id: '7e458e61-677c-4d55-b908-507a490a4854',
+    type: 'currency',
+    name: 'Canadian Dollar',
+    pairing: 'CAD to USD',
+    sellPrice: '0.7325',
+    fromSymbol: 'C$',
+    toSymbol: '$',
+    change: '0.18%',
+    imageURL:
+      'https://media.istockphoto.com/id/934017954/vector/canada-flag.jpg?s=612x612&w=0&k=20&c=QYOJlgWtujlAPzncX5H4UFPDpySMhoh2iPc_zi2t_zQ=',
+  },
+  {
     id: '555f9345-9201-4025-838e-08852353b001',
     type: 'currency',
     name: 'Japanese Yen',

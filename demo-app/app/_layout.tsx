@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { UnistylesRuntime } from 'react-native-unistyles';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -34,8 +35,12 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView>
-      <Stack screenOptions={{ headerShown: false }} />
       <StatusBar style="auto" />
+      <SafeAreaProvider style={{ flex: 1 }}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+        </Stack>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

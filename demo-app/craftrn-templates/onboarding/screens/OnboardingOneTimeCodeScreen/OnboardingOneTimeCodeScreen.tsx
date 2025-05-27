@@ -3,22 +3,27 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { ComponentType } from 'react';
 import { View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import { AnimatedKeyboardView } from '../../components/AnimatedKeyboardView';
 import { OneTimeCodeInput } from './OneTimeCodeInput';
 
 export const OnboardingOneTimeCodeScreen: ComponentType = () => {
   const { styles } = useStyles(stylesheet);
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { phoneNumber } = useLocalSearchParams<{
     phoneNumber?: string;
   }>();
 
   return (
     <AnimatedKeyboardView
-      style={[styles.container, { paddingBottom: insets.bottom }]}
+      style={[
+        styles.container,
+        { paddingBottom: UnistylesRuntime.insets.bottom },
+      ]}
     >
       <View style={styles.content}>
         <View style={styles.header}>

@@ -3,13 +3,14 @@ import React from 'react';
 import { useStyles } from 'react-native-unistyles';
 import { NavigationBackButton } from '../../components/NavigationBackButton';
 
-export default function SettingsLayout() {
+export default function TradingLayout() {
   const { theme } = useStyles();
   const router = useRouter();
   return (
     <Stack
       screenOptions={{
         headerShown: false,
+        statusBarTranslucent: true,
         contentStyle: {
           backgroundColor: theme.colors.backgroundSecondary,
         },

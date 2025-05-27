@@ -8,9 +8,12 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import {
   PublishingCategory,
   publishingCategoryData,
@@ -56,11 +59,10 @@ export const Header: ComponentType<Props> = ({
   const [selectedCategory, setSelectedCategory] = useState<
     PublishingCategory['title']
   >(publishingCategoryData[0].title);
-  const insets = useSafeAreaInsets();
   const { styles, theme } = useStyles(stylesheet);
   const [profileBottomSheetVisible, setProfileBottomSheetVisible] =
     useState(false);
-  const topOffset = insets.top;
+  const topOffset = UnistylesRuntime.insets.top;
   const headerHeight = HEADER_HEIGHT + topOffset;
 
   const containerAnimatedStyle = useAnimatedStyle(() => ({

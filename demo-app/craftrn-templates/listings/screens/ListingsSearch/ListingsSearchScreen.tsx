@@ -2,7 +2,8 @@ import { InputSearch } from '@/craftrn-ui/components/InputSearch';
 import { Text } from '@/craftrn-ui/components/Text';
 import { Search } from '@/tetrisly-icons/Search';
 import { useHeaderHeight } from '@react-navigation/elements';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import {
   ComponentType,
   default as React,
@@ -17,8 +18,11 @@ import {
   View,
 } from 'react-native';
 import { useAnimatedKeyboard } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import {
   Destination,
   popularDestinations,
@@ -38,7 +42,6 @@ export const ListingsSearchScreen: ComponentType = () => {
   const [search, setSearch] = useState<string>('');
   const { height: keyboardHeight } = useAnimatedKeyboard();
   const headerHeight = useHeaderHeight();
-  const insets = useSafeAreaInsets();
 
   const handleDestinationPress = useCallback(() => {
     navigation.goBack();
@@ -47,7 +50,14 @@ export const ListingsSearchScreen: ComponentType = () => {
   const sections: Section[] = useMemo(
     () =>
       search !== ''
-        ? [{ title: 'Search Results', data: searchDestinations }]
+        ? [
+            {
+              title: 'Search Results',
+              data: searchDestinations.filter(destination =>
+                destination.label.toLowerCase().includes(search.toLowerCase()),
+              ),
+            },
+          ]
         : [
             { title: 'Recent searches', data: recentSearches },
             { title: 'Popular destinations', data: popularDestinations },
@@ -88,40 +98,43 @@ export const ListingsSearchScreen: ComponentType = () => {
   );
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={headerHeight + insets.top}
-    >
-      <View style={styles.inputSearchContainer}>
-        <InputSearch
-          placeholder="Destination or hotel name"
-          leftAccessory={
-            <View style={styles.inputSearchLeftAccessory}>
-              <Search color={theme.colors.contentTertiary} />
-            </View>
-          }
-          value={search}
-          onChangeText={setSearch}
-          autoFocus
-          returnKeyType="search"
+    <>
+      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={headerHeight + UnistylesRuntime.insets.top}
+      >
+        <View style={styles.inputSearchContainer}>
+          <InputSearch
+            placeholder="Destination or hotel name"
+            leftAccessory={
+              <View style={styles.inputSearchLeftAccessory}>
+                <Search color={theme.colors.contentTertiary} />
+              </View>
+            }
+            value={search}
+            onChangeText={setSearch}
+            autoFocus
+            returnKeyType="search"
+          />
+        </View>
+        <SectionList
+          sections={sections}
+          keyExtractor={item => item.label}
+          renderItem={renderItem}
+          renderSectionHeader={renderSectionHeader}
+          renderSectionFooter={renderSectionFooter}
+          contentContainerStyle={[
+            styles.contentContainer,
+            { paddingBottom: 32 + keyboardHeight.value },
+          ]}
+          keyboardShouldPersistTaps="handled"
+          style={styles.sectionList}
+          stickySectionHeadersEnabled={false}
         />
-      </View>
-      <SectionList
-        sections={sections}
-        keyExtractor={item => item.label}
-        renderItem={renderItem}
-        renderSectionHeader={renderSectionHeader}
-        renderSectionFooter={renderSectionFooter}
-        contentContainerStyle={[
-          styles.contentContainer,
-          { paddingBottom: 32 + keyboardHeight.value },
-        ]}
-        keyboardShouldPersistTaps="handled"
-        style={styles.sectionList}
-        stickySectionHeadersEnabled={false}
-      />
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </>
   );
 };
 

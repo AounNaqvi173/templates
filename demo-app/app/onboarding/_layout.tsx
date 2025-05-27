@@ -22,7 +22,7 @@ export default function DiscussionsLayout() {
       <Stack.Screen
         name="index"
         options={{
-          headerLeft: undefined,
+          headerLeft: () => <></>,
         }}
       />
       <Stack.Screen

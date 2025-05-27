@@ -5,7 +5,7 @@ import { CheckLarge } from '@/tetrisly-icons/CheckLarge';
 import { Headphones } from '@/tetrisly-icons/Headphones';
 import { Notification } from '@/tetrisly-icons/Notification';
 import { VolumeMedium } from '@/tetrisly-icons/VolumeMedium';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from 'expo-router';
 import React, { ComponentType, useLayoutEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';

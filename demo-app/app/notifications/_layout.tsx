@@ -2,7 +2,7 @@ import { Stack } from 'expo-router';
 import React from 'react';
 import { useStyles } from 'react-native-unistyles';
 
-export default function DiscussionsLayout() {
+export default function NotificationsLayout() {
   const { theme } = useStyles();
   return (
     <Stack>
@@ -10,9 +10,11 @@ export default function DiscussionsLayout() {
         name="index"
         options={{
           title: 'Notifications',
-          headerStyle: { backgroundColor: theme.colors.backgroundPrimary },
           contentStyle: { backgroundColor: theme.colors.backgroundPrimary },
+          headerStyle: { backgroundColor: theme.colors.backgroundPrimary },
+          headerTintColor: theme.colors.contentPrimary,
           headerShadowVisible: false,
+          headerLeft: () => <></>,
         }}
       />
     </Stack>

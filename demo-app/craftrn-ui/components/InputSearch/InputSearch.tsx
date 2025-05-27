@@ -109,9 +109,9 @@ const stylesheet = createStyleSheet(({ colors, borderRadius, spacing }) => ({
   textInput: ({ readOnly }) => ({
     flexGrow: 1,
     padding: 0,
-    lineHeight: 0,
     marginHorizontal: spacing.small,
     height: config.medium - 2,
     pointerEvents: readOnly ? 'none' : 'auto',
+    color: colors.contentPrimary,
   }),
 }));

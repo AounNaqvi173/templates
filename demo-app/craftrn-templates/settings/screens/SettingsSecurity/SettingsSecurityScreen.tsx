@@ -1,5 +1,5 @@
 import { Switch } from '@/craftrn-ui/components/Switch';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from 'expo-router';
 import React, { ComponentType, useLayoutEffect, useState } from 'react';
 import { ScrollView, Text } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';

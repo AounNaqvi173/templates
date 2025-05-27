@@ -1,5 +1,6 @@
 import { Stack, useRouter } from 'expo-router';
 import React from 'react';
+import { Platform } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
 import { NavigationBackButton } from '../../components/NavigationBackButton';
 
@@ -9,6 +10,7 @@ export default function ListingsLayout() {
   return (
     <Stack
       screenOptions={{
+        headerTintColor: theme.colors.contentPrimary,
         headerLeft: ({ canGoBack }) =>
           canGoBack ? (
             <NavigationBackButton onPress={router.back} />
@@ -26,7 +28,6 @@ export default function ListingsLayout() {
         name="filters"
         options={{
           title: 'Filters',
-          presentation: 'modal',
           headerStyle: { backgroundColor: theme.colors.backgroundPrimary },
           contentStyle: { backgroundColor: theme.colors.backgroundPrimary },
           headerShadowVisible: false,
@@ -36,7 +37,7 @@ export default function ListingsLayout() {
         name="search"
         options={{
           title: 'Search',
-          presentation: 'modal',
+          presentation: Platform.OS === 'ios' ? 'modal' : 'card',
           headerStyle: { backgroundColor: theme.colors.backgroundPrimary },
           contentStyle: { backgroundColor: theme.colors.backgroundPrimary },
           headerShadowVisible: false,
@@ -45,8 +46,7 @@ export default function ListingsLayout() {
       <Stack.Screen
         name="details"
         options={{
-          headerTitle: '',
-          presentation: 'modal',
+          presentation: Platform.OS === 'ios' ? 'modal' : 'card',
           headerShown: false,
         }}
       />

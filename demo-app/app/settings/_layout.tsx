@@ -15,6 +15,7 @@ export default function SettingsLayout() {
         contentStyle: {
           backgroundColor: theme.colors.backgroundSecondary,
         },
+        headerTintColor: theme.colors.contentPrimary,
         headerShadowVisible: false,
         headerLeft: ({ canGoBack }) =>
           canGoBack ? (
@@ -26,7 +27,7 @@ export default function SettingsLayout() {
         name="index"
         options={{
           title: 'Settings',
-          headerLeft: undefined,
+          headerLeft: () => <></>,
         }}
       />
       <Stack.Screen

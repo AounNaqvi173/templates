@@ -5,14 +5,16 @@ import { Slider } from '@/tetrisly-icons/Slider';
 import { useRouter } from 'expo-router';
 import { ComponentType, default as React, useCallback } from 'react';
 import { FlatList, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import { listingsData } from '../../data/listings';
 import { ListingCard } from './ListingCard';
 
 export const ListingsMainScreen: ComponentType = () => {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { styles, theme } = useStyles(stylesheet);
 
   const handlePressListing = useCallback(
@@ -31,7 +33,7 @@ export const ListingsMainScreen: ComponentType = () => {
   }, [router]);
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={styles.container}>
       <View style={styles.searchContainer}>
         <View style={styles.inputSearchWrapper}>
           <InputSearch
@@ -67,7 +69,7 @@ export const ListingsMainScreen: ComponentType = () => {
         )}
         contentContainerStyle={[
           styles.flatListContent,
-          { paddingBottom: insets.bottom },
+          { paddingBottom: UnistylesRuntime.insets.bottom },
         ]}
         scrollIndicatorInsets={{ right: 1 }}
       />
@@ -78,6 +80,7 @@ export const ListingsMainScreen: ComponentType = () => {
 const stylesheet = createStyleSheet(theme => ({
   container: {
     flex: 1,
+    paddingTop: UnistylesRuntime.insets.top,
   },
   searchContainer: {
     paddingHorizontal: theme.spacing.large,

@@ -1,8 +1,11 @@
 import { NavigationBackButton } from '@/components/NavigationBackButton';
 import { Stack, useRouter } from 'expo-router';
 import React from 'react';
+import { Platform } from 'react-native';
+import { useStyles } from 'react-native-unistyles';
 
 export default function DetailsLayout() {
+  const { theme } = useStyles();
   const router = useRouter();
   return (
     <Stack>
@@ -12,7 +15,10 @@ export default function DetailsLayout() {
           title: '',
           headerShadowVisible: false,
           headerStyle: {
-            backgroundColor: 'transparent',
+            backgroundColor:
+              Platform.OS === 'ios'
+                ? 'transparent'
+                : theme.colors.backgroundPrimary,
           },
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (

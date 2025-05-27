@@ -1,7 +1,10 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { ComponentType, useLayoutEffect, useMemo } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import { AnimatedKeyboardView } from '../../components/AnimatedKeyboardView';
 import { discussionsData } from '../../data/discussions';
 import { currentUser } from '../../data/users';
@@ -13,7 +16,6 @@ export const DiscussionsMessagesScreen: ComponentType = () => {
   const navigation = useNavigation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { styles, theme } = useStyles(stylesheet);
-  const insets = useSafeAreaInsets();
 
   const chat = useMemo(
     () => discussionsData.find(c => c.id === id) || undefined,
@@ -40,7 +42,10 @@ export const DiscussionsMessagesScreen: ComponentType = () => {
 
   return (
     <AnimatedKeyboardView
-      style={[styles.container, { paddingBottom: insets.bottom }]}
+      style={[
+        styles.container,
+        { paddingBottom: UnistylesRuntime.insets.bottom },
+      ]}
     >
       <MessagesList participants={chat.participants} messages={chat.messages} />
       <MessageComposer />

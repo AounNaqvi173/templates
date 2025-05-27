@@ -11,8 +11,10 @@ export default function DiscussionsLayout() {
         options={{
           title: 'Discussions',
           headerStyle: { backgroundColor: theme.colors.backgroundPrimary },
+          headerTintColor: theme.colors.contentPrimary,
           headerLargeTitle: true,
           headerLargeTitleShadowVisible: false,
+          headerLeft: () => <></>,
         }}
       />
       <Stack.Screen

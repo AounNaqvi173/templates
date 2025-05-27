@@ -18,6 +18,7 @@ export default function InvestLayout() {
           contentStyle: {
             backgroundColor: theme.colors.backgroundPrimary,
           },
+          headerTintColor: theme.colors.contentPrimary,
           headerShadowVisible: false,
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (

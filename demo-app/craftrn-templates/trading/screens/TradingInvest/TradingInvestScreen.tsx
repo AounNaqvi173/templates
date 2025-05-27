@@ -3,9 +3,12 @@ import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Text } from '@/craftrn-ui/components/Text';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { ComponentType, useMemo, useState } from 'react';
-import { TextInput, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { Platform, TextInput, View } from 'react-native';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import { AnimatedKeyboardView } from '../../components/AnimatedKeyboardView';
 import { AssetListItem } from '../../components/AssetListItem';
 import { ExchangeRate } from '../../components/ExchangeRate';
@@ -16,7 +19,6 @@ const INVEST_FEES = 1.15;
 
 export const TradingInvestScreen: ComponentType = () => {
   const { styles, theme } = useStyles(stylesheet);
-  const insets = useSafeAreaInsets();
   const [investValue, setInvestValue] = useState('');
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -43,7 +45,10 @@ export const TradingInvestScreen: ComponentType = () => {
 
   return (
     <AnimatedKeyboardView
-      style={[styles.container, { paddingBottom: insets.bottom }]}
+      style={[
+        styles.container,
+        { paddingBottom: UnistylesRuntime.insets.bottom },
+      ]}
     >
       <View style={styles.content}>
         <View style={styles.upperContent}>
@@ -57,7 +62,6 @@ export const TradingInvestScreen: ComponentType = () => {
               onChangeText={text => setInvestValue(text)}
               autoFocus
               style={styles.input}
-              textAlign="center"
               selectionColor={theme.colors.accentPrimary}
               keyboardType="numeric"
             />
@@ -124,7 +128,7 @@ const stylesheet = createStyleSheet(theme => ({
     height: 50,
     alignSelf: 'center',
     ...theme.textVariants.heading1,
-    lineHeight: 0,
+    lineHeight: Platform.OS === 'ios' ? 0 : 25,
     fontWeight: 'bold',
     color: theme.colors.contentPrimary,
   },

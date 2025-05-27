@@ -1,14 +1,14 @@
 import { PasscodeEntry } from '@/craftrn-ui/components/PasscodeEntry';
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType } from 'react';
-import { SafeAreaView, View } from 'react-native';
+import { View } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 export const OnboardingCreatePasscodeScreen: ComponentType = () => {
   const { styles } = useStyles(stylesheet);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.header}>
           <Text variant="heading3">Create a PIN</Text>
@@ -18,7 +18,7 @@ export const OnboardingCreatePasscodeScreen: ComponentType = () => {
         </View>
         <PasscodeEntry onPasscodeEntered={() => {}} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

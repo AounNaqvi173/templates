@@ -3,8 +3,11 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { CheckLarge } from '@/tetrisly-icons/CheckLarge';
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import { ButtonSelection } from './ButtonSelection';
 import { PaymentSuccessBottomSheet } from './PaymentSuccessBottomSheet';
 
@@ -27,7 +30,7 @@ export const PaywallSubscriptionScreen = () => {
 
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.contentContainer}>
           <View style={styles.headingSection}>
             <Text variant="heading1" style={styles.headingTitle}>
@@ -119,7 +122,7 @@ export const PaywallSubscriptionScreen = () => {
             </Text>
           </View>
         </View>
-      </SafeAreaView>
+      </View>
       <PaymentSuccessBottomSheet
         visible={isSubscriptionSuccess}
         onRequestClose={() => setIsSubscriptionSuccess(false)}
@@ -133,6 +136,8 @@ const stylesheet = createStyleSheet(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.backgroundSecondary,
+    paddingTop: UnistylesRuntime.insets.top,
+    paddingBottom: UnistylesRuntime.insets.bottom,
   },
   contentContainer: {
     padding: theme.spacing.large,
