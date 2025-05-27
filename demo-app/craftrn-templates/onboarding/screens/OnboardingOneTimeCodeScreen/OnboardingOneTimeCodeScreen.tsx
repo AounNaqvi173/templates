@@ -8,8 +8,8 @@ import {
   UnistylesRuntime,
   useStyles,
 } from 'react-native-unistyles';
+import { InputOTP } from '../../../../craftrn-ui/components/InputOTP';
 import { AnimatedKeyboardView } from '../../components/AnimatedKeyboardView';
-import { OneTimeCodeInput } from './OneTimeCodeInput';
 
 export const OnboardingOneTimeCodeScreen: ComponentType = () => {
   const { styles } = useStyles(stylesheet);
@@ -34,7 +34,7 @@ export const OnboardingOneTimeCodeScreen: ComponentType = () => {
           </Text>
         </View>
         <View style={styles.codeInput}>
-          <OneTimeCodeInput onChangeCode={() => {}} />
+          <InputOTP onChange={() => {}} />
         </View>
         <View style={styles.footer}>
           <Text variant="body3">

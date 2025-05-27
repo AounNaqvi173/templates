@@ -12,6 +12,7 @@ export const AnimatedKeyboardView = ({
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }) => {
+  const viewStyle = StyleSheet.flatten(style || []);
   const { paddingBottom } = StyleSheet.flatten(style || []);
   const paddingBottomValue =
     typeof paddingBottom === 'number' ? paddingBottom : 0;
@@ -33,8 +34,6 @@ export const AnimatedKeyboardView = ({
   }, [paddingBottomValue, keyboard.height.value]);
 
   return (
-    <Animated.View style={StyleSheet.compose(style, animatedStyle)}>
-      {children}
-    </Animated.View>
+    <Animated.View style={[viewStyle, animatedStyle]}>{children}</Animated.View>
   );
 };

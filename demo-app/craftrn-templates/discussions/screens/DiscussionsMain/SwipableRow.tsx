@@ -19,7 +19,7 @@ interface RightActionProps {
   x: number;
   progress: SharedValue<number>;
   totalWidth: number;
-  swipeableRef: RefObject<SwipeableMethods>;
+  swipeableRef?: RefObject<SwipeableMethods>;
   onPress: () => void;
 }
 
@@ -42,7 +42,7 @@ const RightAction = ({
   }));
 
   const handleOnPress = useCallback(() => {
-    if (swipeableRef.current) {
+    if (swipeableRef?.current) {
       swipeableRef.current.close();
     }
     onPress();
