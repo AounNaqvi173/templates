@@ -40,7 +40,7 @@ export const OnboardingLandingScreen: ComponentType = () => {
           <InputText
             label="Country/region"
             value={selectedCountryCode.name}
-            readOnly
+            readOnly={true}
             onPress={() =>
               router.push({
                 pathname: '/onboarding/country-code',

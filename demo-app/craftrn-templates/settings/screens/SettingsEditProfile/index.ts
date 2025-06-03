@@ -1,0 +1,1 @@
+export { SettingsEditProfileScreen } from './SettingsEditProfileScreen';

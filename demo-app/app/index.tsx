@@ -5,7 +5,7 @@ import { ChevronRight } from '@/tetrisly-icons/ChevronRight';
 import { Settings } from '@/tetrisly-icons/Settings';
 import { Href, useRouter } from 'expo-router';
 import { ComponentType } from 'react';
-import { Linking, Platform, View } from 'react-native';
+import { Linking, Platform, useColorScheme, View } from 'react-native';
 
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
@@ -37,6 +37,7 @@ const openDeviceSettings = () => {
 };
 
 export default function HomeScreen() {
+  const colorSceme = useColorScheme();
   const { styles, theme } = useStyles(stylesheet);
 
   return (
@@ -54,13 +55,15 @@ export default function HomeScreen() {
         <View style={styles.themeButtonContainer}>
           <Card>
             <ListItem
-              text="Change theme"
+              text="Change theme in Settings"
+              textBelow={`${colorSceme === 'dark' ? 'Dark' : 'Light'} mode enabled`}
               style={styles.listItem}
               itemLeft={
                 <View style={styles.themeIconContainer}>
                   <Settings color={theme.colors.contentPrimary} />
                 </View>
               }
+              itemRight={<ChevronRight color={theme.colors.contentPrimary} />}
               onPress={openDeviceSettings}
             />
           </Card>

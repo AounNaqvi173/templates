@@ -51,8 +51,9 @@ export const SettingsMainScreen: ComponentType = () => {
         <Card style={styles.card}>
           <SettingsItem
             itemLeft={<UserEdit {...iconProps} />}
-            onPress={() => null}
+            onPress={() => router.push('/settings/edit-profile')}
             text="Edit personal information"
+            chevronRight
           />
           <SettingsItem
             itemLeft={<LogOut {...iconProps} />}
