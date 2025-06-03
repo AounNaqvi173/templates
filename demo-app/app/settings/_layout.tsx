@@ -42,6 +42,12 @@ export default function SettingsLayout() {
           title: 'Security',
         }}
       />
+      <Stack.Screen
+        name="edit-profile"
+        options={{
+          title: 'Edit Profile',
+        }}
+      />
     </Stack>
   );
 }
