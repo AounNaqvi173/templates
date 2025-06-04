@@ -7,7 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "craftrn",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.craftreactnative.craftrn-templates-demoapp",
