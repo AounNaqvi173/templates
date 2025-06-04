@@ -6,7 +6,6 @@ import { StarFilled } from '@/tetrisly-icons/StarFilled';
 import { Upload } from '@/tetrisly-icons/Upload';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import React, { ComponentType, useLayoutEffect, useMemo } from 'react';
 import { Platform, Share, View } from 'react-native';
 import Animated, {
@@ -84,7 +83,6 @@ export const ListingsDetailsScreen: ComponentType = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
       <AnimatedHeader
         scrollPosition={scrollPosition}
         carouselHeight={CAROUSEL_HEIGHT}

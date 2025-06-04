@@ -5,9 +5,8 @@ import { Radio } from '@/craftrn-ui/components/Radio';
 import { SliderDual } from '@/craftrn-ui/components/SliderDual';
 import { Text } from '@/craftrn-ui/components/Text';
 import { useNavigation } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import React, { ComponentType, useState } from 'react';
-import { Platform, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useSafeAreaFrame } from 'react-native-safe-area-context';
 import {
   createStyleSheet,
@@ -65,7 +64,6 @@ export const ListingsFilterScreen: ComponentType = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContent}

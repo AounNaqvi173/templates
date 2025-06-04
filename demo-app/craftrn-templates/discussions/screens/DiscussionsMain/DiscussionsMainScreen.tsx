@@ -37,6 +37,7 @@ export const DiscussionsMainScreen = () => {
         style={styles.container}
         contentInsetAdjustmentBehavior="automatic"
         data={discussionsData}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <DiscussionItem
             onPress={handlePressItem(item.id)}

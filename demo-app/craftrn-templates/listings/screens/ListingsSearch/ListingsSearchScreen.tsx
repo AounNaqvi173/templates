@@ -3,7 +3,6 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { Search } from '@/tetrisly-icons/Search';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import {
   ComponentType,
   default as React,
@@ -99,7 +98,6 @@ export const ListingsSearchScreen: ComponentType = () => {
 
   return (
     <>
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
