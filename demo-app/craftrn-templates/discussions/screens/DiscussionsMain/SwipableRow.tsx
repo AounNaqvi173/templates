@@ -112,7 +112,7 @@ export const SwipeableRow = ({
             x={RIGHT_ACTION_WIDTH * 2}
             progress={progress}
             totalWidth={RIGHT_ACTION_WIDTH * 2}
-            swipeableRef={swipeableRef}
+            swipeableRef={swipeableRef as RefObject<SwipeableMethods>}
             onPress={onPressDelete}
           />
           <RightAction
@@ -121,7 +121,7 @@ export const SwipeableRow = ({
             x={RIGHT_ACTION_WIDTH}
             progress={progress}
             totalWidth={RIGHT_ACTION_WIDTH * 2}
-            swipeableRef={swipeableRef}
+            swipeableRef={swipeableRef as RefObject<SwipeableMethods>}
             onPress={onPressArchive}
           />
         </View>
