@@ -148,7 +148,7 @@ export const PublishingPostScreen: ComponentType = () => {
             <Avatar
               fallbackInitials={author.initials}
               fallbackColor={author.avatarColor}
-              uri={author.avatarUri}
+              source={{ uri: author.avatarUri }}
               size="large"
             />
           </View>

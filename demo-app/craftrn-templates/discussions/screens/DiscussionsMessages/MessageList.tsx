@@ -51,7 +51,7 @@ export const MessagesList = ({ participants, messages }: MessagesListProps) => {
               <Avatar
                 fallbackInitials={sender.initials}
                 fallbackColor={sender.avatarColor}
-                uri={sender.avatarUri}
+                source={{ uri: sender.avatarUri }}
               />
               <View style={styles.itemContent}>
                 <View style={styles.itemContentHeading}>

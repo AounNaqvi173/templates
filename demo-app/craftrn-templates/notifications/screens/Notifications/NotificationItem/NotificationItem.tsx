@@ -41,7 +41,7 @@ export const NotificationItem = ({
           <Avatar
             fallbackInitials={item.from.initials}
             fallbackColor={item.from.avatarColor}
-            uri={item.from.avatar}
+            source={{ uri: item.from.avatar }}
           />
           <View style={styles.textContainer}>
             <View style={styles.headerContainer}>

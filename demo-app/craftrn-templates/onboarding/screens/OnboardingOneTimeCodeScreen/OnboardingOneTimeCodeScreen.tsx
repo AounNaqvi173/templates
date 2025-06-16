@@ -51,7 +51,7 @@ export const OnboardingOneTimeCodeScreen: ComponentType = () => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <Button onPress={() => router.push('onboarding/create-passcode')}>
+        <Button onPress={() => router.push('/onboarding/create-passcode')}>
           Continue
         </Button>
       </View>

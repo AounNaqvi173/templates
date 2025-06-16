@@ -47,7 +47,7 @@ export const AnimatedHeader: ComponentType<AnimatedHeaderProps> = ({
         {
           marginTop: -headerHeight,
           paddingLeft:
-            theme.spacing.large * 2 + buttonRoundConfig.buttonSizeMedium,
+            theme.spacing.large * 2 + buttonRoundConfig.medium.buttonSize,
           height: headerHeight,
         },
       ]}

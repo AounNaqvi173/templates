@@ -48,7 +48,7 @@ export const DiscussionItem: ComponentType<DiscussionItemProps> = ({
             <Avatar
               fallbackInitials={user.initials}
               fallbackColor={user.avatarColor}
-              uri={user.avatarUri}
+              source={{ uri: user.avatarUri }}
               showOnlineIndicator={!!user.isOnline}
             />
             <View style={styles.rowContent}>

@@ -13,7 +13,7 @@ export const HeaderTitle = ({ user }: { user: User }) => {
       <Avatar
         fallbackInitials={user.initials}
         fallbackColor={user.avatarColor}
-        uri={user.avatarUri}
+        source={{ uri: user.avatarUri }}
         size="small"
         showOnlineIndicator={user.isOnline}
       />
