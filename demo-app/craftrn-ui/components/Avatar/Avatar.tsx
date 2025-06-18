@@ -71,6 +71,7 @@ export const Avatar = ({
   ...accessibilityProps
 }: Props) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const { styles } = useStyles(stylesheet, {
     color: fallbackColor,
     size,
@@ -78,18 +79,23 @@ export const Avatar = ({
 
   const avatarIndicatorSize = config[size].indicatorSize;
 
+  const isLoading = !!source && !imageLoaded && !imageError;
+  const showFallback = !source || imageError;
+  const showImage = source && imageLoaded;
+
   return (
     <View
       style={[
         styles.container,
-        (!source || !imageLoaded) && styles.containerFallback,
+        showFallback && styles.containerFallback,
+        isLoading && styles.containerLoading,
       ]}
       accessible
       accessibilityHint={showOnlineIndicator ? 'online' : undefined}
       {...accessibilityProps}
     >
       <View style={styles.fallbackContainer}>
-        {(!source || !imageLoaded) && (
+        {showFallback && (
           <Text variant="body2" style={styles.text}>
             {fallbackInitials}
           </Text>
@@ -97,8 +103,9 @@ export const Avatar = ({
         {source && (
           <Image
             source={source}
-            style={[styles.image, { opacity: imageLoaded ? 1 : 0 }]}
+            style={[styles.image, { opacity: showImage ? 1 : 0 }]}
             onLoad={() => setImageLoaded(true)}
+            onError={() => setImageError(true)}
             alt={alt}
           />
         )}
@@ -157,6 +164,9 @@ const stylesheet = createStyleSheet(({ borderRadius, colors, spacing }) => ({
         },
       },
     },
+  },
+  containerLoading: {
+    backgroundColor: colors.surfaceQuaternary,
   },
   fallbackContainer: {
     alignItems: 'center',

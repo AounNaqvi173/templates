@@ -43,6 +43,7 @@ export default function HomeScreen() {
   return (
     <ParallaxScrollView title="Templates">
       <View style={styles.scrollViewContent}>
+        <MenuItem title="Conversations" href="/conversations-inbox" />
         <MenuItem title="Discussions" href="/discussions" />
         <MenuItem title="Listings" href="/listings" />
         <MenuItem title="Notifications" href="/notifications" />
