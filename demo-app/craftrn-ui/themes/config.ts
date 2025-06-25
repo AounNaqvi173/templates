@@ -1,8 +1,7 @@
 export const colors = {
-  stone50: '#fdfdfc',
-  stone100: '#fafaf9',
-  stone150: '#f7f7f6',
-  stone200: '#e8e6e5',
+  stone50: '#fafaf9',
+  stone100: '#f5f5f4',
+  stone200: '#e7e5e4',
   stone300: '#d6d3d1',
   stone400: '#beb9b6',
   stone500: '#78716c',
@@ -69,12 +68,7 @@ export const lightTheme = {
     backgroundPrimary: colors.stone100,
     backgroundSecondary: colors.stone200,
     backgroundTertiary: colors.stone300,
-    backgroundQuaternary: colors.stone400,
-
-    surfacePrimary: colors.stone100,
-    surfaceSecondary: colors.stone200,
-    surfaceTertiary: colors.stone300,
-    surfaceQuaternary: colors.stone500,
+    backgroundQuaternary: colors.stone500,
 
     accentPrimary: colors.teal700,
     accentSecondary: colors.teal800,
@@ -84,7 +78,6 @@ export const lightTheme = {
     contentPrimary: colors.stone900,
     contentSecondary: colors.stone700,
     contentTertiary: colors.stone600,
-    contentQuaternary: colors.stone500,
     contentAccent: colors.teal700,
     contentError: colors.red700,
 
@@ -172,11 +165,6 @@ export const darkTheme = {
     backgroundTertiary: colors.stone800,
     backgroundQuaternary: colors.stone600,
 
-    surfacePrimary: colors.stone950,
-    surfaceSecondary: colors.stone900,
-    surfaceTertiary: colors.stone800,
-    surfaceQuaternary: colors.stone700,
-
     accentPrimary: colors.teal700,
     accentSecondary: colors.teal600,
     accentTertiary: colors.teal800,
@@ -185,7 +173,6 @@ export const darkTheme = {
     contentPrimary: colors.stone50,
     contentSecondary: colors.stone300,
     contentTertiary: colors.stone400,
-    contentQuaternary: colors.stone500,
     contentAccent: colors.teal300,
 
     borderPrimary: colors.stone800,

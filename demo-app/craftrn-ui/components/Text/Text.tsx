@@ -20,7 +20,6 @@ export type Props = {
     | 'contentPrimary'
     | 'contentSecondary'
     | 'contentTertiary'
-    | 'contentQuaternary'
     | 'contentAccent'
     | 'contentError';
 };
@@ -49,9 +48,6 @@ const stylesheet = createStyleSheet(({ textVariants, colors }) => ({
         },
         contentTertiary: {
           color: colors.contentTertiary,
-        },
-        contentQuaternary: {
-          color: colors.contentQuaternary,
         },
         contentAccent: {
           color: colors.contentAccent,
