@@ -10,7 +10,7 @@
     "newArchEnabled": false,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.craftreactnative.craftrn-templates-demoapp",
+      "bundleIdentifier": "com.craftreactnative.craftrntemplates.demoapp",
       "runtimeVersion": "1.0.0"
     },
     "android": {
@@ -18,7 +18,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.craftreactnative.craftrn_templates_demoapp",
+      "package": "com.craftreactnative.craftrntemplates.demoapp",
       "runtimeVersion": {
         "policy": "appVersion"
       },
@@ -38,7 +38,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true

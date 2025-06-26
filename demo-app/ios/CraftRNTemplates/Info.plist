@@ -28,13 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>craftrn</string>
-          <string>com.craftreactnative.craftrn-templates-demoapp</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>exp+craftrn-templates-demo-app</string>
+          <string>com.craftreactnative.craftrntemplates.demoapp</string>
         </array>
       </dict>
     </array>

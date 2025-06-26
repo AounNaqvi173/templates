@@ -1,4 +1,4 @@
-package com.craftreactnative.craftrn_templates_demoapp
+package com.craftreactnative.craftrntemplates.demoapp
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

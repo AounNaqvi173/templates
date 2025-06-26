@@ -1,4 +1,4 @@
-package com.craftreactnative.craftrn_templates_demoapp
+package com.craftreactnative.craftrntemplates.demoapp
 
 import android.app.Application
 import android.content.res.Configuration
