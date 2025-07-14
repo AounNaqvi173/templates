@@ -38,6 +38,10 @@ export type Props = Pick<ViewProps, 'style'> &
      * Whether to display a divider below the item.
      */
     divider?: boolean;
+    /**
+     * The visual style variant of the text
+     */
+    variant?: 'primary' | 'danger';
   };
 
 export const ListItem = ({
@@ -48,9 +52,10 @@ export const ListItem = ({
   onPress,
   divider = false,
   style,
+  variant = 'primary',
   ...accessibilityProps
 }: Props) => {
-  const { styles } = useStyles(stylesheet);
+  const { styles } = useStyles(stylesheet, { variant });
   return (
     <>
       <Pressable
@@ -61,7 +66,8 @@ export const ListItem = ({
         {({ pressed }) => (
           <View
             style={[
-              styles.itemContainer(!!onPress && pressed),
+              styles.itemContainer,
+              !!onPress && pressed && styles.itemContainerPressed,
               StyleSheet.flatten(style),
             ]}
           >
@@ -86,14 +92,14 @@ export const ListItem = ({
 };
 
 const stylesheet = createStyleSheet(({ colors, spacing }) => ({
-  itemContainer: (pressed: boolean) => ({
+  itemContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: pressed
-      ? colors.backgroundTertiary
-      : colors.backgroundPrimary,
-  }),
+  },
+  itemContainerPressed: {
+    backgroundColor: colors.surfaceSecondary,
+  },
   itemContent: {
     flex: 1,
     flexShrink: 1,
@@ -101,6 +107,16 @@ const stylesheet = createStyleSheet(({ colors, spacing }) => ({
   },
   itemText: {
     fontWeight: 'bold',
+    variants: {
+      variant: {
+        primary: {
+          color: colors.contentPrimary,
+        },
+        danger: {
+          color: colors.contentError,
+        },
+      },
+    },
   },
   itemDivider: {
     borderBottomColor: colors.backgroundSecondary,

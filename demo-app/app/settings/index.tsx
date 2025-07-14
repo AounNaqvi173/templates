@@ -1,5 +1,12 @@
-import { SettingsMainScreen } from '../../craftrn-templates/settings/screens/SettingsMain/SettingsMainScreen';
+import { SettingsScreen } from '@/craftrn-templates/Settings/SettingsScreen';
+import { useRouter } from 'expo-router';
+import { useCallback } from 'react';
 
 export default function SettingsMain() {
-  return <SettingsMainScreen />;
+  const router = useRouter();
+  const handlePressProfile = useCallback(() => {
+    router.navigate('/profile');
+  }, [router]);
+
+  return <SettingsScreen onPressProfile={handlePressProfile} />;
 }
