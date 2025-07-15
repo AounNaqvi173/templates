@@ -17,8 +17,9 @@ type Variant = 'primary' | 'secondary' | 'negative' | 'text';
 
 /**
  * Props for the Button component.
+ * @see AccessibilityProps
  */
-export type Props = AccessibilityProps & {
+export type Props = {
   /**
    * The text content of the button.
    */
@@ -44,6 +45,8 @@ export type Props = AccessibilityProps & {
   disabled?: boolean;
 };
 
+type ButtonProps = Props & AccessibilityProps;
+
 export const Button = ({
   children,
   onPress,
@@ -51,7 +54,7 @@ export const Button = ({
   size = 'regular',
   disabled = false,
   ...accessibilityProps
-}: Props) => {
+}: ButtonProps) => {
   const { styles } = useStyles(stylesheet, {
     variant,
     size,

@@ -28,8 +28,9 @@ import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 /**
  * Props for the BottomSheet component.
+ * @see AccessibilityProps
  */
-export type Props = AccessibilityProps & {
+export type Props = {
   /**
    * Whether the bottom sheet is visible.
    */
@@ -72,6 +73,8 @@ export type Props = AccessibilityProps & {
   showHandleBar?: boolean;
 };
 
+type BottomSheetProps = Props & AccessibilityProps;
+
 const withTimingConfig = {
   duration: 400,
   easing: Easing.inOut(Easing.cubic),
@@ -88,7 +91,7 @@ export const BottomSheet = ({
   variant = 'primary',
   showHandleBar = false,
   ...accessibilityProps
-}: Props) => {
+}: BottomSheetProps) => {
   const { styles } = useStyles(stylesheet, { variant });
   const [showModal, setShowModal] = useState(visible);
   const [contentHeight, setContentHeight] = useState<number | undefined>();

@@ -14,7 +14,7 @@ import { Plus } from './Plus';
 /**
  * Props for the Counter component.
  */
-export type Props = AccessibilityProps & {
+export type Props = {
   /**
    * Callback function triggered when the counter value changes.
    */
@@ -47,6 +47,8 @@ export type Props = AccessibilityProps & {
   emptyLabel?: string;
 };
 
+type CounterProps = Props & AccessibilityProps;
+
 export const Counter = ({
   onValueChange,
   initialValue = 0,
@@ -55,7 +57,7 @@ export const Counter = ({
   increment = 1,
   emptyLabel = '0',
   ...accessibilityProps
-}: Props) => {
+}: CounterProps) => {
   const [count, setCount] = useState(
     Math.min(Math.max(initialValue, minValue), maxValue),
   );

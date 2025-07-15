@@ -12,37 +12,38 @@ import { Text } from '../Text';
 /**
  * Props for the ListItem component.
  */
-export type Props = Pick<ViewProps, 'style'> &
-  AccessibilityProps & {
-    /**
-     * Left accessory element. Will be placed before the content.
-     */
-    itemLeft?: React.ReactElement;
-    /**
-     * Main text to display.
-     */
-    text: string;
-    /**
-     * Text to display below the main text.
-     */
-    textBelow?: string;
-    /**
-     * Right accessory element. Will be placed after the text.
-     */
-    itemRight?: React.ReactElement;
-    /**
-     * Callback function triggered when the item is pressed.
-     */
-    onPress?: () => void;
-    /**
-     * Whether to display a divider below the item.
-     */
-    divider?: boolean;
-    /**
-     * The visual style variant of the text
-     */
-    variant?: 'primary' | 'danger';
-  };
+export type Props = Pick<ViewProps, 'style'> & {
+  /**
+   * Left accessory element. Will be placed before the content.
+   */
+  itemLeft?: React.ReactElement;
+  /**
+   * Main text to display.
+   */
+  text: string;
+  /**
+   * Text to display below the main text.
+   */
+  textBelow?: string;
+  /**
+   * Right accessory element. Will be placed after the text.
+   */
+  itemRight?: React.ReactElement;
+  /**
+   * Callback function triggered when the item is pressed.
+   */
+  onPress?: () => void;
+  /**
+   * Whether to display a divider below the item.
+   */
+  divider?: boolean;
+  /**
+   * The visual style variant of the text
+   */
+  variant?: 'primary' | 'danger';
+};
+
+type ListItemProps = Props & AccessibilityProps;
 
 export const ListItem = ({
   itemLeft,
@@ -54,7 +55,7 @@ export const ListItem = ({
   style,
   variant = 'primary',
   ...accessibilityProps
-}: Props) => {
+}: ListItemProps) => {
   const { styles } = useStyles(stylesheet, { variant });
   return (
     <>
