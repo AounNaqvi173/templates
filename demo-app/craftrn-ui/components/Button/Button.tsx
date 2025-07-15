@@ -1,7 +1,7 @@
 import React from 'react';
 import { AccessibilityProps, Pressable, View } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { Text } from '../Text/Text';
+import { Text } from '../Text';
 
 // The minimum target size for mobile devices is 44 x 44 pixels according to WCAG guidelines
 export const config = {

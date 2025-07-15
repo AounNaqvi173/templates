@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { Text } from '../Text/Text';
+import { Text } from '../Text';
 
 export const config = {
   small: {

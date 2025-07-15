@@ -6,8 +6,8 @@ import {
   View,
 } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { ButtonRound } from '../ButtonRound/ButtonRound';
-import { Text } from '../Text/Text';
+import { ButtonRound } from '../ButtonRound';
+import { Text } from '../Text';
 import { Minus } from './Minus';
 import { Plus } from './Plus';
 

@@ -7,7 +7,7 @@ import {
   ViewProps,
 } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { Text } from '../Text/Text';
+import { Text } from '../Text';
 
 /**
  * Props for the ListItem component.

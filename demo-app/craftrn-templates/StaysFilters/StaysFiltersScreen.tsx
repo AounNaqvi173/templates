@@ -116,6 +116,7 @@ export const StaysFiltersScreen: ComponentType = () => {
               <SliderDual
                 min={500}
                 max={3000}
+                step={10}
                 onValuesChange={setPriceRange}
                 width={frame.width - theme.spacing.large * 2}
               />
