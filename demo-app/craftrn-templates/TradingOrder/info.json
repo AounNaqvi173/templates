@@ -1,0 +1,32 @@
+{
+  "name": "TradingOrder",
+  "description": "Trading order template for asset transactions",
+  "externalDependencies": [
+    "react-native-reanimated",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "Button",
+    "ButtonRound",
+    "InputText",
+    "ListItem",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "ChevronDown",
+    "ChevronUp",
+    "Search"
+  ],
+  "fileStructure": {
+    "AnimatedKeyboardView.tsx": "file",
+    "AssetListItem.tsx": "file",
+    "ExchangeRate.tsx": "file",
+    "TradingOrderScreen.tsx": "file",
+    "data": {
+      "assets.tsx": "file"
+    },
+    "utils": {
+      "numbers.ts": "file"
+    }
+  }
+}

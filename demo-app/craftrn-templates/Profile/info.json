@@ -1,0 +1,32 @@
+{
+  "name": "Profile",
+  "description": "Profile template with personal information and settings",
+  "externalDependencies": [
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "Button",
+    "ButtonRound",
+    "Card",
+    "InputText",
+    "ListItem",
+    "Switch",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "UserEdit"
+  ],
+  "fileStructure": {
+    "AccordionItem.tsx": "file",
+    "Divider.tsx": "file",
+    "PersonalInformation.tsx": "file",
+    "ProfileAvatar.tsx": "file",
+    "ProfileScreen.tsx": "file",
+    "ProfileSettings.tsx": "file",
+    "ProfileStats.tsx": "file",
+    "SectionHeader.tsx": "file",
+    "data": {
+      "profileData.ts": "file"
+    }
+  }
+}

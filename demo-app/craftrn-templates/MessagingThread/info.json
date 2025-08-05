@@ -1,0 +1,41 @@
+{
+  "name": "MessagingThread",
+  "description": "Messaging thread template for chat conversations",
+  "externalDependencies": [
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "Avatar",
+    "BottomSheet",
+    "ButtonRound",
+    "Card",
+    "ListItem",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "ArrowUp",
+    "Block",
+    "Close",
+    "Heart",
+    "InfoCircle",
+    "LogOut",
+    "Mic",
+    "Plus"
+  ],
+  "fileStructure": {
+    "AnimatedKeyboardView.tsx": "file",
+    "BackToBottomButton.tsx": "file",
+    "HeaderTitle.tsx": "file",
+    "MessageComposer.tsx": "file",
+    "MessagesList.tsx": "file",
+    "MessagingThreadScreen.tsx": "file",
+    "MoreBottomSheet.tsx": "file",
+    "data": {
+      "discussions.tsx": "file",
+      "users.tsx": "file"
+    },
+    "utils": {
+      "date.ts": "file"
+    }
+  }
+}

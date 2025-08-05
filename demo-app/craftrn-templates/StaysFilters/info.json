@@ -1,0 +1,22 @@
+{
+  "name": "StaysFilters",
+  "description": "Stays filters template for accommodation search",
+  "externalDependencies": [
+    "react-native-safe-area-context",
+    "react-native-svg",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "Button",
+    "Card",
+    "RangeSlider",
+    "Text"
+  ],
+  "tetrislyIcons": [],
+  "fileStructure": {
+    "AccomodationTypeButton.tsx": "file",
+    "FilterItem.tsx": "file",
+    "Shadow.tsx": "file",
+    "StaysFiltersScreen.tsx": "file"
+  }
+}

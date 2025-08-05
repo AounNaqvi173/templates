@@ -1,0 +1,73 @@
+{
+  "name": "AiConversation",
+  "description": "AI conversation template with messaging interface",
+  "externalDependencies": [
+    "react-native-reanimated",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "BottomSheet",
+    "ButtonRound", 
+    "Card",
+    "ListItem",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "ArrowUp",
+    "Camera",
+    "ChevronDown",
+    "File",
+    "Image",
+    "Mic",
+    "Plus"
+  ],
+  "fileStructure": {
+    "AiConversationScreen.tsx": "file",
+    "AnimatedKeyboardView.tsx": "file",
+    "HeaderTitle": {
+      "ContextMenu.tsx": "file",
+      "HeaderTitle.tsx": "file",
+      "index.ts": "file"
+    },
+    "MessageComposer": {
+      "ActionButtons.tsx": "file",
+      "AttachmentBottomSheet.tsx": "file",
+      "InputField.tsx": "file",
+      "MessageComposer.tsx": "file",
+      "PrimaryButton.tsx": "file",
+      "VoiceRecordingBottomSheet": {
+        "RecordingTimer.tsx": "file",
+        "VoiceRecordingBottomSheet.tsx": "file",
+        "VoiceWaveAnimation.tsx": "file",
+        "index.ts": "file"
+      },
+      "index.ts": "file"
+    },
+    "MessagesList": {
+      "BackToBottomButton.tsx": "file",
+      "MessageItem": {
+        "AssistantMessage": {
+          "ActionButtons.tsx": "file",
+          "AssistantMessage.tsx": "file",
+          "FormattedText.tsx": "file",
+          "MessageContent.tsx": "file",
+          "ThinkingIndicator.tsx": "file",
+          "TypewriterText.tsx": "file",
+          "index.ts": "file",
+          "useMessageAnimation.ts": "file",
+          "useMessageLoading.ts": "file"
+        },
+        "MessageItem.tsx": "file",
+        "UserMessage.tsx": "file",
+        "index.ts": "file"
+      },
+      "MessagesList.tsx": "file",
+      "index.ts": "file",
+      "useNewMessageDetection.ts": "file"
+    },
+    "data": {
+      "ai-responses.ts": "file",
+      "conversations.tsx": "file"
+    }
+  }
+}

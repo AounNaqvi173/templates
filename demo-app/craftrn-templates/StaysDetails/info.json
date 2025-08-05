@@ -1,0 +1,30 @@
+{
+  "name": "StaysDetails",
+  "description": "Stays details template for accommodation viewing",
+  "externalDependencies": [
+    "@react-navigation/elements",
+    "react-native-svg",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "Avatar",
+    "Button",
+    "ButtonRound",
+    "PhotoCarousel",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "Heart",
+    "HeartFilled",
+    "Share",
+    "StarFilled"
+  ],
+  "fileStructure": {
+    "AnimatedHeader.tsx": "file",
+    "Shadow.tsx": "file",
+    "StaysDetailsScreen.tsx": "file",
+    "data": {
+      "stays.ts": "file"
+    }
+  }
+}

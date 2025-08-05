@@ -1,0 +1,15 @@
+{
+  "name": "OnboardingCreatePasscode",
+  "description": "Onboarding create passcode template",
+  "externalDependencies": [
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "PasscodeEntry",
+    "Text"
+  ],
+  "tetrislyIcons": [],
+  "fileStructure": {
+    "OnboardingCreatePasscodeScreen.tsx": "file"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "EditorialArticle",
+  "description": "Editorial article template with animated header",
+  "externalDependencies": [
+    "@react-navigation/elements",
+    "react-native-reanimated",
+    "react-native-svg",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "Avatar",
+    "Text",
+    "buttonRoundConfig"
+  ],
+  "tetrislyIcons": [],
+  "fileStructure": {
+    "AnimatedHeader.tsx": "file",
+    "EditorialArticleScreen.tsx": "file",
+    "Gradient.tsx": "file",
+    "RelatedReading.tsx": "file",
+    "data": {
+      "articles.tsx": "file",
+      "categories.ts": "file",
+      "users.tsx": "file"
+    },
+    "utils": {
+      "date.ts": "file"
+    }
+  }
+}

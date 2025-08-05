@@ -1,0 +1,25 @@
+{
+  "name": "StaysSearch",
+  "description": "Stays search template for destination selection",
+  "externalDependencies": [
+    "@react-navigation/elements",
+    "react-native-reanimated",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "InputSearch",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "MarkerPin",
+    "Search",
+    "TimeClock"
+  ],
+  "fileStructure": {
+    "DestinationItem.tsx": "file",
+    "StaysSearchScreen.tsx": "file",
+    "data": {
+      "destinations.ts": "file"
+    }
+  }
+}

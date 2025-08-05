@@ -1,0 +1,31 @@
+{
+  "name": "TradingDashboard",
+  "description": "Trading dashboard template with portfolio overview",
+  "externalDependencies": [
+    "react-native-reanimated",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "ListItem",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "ChevronDown",
+    "ChevronUp"
+  ],
+  "fileStructure": {
+    "AssetGridItem.tsx": "file",
+    "AssetHighlights.tsx": "file",
+    "AssetListItem.tsx": "file",
+    "ExchangeRate.tsx": "file",
+    "PortfolioHeader.tsx": "file",
+    "SectionHeader.tsx": "file",
+    "TradingDashboardScreen.tsx": "file",
+    "data": {
+      "assets.tsx": "file"
+    },
+    "utils": {
+      "numbers.ts": "file"
+    }
+  }
+}

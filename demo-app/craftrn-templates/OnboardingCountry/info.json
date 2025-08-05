@@ -1,0 +1,22 @@
+{
+  "name": "OnboardingCountry",
+  "description": "Onboarding country selection template",
+  "externalDependencies": [
+    "@react-navigation/elements",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "InputText",
+    "ListItem"
+  ],
+  "tetrislyIcons": [
+    "CheckLarge",
+    "Search"
+  ],
+  "fileStructure": {
+    "OnboardingCountryScreen.tsx": "file",
+    "data": {
+      "countryCodes.tsx": "file"
+    }
+  }
+}

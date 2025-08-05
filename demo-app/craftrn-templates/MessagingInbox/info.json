@@ -1,0 +1,42 @@
+{
+  "name": "MessagingInbox",
+  "description": "Messaging inbox template with swipeable chat items",
+  "externalDependencies": [
+    "react-native-gesture-handler",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "Avatar",
+    "BottomSheet",
+    "Button",
+    "ButtonRound",
+    "Card",
+    "ListItem",
+    "Text",
+    "avatarConfig"
+  ],
+  "tetrislyIcons": [
+    "Archive",
+    "Block",
+    "Close",
+    "Heart",
+    "InfoCircle",
+    "LogOut",
+    "MoreHorizontal"
+  ],
+  "fileStructure": {
+    "ArchiveBottomSheet.tsx": "file",
+    "ChatItem.tsx": "file",
+    "FilterList.tsx": "file",
+    "MessagingInboxScreen.tsx": "file",
+    "MoreBottomSheet.tsx": "file",
+    "SwipableRow.tsx": "file",
+    "data": {
+      "inbox.tsx": "file",
+      "users.tsx": "file"
+    },
+    "utils": {
+      "date.ts": "file"
+    }
+  }
+}

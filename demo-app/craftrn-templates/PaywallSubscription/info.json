@@ -1,0 +1,23 @@
+{
+  "name": "PaywallSubscription",
+  "description": "Paywall subscription template with payment success flow",
+  "externalDependencies": [
+    "react-native-reanimated",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "BottomSheet",
+    "Button",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "CheckBadgeFill",
+    "CheckCircleFill",
+    "CheckLarge"
+  ],
+  "fileStructure": {
+    "ButtonSelection.tsx": "file",
+    "PaymentSuccessBottomSheet.tsx": "file",
+    "PaywallSubscriptionScreen.tsx": "file"
+  }
+}

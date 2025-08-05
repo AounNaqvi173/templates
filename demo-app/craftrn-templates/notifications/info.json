@@ -1,0 +1,42 @@
+{
+  "name": "Notifications",
+  "description": "Notifications template with tabbed interface",
+  "externalDependencies": [
+    "react-native-reanimated",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "Avatar",
+    "BottomSheet",
+    "Button",
+    "ListItem",
+    "Switch",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "Bell",
+    "ChevronRight",
+    "File",
+    "Settings"
+  ],
+  "fileStructure": {
+    "AnimatedKeyboardView.tsx": "file",
+    "MoreOptionsBottomSheet.tsx": "file",
+    "NotificationItem": {
+      "AccessRequest.tsx": "file",
+      "FileAttachment.tsx": "file",
+      "Message.tsx": "file",
+      "NotificationItem.tsx": "file"
+    },
+    "NotificationsScreen.tsx": "file",
+    "Tabs.tsx": "file",
+    "data": {
+      "notifications.ts": "file",
+      "notificationsTabs.ts": "file",
+      "users.tsx": "file"
+    },
+    "utils": {
+      "date.ts": "file"
+    }
+  }
+}

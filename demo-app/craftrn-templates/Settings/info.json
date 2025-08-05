@@ -1,0 +1,44 @@
+{
+  "name": "Settings",
+  "description": "Settings template with security, notifications, and profile sections",
+  "externalDependencies": [
+    "react-native-svg",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "Avatar",
+    "BottomSheet",
+    "Button",
+    "Card",
+    "ListItem",
+    "PasscodeEntry",
+    "Switch",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "Bell",
+    "ChevronRight",
+    "File",
+    "Headphones",
+    "Help",
+    "LogOut",
+    "Notification",
+    "UserClose",
+    "VolumeMedium"
+  ],
+  "fileStructure": {
+    "MarketingBanner.tsx": "file",
+    "NotificationsFrequency.tsx": "file",
+    "PasscodeBottomSheet.tsx": "file",
+    "PrivacySection.tsx": "file",
+    "ProfileSection.tsx": "file",
+    "PushNotificationsSection.tsx": "file",
+    "SectionHeader.tsx": "file",
+    "SecurityPrivacySection.tsx": "file",
+    "SecuritySection.tsx": "file",
+    "SettingsItem.tsx": "file",
+    "SettingsScreen.tsx": "file",
+    "SettingsSection.tsx": "file",
+    "SignOutBottomSheet.tsx": "file"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "StaysSelectionScreen",
+  "description": "Stays selection template for browsing accommodations",
+  "externalDependencies": [
+    "react-native-gesture-handler",
+    "react-native-reanimated",
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": [
+    "ButtonRound",
+    "InputSearch",
+    "PhotoCarousel",
+    "Text"
+  ],
+  "tetrislyIcons": [
+    "Heart",
+    "HeartFilled",
+    "Search",
+    "Slider",
+    "StarFilled"
+  ],
+  "fileStructure": {
+    "HeartButton.tsx": "file",
+    "ListingCard.tsx": "file",
+    "StaysSelectionScreen.tsx": "file",
+    "data": {
+      "stays.ts": "file"
+    }
+  }
+}
