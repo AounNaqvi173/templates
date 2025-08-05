@@ -1,3 +1,5 @@
+import aiConversationDark from '@/assets/images/screens/ai-conversation-dark.png';
+import aiConversationLight from '@/assets/images/screens/ai-conversation-light.png';
 import editorialArticleDark from '@/assets/images/screens/editorial-article-dark.png';
 import editorialArticleLight from '@/assets/images/screens/editorial-article-light.png';
 import editorialFeedDark from '@/assets/images/screens/editorial-feed-dark.png';
@@ -95,6 +97,14 @@ export default function HomeScreen() {
   return (
     <ParallaxScrollView title="Templates">
       <View style={styles.scrollViewContent}>
+        <MenuItem
+          title="AI Conversation"
+          description="Chat interface inspired by AI assistant apps with clean design and modern messaging."
+          href="/ai-conversation/a7b8c9d0-e1f2-3456-abcd-789012345678"
+          imageSource={
+            colorScheme === 'light' ? aiConversationLight : aiConversationDark
+          }
+        />
         <MenuItem
           title="Editorial article"
           description="A detailed article view with rich content and related readings."
