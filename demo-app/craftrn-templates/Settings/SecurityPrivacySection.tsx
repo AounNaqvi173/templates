@@ -1,10 +1,10 @@
 import { Card } from '@/craftrn-ui/components/Card';
+import { File } from '@/tetrisly-icons/File';
+import { Help } from '@/tetrisly-icons/Help';
 import { LogOut } from '@/tetrisly-icons/LogOut';
 import { UserClose } from '@/tetrisly-icons/UserClose';
 import React, { useState } from 'react';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { File } from '../../tetrisly-icons/File';
-import { Help } from '../../tetrisly-icons/Help';
 import { SectionHeader } from './SectionHeader';
 import { SettingsItem } from './SettingsItem';
 import { SignOutBottomSheet } from './SignOutBottomSheet';
