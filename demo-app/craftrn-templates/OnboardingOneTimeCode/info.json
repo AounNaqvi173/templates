@@ -2,6 +2,7 @@
   "name": "OnboardingOneTimeCode",
   "description": "Onboarding one-time code verification template",
   "externalDependencies": [
+    "react-native-keyboard-controller",
     "react-native-reanimated",
     "react-native-unistyles"
   ],

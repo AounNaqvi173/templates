@@ -3,12 +3,12 @@ import { InputOTP } from '@/craftrn-ui/components/InputOTP';
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType } from 'react';
 import { View } from 'react-native';
+import { KeyboardStickyView } from 'react-native-keyboard-controller';
 import {
   createStyleSheet,
   UnistylesRuntime,
   useStyles,
 } from 'react-native-unistyles';
-import { AnimatedKeyboardView } from './AnimatedKeyboardView';
 
 type Props = {
   phoneNumber?: string;
@@ -21,7 +21,7 @@ export const OnboardingOneTimeCodeScreen: ComponentType<Props> = ({
 }) => {
   const { styles } = useStyles(stylesheet);
   return (
-    <AnimatedKeyboardView style={[styles.container]}>
+    <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.header}>
           <Text variant="heading3">Confirm your phone number</Text>
@@ -47,10 +47,13 @@ export const OnboardingOneTimeCodeScreen: ComponentType<Props> = ({
           </Text>
         </View>
       </View>
-      <View style={styles.buttonContainer}>
+      <KeyboardStickyView
+        offset={{ opened: UnistylesRuntime.insets.bottom }}
+        style={styles.buttonContainer}
+      >
         <Button onPress={onPressContinue}>Continue</Button>
-      </View>
-    </AnimatedKeyboardView>
+      </KeyboardStickyView>
+    </View>
   );
 };
 
