@@ -72,7 +72,7 @@ export const MessagesList = ({ messages }: AssistantMessagesListProps) => {
       <Animated.FlatList<Message>
         ref={scrollRef}
         style={styles.flatList}
-        contentContainerStyle={[styles.flatListContentContainer]}
+        contentContainerStyle={styles.flatListContentContainer}
         data={messagesReversed}
         keyExtractor={item => item.id}
         renderItem={renderMessage}
@@ -93,7 +93,6 @@ export const MessagesList = ({ messages }: AssistantMessagesListProps) => {
 const stylesheet = createStyleSheet(theme => ({
   container: {
     flex: 1,
-    position: 'relative',
   },
   flatList: {
     flex: 1,

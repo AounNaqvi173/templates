@@ -1,3 +1,4 @@
+import { useHeaderHeight } from '@react-navigation/elements';
 import React, {
   ComponentType,
   useCallback,
@@ -5,12 +6,17 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { AnimatedKeyboardView } from './AnimatedKeyboardView';
+import { Platform } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import { getRandomAiResponse } from './data/ai-responses';
 import {
-  Message as MessageType,
   conversationsData,
+  Message as MessageType,
 } from './data/conversations';
 import { MessageComposer } from './MessageComposer';
 import { MessagesList } from './MessagesList';
@@ -24,7 +30,16 @@ export const AiConversationScreen: ComponentType<Props> = ({
   id,
   updateNavigationHeader,
 }) => {
-  const { styles } = useStyles(stylesheet);
+  const { styles, theme } = useStyles(stylesheet);
+  const headerHeight = useHeaderHeight();
+
+  // Use measured header heights since React Navigation calculations are incorrect
+  const keyboardVerticalOffset =
+    Platform.OS === 'android'
+      ? 56
+      : UnistylesRuntime.insets.bottom
+        ? headerHeight - theme.spacing.large
+        : headerHeight;
 
   const conversation = useMemo(
     () => conversationsData.find(conversation => conversation.id === id),
@@ -72,13 +87,17 @@ export const AiConversationScreen: ComponentType<Props> = ({
   }
 
   return (
-    <AnimatedKeyboardView style={styles.container}>
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={styles.container}
+      keyboardVerticalOffset={keyboardVerticalOffset}
+    >
       <MessagesList
         messages={messages}
         aiAssistant={conversation.aiAssistant}
       />
       <MessageComposer onSendMessage={handleSendMessage} />
-    </AnimatedKeyboardView>
+    </KeyboardAvoidingView>
   );
 };
 

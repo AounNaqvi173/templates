@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { TextInput, View, ViewProps } from 'react-native';
+import { useKeyboardAnimation } from 'react-native-keyboard-controller';
 import {
   createStyleSheet,
   UnistylesRuntime,
@@ -22,6 +23,7 @@ export const MessageComposer = ({ onSendMessage, onLayout }: Props) => {
     useState(false);
   const [isVoiceRecordingSheetVisible, setIsVoiceRecordingSheetVisible] =
     useState(false);
+  const { height: keyboardHeight } = useKeyboardAnimation();
   const { styles } = useStyles(stylesheet);
 
   const handleSendPress = useCallback(() => {

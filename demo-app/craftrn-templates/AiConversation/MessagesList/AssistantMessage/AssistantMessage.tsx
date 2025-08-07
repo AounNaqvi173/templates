@@ -1,7 +1,7 @@
 import React from 'react';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { Message } from '../data/conversations';
+import { Message } from '../../data/conversations';
 import { MessageContent } from './MessageContent';
 import { useMessageAnimation } from './useMessageAnimation';
 import { useMessageLoading } from './useMessageLoading';

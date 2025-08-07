@@ -2,6 +2,7 @@
   "name": "AiConversation",
   "description": "AI conversation template with messaging interface",
   "externalDependencies": [
+    "react-native-keyboard-controller",
     "react-native-reanimated",
     "react-native-unistyles"
   ],

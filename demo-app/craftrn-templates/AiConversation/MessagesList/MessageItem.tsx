@@ -1,7 +1,7 @@
 import React from 'react';
 import { LayoutChangeEvent } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
-import { Message } from '../../data/conversations';
+import { Message } from '../data/conversations';
 import { AssistantMessage } from './AssistantMessage';
 import { UserMessage } from './UserMessage';
 
