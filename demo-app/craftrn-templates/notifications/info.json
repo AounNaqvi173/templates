@@ -2,6 +2,7 @@
   "name": "Notifications",
   "description": "Notifications template with tabbed interface",
   "externalDependencies": [
+    "react-native-keyboard-controller",
     "react-native-reanimated",
     "react-native-unistyles"
   ],

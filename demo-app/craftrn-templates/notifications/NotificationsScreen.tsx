@@ -1,11 +1,11 @@
 import React, { ComponentType, useMemo, useState } from 'react';
 import { FlatList, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import {
   createStyleSheet,
   UnistylesRuntime,
   useStyles,
 } from 'react-native-unistyles';
-import { AnimatedKeyboardView } from './AnimatedKeyboardView';
 import { Notification, notificationsData } from './data/notifications';
 import { MoreOptionsBottomSheet } from './MoreOptionsBottomSheet';
 import { NotificationItem } from './NotificationItem/NotificationItem';
@@ -23,7 +23,7 @@ export const NotificationsScreen: ComponentType<Props> = ({
   onRequestBottomSheetClose,
 }) => {
   const [selectedTab, setSelectedTab] = useState(INITIAL_ACTIVE_TAB);
-  const { styles } = useStyles(stylesheet);
+  const { styles, theme } = useStyles(stylesheet);
 
   const filteredData = useMemo(
     () =>
@@ -39,9 +39,15 @@ export const NotificationsScreen: ComponentType<Props> = ({
   );
 
   return (
-    <AnimatedKeyboardView style={styles.container}>
+    <View style={styles.container}>
       <Tabs initialActive={INITIAL_ACTIVE_TAB} onPress={setSelectedTab} />
       <FlatList<Notification>
+        renderScrollComponent={props => (
+          <KeyboardAwareScrollView
+            bottomOffset={theme.spacing.xlarge}
+            {...props}
+          />
+        )}
         style={styles.flatList}
         data={filteredData}
         renderItem={({ item, index }) => (
@@ -59,7 +65,7 @@ export const NotificationsScreen: ComponentType<Props> = ({
         visible={isBottomSheetVisible}
         onRequestClose={onRequestBottomSheetClose}
       />
-    </AnimatedKeyboardView>
+    </View>
   );
 };
 

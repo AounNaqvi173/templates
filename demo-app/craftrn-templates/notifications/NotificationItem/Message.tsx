@@ -71,7 +71,7 @@ const stylesheet = createStyleSheet(theme => ({
     color: theme.colors.contentPrimary,
     height: '100%',
     paddingHorizontal: theme.spacing.small,
-    ...theme.textVariants.body3,
+    ...theme.textVariants.body2,
     lineHeight: 0,
   },
 }));
