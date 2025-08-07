@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router';
 import React from 'react';
+import { Platform } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
 
 export default function MessagingInboxLayout() {
@@ -11,10 +12,13 @@ export default function MessagingInboxLayout() {
         options={{
           title: 'Chats',
           headerBlurEffect: 'regular',
-          headerTransparent: true,
-          headerShadowVisible: true,
+          headerTransparent: Platform.OS === 'ios',
+          headerShadowVisible: Platform.OS === 'ios',
           headerStyle: {
-            backgroundColor: `${theme.colors.backgroundSecondary}55`,
+            backgroundColor:
+              Platform.OS === 'ios'
+                ? `${theme.colors.backgroundSecondary}55`
+                : theme.colors.backgroundPrimary,
           },
           contentStyle: { backgroundColor: theme.colors.backgroundPrimary },
           headerTintColor: theme.colors.contentPrimary,
