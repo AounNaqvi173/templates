@@ -2,6 +2,7 @@
   "name": "TradingOrder",
   "description": "Trading order template for asset transactions",
   "externalDependencies": [
+    "react-native-keyboard-controller",
     "react-native-reanimated",
     "react-native-unistyles"
   ],

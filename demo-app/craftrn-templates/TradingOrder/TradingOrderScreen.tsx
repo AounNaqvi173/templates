@@ -3,12 +3,8 @@ import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useMemo, useState } from 'react';
 import { Platform, TextInput, View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
-import { AnimatedKeyboardView } from './AnimatedKeyboardView';
+import { KeyboardStickyView } from 'react-native-keyboard-controller';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 import { AssetListItem } from './AssetListItem';
 import { assets } from './data/assets';
 import { ExchangeRate } from './ExchangeRate';
@@ -49,32 +45,27 @@ export const TradingOrderScreen: ComponentType<Props> = ({
   }
 
   return (
-    <AnimatedKeyboardView
-      style={[
-        styles.container,
-        { paddingBottom: UnistylesRuntime.insets.bottom },
-      ]}
-    >
-      <View style={styles.content}>
-        <View style={styles.upperContent}>
-          <Text variant="heading3">How much would you like to buy?</Text>
-          <View style={styles.inputContainer}>
-            <Text variant="heading3" style={styles.symbolText}>
-              {asset.fromSymbol}
-            </Text>
-            <TextInput
-              value={investValue}
-              onChangeText={text => setInvestValue(text)}
-              autoFocus
-              style={styles.input}
-              selectionColor={theme.colors.accentPrimary}
-              keyboardType="numeric"
-            />
-          </View>
-          <Text variant="body3" style={styles.fees}>
-            ${INVEST_FEES} investment fees
+    <View style={styles.container}>
+      <View style={styles.upperContent}>
+        <Text variant="heading3">How much would you like to buy?</Text>
+        <View style={styles.inputContainer}>
+          <Text variant="heading3" style={styles.symbolText}>
+            {asset.fromSymbol}
           </Text>
+          <TextInput
+            value={investValue}
+            onChangeText={text => setInvestValue(text)}
+            autoFocus
+            style={styles.input}
+            selectionColor={theme.colors.accentPrimary}
+            keyboardType="numeric"
+          />
         </View>
+        <Text variant="body3" style={styles.fees}>
+          ${INVEST_FEES} investment fees
+        </Text>
+      </View>
+      <KeyboardStickyView>
         <View style={styles.bottomContent}>
           <AssetListItem
             text={asset.name}
@@ -101,16 +92,13 @@ export const TradingOrderScreen: ComponentType<Props> = ({
           />
         </View>
         <Button onPress={onPressInvest}>Invest</Button>
-      </View>
-    </AnimatedKeyboardView>
+      </KeyboardStickyView>
+    </View>
   );
 };
 
 const stylesheet = createStyleSheet(theme => ({
   container: {
-    flex: 1,
-  },
-  content: {
     gap: theme.spacing.small,
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.large,

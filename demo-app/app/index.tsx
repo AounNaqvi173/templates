@@ -254,7 +254,7 @@ export default function HomeScreen() {
         <MenuItem
           title="Trading order"
           description="Place and manage your trading orders."
-          href="/trading-order/a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6"
+          href="/trading-order/3e458e61-677c-4d55-b908-507a490a4853"
           imageSource={
             colorScheme === 'light' ? tradingOrderLight : tradingOrderDark
           }
