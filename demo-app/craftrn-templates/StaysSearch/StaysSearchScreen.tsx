@@ -9,14 +9,13 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { Platform, SectionList, View } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import {
-  KeyboardAvoidingView,
-  Platform,
-  SectionList,
-  View,
-} from 'react-native';
-import { useAnimatedKeyboard } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 import {
   Destination,
   popularDestinations,
@@ -33,8 +32,15 @@ type Section = {
 export const StaysSearchScreen: ComponentType = () => {
   const { styles, theme } = useStyles(stylesheet);
   const [search, setSearch] = useState<string>('');
-  const { height: keyboardHeight } = useAnimatedKeyboard();
   const headerHeight = useHeaderHeight();
+
+  // Use measured header heights since React Navigation calculations are incorrect
+  const keyboardVerticalOffset =
+    Platform.OS === 'android'
+      ? 56
+      : UnistylesRuntime.insets.bottom
+        ? headerHeight - theme.spacing.large
+        : headerHeight;
 
   const sections: Section[] = useMemo(
     () =>
@@ -86,8 +92,8 @@ export const StaysSearchScreen: ComponentType = () => {
     <>
       <KeyboardAvoidingView
         style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={headerHeight}
+        behavior="padding"
+        keyboardVerticalOffset={keyboardVerticalOffset}
       >
         <View style={styles.inputSearchContainer}>
           <InputSearch
@@ -109,10 +115,7 @@ export const StaysSearchScreen: ComponentType = () => {
           renderItem={renderItem}
           renderSectionHeader={renderSectionHeader}
           renderSectionFooter={renderSectionFooter}
-          contentContainerStyle={[
-            styles.contentContainer,
-            { paddingBottom: 32 + keyboardHeight.value },
-          ]}
+          contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled"
           style={styles.sectionList}
           stickySectionHeadersEnabled={false}
@@ -131,6 +134,7 @@ const stylesheet = createStyleSheet(theme => ({
   },
   contentContainer: {
     paddingVertical: theme.spacing.small,
+    paddingBottom: theme.spacing.xlarge,
   },
   inputSearchContainer: {
     paddingHorizontal: theme.spacing.large,
