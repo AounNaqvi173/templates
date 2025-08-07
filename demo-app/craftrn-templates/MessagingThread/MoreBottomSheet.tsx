@@ -86,7 +86,10 @@ export const MoreBottomSheet: ComponentType<Props> = ({
 const stylesheet = createStyleSheet(theme => ({
   container: {
     paddingHorizontal: theme.spacing.large,
-    paddingBottom: UnistylesRuntime.insets.bottom,
+    paddingBottom: Math.max(
+      UnistylesRuntime.insets.bottom,
+      theme.spacing.large,
+    ),
   },
   content: {
     gap: theme.spacing.large,

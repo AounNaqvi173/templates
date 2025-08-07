@@ -2,6 +2,7 @@
   "name": "MessagingThread",
   "description": "Messaging thread template for chat conversations",
   "externalDependencies": [
+    "react-native-keyboard-controller",
     "react-native-unistyles"
   ],
   "craftrnUiComponents": [

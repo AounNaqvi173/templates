@@ -1,3 +1,4 @@
+import { useHeaderHeight } from '@react-navigation/elements';
 import React, {
   ComponentType,
   useCallback,
@@ -5,12 +6,13 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import { Platform } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import {
   createStyleSheet,
   UnistylesRuntime,
   useStyles,
 } from 'react-native-unistyles';
-import { AnimatedKeyboardView } from './AnimatedKeyboardView';
 import { discussionsData } from './data/discussions';
 import { currentUser, User } from './data/users';
 import { MessageComposer } from './MessageComposer';
@@ -28,6 +30,16 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
 }) => {
   const [moreBottomSheetVisible, setMoreBottomSheetVisible] = useState(false);
   const { styles, theme } = useStyles(stylesheet);
+
+  const headerHeight = useHeaderHeight();
+
+  // Use measured header heights since React Navigation calculations are incorrect
+  const keyboardVerticalOffset =
+    Platform.OS === 'android'
+      ? 64
+      : UnistylesRuntime.insets.bottom
+        ? headerHeight - theme.spacing.large
+        : headerHeight;
 
   const chat = useMemo(
     () => discussionsData.find(c => c.id === id) || undefined,
@@ -57,11 +69,10 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
 
   return (
     <>
-      <AnimatedKeyboardView
-        style={[
-          styles.container,
-          { paddingBottom: UnistylesRuntime.insets.bottom },
-        ]}
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={styles.container}
+        keyboardVerticalOffset={keyboardVerticalOffset}
       >
         <MessagesList
           participants={chat.participants}
@@ -69,7 +80,7 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
           onShowMoreBottomSheet={handleShowMoreBottomSheet}
         />
         <MessageComposer />
-      </AnimatedKeyboardView>
+      </KeyboardAvoidingView>
       <MoreBottomSheet
         visible={moreBottomSheetVisible}
         onRequestClose={handleMoreBottomSheetRequestClose}

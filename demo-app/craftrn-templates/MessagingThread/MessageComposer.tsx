@@ -7,10 +7,14 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 
-const BUTTON_SIZE = 32;
-const TEXT_INPUT_HEIGHT = 32;
+const BUTTON_SIZE = 36;
+const TEXT_INPUT_HEIGHT = 36;
 const SEND_BUTTON_ANIMATION_DURATION = 250;
 
 export const MessageComposer = () => {
@@ -89,9 +93,12 @@ const stylesheet = createStyleSheet(theme => ({
   container: {
     borderTopWidth: 1,
     borderTopColor: theme.colors.borderPrimary,
-    paddingTop: theme.spacing.small,
+    paddingTop: theme.spacing.medium,
     paddingHorizontal: theme.spacing.large,
-    marginBottom: theme.spacing.medium,
+    paddingBottom: Math.max(
+      UnistylesRuntime.insets.bottom,
+      theme.spacing.medium,
+    ),
     flexDirection: 'row',
     gap: theme.spacing.small,
     position: 'relative',
@@ -115,7 +122,7 @@ const stylesheet = createStyleSheet(theme => ({
   },
   buttonAnimatedContainer: {
     position: 'absolute',
-    top: theme.spacing.small,
+    top: theme.spacing.medium,
     right: -theme.spacing.large,
   },
   button: ({ pressed }) => ({
