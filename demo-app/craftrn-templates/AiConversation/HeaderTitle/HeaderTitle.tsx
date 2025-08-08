@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 import { ContextMenu } from './ContextMenu';
-import { AiAssistant } from './data/conversations';
+import { AiAssistant } from '../data/conversations';
 
 export const HeaderTitle = ({
   title,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { Message } from '../data/conversations';
+import { Message } from '../../data/conversations';
 import { ActionButtons } from './ActionButtons';
 import { FormattedText } from './FormattedText';
 import { ThinkingIndicator } from './ThinkingIndicator';

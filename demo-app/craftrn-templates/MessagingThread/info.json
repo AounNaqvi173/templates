@@ -3,6 +3,7 @@
   "description": "Messaging thread template for chat conversations",
   "externalDependencies": [
     "react-native-keyboard-controller",
+    "react-native-reanimated",
     "react-native-unistyles"
   ],
   "craftrnUiComponents": [
@@ -24,7 +25,6 @@
     "Plus"
   ],
   "fileStructure": {
-    "AnimatedKeyboardView.tsx": "file",
     "BackToBottomButton.tsx": "file",
     "HeaderTitle.tsx": "file",
     "MessageComposer.tsx": "file",

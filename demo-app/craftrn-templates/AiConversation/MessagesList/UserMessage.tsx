@@ -3,7 +3,7 @@ import React from 'react';
 import { LayoutChangeEvent, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { Message } from './data/conversations';
+import { Message } from '../data/conversations';
 
 type UserMessageProps = {
   message: Message;

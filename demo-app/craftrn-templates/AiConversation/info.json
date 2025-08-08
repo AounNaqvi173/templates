@@ -24,7 +24,6 @@
   ],
   "fileStructure": {
     "AiConversationScreen.tsx": "file",
-    "AnimatedKeyboardView.tsx": "file",
     "HeaderTitle": {
       "ContextMenu.tsx": "file",
       "HeaderTitle.tsx": "file",

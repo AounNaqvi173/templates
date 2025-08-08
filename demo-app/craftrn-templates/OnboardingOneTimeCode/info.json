@@ -13,7 +13,6 @@
   ],
   "tetrislyIcons": [],
   "fileStructure": {
-    "AnimatedKeyboardView.tsx": "file",
     "OnboardingOneTimeCodeScreen.tsx": "file"
   }
 }

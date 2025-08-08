@@ -10,8 +10,8 @@ import {
   UnistylesRuntime,
   useStyles,
 } from 'react-native-unistyles';
-import { ButtonApple } from './ButtonApple/ButtonApple';
-import { ButtonGoogle } from './ButtonGoogle/ButtonGoogle';
+import { ButtonApple } from './ButtonApple';
+import { ButtonGoogle } from './ButtonGoogle';
 import { countryCodes } from './data/countryCodes';
 
 type CountryCode = (typeof countryCodes)[number]['code'];

@@ -3,6 +3,7 @@
   "description": "Stays details template for accommodation viewing",
   "externalDependencies": [
     "@react-navigation/elements",
+    "react-native-reanimated",
     "react-native-svg",
     "react-native-unistyles"
   ],

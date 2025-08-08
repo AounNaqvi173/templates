@@ -21,7 +21,6 @@
     "Settings"
   ],
   "fileStructure": {
-    "AnimatedKeyboardView.tsx": "file",
     "MoreOptionsBottomSheet.tsx": "file",
     "NotificationItem": {
       "AccessRequest.tsx": "file",

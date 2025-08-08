@@ -8,7 +8,7 @@ import {
 } from 'react-native-unistyles';
 import { Notification, notificationsData } from './data/notifications';
 import { MoreOptionsBottomSheet } from './MoreOptionsBottomSheet';
-import { NotificationItem } from './NotificationItem/NotificationItem';
+import { NotificationItem } from './NotificationItem';
 import { Tabs } from './Tabs';
 
 const INITIAL_ACTIVE_TAB = 0;

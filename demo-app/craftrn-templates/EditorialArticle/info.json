@@ -9,8 +9,7 @@
   ],
   "craftrnUiComponents": [
     "Avatar",
-    "Text",
-    "buttonRoundConfig"
+    "Text"
   ],
   "tetrislyIcons": [],
   "fileStructure": {

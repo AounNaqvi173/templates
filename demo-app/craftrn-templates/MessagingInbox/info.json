@@ -3,6 +3,7 @@
   "description": "Messaging inbox template with swipeable chat items",
   "externalDependencies": [
     "react-native-gesture-handler",
+    "react-native-reanimated",
     "react-native-unistyles"
   ],
   "craftrnUiComponents": [
@@ -12,8 +13,7 @@
     "ButtonRound",
     "Card",
     "ListItem",
-    "Text",
-    "avatarConfig"
+    "Text"
   ],
   "tetrislyIcons": [
     "Archive",

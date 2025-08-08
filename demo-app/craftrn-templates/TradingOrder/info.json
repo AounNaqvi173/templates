@@ -19,7 +19,6 @@
     "Search"
   ],
   "fileStructure": {
-    "AnimatedKeyboardView.tsx": "file",
     "AssetListItem.tsx": "file",
     "ExchangeRate.tsx": "file",
     "TradingOrderScreen.tsx": "file",
