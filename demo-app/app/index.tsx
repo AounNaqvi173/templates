@@ -42,7 +42,7 @@ import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { ChevronRight } from '@/tetrisly-icons/ChevronRight';
 import { Settings } from '@/tetrisly-icons/Settings';
 import { Href, useRouter } from 'expo-router';
-import { ComponentType } from 'react';
+import { ComponentType, useEffect } from 'react';
 import {
   Image,
   Linking,
@@ -52,6 +52,12 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import Animated, {
+  useSharedValue,
+  withDelay,
+  withTiming,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import {
   createStyleSheet,
   UnistylesRuntime,
@@ -95,194 +101,213 @@ export default function HomeScreen() {
   const { styles, theme } = useStyles(stylesheet);
 
   return (
-    <ParallaxScrollView title="Templates">
-      <View style={styles.scrollViewContent}>
-        <MenuItem
-          title="AI Conversation"
-          description="Chat interface inspired by AI assistant apps with clean design and modern messaging."
-          href="/ai-conversation/a7b8c9d0-e1f2-3456-abcd-789012345678"
-          imageSource={
-            colorScheme === 'light' ? aiConversationLight : aiConversationDark
-          }
-        />
-        <MenuItem
-          title="Editorial article"
-          description="A detailed article view with rich content and related readings."
-          href="/editorial-article/16d48496-00b0-4270-854d-94393828952a"
-          imageSource={
-            colorScheme === 'light'
-              ? editorialArticleLight
-              : editorialArticleDark
-          }
-        />
-        <MenuItem
-          title="Editorial feed"
-          description="A feed of editorial content, perfect for news or blog layouts."
-          href="/editorial-feed"
-          imageSource={
-            colorScheme === 'light' ? editorialFeedLight : editorialFeedDark
-          }
-        />
-        <MenuItem
-          title="Messaging inbox"
-          description="An inbox for managing messages and conversations."
-          href="/messaging-inbox"
-          imageSource={
-            colorScheme === 'light' ? messagingInboxLight : messagingInboxDark
-          }
-        />
-        <MenuItem
-          title="Messaging thread"
-          description="A detailed view of a single messaging thread."
-          href="/messaging-thread/7d3463b7-9acd-4ee3-8d0e-3c28fab32945"
-          imageSource={
-            colorScheme === 'light' ? messagingThreadLight : messagingThreadDark
-          }
-        />
-        <MenuItem
-          title="Notifications"
-          description="Display and manage user notifications."
-          href="/notifications"
-          imageSource={
-            colorScheme === 'light' ? notificationsLight : notificationsDark
-          }
-        />
-        <MenuItem
-          title="Onboarding country"
-          description="Select your country during the onboarding process."
-          href="/onboarding-country?countryCode=FR"
-          imageSource={
-            colorScheme === 'light'
-              ? onboardingCountryLight
-              : onboardingCountryDark
-          }
-        />
-        <MenuItem
-          title="Onboarding create passcode"
-          description="Set up a secure passcode for your account."
-          href="/onboarding-create-passcode"
-          imageSource={
-            colorScheme === 'light'
-              ? onboardingCreatePasscodeLight
-              : onboardingCreatePasscodeDark
-          }
-        />
-        <MenuItem
-          title="Onboarding one time code"
-          description="Enter a one-time code for verification."
-          href="/onboarding-one-time-code"
-          imageSource={
-            colorScheme === 'light'
-              ? onboardingOneTimeCodeLight
-              : onboardingOneTimeCodeDark
-          }
-        />
-        <MenuItem
-          title="Onboarding sign up"
-          description="User registration and sign-up flow."
-          href="/onboarding-sign-up"
-          imageSource={
-            colorScheme === 'light'
-              ? onboardingSignUpLight
-              : onboardingSignUpDark
-          }
-        />
-        <MenuItem
-          title="Paywall subscription"
-          description="Manage and subscribe to premium content."
-          href="/paywall-subscription"
-          imageSource={
-            colorScheme === 'light'
-              ? paywallSubscriptionLight
-              : paywallSubscriptionDark
-          }
-        />
-        <MenuItem
-          title="Profile"
-          description="View and edit user profile information."
-          href="/profile"
-          imageSource={colorScheme === 'light' ? profileLight : profileDark}
-        />
-        <MenuItem
-          title="Settings"
-          description="Configure application settings and preferences."
-          href="/settings"
-          imageSource={colorScheme === 'light' ? settingsLight : settingsDark}
-        />
-        <MenuItem
-          title="Stays details"
-          description="Detailed information about a specific stay or accommodation."
-          href="/stays-details/f7a97e34-1b6f-4f5c-ae16-d7c28f1de169"
-          imageSource={
-            colorScheme === 'light' ? staysDetailsLight : staysDetailsDark
-          }
-        />
-        <MenuItem
-          title="Stays filters"
-          description="Apply filters to refine your search for stays."
-          href="/stays-filters"
-          imageSource={
-            colorScheme === 'light' ? staysFiltersLight : staysFiltersDark
-          }
-        />
-        <MenuItem
-          title="Stays search"
-          description="Search for available stays and accommodations."
-          href="/stays-search"
-          imageSource={
-            colorScheme === 'light' ? staysSearchLight : staysSearchDark
-          }
-        />
-        <MenuItem
-          title="Stays selection"
-          description="Select and manage your chosen stays."
-          href="/stays-selection"
-          imageSource={
-            colorScheme === 'light' ? staysSelectionLight : staysSelectionDark
-          }
-        />
-        <MenuItem
-          title="Trading dashboard"
-          description="Monitor and manage your trading activities."
-          href="/trading-dashboard"
-          imageSource={
-            colorScheme === 'light'
-              ? tradingDashboardLight
-              : tradingDashboardDark
-          }
-        />
-        <MenuItem
-          title="Trading order"
-          description="Place and manage your trading orders."
-          href="/trading-order/3e458e61-677c-4d55-b908-507a490a4853"
-          imageSource={
-            colorScheme === 'light' ? tradingOrderLight : tradingOrderDark
-          }
-        />
+    <View style={styles.container}>
+      <ParallaxScrollView title="Templates">
+        <View style={styles.scrollViewContent}>
+          <MenuItem
+            title="AI Conversation"
+            description="Chat interface inspired by AI assistant apps with clean design and modern messaging."
+            href="/ai-conversation/a7b8c9d0-e1f2-3456-abcd-789012345678"
+            imageSource={
+              colorScheme === 'light' ? aiConversationLight : aiConversationDark
+            }
+          />
+          <MenuItem
+            title="Editorial article"
+            description="A detailed article view with rich content and related readings."
+            href="/editorial-article/16d48496-00b0-4270-854d-94393828952a"
+            imageSource={
+              colorScheme === 'light'
+                ? editorialArticleLight
+                : editorialArticleDark
+            }
+          />
+          <MenuItem
+            title="Editorial feed"
+            description="A feed of editorial content, perfect for news or blog layouts."
+            href="/editorial-feed"
+            imageSource={
+              colorScheme === 'light' ? editorialFeedLight : editorialFeedDark
+            }
+          />
+          <MenuItem
+            title="Messaging inbox"
+            description="An inbox for managing messages and conversations."
+            href="/messaging-inbox"
+            imageSource={
+              colorScheme === 'light' ? messagingInboxLight : messagingInboxDark
+            }
+          />
+          <MenuItem
+            title="Messaging thread"
+            description="A detailed view of a single messaging thread."
+            href="/messaging-thread/7d3463b7-9acd-4ee3-8d0e-3c28fab32945"
+            imageSource={
+              colorScheme === 'light'
+                ? messagingThreadLight
+                : messagingThreadDark
+            }
+          />
+          <MenuItem
+            title="Notifications"
+            description="Display and manage user notifications."
+            href="/notifications"
+            imageSource={
+              colorScheme === 'light' ? notificationsLight : notificationsDark
+            }
+          />
+          <MenuItem
+            title="Onboarding country"
+            description="Select your country during the onboarding process."
+            href="/onboarding-country?countryCode=FR"
+            imageSource={
+              colorScheme === 'light'
+                ? onboardingCountryLight
+                : onboardingCountryDark
+            }
+          />
+          <MenuItem
+            title="Onboarding create passcode"
+            description="Set up a secure passcode for your account."
+            href="/onboarding-create-passcode"
+            imageSource={
+              colorScheme === 'light'
+                ? onboardingCreatePasscodeLight
+                : onboardingCreatePasscodeDark
+            }
+          />
+          <MenuItem
+            title="Onboarding one time code"
+            description="Enter a one-time code for verification."
+            href="/onboarding-one-time-code"
+            imageSource={
+              colorScheme === 'light'
+                ? onboardingOneTimeCodeLight
+                : onboardingOneTimeCodeDark
+            }
+          />
+          <MenuItem
+            title="Onboarding sign up"
+            description="User registration and sign-up flow."
+            href="/onboarding-sign-up"
+            imageSource={
+              colorScheme === 'light'
+                ? onboardingSignUpLight
+                : onboardingSignUpDark
+            }
+          />
+          <MenuItem
+            title="Paywall subscription"
+            description="Manage and subscribe to premium content."
+            href="/paywall-subscription"
+            imageSource={
+              colorScheme === 'light'
+                ? paywallSubscriptionLight
+                : paywallSubscriptionDark
+            }
+          />
+          <MenuItem
+            title="Profile"
+            description="View and edit user profile information."
+            href="/profile"
+            imageSource={colorScheme === 'light' ? profileLight : profileDark}
+          />
+          <MenuItem
+            title="Settings"
+            description="Configure application settings and preferences."
+            href="/settings"
+            imageSource={colorScheme === 'light' ? settingsLight : settingsDark}
+          />
+          <MenuItem
+            title="Stays details"
+            description="Detailed information about a specific stay or accommodation."
+            href="/stays-details/f7a97e34-1b6f-4f5c-ae16-d7c28f1de169"
+            imageSource={
+              colorScheme === 'light' ? staysDetailsLight : staysDetailsDark
+            }
+          />
+          <MenuItem
+            title="Stays filters"
+            description="Apply filters to refine your search for stays."
+            href="/stays-filters"
+            imageSource={
+              colorScheme === 'light' ? staysFiltersLight : staysFiltersDark
+            }
+          />
+          <MenuItem
+            title="Stays search"
+            description="Search for available stays and accommodations."
+            href="/stays-search"
+            imageSource={
+              colorScheme === 'light' ? staysSearchLight : staysSearchDark
+            }
+          />
+          <MenuItem
+            title="Stays selection"
+            description="Select and manage your chosen stays."
+            href="/stays-selection"
+            imageSource={
+              colorScheme === 'light' ? staysSelectionLight : staysSelectionDark
+            }
+          />
+          <MenuItem
+            title="Trading dashboard"
+            description="Monitor and manage your trading activities."
+            href="/trading-dashboard"
+            imageSource={
+              colorScheme === 'light'
+                ? tradingDashboardLight
+                : tradingDashboardDark
+            }
+          />
+          <MenuItem
+            title="Trading order"
+            description="Place and manage your trading orders."
+            href="/trading-order/3e458e61-677c-4d55-b908-507a490a4853"
+            imageSource={
+              colorScheme === 'light' ? tradingOrderLight : tradingOrderDark
+            }
+          />
 
-        <View style={styles.themeButtonContainer}>
-          <Card>
-            <ListItem
-              text="Change theme in Settings"
-              textBelow={`${colorScheme === 'dark' ? 'Dark' : 'Light'} mode enabled`}
-              style={styles.listItem}
-              itemLeft={
-                <View style={styles.themeIconContainer}>
-                  <Settings color={theme.colors.contentPrimary} />
-                </View>
-              }
-              itemRight={<ChevronRight color={theme.colors.contentPrimary} />}
-              onPress={openDeviceSettings}
-            />
-          </Card>
+          <View style={styles.themeButtonContainer}>
+            <Card>
+              <ListItem
+                text="Change theme in Settings"
+                textBelow={`${colorScheme === 'dark' ? 'Dark' : 'Light'} mode enabled`}
+                style={styles.listItem}
+                itemLeft={
+                  <View style={styles.themeIconContainer}>
+                    <Settings color={theme.colors.contentPrimary} />
+                  </View>
+                }
+                itemRight={<ChevronRight color={theme.colors.contentPrimary} />}
+                onPress={openDeviceSettings}
+              />
+            </Card>
+          </View>
         </View>
+      </ParallaxScrollView>
+
+      <View style={styles.fixedBottomContainer}>
+        <Card>
+          <ListItem
+            text="Get all templates"
+            textBelow="Purchase a license now"
+            style={styles.listItem}
+            itemRight={<ChevronRight color={theme.colors.contentPrimary} />}
+            onPress={() =>
+              Linking.openURL('https://www.craftreactnative.com/pricing')
+            }
+          />
+        </Card>
       </View>
-    </ParallaxScrollView>
+    </View>
   );
 }
 const stylesheet = createStyleSheet(theme => ({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.backgroundSecondary,
   },
   scrollViewContent: {
     backgroundColor: theme.colors.backgroundSecondary,
@@ -292,9 +317,9 @@ const stylesheet = createStyleSheet(theme => ({
     gap: 8,
   },
   listItem: {
-    paddingVertical: theme.spacing.small,
-    paddingHorizontal: theme.spacing.small,
-    backgroundColor: theme.colors.surfaceSecondary,
+    paddingVertical: theme.spacing.medium,
+    paddingHorizontal: theme.spacing.medium,
+    backgroundColor: theme.colors.surfacePrimary,
   },
   menuItem: {
     flexDirection: 'row',
@@ -324,6 +349,20 @@ const stylesheet = createStyleSheet(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: theme.spacing.small,
+  },
+  fixedBottomContainer: {
+    backgroundColor: theme.colors.backgroundSecondary,
+    paddingHorizontal: 16,
+    paddingBottom: UnistylesRuntime.insets.bottom + 16,
+    paddingTop: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 8,
   },
   themeButtonContainer: {
     marginTop: theme.spacing.small,
