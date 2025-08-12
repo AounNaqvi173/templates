@@ -1,4 +1,4 @@
-import { StaysSelectionScreen } from '@/craftrn-templates/StaysSelectionScreen/StaysSelectionScreen';
+import { StaysSelectionScreen } from '@/craftrn-templates/StaysSelection/StaysSelectionScreen';
 import { useRouter } from 'expo-router';
 import { useCallback } from 'react';
 
