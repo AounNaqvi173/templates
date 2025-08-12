@@ -42,7 +42,7 @@ import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { ChevronRight } from '@/tetrisly-icons/ChevronRight';
 import { Settings } from '@/tetrisly-icons/Settings';
 import { Href, useRouter } from 'expo-router';
-import { ComponentType, useEffect } from 'react';
+import { ComponentType } from 'react';
 import {
   Image,
   Linking,
@@ -52,12 +52,6 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import Animated, {
-  useSharedValue,
-  withDelay,
-  withTiming,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
 import {
   createStyleSheet,
   UnistylesRuntime,
@@ -292,7 +286,7 @@ export default function HomeScreen() {
         <Card>
           <ListItem
             text="Get all templates"
-            textBelow="Purchase a license now"
+            textBelow="Purchase a license now to access to the code"
             style={styles.listItem}
             itemRight={<ChevronRight color={theme.colors.contentPrimary} />}
             onPress={() =>
