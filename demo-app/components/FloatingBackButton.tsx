@@ -1,7 +1,6 @@
-import { ButtonRound } from '@/craftrn-ui/components/ButtonRound/ButtonRound';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect } from 'react';
-import { Dimensions, View } from 'react-native';
+import { Dimensions, Pressable, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
@@ -15,18 +14,17 @@ import { Home } from '../tetrisly-icons/Home';
 
 const { height: screenHeight } = Dimensions.get('window');
 
-
 export const FloatingBackButton = () => {
   const { styles, theme } = useStyles(stylesheet);
   const router = useRouter();
-  
+
   const translateY = useSharedValue(0);
   const startY = useSharedValue(0);
   const opacity = useSharedValue(0);
 
   useEffect(() => {
     opacity.value = withTiming(1, { duration: 300 });
-    
+
     const timer = setTimeout(() => {
       opacity.value = withTiming(0.5, { duration: 300 });
     }, 1000);
@@ -43,13 +41,13 @@ export const FloatingBackButton = () => {
       startY.value = translateY.value;
       opacity.value = withTiming(1, { duration: 150 });
     })
-    .onUpdate((event) => {
+    .onUpdate(event => {
       const newY = startY.value + event.translationY;
       const minY = -screenHeight * 0.4;
       const maxY = screenHeight * 0.4;
       translateY.value = Math.max(minY, Math.min(maxY, newY));
     })
-    .onEnd((event) => {
+    .onEnd(event => {
       if (Math.abs(event.velocityY) > 500) {
         translateY.value = withSpring(translateY.value, {
           velocity: event.velocityY,
@@ -80,22 +78,22 @@ export const FloatingBackButton = () => {
 
   return (
     <GestureDetector gesture={composedGesture}>
-      <Animated.View
-        style={[styles.container, animatedStyle]}
-      >
+      <Animated.View style={[styles.container, animatedStyle]}>
         <View style={styles.button}>
-          <ButtonRound
-            renderContent={({ iconSize }) => (
-              <Home size={iconSize} color={theme.colors.contentPrimary} />
+          <Pressable onPress={handleBack} hitSlop={2} role="button">
+            {({ pressed }) => (
+              <View style={styles.innerButton({ pressed })}>
+                <Home size={18} color={theme.colors.white} />
+              </View>
             )}
-          />
+          </Pressable>
         </View>
       </Animated.View>
     </GestureDetector>
   );
 };
 
-const stylesheet = createStyleSheet(() => ({
+const stylesheet = createStyleSheet(({ borderRadius, colors }) => ({
   container: {
     position: 'absolute',
     left: 8,
@@ -104,8 +102,16 @@ const stylesheet = createStyleSheet(() => ({
     transform: [{ translateY: -24 }],
   },
   button: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: colors.surfaceTertiary + '80',
     borderRadius: 24,
     padding: 8,
   },
+  innerButton: ({ pressed }: { pressed: boolean }) => ({
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: borderRadius.full,
+    width: 32,
+    height: 32,
+    backgroundColor: pressed ? colors.accentSecondary : colors.accentPrimary,
+  }),
 }));
