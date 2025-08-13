@@ -42,6 +42,7 @@ import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { ChevronRight } from '@/tetrisly-icons/ChevronRight';
 import { Settings } from '@/tetrisly-icons/Settings';
 import { Href, useRouter } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import { ComponentType } from 'react';
 import {
   Image,
@@ -286,11 +287,18 @@ export default function HomeScreen() {
         <Card>
           <ListItem
             text="Get all templates"
-            textBelow="Purchase a license now to access to the code"
+            textBelow="Access GitHub resources now"
             style={styles.listItem}
             itemRight={<ChevronRight color={theme.colors.contentPrimary} />}
             onPress={() =>
-              Linking.openURL('https://www.craftreactnative.com/pricing')
+              WebBrowser.openBrowserAsync(
+                'https://www.craftreactnative.com/pricing',
+                {
+                  controlsColor: theme.colors.accentPrimary,
+                  presentationStyle:
+                    WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET,
+                },
+              )
             }
           />
         </Card>
