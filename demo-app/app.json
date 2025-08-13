@@ -13,6 +13,9 @@
       "bundleIdentifier": "com.craftreactnative.craftrntemplates.demoapp",
       "runtimeVersion": "1.0.0"
     },
+    "updates": {
+      "url": "https://u.expo.dev/7b7f7a83-9f4c-4320-926d-d01d0517a6f4"
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
@@ -39,7 +42,8 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-updates"
     ],
     "experiments": {
       "typedRoutes": true

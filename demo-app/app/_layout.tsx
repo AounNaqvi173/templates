@@ -1,9 +1,10 @@
-import '@/craftrn-ui/themes/unistyles';
 import { FloatingBackButton } from '@/components/FloatingBackButton';
+import '@/craftrn-ui/themes/unistyles';
 import { useFonts } from 'expo-font';
 import { Stack, usePathname } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
+import * as Updates from 'expo-updates';
 import { useEffect } from 'react';
 import { LogBox, useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -38,6 +39,23 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  useEffect(() => {
+    async function onFetchUpdateAsync() {
+      try {
+        const update = await Updates.checkForUpdateAsync();
+
+        if (update.isAvailable) {
+          await Updates.fetchUpdateAsync();
+          await Updates.reloadAsync();
+        }
+      } catch (error) {
+        // Handle error
+      }
+    }
+
+    onFetchUpdateAsync();
+  }, []);
 
   if (!loaded) {
     return null;
