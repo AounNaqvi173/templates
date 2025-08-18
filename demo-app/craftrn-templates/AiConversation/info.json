@@ -10,6 +10,7 @@
     "BottomSheet",
     "ButtonRound", 
     "Card",
+    "ContextMenu",
     "ListItem",
     "Text"
   ],
@@ -24,11 +25,7 @@
   ],
   "fileStructure": {
     "AiConversationScreen.tsx": "file",
-    "HeaderTitle": {
-      "ContextMenu.tsx": "file",
-      "HeaderTitle.tsx": "file",
-      "index.ts": "file"
-    },
+    "HeaderTitle.tsx": "file",
     "MessageComposer": {
       "ActionButtons.tsx": "file",
       "AttachmentBottomSheet.tsx": "file",
