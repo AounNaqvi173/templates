@@ -38,7 +38,7 @@ export const ArchiveBottomSheet: ComponentType<Props> = ({
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button variant="secondary" onPress={onPressCancel}>
+          <Button intent="secondary" onPress={onPressCancel}>
             Cancel
           </Button>
           <Button onPress={onPressConfirm}>Confirm</Button>

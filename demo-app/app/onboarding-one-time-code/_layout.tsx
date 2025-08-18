@@ -17,7 +17,7 @@ export default function OnboardingOneTimeCodeLayout() {
           contentStyle: { backgroundColor: theme.colors.backgroundSecondary },
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} variant="secondary" />
+              <NavigationBackButton onPress={router.back} intent="secondary" />
             ) : undefined,
         }}
       />

@@ -17,7 +17,7 @@ export default function OnboardingCountryLayout() {
           contentStyle: { backgroundColor: theme.colors.backgroundPrimary },
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} variant="primary" />
+              <NavigationBackButton onPress={router.back} />
             ) : undefined,
         }}
       />

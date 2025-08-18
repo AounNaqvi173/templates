@@ -19,14 +19,14 @@ const config = {
 
 const springConfigs = {
   scale: {
-    mass: 0.5,
-    damping: 15,
-    stiffness: 200,
+    mass: 0.3,
+    damping: 12,
+    stiffness: 250,
   },
   position: {
-    mass: 0.2,
-    damping: 50,
-    stiffness: 300,
+    mass: 0.1,
+    damping: 20,
+    stiffness: 400,
   },
 };
 
@@ -99,10 +99,13 @@ export const SliderDual = ({
   const { styles } = useStyles(stylesheet);
   const sliderWidth = width - config.knobSize;
 
-  const getPositionFromValue = (value: number) => {
-    'worklet';
-    return ((value - min) / (max - min)) * sliderWidth;
-  };
+  const getPositionFromValue = useCallback(
+    (value: number) => {
+      'worklet';
+      return ((value - min) / (max - min)) * sliderWidth;
+    },
+    [min, max, sliderWidth],
+  );
 
   const leftPosition = useSharedValue(
     minInitialValue !== undefined ? getPositionFromValue(minInitialValue) : 0,
@@ -148,7 +151,7 @@ export const SliderDual = ({
       'worklet';
       if (throttle) {
         const now = Date.now();
-        if (now - lastCallbackTime.value <= 16) return;
+        if (now - lastCallbackTime.value <= 32) return;
         lastCallbackTime.value = now;
       }
 
@@ -274,7 +277,24 @@ export const SliderDual = ({
             Math.min(newPosition, sliderWidth),
           );
 
-          const rawValue = (clampedPosition / sliderWidth) * (max - min) + min;
+          if (isLeft) {
+            const maxAllowed =
+              rightPosition.value - (step / (max - min)) * sliderWidth;
+            position.value = Math.min(clampedPosition, Math.max(0, maxAllowed));
+          } else {
+            const minAllowed =
+              leftPosition.value + (step / (max - min)) * sliderWidth;
+            position.value = Math.max(
+              clampedPosition,
+              Math.min(sliderWidth, minAllowed),
+            );
+          }
+
+          notifyValueChange(true);
+        })
+        .onFinalize(() => {
+          'worklet';
+          const rawValue = (position.value / sliderWidth) * (max - min) + min;
           const snappedValue = snapToStep(rawValue);
 
           let finalValue = snappedValue;
@@ -289,12 +309,7 @@ export const SliderDual = ({
           }
 
           const finalPosition = getPositionFromValue(finalValue);
-          position.value = finalPosition;
-
-          notifyValueChange(true);
-        })
-        .onFinalize(() => {
-          'worklet';
+          position.value = withSpring(finalPosition, springConfigs.position);
           scale.value = withSpring(1, springConfigs.scale);
           notifyValueChange();
         }),
@@ -307,6 +322,8 @@ export const SliderDual = ({
       getPositionFromValue,
       getSliderValue,
       step,
+      leftPosition,
+      rightPosition,
     ],
   );
 

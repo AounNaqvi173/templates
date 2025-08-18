@@ -105,7 +105,7 @@ export const PersonalInformation: React.FC = () => {
               autoCorrect={false}
             />
             <View style={styles.accordionButton}>
-              <Button onPress={handleSaveName} variant="primary">
+              <Button onPress={handleSaveName}>
                 Save
               </Button>
             </View>
@@ -143,7 +143,7 @@ export const PersonalInformation: React.FC = () => {
               autoCorrect={false}
             />
             <View style={styles.accordionButton}>
-              <Button onPress={handleSaveEmail} variant="primary">
+              <Button onPress={handleSaveEmail}>
                 Save
               </Button>
             </View>

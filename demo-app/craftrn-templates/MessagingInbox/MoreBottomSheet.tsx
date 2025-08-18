@@ -77,7 +77,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
               <Close size={iconSize} color={theme.colors.contentTertiary} />
             )}
             onPress={onRequestClose}
-            variant="secondary"
+            intent="secondary"
           />
         </View>
         <View style={styles.content}>
@@ -110,7 +110,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
               onPress={onRequestClose}
               itemRight={
                 <View style={styles.icon}>
-                  <Block {...iconProps} color={theme.colors.contentError} />
+                  <Block {...iconProps} color={theme.colors.negativePrimary} />
                 </View>
               }
               divider={true}
@@ -122,7 +122,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
               onPress={onRequestClose}
               itemRight={
                 <View style={styles.icon}>
-                  <LogOut {...iconProps} color={theme.colors.contentError} />
+                  <LogOut {...iconProps} color={theme.colors.negativePrimary} />
                 </View>
               }
               style={styles.item}

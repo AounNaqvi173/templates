@@ -25,7 +25,7 @@ export const FilterList = ({
           key={filter.key}
           size="small"
           onPress={() => onFilterChange(filter.key)}
-          variant={activeFilter === filter.key ? 'primary' : 'secondary'}
+          intent={activeFilter === filter.key ? 'primary' : 'secondary'}
         >
           {filter.label}
         </Button>

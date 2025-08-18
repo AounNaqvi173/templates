@@ -13,7 +13,7 @@ export const AccessRequest = ({
   const { styles } = useStyles(stylesheet);
   return (
     <View style={styles.container}>
-      <Button variant="secondary" size="small" onPress={onPressDeny}>
+      <Button intent="secondary" size="small" onPress={onPressDeny}>
         Deny
       </Button>
       <Button size="small" onPress={onPressConfirm}>

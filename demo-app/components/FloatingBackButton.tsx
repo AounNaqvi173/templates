@@ -76,6 +76,8 @@ export const FloatingBackButton = () => {
     opacity: opacity.value,
   }));
 
+  return;
+
   return (
     <GestureDetector gesture={composedGesture}>
       <Animated.View style={[styles.container, animatedStyle]}>

@@ -33,10 +33,10 @@ export const SignOutBottomSheet: ComponentType<Props> = ({
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button variant="secondary" onPress={onRequestClose}>
+          <Button intent="secondary" onPress={onRequestClose}>
             Cancel
           </Button>
-          <Button variant="negative" onPress={onRequestClose}>
+          <Button intent="negative" onPress={onRequestClose}>
             Confirm
           </Button>
         </View>
