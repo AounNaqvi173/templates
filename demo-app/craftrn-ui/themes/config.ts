@@ -5,7 +5,7 @@ export const colors = {
   stone200: '#e7e5e4',
   stone300: '#d6d3d1',
   stone400: '#beb9b6',
-  stone500: '#78716c',
+  stone500: '#837b75',
   stone600: '#57534e',
   stone700: '#44403c',
   stone800: '#292524',
@@ -13,7 +13,8 @@ export const colors = {
   stone950: '#110e0c',
 
   teal150: '#d4edf0',
-  teal300: '#9ecacd',
+  teal300: '#a3d6da',
+  teal400: '#6bbbc4',
   teal500: '#048391',
   teal600: '#007884',
   teal700: '#006771',
@@ -81,7 +82,7 @@ export const lightTheme = {
     surfacePrimary: colors.stone100,
     surfaceSecondary: colors.stone200,
     surfaceTertiary: colors.stone300,
-    surfaceQuaternary: colors.stone400,
+    surfaceQuaternary: colors.stone500,
 
     surfaceReversedPrimary: colors.stone800,
     surfaceReversedSecondary: colors.stone700,
@@ -194,18 +195,18 @@ export const darkTheme = {
     surfaceReversedPrimary: colors.stone100,
     surfaceReversedSecondary: colors.stone200,
 
-    accentPrimary: colors.teal700,
-    accentSecondary: colors.teal600,
+    accentPrimary: colors.teal600,
+    accentSecondary: colors.teal700,
     accentTertiary: colors.teal800,
     accentQuaternary: colors.teal900,
 
     contentPrimary: colors.stone50,
     contentSecondary: colors.stone300,
     contentTertiary: colors.stone400,
-    contentAccent: colors.teal300,
+    contentAccent: colors.teal400,
     contentReversed: colors.stone900,
 
-    borderPrimary: colors.stone800,
+    borderPrimary: colors.stone700,
     borderSecondary: colors.stone900,
 
     shadowPrimary: colors.stone600,
@@ -215,13 +216,13 @@ export const darkTheme = {
     // Semantic colors
     informativePrimary: colors.blue300,
 
-    positivePrimary: colors.green150,
-    positiveSecondary: colors.green300,
+    positivePrimary: colors.green300,
+    positiveSecondary: colors.green150,
     positiveTertiary: colors.green700,
     positiveQuaternary: colors.green800,
 
-    negativePrimary: colors.red150,
-    negativeSecondary: colors.red300,
+    negativePrimary: colors.red300,
+    negativeSecondary: colors.red150,
     negativeTertiary: colors.red700,
     negativeQuaternary: colors.red800,
   },
