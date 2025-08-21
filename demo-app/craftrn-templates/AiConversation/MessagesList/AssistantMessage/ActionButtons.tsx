@@ -26,6 +26,7 @@ export const ActionButtons = ({ isVisible }: ActionButtonsProps) => {
           )}
           onPress={() => console.log('Copy pressed')}
           size="small"
+          intent="secondary"
         />
       </Animated.View>
       <Animated.View entering={FadeIn.duration(300).delay(240)}>
@@ -35,6 +36,7 @@ export const ActionButtons = ({ isVisible }: ActionButtonsProps) => {
           )}
           onPress={() => console.log('Like pressed')}
           size="small"
+          intent="secondary"
         />
       </Animated.View>
       <Animated.View entering={FadeIn.duration(300).delay(280)}>
@@ -44,6 +46,7 @@ export const ActionButtons = ({ isVisible }: ActionButtonsProps) => {
           )}
           onPress={() => console.log('Dislike pressed')}
           size="small"
+          intent="secondary"
         />
       </Animated.View>
       <Animated.View entering={FadeIn.duration(300).delay(320)}>
@@ -53,6 +56,7 @@ export const ActionButtons = ({ isVisible }: ActionButtonsProps) => {
           )}
           onPress={() => console.log('Try again pressed')}
           size="small"
+          intent="secondary"
         />
       </Animated.View>
     </View>

@@ -21,6 +21,7 @@ export default function Notifications() {
             />
           )}
           onPress={() => setIsBottomSheetVisible(true)}
+          intent="secondary"
         />
       ),
     });

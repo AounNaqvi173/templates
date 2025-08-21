@@ -7,9 +7,9 @@
     "icon": "./assets/images/icon.png",
     "scheme": "craftrntemplates",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": false,
+    "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.craftreactnative.craftrntemplates.demoapp",
       "runtimeVersion": "1.0.0"
     },
@@ -25,7 +25,8 @@
       "runtimeVersion": {
         "policy": "appVersion"
       },
-      "edgeToEdgeEnabled": false
+      "edgeToEdgeEnabled": false,
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "bundler": "metro",

@@ -15,7 +15,7 @@ export default function EditorialArticleLayout() {
           headerTransparent: true,
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} />
+              <NavigationBackButton intent="secondary" onPress={router.back} />
             ) : undefined,
         }}
       />

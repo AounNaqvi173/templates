@@ -3,6 +3,7 @@
   "description": "Profile template with personal information and settings",
   "externalDependencies": [
     "react-native-reanimated",
+    "react-native-svg",
     "react-native-unistyles"
   ],
   "craftrnUiComponents": [

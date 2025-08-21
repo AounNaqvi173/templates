@@ -59,7 +59,7 @@ export const VoiceRecordingBottomSheet: ComponentType<Props> = ({
             <Close color={theme.colors.contentSecondary} size={iconSize} />
           )}
           onPress={onRequestClose}
-          intent="secondary"
+          intent="primary"
           size="large"
         />
         <View style={styles.centerSection}>
@@ -71,7 +71,7 @@ export const VoiceRecordingBottomSheet: ComponentType<Props> = ({
             <ArrowUp color={theme.colors.contentSecondary} size={iconSize} />
           )}
           onPress={handleSend}
-          intent="secondary"
+          intent="primary"
           size="large"
         />
       </View>

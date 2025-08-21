@@ -23,7 +23,7 @@ export default function StaysDetailsLayout() {
           },
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} />
+              <NavigationBackButton onPress={router.back} intent="secondary" />
             ) : undefined,
         }}
       />

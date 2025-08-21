@@ -22,7 +22,7 @@ export default function TradingOrderLayout() {
           headerShadowVisible: false,
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} />
+              <NavigationBackButton onPress={router.back} intent="secondary" />
             ) : undefined,
         }}
       />

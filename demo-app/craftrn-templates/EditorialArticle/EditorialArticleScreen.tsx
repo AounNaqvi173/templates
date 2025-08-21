@@ -1,6 +1,5 @@
 import { Avatar } from '@/craftrn-ui/components/Avatar';
 import { Text } from '@/craftrn-ui/components/Text';
-import { useHeaderHeight } from '@react-navigation/elements';
 import React, { ComponentType, useMemo } from 'react';
 import { ImageBackground, View } from 'react-native';
 import Animated, {
@@ -30,13 +29,10 @@ type Props = {
 
 export const EditorialArticleScreen: ComponentType<Props> = ({ id }) => {
   const { styles } = useStyles(stylesheet);
-  const headerHeight = useHeaderHeight();
-  // Initialize with 0 and ensure it's properly updated on scroll
   const scrollPosition = useSharedValue(0);
-  // Create a scroll handler that updates the shared value
+
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
-      // Update the scroll position value with the current y offset
       scrollPosition.value = event.contentOffset.y;
     },
   });
@@ -68,7 +64,7 @@ export const EditorialArticleScreen: ComponentType<Props> = ({ id }) => {
       <Animated.ScrollView
         onScroll={scrollHandler}
         scrollEventThrottle={16} // Ensure smooth animation by processing scroll events frequently
-        style={styles.scrollView(0)}
+        style={styles.scrollView}
         contentContainerStyle={{
           paddingBottom: UnistylesRuntime.insets.bottom,
         }}
@@ -141,10 +137,9 @@ const stylesheet = createStyleSheet(theme => ({
   headingSection: {
     height: IMAGE_HEIGHT,
   },
-  scrollView: (headerHeight: number) => ({
-    // Remove negative marginTop to prevent interference with AnimatedHeader
+  scrollView: {
     marginTop: 0,
-  }),
+  },
   gradientOverlay: {
     flex: 1,
     justifyContent: 'flex-end',

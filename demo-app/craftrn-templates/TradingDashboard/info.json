@@ -3,6 +3,7 @@
   "description": "Trading dashboard template with portfolio overview",
   "externalDependencies": [
     "react-native-reanimated",
+    "react-native-svg",
     "react-native-unistyles"
   ],
   "craftrnUiComponents": [

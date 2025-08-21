@@ -36,7 +36,7 @@ export const AiConversationScreen: ComponentType<Props> = ({
   // Use measured header heights since React Navigation calculations are incorrect
   const keyboardVerticalOffset =
     Platform.OS === 'android'
-      ? 56
+      ? 112
       : UnistylesRuntime.insets.bottom
         ? headerHeight - theme.spacing.large
         : headerHeight;
@@ -88,7 +88,7 @@ export const AiConversationScreen: ComponentType<Props> = ({
 
   return (
     <KeyboardAvoidingView
-      behavior="padding"
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
       keyboardVerticalOffset={keyboardVerticalOffset}
     >

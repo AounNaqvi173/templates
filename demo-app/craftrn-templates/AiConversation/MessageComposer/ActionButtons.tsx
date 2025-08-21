@@ -5,7 +5,6 @@ import { Plus } from '@/tetrisly-icons/Plus';
 import React from 'react';
 import { View } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { PrimaryButton } from './PrimaryButton';
 
 type ActionButtonsProps = {
   onAttachmentPress: () => void;
@@ -27,7 +26,7 @@ export const ActionButtons = ({
           <Plus color={theme.colors.contentSecondary} size={iconSize} />
         )}
         onPress={onAttachmentPress}
-        size="medium"
+        intent="secondary"
       />
       <View style={styles.spacer} />
       <ButtonRound
@@ -35,11 +34,12 @@ export const ActionButtons = ({
           <Mic color={theme.colors.contentSecondary} size={iconSize} />
         )}
         onPress={onVoiceRecordingPress}
-        size="medium"
+        intent="secondary"
       />
-      <PrimaryButton
-        renderContent={({ iconSize }) => (
-          <ArrowUp color={theme.colors.backgroundPrimary} size={iconSize} />
+      <ButtonRound
+        variant="reversed"
+        renderContent={({ iconSize, iconColor }) => (
+          <ArrowUp color={iconColor} size={iconSize} />
         )}
         onPress={onSendPress}
       />

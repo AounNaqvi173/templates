@@ -18,7 +18,7 @@ export default function ListingsLayout() {
           headerTintColor: theme.colors.contentPrimary,
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} />
+              <NavigationBackButton onPress={router.back} intent="secondary" />
             ) : undefined,
         }}
       />

@@ -1,12 +1,20 @@
 import { MessagingInboxScreen } from '@/craftrn-templates/MessagingInbox/MessagingInboxScreen';
-import { useNavigation } from 'expo-router';
-import { useLayoutEffect, useState } from 'react';
+import { useNavigation, useRouter } from 'expo-router';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { useStyles } from 'react-native-unistyles';
 
 export default function MessagingInbox() {
   const [searchText, setSearchText] = useState('');
   const { theme } = useStyles();
   const navigation = useNavigation();
+  const router = useRouter();
+
+  const handlePressItem = useCallback(
+    (id: string) => () => {
+      router.push(`/messaging-thread/${id}`);
+    },
+    [router],
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,5 +34,10 @@ export default function MessagingInbox() {
     });
   }, [navigation, theme.colors]);
 
-  return <MessagingInboxScreen searchText={searchText} />;
+  return (
+    <MessagingInboxScreen
+      searchText={searchText}
+      onPressItem={handlePressItem}
+    />
+  );
 }

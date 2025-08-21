@@ -11,7 +11,7 @@ export default function MessagingThreadLayout() {
         options={{
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} intent="secondary" />
+              <NavigationBackButton onPress={router.back} intent="primary" />
             ) : undefined,
         }}
       />

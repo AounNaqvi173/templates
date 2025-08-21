@@ -4,6 +4,7 @@
   "externalDependencies": [
     "react-native-keyboard-controller",
     "react-native-reanimated",
+    "react-native-svg",
     "react-native-unistyles"
   ],
   "craftrnUiComponents": [
@@ -31,7 +32,6 @@
       "AttachmentBottomSheet.tsx": "file",
       "InputField.tsx": "file",
       "MessageComposer.tsx": "file",
-      "PrimaryButton.tsx": "file",
       "VoiceRecordingBottomSheet": {
         "RecordingTimer.tsx": "file",
         "VoiceRecordingBottomSheet.tsx": "file",

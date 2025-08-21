@@ -1,4 +1,4 @@
-import { ContextMenu } from '@/craftrn-ui/components/ContextMenu/ContextMenu';
+import { ContextMenu } from '@/craftrn-ui/components/ContextMenu';
 import { Text } from '@/craftrn-ui/components/Text/Text';
 import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
 import React from 'react';
@@ -31,7 +31,7 @@ export const HeaderTitle = ({
     {
       id: 'claude-sonnet-4',
       label: 'Claude Sonnet 4',
-      subtitle: 'Advanced reasoning capabilities',
+      subtitle: 'Advanced reasoning',
       onPress: () => console.log('Claude Sonnet 4 selected'),
     },
   ];

@@ -309,7 +309,6 @@ export default function HomeScreen() {
 const stylesheet = createStyleSheet(theme => ({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.backgroundSecondary,
   },
   scrollViewContent: {
     backgroundColor: theme.colors.backgroundSecondary,
@@ -327,7 +326,7 @@ const stylesheet = createStyleSheet(theme => ({
     flexDirection: 'row',
     paddingVertical: theme.spacing.small,
     paddingHorizontal: theme.spacing.small,
-    backgroundColor: theme.colors.surfaceSecondary,
+    backgroundColor: theme.colors.surfaceTertiary,
   },
   menuItemContent: {
     flex: 1,

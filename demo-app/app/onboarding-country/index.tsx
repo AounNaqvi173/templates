@@ -1,17 +1,22 @@
 import {
+  CountryCode,
   OnboardingCountryScreen,
-  Props,
 } from '@/craftrn-templates/OnboardingCountry/OnboardingCountryScreen';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
 export default function OnboardingCountry() {
   const router = useRouter();
   const { countryCode } = useLocalSearchParams<{
-    countryCode?: Props['countryCode'];
+    countryCode?: CountryCode;
   }>();
 
-  const handlePressCountry = (countryCode: Props['countryCode']) => {
-    router.navigate(`/onboarding-sign-up?countryCode=${countryCode}`);
+  const handlePressCountry = (countryCode: CountryCode) => {
+    const route = `/onboarding-sign-up?countryCode=${countryCode}` as const;
+    try {
+      router.dismissTo(route);
+    } catch {
+      router.push(route);
+    }
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { ComponentType, useCallback, useMemo, useState } from 'react';
-import { FlatList, Linking } from 'react-native';
+import { FlatList } from 'react-native';
 import {
   createStyleSheet,
   UnistylesRuntime,
@@ -12,9 +12,13 @@ import { MoreBottomSheet } from './MoreBottomSheet';
 
 type Props = {
   searchText: string;
+  onPressItem: (id: string) => () => void;
 };
 
-export const MessagingInboxScreen: ComponentType<Props> = ({ searchText }) => {
+export const MessagingInboxScreen: ComponentType<Props> = ({
+  searchText,
+  onPressItem,
+}) => {
   const [activeFilter, setActiveFilter] = useState<Filter>('all');
   const [moreBottomSheetVisible, setMoreBottomSheetVisible] = useState(false);
   const [selectedInboxId, setSelectedInboxId] = useState<string | null>(null);
@@ -63,9 +67,7 @@ export const MessagingInboxScreen: ComponentType<Props> = ({ searchText }) => {
   const renderItem = useCallback(
     ({ item, index }: { item: InboxItem; index: number }) => (
       <ChatItem
-        onPress={() =>
-          Linking.openURL(`craftrn-templates://messaging-thread/${item.id}`)
-        }
+        onPress={onPressItem(item.id)}
         divider={index !== filteredData.length - 1}
         onShowMoreBottomSheet={handleShowMoreBottomSheet}
         {...item}

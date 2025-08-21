@@ -1,8 +1,7 @@
 import { Avatar, avatarConfig } from '@/craftrn-ui/components/Avatar';
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useCallback, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Pressable } from 'react-native-gesture-handler';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 import { ArchiveBottomSheet } from './ArchiveBottomSheet';
 import { InboxItem } from './data/inbox';
@@ -109,7 +108,7 @@ const stylesheet = createStyleSheet(theme => ({
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.small,
     height: HEIGHT,
-    backgroundColor: pressed ? theme.colors.surfaceSecondary : undefined,
+    backgroundColor: pressed ? theme.colors.surfaceTertiary : undefined,
   }),
   rowContent: {
     gap: theme.spacing.xsmall,

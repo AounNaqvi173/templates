@@ -17,7 +17,7 @@ export default function OnboardingCreatePasscodeLayout() {
           contentStyle: { backgroundColor: theme.colors.backgroundSecondary },
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} intent="secondary" />
+              <NavigationBackButton onPress={router.back} />
             ) : undefined,
         }}
       />

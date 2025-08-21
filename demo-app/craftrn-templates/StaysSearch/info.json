@@ -4,6 +4,7 @@
   "externalDependencies": [
     "@react-navigation/elements",
     "react-native-reanimated",
+    "react-native-svg",
     "react-native-unistyles"
   ],
   "craftrnUiComponents": [

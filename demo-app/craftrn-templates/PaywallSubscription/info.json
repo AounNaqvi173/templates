@@ -3,6 +3,7 @@
   "description": "Paywall subscription template with payment success flow",
   "externalDependencies": [
     "react-native-reanimated",
+    "react-native-svg",
     "react-native-unistyles"
   ],
   "craftrnUiComponents": [

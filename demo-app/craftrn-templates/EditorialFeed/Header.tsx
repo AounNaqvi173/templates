@@ -90,6 +90,7 @@ export const Header: ComponentType<Props> = ({
                   <User size={iconSize} color={theme.colors.contentPrimary} />
                 )}
                 onPress={() => setProfileBottomSheetVisible(true)}
+                intent="secondary"
               />
             </View>
           </Animated.View>

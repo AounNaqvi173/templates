@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5f05a2ca-a7e4-461e-9323-4721db82764a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/debug.keystore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/debug/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/craftreactnative/craftrntemplates/demoapp/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/craftreactnative/craftrntemplates/demoapp/MainApplication.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/splashscreen_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/splashscreen_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/splashscreen_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/splashscreen_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/splashscreen_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/rn_edit_text_material.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app.json" beforeDir="false" afterPath="$PROJECT_DIR$/../app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/ai-conversation/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/ai-conversation/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/editorial-article/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/editorial-article/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/messaging-inbox/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/messaging-inbox/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/messaging-thread/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/messaging-thread/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/notifications/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/notifications/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/onboarding-country/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/onboarding-country/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/onboarding-country/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/onboarding-country/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/onboarding-create-passcode/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/onboarding-create-passcode/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/onboarding-one-time-code/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/onboarding-one-time-code/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/onboarding-sign-up/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/onboarding-sign-up/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/profile/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/profile/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/settings/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/settings/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/stays-details/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/stays-details/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/stays-details/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/stays-details/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/stays-filters/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/stays-filters/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/stays-search/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/stays-search/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/trading-order/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../app/trading-order/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/FloatingBackButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../components/FloatingBackButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/AiConversation/AiConversationScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/AiConversation/AiConversationScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/AiConversation/HeaderTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/AiConversation/HeaderTitle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/AiConversation/MessageComposer/ActionButtons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/AiConversation/MessageComposer/ActionButtons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/AiConversation/MessageComposer/PrimaryButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/AiConversation/MessageComposer/VoiceRecordingBottomSheet/VoiceRecordingBottomSheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/AiConversation/MessageComposer/VoiceRecordingBottomSheet/VoiceRecordingBottomSheet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/AiConversation/MessagesList/AssistantMessage/ActionButtons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/AiConversation/MessagesList/AssistantMessage/ActionButtons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/AiConversation/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/AiConversation/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/EditorialArticle/AnimatedHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/EditorialArticle/AnimatedHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/EditorialArticle/EditorialArticleScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/EditorialArticle/EditorialArticleScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/EditorialFeed/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/EditorialFeed/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/MessagingInbox/ChatItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/MessagingInbox/ChatItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/MessagingInbox/MessagingInboxScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/MessagingInbox/MessagingInboxScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/MessagingInbox/MoreBottomSheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/MessagingInbox/MoreBottomSheet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/MessagingThread/MessageComposer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/MessagingThread/MessageComposer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/MessagingThread/MoreBottomSheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/MessagingThread/MoreBottomSheet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/MessagingThread/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/MessagingThread/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/Notifications/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/Notifications/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/OnboardingCountry/OnboardingCountryScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/OnboardingCountry/OnboardingCountryScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/OnboardingCountry/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/OnboardingCountry/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/OnboardingSignUp/OnboardingSignUpScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/OnboardingSignUp/OnboardingSignUpScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/PaywallSubscription/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/PaywallSubscription/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/Profile/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/Profile/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/StaysSearch/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/StaysSearch/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/StaysSelection/StaysSelectionScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/StaysSelection/StaysSelectionScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/StaysSelection/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/StaysSelection/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/TradingDashboard/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/TradingDashboard/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-templates/TradingOrder/info.json" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-templates/TradingOrder/info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-ui/components/Button/Button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-ui/components/Button/Button.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-ui/components/ButtonRound/ButtonRound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-ui/components/ButtonRound/ButtonRound.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-ui/components/InputOTP/InputOTP.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-ui/components/InputOTP/InputOTP.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-ui/components/InputText/InputText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-ui/components/InputText/InputText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-ui/components/ListItem/ListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-ui/components/ListItem/ListItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../craftrn-ui/themes/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../craftrn-ui/themes/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/CraftRNTemplates.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/CraftRNTemplates.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/CraftRNTemplates/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/CraftRNTemplates/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/Podfile.properties.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Podfile.properties.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="31Tep6d4dkZ4oDFcY2awYxPHnmo" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5f05a2ca-a7e4-461e-9323-4721db82764a" name="Changes" comment="" />
+      <created>1755552670933</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1755552670933</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -1,12 +1,16 @@
-import { OnboardingSignUpScreen } from '@/craftrn-templates/OnboardingSignUp/OnboardingSignUpScreen';
-import { useRouter } from 'expo-router';
+import {
+  CountryCode,
+  OnboardingSignUpScreen,
+} from '@/craftrn-templates/OnboardingSignUp/OnboardingSignUpScreen';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 export default function OnboardingSignUp() {
   const router = useRouter();
+  const { countryCode } = useLocalSearchParams<{ countryCode: CountryCode }>();
 
   return (
     <OnboardingSignUpScreen
-      countryCode="FR"
+      countryCode={countryCode}
       onPressCountry={countryCode => {
         router.push(`/onboarding-country?countryCode=${countryCode}`);
       }}

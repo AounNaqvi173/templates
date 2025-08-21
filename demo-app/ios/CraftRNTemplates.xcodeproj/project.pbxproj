@@ -8,28 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		27CB4949F932376E9552E7B2 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D0A1260B61B95AD3613922 /* ExpoModulesProvider.swift */; };
-		3519E9FB2CCAA6142A3DD038 /* libPods-CraftRNTemplates.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D7CE4AE5C23C4D7EBD995B /* libPods-CraftRNTemplates.a */; };
+		2EE3ABFA1C6AF5FF4D65DC02 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8BD45A3A54A7D0E41969A798 /* PrivacyInfo.xcprivacy */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		84C151432EF436AEF89A0A64 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 005AB1D5068A3B80C0C27D54 /* PrivacyInfo.xcprivacy */; };
+		B5E4F5AF17E7A72639139010 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FC6189870E7F82EC951FD3 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		F04DCF90A2628BFB68333D2D /* libPods-CraftRNTemplates.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3671AD809DBF3451E6202502 /* libPods-CraftRNTemplates.a */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		005AB1D5068A3B80C0C27D54 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = CraftRNTemplates/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* CraftRNTemplates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftRNTemplates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CraftRNTemplates/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CraftRNTemplates/Info.plist; sourceTree = "<group>"; };
-		21D7CE4AE5C23C4D7EBD995B /* libPods-CraftRNTemplates.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CraftRNTemplates.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		89D0A1260B61B95AD3613922 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-CraftRNTemplates/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		3671AD809DBF3451E6202502 /* libPods-CraftRNTemplates.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CraftRNTemplates.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BEED2D25526FD54A136A871 /* Pods-CraftRNTemplates.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftRNTemplates.debug.xcconfig"; path = "Target Support Files/Pods-CraftRNTemplates/Pods-CraftRNTemplates.debug.xcconfig"; sourceTree = "<group>"; };
+		49FC6189870E7F82EC951FD3 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-CraftRNTemplates/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		8BD45A3A54A7D0E41969A798 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = CraftRNTemplates/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = CraftRNTemplates/SplashScreen.storyboard; sourceTree = "<group>"; };
+		AA7AE8BDD41FB234CD47DA1D /* Pods-CraftRNTemplates.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftRNTemplates.release.xcconfig"; path = "Target Support Files/Pods-CraftRNTemplates/Pods-CraftRNTemplates.release.xcconfig"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		CCDD1CE420DD3076683B9A15 /* Pods-CraftRNTemplates.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftRNTemplates.debug.xcconfig"; path = "Target Support Files/Pods-CraftRNTemplates/Pods-CraftRNTemplates.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = CraftRNTemplates/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* CraftRNTemplates-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CraftRNTemplates-Bridging-Header.h"; path = "CraftRNTemplates/CraftRNTemplates-Bridging-Header.h"; sourceTree = "<group>"; };
-		F67932B67D9FBB4FE50D7FFC /* Pods-CraftRNTemplates.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftRNTemplates.release.xcconfig"; path = "Target Support Files/Pods-CraftRNTemplates/Pods-CraftRNTemplates.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,21 +37,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3519E9FB2CCAA6142A3DD038 /* libPods-CraftRNTemplates.a in Frameworks */,
+				F04DCF90A2628BFB68333D2D /* libPods-CraftRNTemplates.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13621C7747D1FECFB4F1BC80 /* ExpoModulesProviders */ = {
-			isa = PBXGroup;
-			children = (
-				C224C2B594242D801DA6116F /* CraftRNTemplates */,
-			);
-			name = ExpoModulesProviders;
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* CraftRNTemplates */ = {
 			isa = PBXGroup;
 			children = (
@@ -61,7 +53,15 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				005AB1D5068A3B80C0C27D54 /* PrivacyInfo.xcprivacy */,
+				8BD45A3A54A7D0E41969A798 /* PrivacyInfo.xcprivacy */,
+			);
+			name = CraftRNTemplates;
+			sourceTree = "<group>";
+		};
+		1ABC778C973238FD4F1182D1 /* CraftRNTemplates */ = {
+			isa = PBXGroup;
+			children = (
+				49FC6189870E7F82EC951FD3 /* ExpoModulesProvider.swift */,
 			);
 			name = CraftRNTemplates;
 			sourceTree = "<group>";
@@ -70,19 +70,17 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				21D7CE4AE5C23C4D7EBD995B /* libPods-CraftRNTemplates.a */,
+				3671AD809DBF3451E6202502 /* libPods-CraftRNTemplates.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		429452FCB6F511C2B3CA0B95 /* Pods */ = {
+		5B09A542A22FE60ABE1F1743 /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
-				CCDD1CE420DD3076683B9A15 /* Pods-CraftRNTemplates.debug.xcconfig */,
-				F67932B67D9FBB4FE50D7FFC /* Pods-CraftRNTemplates.release.xcconfig */,
+				1ABC778C973238FD4F1182D1 /* CraftRNTemplates */,
 			);
-			name = Pods;
-			path = Pods;
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -99,8 +97,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				429452FCB6F511C2B3CA0B95 /* Pods */,
-				13621C7747D1FECFB4F1BC80 /* ExpoModulesProviders */,
+				E567E609C9F2C41F7FFC9B04 /* Pods */,
+				5B09A542A22FE60ABE1F1743 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -124,12 +122,14 @@
 			path = CraftRNTemplates/Supporting;
 			sourceTree = "<group>";
 		};
-		C224C2B594242D801DA6116F /* CraftRNTemplates */ = {
+		E567E609C9F2C41F7FFC9B04 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				89D0A1260B61B95AD3613922 /* ExpoModulesProvider.swift */,
+				3BEED2D25526FD54A136A871 /* Pods-CraftRNTemplates.debug.xcconfig */,
+				AA7AE8BDD41FB234CD47DA1D /* Pods-CraftRNTemplates.release.xcconfig */,
 			);
-			name = CraftRNTemplates;
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,13 +140,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "CraftRNTemplates" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				2B0D361A019D41FE27B9C1BA /* [Expo] Configure project */,
+				8D0484CF08E69E1B01A08ABA /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				2DBB8CC5CA511C3EC9532F96 /* [CP] Embed Pods Frameworks */,
+				F5F61B1CE282CA8961C40BE1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -196,7 +196,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				84C151432EF436AEF89A0A64 /* PrivacyInfo.xcprivacy in Resources */,
+				2EE3ABFA1C6AF5FF4D65DC02 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,43 +240,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2B0D361A019D41FE27B9C1BA /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-CraftRNTemplates/expo-configure-project.sh\"\n";
-		};
-		2DBB8CC5CA511C3EC9532F96 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CraftRNTemplates/Pods-CraftRNTemplates-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CraftRNTemplates/Pods-CraftRNTemplates-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -317,6 +280,43 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CraftRNTemplates/Pods-CraftRNTemplates-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8D0484CF08E69E1B01A08ABA /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-CraftRNTemplates/expo-configure-project.sh\"\n";
+		};
+		F5F61B1CE282CA8961C40BE1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CraftRNTemplates/Pods-CraftRNTemplates-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CraftRNTemplates/Pods-CraftRNTemplates-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -325,7 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				27CB4949F932376E9552E7B2 /* ExpoModulesProvider.swift in Sources */,
+				B5E4F5AF17E7A72639139010 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +334,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCDD1CE420DD3076683B9A15 /* Pods-CraftRNTemplates.debug.xcconfig */;
+			baseConfigurationReference = 3BEED2D25526FD54A136A871 /* Pods-CraftRNTemplates.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -363,14 +363,14 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "CraftRNTemplates/CraftRNTemplates-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F67932B67D9FBB4FE50D7FFC /* Pods-CraftRNTemplates.release.xcconfig */;
+			baseConfigurationReference = AA7AE8BDD41FB234CD47DA1D /* Pods-CraftRNTemplates.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -393,7 +393,7 @@
 				PRODUCT_NAME = CraftRNTemplates;
 				SWIFT_OBJC_BRIDGING_HEADER = "CraftRNTemplates/CraftRNTemplates-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

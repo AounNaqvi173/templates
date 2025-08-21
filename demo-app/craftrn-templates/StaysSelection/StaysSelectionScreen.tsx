@@ -44,6 +44,7 @@ export const StaysSelectionScreen: ComponentType<Props> = ({
                     color={theme.colors.contentTertiary}
                   />
                 )}
+                intent="secondary"
                 onPress={onPressFilter}
               />
             }

@@ -14,7 +14,7 @@ import { ButtonApple } from './ButtonApple';
 import { ButtonGoogle } from './ButtonGoogle';
 import { countryCodes } from './data/countryCodes';
 
-type CountryCode = (typeof countryCodes)[number]['code'];
+export type CountryCode = (typeof countryCodes)[number]['code'];
 
 type Props = {
   countryCode: CountryCode;
@@ -44,7 +44,7 @@ export const OnboardingSignUpScreen: ComponentType<Props> = ({
   const selectedCountryCode =
     countryCodes[
       countryCodes.findIndex(country => country.code === countryCode)
-    ];
+    ] || countryCodes[0];
 
   return (
     <View style={styles.mainContainer}>

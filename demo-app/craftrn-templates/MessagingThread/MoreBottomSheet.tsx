@@ -49,7 +49,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
                 onPress={onRequestClose}
                 size="large"
                 key={reaction}
-                intent="secondary"
+                intent="primary"
                 renderContent={() => <Text>{reaction}</Text>}
               />
             ))}

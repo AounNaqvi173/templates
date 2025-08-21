@@ -3,6 +3,7 @@
   "description": "Onboarding country selection template",
   "externalDependencies": [
     "@react-navigation/elements",
+    "react-native-svg",
     "react-native-unistyles"
   ],
   "craftrnUiComponents": [

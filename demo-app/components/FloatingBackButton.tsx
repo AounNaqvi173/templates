@@ -1,6 +1,8 @@
+import { ButtonRound } from '@/craftrn-ui/components/ButtonRound/ButtonRound';
+import { Home } from '@/tetrisly-icons/Home';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect } from 'react';
-import { Dimensions, Pressable, View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
@@ -10,7 +12,6 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { Home } from '../tetrisly-icons/Home';
 
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -30,7 +31,7 @@ export const FloatingBackButton = () => {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [opacity]);
 
   const handleBack = useCallback(() => {
     router.dismissAll();
@@ -76,19 +77,17 @@ export const FloatingBackButton = () => {
     opacity: opacity.value,
   }));
 
-  return;
-
   return (
     <GestureDetector gesture={composedGesture}>
       <Animated.View style={[styles.container, animatedStyle]}>
         <View style={styles.button}>
-          <Pressable onPress={handleBack} hitSlop={2} role="button">
-            {({ pressed }) => (
-              <View style={styles.innerButton({ pressed })}>
-                <Home size={18} color={theme.colors.white} />
-              </View>
+          <ButtonRound
+            variant="accent"
+            onPress={handleBack}
+            renderContent={({ iconSize, iconColor }) => (
+              <Home size={iconSize} color={iconColor} />
             )}
-          </Pressable>
+          />
         </View>
       </Animated.View>
     </GestureDetector>
@@ -108,12 +107,4 @@ const stylesheet = createStyleSheet(({ borderRadius, colors }) => ({
     borderRadius: 24,
     padding: 8,
   },
-  innerButton: ({ pressed }: { pressed: boolean }) => ({
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: borderRadius.full,
-    width: 32,
-    height: 32,
-    backgroundColor: pressed ? colors.accentSecondary : colors.accentPrimary,
-  }),
 }));

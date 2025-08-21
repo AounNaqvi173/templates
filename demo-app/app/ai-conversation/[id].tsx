@@ -26,7 +26,12 @@ export default function AiConversation() {
         ),
         headerLeft: () => (
           <View style={styles.headerLeft}>
-            <ButtonRound disabled size="medium" renderContent={() => <></>} />
+            <ButtonRound
+              disabled
+              size="medium"
+              renderContent={() => <></>}
+              intent="secondary"
+            />
           </View>
         ),
         headerRight: () => (
@@ -35,7 +40,7 @@ export default function AiConversation() {
               <Plus color={theme.colors.contentPrimary} size={iconSize} />
             )}
             onPress={() => console.log('New message pressed')}
-            size="medium"
+            intent="secondary"
           />
         ),
       });

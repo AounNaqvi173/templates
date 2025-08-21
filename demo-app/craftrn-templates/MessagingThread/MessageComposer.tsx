@@ -57,7 +57,7 @@ export const MessageComposer = () => {
         renderContent={({ iconSize }) => (
           <Attachment color={theme.colors.contentPrimary} size={iconSize} />
         )}
-        intent="secondary"
+        intent="primary"
       />
       <Animated.View
         style={[styles.textInputAnimatedContainer, inputAnimatedStyle]}

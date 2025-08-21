@@ -4,14 +4,8 @@ import { CheckLarge } from '@/tetrisly-icons/CheckLarge';
 import { Search } from '@/tetrisly-icons/Search';
 import { useHeaderHeight } from '@react-navigation/elements';
 import React, { ComponentType, useCallback, useMemo, useState } from 'react';
-import {
-  FlatList,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { FlatList, Image, Platform, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import {
   createStyleSheet,
   UnistylesRuntime,
@@ -21,7 +15,7 @@ import { countryCodes } from './data/countryCodes';
 
 const FLAG_SIZE = 24;
 
-type CountryCode = (typeof countryCodes)[number]['code'];
+export type CountryCode = (typeof countryCodes)[number]['code'];
 
 export type Props = {
   countryCode?: CountryCode;
