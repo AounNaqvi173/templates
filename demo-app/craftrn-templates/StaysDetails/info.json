@@ -14,14 +14,11 @@
     "PhotoCarousel",
     "Text"
   ],
-  "tetrislyIcons": [
-    "Heart",
-    "HeartFilled",
-    "Share",
-    "StarFilled"
-  ],
+  "tetrislyIcons": ["Heart", "HeartFilled", "Share", "StarFilled"],
   "fileStructure": {
     "AnimatedHeader.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "Shadow.tsx": "file",
     "StaysDetailsScreen.tsx": "file",
     "data": {

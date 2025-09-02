@@ -28,6 +28,8 @@
   "fileStructure": {
     "BackToBottomButton.tsx": "file",
     "HeaderTitle.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "MessageComposer.tsx": "file",
     "MessagesList.tsx": "file",
     "MessagingThreadScreen.tsx": "file",

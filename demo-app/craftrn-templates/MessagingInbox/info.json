@@ -28,6 +28,8 @@
     "ArchiveBottomSheet.tsx": "file",
     "ChatItem.tsx": "file",
     "FilterList.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "MessagingInboxScreen.tsx": "file",
     "MoreBottomSheet.tsx": "file",
     "SwipableRow.tsx": "file",

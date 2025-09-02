@@ -1,18 +1,9 @@
 {
   "name": "OnboardingSignUp",
   "description": "Onboarding sign up template with social auth",
-  "externalDependencies": [
-    "react-native-svg",
-    "react-native-unistyles"
-  ],
-  "craftrnUiComponents": [
-    "Button",
-    "InputText",
-    "Text"
-  ],
-  "tetrislyIcons": [
-    "ChevronDown"
-  ],
+  "externalDependencies": ["react-native-svg", "react-native-unistyles"],
+  "craftrnUiComponents": ["Button", "InputText", "Text"],
+  "tetrislyIcons": ["ChevronDown"],
   "fileStructure": {
     "ButtonApple": {
       "AppleIcon.tsx": "file",
@@ -22,6 +13,8 @@
       "ButtonGoogle.tsx": "file",
       "GoogleIcon.tsx": "file"
     },
+    "info.json": "file",
+    "instructions.md": "file",
     "OnboardingSignUpScreen.tsx": "file",
     "assets": {
       "background.png": "file"

@@ -6,18 +6,12 @@
     "react-native-svg",
     "react-native-unistyles"
   ],
-  "craftrnUiComponents": [
-    "BottomSheet",
-    "Button",
-    "Text"
-  ],
-  "tetrislyIcons": [
-    "CheckBadgeFill",
-    "CheckCircleFill",
-    "CheckLarge"
-  ],
+  "craftrnUiComponents": ["BottomSheet", "Button", "Text"],
+  "tetrislyIcons": ["CheckBadgeFill", "CheckCircleFill", "CheckLarge"],
   "fileStructure": {
     "ButtonSelection.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "PaymentSuccessBottomSheet.tsx": "file",
     "PaywallSubscriptionScreen.tsx": "file"
   }

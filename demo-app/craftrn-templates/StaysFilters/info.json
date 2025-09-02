@@ -6,16 +6,13 @@
     "react-native-svg",
     "react-native-unistyles"
   ],
-  "craftrnUiComponents": [
-    "Button",
-    "Card",
-    "RangeSlider",
-    "Text"
-  ],
+  "craftrnUiComponents": ["Button", "Card", "RangeSlider", "Text"],
   "tetrislyIcons": [],
   "fileStructure": {
     "AccomodationTypeButton.tsx": "file",
     "FilterItem.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "Shadow.tsx": "file",
     "StaysFiltersScreen.tsx": "file"
   }

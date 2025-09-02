@@ -6,13 +6,11 @@
     "react-native-reanimated",
     "react-native-unistyles"
   ],
-  "craftrnUiComponents": [
-    "Button",
-    "InputOTP",
-    "Text"
-  ],
+  "craftrnUiComponents": ["Button", "InputOTP", "Text"],
   "tetrislyIcons": [],
   "fileStructure": {
+    "info.json": "file",
+    "instructions.md": "file",
     "OnboardingOneTimeCodeScreen.tsx": "file"
   }
 }

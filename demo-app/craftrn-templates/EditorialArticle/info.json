@@ -7,15 +7,14 @@
     "react-native-svg",
     "react-native-unistyles"
   ],
-  "craftrnUiComponents": [
-    "Avatar",
-    "Text"
-  ],
+  "craftrnUiComponents": ["Avatar", "Text"],
   "tetrislyIcons": [],
   "fileStructure": {
     "AnimatedHeader.tsx": "file",
     "EditorialArticleScreen.tsx": "file",
     "Gradient.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "RelatedReading.tsx": "file",
     "data": {
       "articles.tsx": "file",

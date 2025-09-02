@@ -6,15 +6,11 @@
     "react-native-svg",
     "react-native-unistyles"
   ],
-  "craftrnUiComponents": [
-    "InputText",
-    "ListItem"
-  ],
-  "tetrislyIcons": [
-    "CheckLarge",
-    "Search"
-  ],
+  "craftrnUiComponents": ["InputText", "ListItem"],
+  "tetrislyIcons": ["CheckLarge", "Search"],
   "fileStructure": {
+    "info.json": "file",
+    "instructions.md": "file",
     "OnboardingCountryScreen.tsx": "file",
     "data": {
       "countryCodes.tsx": "file"

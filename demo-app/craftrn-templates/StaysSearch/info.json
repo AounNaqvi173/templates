@@ -7,17 +7,12 @@
     "react-native-svg",
     "react-native-unistyles"
   ],
-  "craftrnUiComponents": [
-    "InputSearch",
-    "Text"
-  ],
-  "tetrislyIcons": [
-    "MarkerPin",
-    "Search",
-    "TimeClock"
-  ],
+  "craftrnUiComponents": ["InputSearch", "Text"],
+  "tetrislyIcons": ["MarkerPin", "Search", "TimeClock"],
   "fileStructure": {
     "DestinationItem.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "StaysSearchScreen.tsx": "file",
     "data": {
       "destinations.ts": "file"

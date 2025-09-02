@@ -13,15 +13,11 @@
     "PhotoCarousel",
     "Text"
   ],
-  "tetrislyIcons": [
-    "Heart",
-    "HeartFilled",
-    "Search",
-    "Slider",
-    "StarFilled"
-  ],
+  "tetrislyIcons": ["Heart", "HeartFilled", "Search", "Slider", "StarFilled"],
   "fileStructure": {
     "HeartButton.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "ListingCard.tsx": "file",
     "StaysSelectionScreen.tsx": "file",
     "data": {

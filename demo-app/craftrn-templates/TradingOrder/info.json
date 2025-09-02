@@ -14,14 +14,12 @@
     "ListItem",
     "Text"
   ],
-  "tetrislyIcons": [
-    "ChevronDown",
-    "ChevronUp",
-    "Search"
-  ],
+  "tetrislyIcons": ["ChevronDown", "ChevronUp", "Search"],
   "fileStructure": {
     "AssetListItem.tsx": "file",
     "ExchangeRate.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "TradingOrderScreen.tsx": "file",
     "data": {
       "assets.tsx": "file"

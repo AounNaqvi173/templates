@@ -1,10 +1,7 @@
 {
   "name": "Settings",
   "description": "Settings template with security, notifications, and profile sections",
-  "externalDependencies": [
-    "react-native-svg",
-    "react-native-unistyles"
-  ],
+  "externalDependencies": ["react-native-svg", "react-native-unistyles"],
   "craftrnUiComponents": [
     "Avatar",
     "BottomSheet",
@@ -27,6 +24,8 @@
     "VolumeMedium"
   ],
   "fileStructure": {
+    "info.json": "file",
+    "instructions.md": "file",
     "MarketingBanner.tsx": "file",
     "NotificationsFrequency.tsx": "file",
     "PasscodeBottomSheet.tsx": "file",

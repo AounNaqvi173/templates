@@ -15,12 +15,12 @@
     "Switch",
     "Text"
   ],
-  "tetrislyIcons": [
-    "UserEdit"
-  ],
+  "tetrislyIcons": ["UserEdit"],
   "fileStructure": {
     "AccordionItem.tsx": "file",
     "Divider.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "PersonalInformation.tsx": "file",
     "ProfileAvatar.tsx": "file",
     "ProfileScreen.tsx": "file",

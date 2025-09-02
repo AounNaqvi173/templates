@@ -6,19 +6,15 @@
     "react-native-svg",
     "react-native-unistyles"
   ],
-  "craftrnUiComponents": [
-    "ListItem",
-    "Text"
-  ],
-  "tetrislyIcons": [
-    "ChevronDown",
-    "ChevronUp"
-  ],
+  "craftrnUiComponents": ["ListItem", "Text"],
+  "tetrislyIcons": ["ChevronDown", "ChevronUp"],
   "fileStructure": {
     "AssetGridItem.tsx": "file",
     "AssetHighlights.tsx": "file",
     "AssetListItem.tsx": "file",
     "ExchangeRate.tsx": "file",
+    "info.json": "file",
+    "instructions.md": "file",
     "PortfolioHeader.tsx": "file",
     "SectionHeader.tsx": "file",
     "TradingDashboardScreen.tsx": "file",
