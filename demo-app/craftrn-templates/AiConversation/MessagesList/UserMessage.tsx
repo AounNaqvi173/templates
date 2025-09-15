@@ -2,7 +2,7 @@ import { Text } from '@/craftrn-ui/components/Text/Text';
 import React from 'react';
 import { LayoutChangeEvent, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { Message } from '../data/conversations';
 
 type UserMessageProps = {
@@ -16,8 +16,6 @@ export const UserMessage = ({
   isNewMessage,
   onLayout,
 }: UserMessageProps) => {
-  const { styles } = useStyles(stylesheet);
-
   return (
     <Animated.View
       style={styles.userMessageContainer}
@@ -35,7 +33,7 @@ export const UserMessage = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   userMessageContainer: {
     flexDirection: 'row',
     marginBottom: theme.spacing.xlarge,

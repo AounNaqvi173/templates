@@ -1,7 +1,7 @@
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useCallback, useMemo } from 'react';
 import { FlatList, Image, Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { EditorialArticleItem, editorialArticlesData } from './data/articles';
 
 const CARD_WIDTH = 220;
@@ -17,20 +17,22 @@ export const RelatedReadingCard: ComponentType<CardProps> = ({
   description,
   onPress,
 }: CardProps) => {
-  const { styles } = useStyles(cardStylesheet);
   return (
     <Pressable onPress={onPress}>
-      <View style={styles.cardContainer}>
-        <View style={styles.card}>
-          <Image source={{ uri: imageURL }} style={styles.cardImage} />
+      <View style={cardStyles.cardContainer}>
+        <View style={cardStyles.card}>
+          <Image source={{ uri: imageURL }} style={cardStyles.cardImage} />
         </View>
-        <View style={styles.cardContent}>
-          <Text style={styles.cardTitleText} variant="body2" numberOfLines={2}>
+        <View style={cardStyles.cardContent}>
+          <Text
+            style={cardStyles.cardTitleText}
+            variant="body2"
+            numberOfLines={2}
+          >
             {title}
           </Text>
           <Text
-            style={styles.cardDescriptionText}
-            color="contentSecondary"
+            style={cardStyles.cardDescriptionText}
             variant="body3"
             numberOfLines={2}
           >
@@ -42,7 +44,7 @@ export const RelatedReadingCard: ComponentType<CardProps> = ({
   );
 };
 
-const cardStylesheet = createStyleSheet(theme => ({
+const cardStyles = StyleSheet.create(theme => ({
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
@@ -79,7 +81,7 @@ export const RelatedReading: ComponentType<Props> = ({
   currentEditorialArticleId,
   onPress,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const EditorialArticles = useMemo(
     () =>
       editorialArticlesData
@@ -112,7 +114,7 @@ export const RelatedReading: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   flatList: {
     paddingHorizontal: theme.spacing.large,
   },

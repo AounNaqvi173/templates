@@ -6,11 +6,11 @@ import { useNavigation } from '@react-navigation/native';
 import { useLocalSearchParams } from 'expo-router';
 import { useCallback, useLayoutEffect } from 'react';
 import { Share } from 'react-native';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 
 export default function StaysDetails() {
   const navigation = useNavigation();
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const handleShare = useCallback(async () => {

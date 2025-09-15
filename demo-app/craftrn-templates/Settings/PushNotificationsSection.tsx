@@ -4,7 +4,7 @@ import { Headphones } from '@/tetrisly-icons/Headphones';
 import { Notification } from '@/tetrisly-icons/Notification';
 import { VolumeMedium } from '@/tetrisly-icons/VolumeMedium';
 import React, { useState } from 'react';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 import { SectionHeader } from './SectionHeader';
 import { SettingsItem } from './SettingsItem';
 import { SettingsSection } from './SettingsSection';
@@ -12,7 +12,7 @@ import { SettingsSection } from './SettingsSection';
 export const PushNotificationsSection = () => {
   const [notificationEnabled, setNotificationEnabled] = useState(true);
   const [notificationMuted, setNotificationMuted] = useState(false);
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
 
   const iconProps = {
     color: theme.colors.contentPrimary,

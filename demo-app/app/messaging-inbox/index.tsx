@@ -1,11 +1,11 @@
 import { MessagingInboxScreen } from '@/craftrn-templates/MessagingInbox/MessagingInboxScreen';
 import { useNavigation, useRouter } from 'expo-router';
 import { useCallback, useLayoutEffect, useState } from 'react';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 
 export default function MessagingInbox() {
   const [searchText, setSearchText] = useState('');
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
   const navigation = useNavigation();
   const router = useRouter();
 

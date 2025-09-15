@@ -7,11 +7,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
 import { AssetGridItem } from './AssetGridItem';
 import { AssetHighlights } from './AssetHighlights';
 import { AssetListItem } from './AssetListItem';
@@ -47,7 +43,6 @@ type Props = {
 export const TradingDashboardScreen: ComponentType<Props> = ({
   onPressAsset,
 }) => {
-  const { styles } = useStyles(mainStylesheet);
   const scrollPosition = useSharedValue(0);
 
   const headerAnimatedStyle = useAnimatedStyle(() => ({
@@ -120,7 +115,7 @@ export const TradingDashboardScreen: ComponentType<Props> = ({
   );
 };
 
-const mainStylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   header: {
     paddingBottom: theme.spacing.medium,
     borderBottomColor: theme.colors.borderPrimary,

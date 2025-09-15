@@ -11,11 +11,7 @@ import { InfoCircle } from '@/tetrisly-icons/InfoCircle';
 import { LogOut } from '@/tetrisly-icons/LogOut';
 import React, { ComponentProps, ComponentType, useMemo } from 'react';
 import { View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { inboxItemData } from './data/inbox';
 import { currentUser } from './data/users';
 
@@ -32,7 +28,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
   onRequestClose,
   onClose,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const iconProps = {
     color: theme.colors.contentPrimary,
@@ -141,7 +137,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     paddingHorizontal: theme.spacing.large,
     paddingBottom: UnistylesRuntime.insets.bottom,

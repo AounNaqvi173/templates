@@ -2,7 +2,7 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { Paperplane } from '@/tetrisly-icons/Paperplane';
 import React from 'react';
 import { Pressable, TextInput, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 const BUTTON_SIZE = 40;
 
@@ -13,7 +13,7 @@ export const Message = ({
   message: string;
   onPressReply?: () => void;
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   return (
     <View style={styles.container}>
       <Text variant="body3">{message}</Text>
@@ -38,7 +38,7 @@ export const Message = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     backgroundColor: theme.colors.backgroundSecondary,
     borderWidth: 1,

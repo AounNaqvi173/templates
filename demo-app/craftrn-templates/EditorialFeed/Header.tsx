@@ -8,11 +8,7 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { Categories } from './Categories';
 import { EditorialCategory, EditorialCategoryData } from './data/categories';
 import { Gradient } from './Gradient';
@@ -33,7 +29,7 @@ export const Header: ComponentType<Props> = ({
   const [selectedCategory, setSelectedCategory] = useState<
     EditorialCategory['title']
   >(EditorialCategoryData[0].title);
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const [profileBottomSheetVisible, setProfileBottomSheetVisible] =
     useState(false);
   const topOffset = UnistylesRuntime.insets.top;
@@ -113,7 +109,7 @@ export const Header: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     position: 'absolute',
     top: 0,

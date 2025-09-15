@@ -3,7 +3,7 @@ import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
 import { ChevronUp } from '@/tetrisly-icons/ChevronUp';
 import React from 'react';
 import { Image, Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 const IMAGE_SIZE = 40;
 type AssetGridItemProps = {
@@ -19,7 +19,7 @@ export const AssetGridItem = ({
   imageURL,
   onPress,
 }: AssetGridItemProps) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const isNegative = change.startsWith('-');
 
   const ChevronIcon = isNegative ? ChevronDown : ChevronUp;
@@ -47,7 +47,7 @@ export const AssetGridItem = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   pressableContainer: {
     width: '25%',
     padding: theme.spacing.xsmall,

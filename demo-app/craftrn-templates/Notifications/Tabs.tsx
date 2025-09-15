@@ -12,7 +12,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { Tab, tabsData } from './data/notificationsTabs';
 
 const TAB_GAP = 16;
@@ -29,7 +29,7 @@ const TabItem = ({
   ComponentProps<typeof Pressable> & {
     isActive: boolean;
   }) => {
-  const { styles, theme } = useStyles(tabItemStylesheet);
+  const { theme } = useUnistyles();
 
   const Icon = useMemo(() => {
     return { LayerTwo, File, Notification }[icon];
@@ -70,7 +70,7 @@ const TabItem = ({
   );
 };
 
-const tabItemStylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   pressable: {
     paddingVertical: theme.spacing.medium,
     flexDirection: 'row',
@@ -118,7 +118,7 @@ const useIndicatorAnimated = ({
   tabWidths: number[];
   activeIndexShared: SharedValue<number>;
 }) => {
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
   const initialLeft = theme.spacing.large;
 
   const animateIndicator = useCallback(
@@ -160,7 +160,6 @@ type Props = {
 };
 
 export const Tabs = ({ initialActive = 0, onPress }: Props) => {
-  const { styles } = useStyles(stylesheet);
   const [activeIndex, setActiveIndex] = useState(initialActive);
   const [tabWidths, setTabWidths] = useState<number[]>([]);
   const activeIndexShared = useSharedValue(initialActive);
@@ -195,15 +194,15 @@ export const Tabs = ({ initialActive = 0, onPress }: Props) => {
           onPress: handleTabPress,
           onLayout: handleLayout,
         })}
-        contentContainerStyle={styles.flatListContainer}
-        style={styles.flatList}
+        contentContainerStyle={containerStyles.flatListContainer}
+        style={containerStyles.flatList}
       />
-      <Animated.View style={[styles.indicator, indicatorStyle]} />
+      <Animated.View style={[containerStyles.indicator, indicatorStyle]} />
     </View>
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const containerStyles = StyleSheet.create(theme => ({
   flatList: {
     borderBottomColor: theme.colors.borderPrimary,
     borderBottomWidth: 1,

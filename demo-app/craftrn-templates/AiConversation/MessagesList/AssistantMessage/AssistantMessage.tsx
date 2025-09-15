@@ -1,6 +1,6 @@
 import React from 'react';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { Message } from '../../data/conversations';
 import { MessageContent } from './MessageContent';
 import { useMessageAnimation } from './useMessageAnimation';
@@ -21,8 +21,6 @@ export const AssistantMessage = ({
   contentOffset,
   onNewMessageComplete,
 }: AssistantMessageProps) => {
-  const { styles } = useStyles(stylesheet);
-
   const { isLoading } = useMessageLoading(isNewMessage);
   const { animatedStyle } = useMessageAnimation(isNewMessage, {
     listHeight,
@@ -48,7 +46,7 @@ export const AssistantMessage = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   messageContainer: {
     marginBottom: theme.spacing.large,
     paddingHorizontal: 0,

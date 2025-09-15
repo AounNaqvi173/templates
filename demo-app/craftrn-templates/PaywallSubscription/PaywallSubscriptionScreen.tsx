@@ -3,16 +3,12 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { CheckLarge } from '@/tetrisly-icons/CheckLarge';
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { ButtonSelection } from './ButtonSelection';
 import { PaymentSuccessBottomSheet } from './PaymentSuccessBottomSheet';
 
 const BulletPoint = ({ children }: { children: string }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   return (
     <View style={styles.bulletPoint}>
       <CheckLarge color={theme.colors.contentAccent} />
@@ -24,7 +20,7 @@ const BulletPoint = ({ children }: { children: string }) => {
 };
 
 export const PaywallSubscriptionScreen = () => {
-  const { styles } = useStyles(stylesheet);
+  
   const [planSelected, setPlanSelected] = useState(2);
   const [isSubscriptionSuccess, setIsSubscriptionSuccess] = useState(false);
 
@@ -132,7 +128,7 @@ export const PaywallSubscriptionScreen = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.backgroundSecondary,

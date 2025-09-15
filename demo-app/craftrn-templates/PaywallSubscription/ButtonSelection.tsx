@@ -9,7 +9,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 const ANIMATION_CONFIG = {
   duration: 300,
@@ -28,7 +28,7 @@ export const ButtonSelection = ({
   leftElement?: ReactElement;
   rightElement?: ReactElement;
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const animationValue = useSharedValue(isSelected ? 1 : 0);
   const scaleAnimation = useSharedValue(isSelected ? 1 : 0.8);
@@ -92,7 +92,7 @@ export const ButtonSelection = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   button: {
     height: 70,
     borderWidth: 1,

@@ -3,7 +3,7 @@ import { Eye } from '@/tetrisly-icons/Eye';
 import { Share } from '@/tetrisly-icons/Share';
 import React, { ComponentType, useMemo } from 'react';
 import { Image, Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { EditorialArticleItem } from './data/articles';
 import { usersData } from './data/users';
 import { formatRelativeDate } from './utils/date';
@@ -14,17 +14,17 @@ type IconWithTextProps = {
 };
 
 const IconWithText: ComponentType<IconWithTextProps> = ({ text, icon }) => {
-  const { styles, theme } = useStyles(iconWithTextStylesheet);
+  const { theme } = useUnistyles();
   const Icon = icon === 'Eye' ? Eye : Share;
   return (
-    <View style={styles.container}>
+    <View style={iconWithTextStyles.container}>
       <Icon color={theme.colors.contentPrimary} size={14} />
       <Text variant="body3">{text}</Text>
     </View>
   );
 };
 
-const iconWithTextStylesheet = createStyleSheet(theme => ({
+const iconWithTextStyles = StyleSheet.create(theme => ({
   container: {
     flexDirection: 'row',
     gap: theme.spacing.small,
@@ -38,8 +38,6 @@ type Props = {
 };
 
 export const Card: ComponentType<Props> = ({ item, onPress }) => {
-  const { styles } = useStyles(stylesheet);
-
   const author = useMemo(
     () =>
       (item?.authorId
@@ -77,7 +75,7 @@ export const Card: ComponentType<Props> = ({ item, onPress }) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
   },

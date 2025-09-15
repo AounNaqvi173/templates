@@ -5,7 +5,7 @@ import { ComponentType, default as React } from 'react';
 import { View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { StaysItem } from './data/stays';
 import { HeartButton } from './HeartButton';
 
@@ -20,7 +20,7 @@ export const ListingCard: ComponentType<ListingCardProps> = ({
   item,
   onPress,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const pressHeart = Gesture.Tap();
   const handlePress = Gesture.Tap()
     .onStart(() => {
@@ -69,7 +69,7 @@ export const ListingCard: ComponentType<ListingCardProps> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     gap: theme.spacing.small,
   },

@@ -3,7 +3,7 @@ import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { ChevronRight } from '@/tetrisly-icons/ChevronRight';
 import React, { ComponentType } from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { Card } from '../../craftrn-ui/components/Card';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const ProfileSection: ComponentType<Props> = ({ onPress }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   // Mock user data - in a real app, this would come from user context/state
   const user = {
@@ -44,7 +44,7 @@ export const ProfileSection: ComponentType<Props> = ({ onPress }) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   card: {
     marginBottom: theme.spacing.small,
     marginHorizontal: theme.spacing.large,

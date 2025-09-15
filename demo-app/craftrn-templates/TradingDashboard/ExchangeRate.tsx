@@ -3,7 +3,7 @@ import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
 import { ChevronUp } from '@/tetrisly-icons/ChevronUp';
 import React, { ComponentType } from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { formatCurrency } from './utils/numbers';
 
 type ExchangeRateProps = {
@@ -17,7 +17,7 @@ export const ExchangeRate: ComponentType<ExchangeRateProps> = ({
   symbol,
   change,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const isNegative = change.substring(0, 1) === '-';
 
   return (
@@ -39,7 +39,7 @@ export const ExchangeRate: ComponentType<ExchangeRateProps> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     alignItems: 'flex-end',
   },

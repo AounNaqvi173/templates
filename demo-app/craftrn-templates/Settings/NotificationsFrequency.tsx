@@ -1,6 +1,6 @@
 import { CheckLarge } from '@/tetrisly-icons/CheckLarge';
 import React, { useState } from 'react';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 import { SectionHeader } from './SectionHeader';
 import { SettingsItem } from './SettingsItem';
 import { SettingsSection } from './SettingsSection';
@@ -8,7 +8,7 @@ import { SettingsSection } from './SettingsSection';
 type NotificationType = 'all' | 'messages-mentions' | 'messages';
 
 export const NotificationsFrequency = () => {
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
   const [notificationType, setNotificationType] =
     useState<NotificationType>('all');
 

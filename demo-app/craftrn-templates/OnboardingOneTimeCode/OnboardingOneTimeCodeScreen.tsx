@@ -4,11 +4,7 @@ import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType } from 'react';
 import { View } from 'react-native';
 import { KeyboardStickyView } from 'react-native-keyboard-controller';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 
 type Props = {
   phoneNumber?: string;
@@ -19,7 +15,7 @@ export const OnboardingOneTimeCodeScreen: ComponentType<Props> = ({
   phoneNumber,
   onPressContinue,
 }) => {
-  const { styles } = useStyles(stylesheet);
+  
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -57,7 +53,7 @@ export const OnboardingOneTimeCodeScreen: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     paddingBottom: UnistylesRuntime.insets.bottom,

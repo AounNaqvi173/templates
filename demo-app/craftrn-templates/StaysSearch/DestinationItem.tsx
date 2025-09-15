@@ -3,7 +3,7 @@ import { MarkerPin } from '@/tetrisly-icons/MarkerPin';
 import { TimeClock } from '@/tetrisly-icons/TimeClock';
 import { ComponentType, default as React } from 'react';
 import { Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 type Props = {
   label: string;
@@ -16,7 +16,7 @@ export const DestinationItem: ComponentType<Props> = ({
   label,
   onPress,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const Icon = icon === 'MarkerPin' ? MarkerPin : TimeClock;
 
   return (
@@ -37,7 +37,7 @@ export const DestinationItem: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flexDirection: 'row',
     gap: theme.spacing.small,

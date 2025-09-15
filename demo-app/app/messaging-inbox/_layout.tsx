@@ -1,10 +1,10 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 
 export default function MessagingInboxLayout() {
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
   return (
     <Stack>
       <Stack.Screen

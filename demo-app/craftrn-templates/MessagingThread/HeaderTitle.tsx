@@ -2,12 +2,11 @@ import { Avatar } from '@/craftrn-ui/components/Avatar/Avatar';
 import { Text } from '@/craftrn-ui/components/Text/Text';
 import React from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { User } from './data/users';
 import { formatRelativeDate } from './utils/date';
 
 export const HeaderTitle = ({ user }: { user: User }) => {
-  const { styles } = useStyles(stylesheet);
   return (
     <View style={styles.container}>
       <Avatar
@@ -31,7 +30,7 @@ export const HeaderTitle = ({ user }: { user: User }) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     flexDirection: 'row',

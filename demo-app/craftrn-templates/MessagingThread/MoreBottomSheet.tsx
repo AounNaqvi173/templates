@@ -7,11 +7,7 @@ import { Bell } from '@/tetrisly-icons/Bell';
 import { TimeClock } from '@/tetrisly-icons/TimeClock';
 import React, { ComponentProps, ComponentType } from 'react';
 import { View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 
 type Props = Pick<
   ComponentProps<typeof BottomSheet>,
@@ -25,7 +21,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
   onRequestClose,
   onClose,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const iconProps = {
     color: theme.colors.contentPrimary,
@@ -83,7 +79,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     paddingHorizontal: theme.spacing.large,
     paddingBottom: Math.max(

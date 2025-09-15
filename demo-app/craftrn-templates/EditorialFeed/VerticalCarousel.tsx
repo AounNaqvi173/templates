@@ -15,7 +15,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 const CARD_HEIGHT = 400;
 
@@ -26,8 +26,6 @@ interface CardProps {
 }
 
 const Card: ComponentType<CardProps> = ({ index, scrollY, children }) => {
-  const { styles } = useStyles(cardStylesheet);
-
   const animatedStyle = useAnimatedStyle(() => {
     const scale = interpolate(
       scrollY.value,
@@ -50,13 +48,13 @@ const Card: ComponentType<CardProps> = ({ index, scrollY, children }) => {
   });
 
   return (
-    <Animated.View style={[styles.card, animatedStyle]}>
+    <Animated.View style={[cardStyles.card, animatedStyle]}>
       {children}
     </Animated.View>
   );
 };
 
-const cardStylesheet = createStyleSheet(theme => ({
+const cardStyles = StyleSheet.create(theme => ({
   card: {
     borderRadius: theme.borderRadius.medium,
     height: CARD_HEIGHT,

@@ -1,10 +1,6 @@
 import React, { ComponentType } from 'react';
 import { ScrollView } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { MarketingBanner } from './MarketingBanner';
 import { NotificationsFrequency } from './NotificationsFrequency';
 import { PrivacySection } from './PrivacySection';
@@ -17,7 +13,7 @@ type Props = {
 };
 
 export const SettingsScreen: ComponentType<Props> = ({ onPressProfile }) => {
-  const { styles } = useStyles(stylesheet);
+  
   return (
     <ScrollView
       style={styles.container}
@@ -33,7 +29,7 @@ export const SettingsScreen: ComponentType<Props> = ({ onPressProfile }) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     marginTop: theme.spacing.medium,

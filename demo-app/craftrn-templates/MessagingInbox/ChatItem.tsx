@@ -1,8 +1,8 @@
 import { Avatar, avatarConfig } from '@/craftrn-ui/components/Avatar';
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useCallback, useMemo, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { Pressable, View } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 import { ArchiveBottomSheet } from './ArchiveBottomSheet';
 import { InboxItem } from './data/inbox';
 import { currentUser } from './data/users';
@@ -25,7 +25,6 @@ export const ChatItem: ComponentType<ChatItemProps> = ({
 }) => {
   const [archiveBottomSheetVisible, setArchiveBottomSheetVisible] =
     useState(false);
-  const { styles } = useStyles(stylesheet);
 
   const user = useMemo(
     () =>
@@ -101,7 +100,7 @@ export const ChatItem: ComponentType<ChatItemProps> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   rowContainer: (pressed: boolean) => ({
     gap: theme.spacing.medium,
     flexDirection: 'row',

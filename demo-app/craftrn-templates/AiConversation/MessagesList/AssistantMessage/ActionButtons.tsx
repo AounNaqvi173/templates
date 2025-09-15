@@ -6,14 +6,14 @@ import { ThumbUp } from '@/tetrisly-icons/ThumbUp';
 import React from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 type ActionButtonsProps = {
   isVisible: boolean;
 };
 
 export const ActionButtons = ({ isVisible }: ActionButtonsProps) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   if (!isVisible) return null;
 
@@ -63,7 +63,7 @@ export const ActionButtons = ({ isVisible }: ActionButtonsProps) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   actionButtons: {
     flexDirection: 'row',
     gap: theme.spacing.small,

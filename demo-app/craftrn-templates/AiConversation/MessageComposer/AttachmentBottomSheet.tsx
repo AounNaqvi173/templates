@@ -6,11 +6,7 @@ import { File } from '@/tetrisly-icons/File';
 import { Image } from '@/tetrisly-icons/Image';
 import React, { ComponentProps, ComponentType } from 'react';
 import { View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 
 type Props = Pick<
   ComponentProps<typeof BottomSheet>,
@@ -22,7 +18,7 @@ export const AttachmentBottomSheet: ComponentType<Props> = ({
   onRequestClose,
   onClose,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const iconProps = {
     color: theme.colors.contentPrimary,
@@ -95,7 +91,7 @@ export const AttachmentBottomSheet: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     paddingHorizontal: theme.spacing.large,
     paddingBottom: Math.max(

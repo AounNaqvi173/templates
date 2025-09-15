@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Platform, TextInput, TextInputProps, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 const TEXT_INPUT_MIN_HEIGHT = 40;
 const TEXT_INPUT_MAX_HEIGHT = 100;
@@ -9,7 +9,7 @@ type InputFieldProps = Pick<TextInputProps, 'value' | 'onChangeText'>;
 
 export const InputField = forwardRef<TextInput, InputFieldProps>(
   ({ value, onChangeText }, ref) => {
-    const { styles, theme } = useStyles(stylesheet);
+    const { theme } = useUnistyles();
 
     return (
       <View style={styles.inputContainer}>
@@ -32,7 +32,7 @@ export const InputField = forwardRef<TextInput, InputFieldProps>(
 
 InputField.displayName = 'InputField';
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   inputContainer: {
     backgroundColor: 'transparent',
     borderRadius: theme.borderRadius.large,

@@ -3,7 +3,7 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { UserEdit } from '@/tetrisly-icons/UserEdit';
 import React, { ComponentType } from 'react';
 import { Image, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { profileData } from './data/profileData';
 
 const config = {
@@ -11,7 +11,7 @@ const config = {
 };
 
 export const ProfileAvatar: ComponentType = () => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   return (
     <View style={styles.avatarSection}>
@@ -43,7 +43,7 @@ export const ProfileAvatar: ComponentType = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   avatarSection: {
     alignItems: 'center',
     paddingVertical: theme.spacing.large,

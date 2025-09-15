@@ -1,6 +1,6 @@
 import React from 'react';
 import { LayoutChangeEvent } from 'react-native';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 import { Message } from '../data/conversations';
 import { AssistantMessage } from './AssistantMessage';
 import { UserMessage } from './UserMessage';
@@ -24,7 +24,7 @@ export const MessageItem = ({
   userMessageHeight,
   onUserMessageLayout,
 }: MessageItemProps) => {
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
 
   const isUser = message.role === 'user';
   const latestUserIndex = messagesReversed.findIndex(

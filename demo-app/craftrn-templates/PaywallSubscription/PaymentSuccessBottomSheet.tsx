@@ -4,11 +4,7 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { CheckBadgeFill } from '@/tetrisly-icons/CheckBadgeFill';
 import React, { ComponentProps } from 'react';
 import { View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 
 type Props = Pick<
   ComponentProps<typeof BottomSheet>,
@@ -22,7 +18,7 @@ export const PaymentSuccessBottomSheet = ({
   onRequestClose,
   onPressContinue,
 }: Props) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   return (
     <BottomSheet visible={visible} onRequestClose={onRequestClose}>
@@ -49,7 +45,7 @@ export const PaymentSuccessBottomSheet = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     gap: theme.spacing.medium,
     paddingHorizontal: theme.spacing.large,

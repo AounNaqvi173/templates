@@ -1,7 +1,7 @@
 import { ListItem } from '@/craftrn-ui/components/ListItem';
 import React, { ComponentProps, ComponentType } from 'react';
-import { Image, StyleSheet, View, ViewStyle } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { Image, View, ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 const IMAGE_SIZE = 40;
 
@@ -19,7 +19,6 @@ export const AssetListItem: ComponentType<Props> = ({
   imageURL,
   ...listItemProps
 }) => {
-  const { styles } = useStyles(stylesheet);
   return (
     <>
       <ListItem
@@ -41,7 +40,7 @@ export const AssetListItem: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   image: {
     borderRadius: theme.borderRadius.medium,
     width: IMAGE_SIZE,

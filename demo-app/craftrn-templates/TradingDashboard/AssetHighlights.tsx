@@ -3,7 +3,7 @@ import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
 import { ChevronUp } from '@/tetrisly-icons/ChevronUp';
 import React from 'react';
 import { FlatList, Image, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { AssetsItem } from './data/assets';
 const CARD_WIDTH = 190;
 const CARD_HEIGHT = 120;
@@ -20,19 +20,19 @@ export const AssetHighlightsCard = ({
   sellPrice,
   change,
 }: CardProps) => {
-  const { styles, theme } = useStyles(cardStylesheet);
+  const { theme } = useUnistyles();
   const isNegative = change.substring(0, 1) === '-';
 
   return (
-    <View style={styles.card}>
-      <View style={styles.headerContainer}>
+    <View style={cardStyles.card}>
+      <View style={cardStyles.headerContainer}>
         <Image
           source={{ uri: imageURL }}
           resizeMode="cover"
-          style={styles.image}
+          style={cardStyles.image}
         />
         <View>
-          <Text variant="body1" style={styles.symbolText}>
+          <Text variant="body1" style={cardStyles.symbolText}>
             {fromSymbol}
           </Text>
           <Text variant="body3" color="contentSecondary">
@@ -41,18 +41,18 @@ export const AssetHighlightsCard = ({
         </View>
       </View>
       <View>
-        <Text variant="heading3" style={styles.priceText}>
+        <Text variant="heading3" style={cardStyles.priceText}>
           {toSymbol}
           {sellPrice}
         </Text>
       </View>
-      <View style={styles.changeContainer(isNegative)}>
+      <View style={cardStyles.changeContainer(isNegative)}>
         {isNegative ? (
           <ChevronDown size={16} color={theme.colors.negativePrimary} />
         ) : (
           <ChevronUp size={16} color={theme.colors.positivePrimary} />
         )}
-        <Text variant="body2" style={styles.changeText(isNegative)}>
+        <Text variant="body2" style={cardStyles.changeText(isNegative)}>
           {change}
         </Text>
       </View>
@@ -60,7 +60,7 @@ export const AssetHighlightsCard = ({
   );
 };
 
-const cardStylesheet = createStyleSheet(theme => ({
+const cardStyles = StyleSheet.create(theme => ({
   card: {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
@@ -107,7 +107,6 @@ const cardStylesheet = createStyleSheet(theme => ({
 }));
 
 const ItemSeparator = () => {
-  const { styles } = useStyles(listStylesheet);
   return <View style={styles.separator} />;
 };
 
@@ -116,8 +115,6 @@ type Props = {
 };
 
 export const AssetHighlights = ({ data }: Props) => {
-  const { styles } = useStyles(listStylesheet);
-
   return (
     <FlatList<AssetsItem>
       data={data}
@@ -136,7 +133,7 @@ export const AssetHighlights = ({ data }: Props) => {
   );
 };
 
-const listStylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   separator: {
     width: 8,
   },

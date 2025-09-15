@@ -1,10 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { TextInput, View, ViewProps } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { ActionButtons } from './ActionButtons';
 import { AttachmentBottomSheet } from './AttachmentBottomSheet';
 import { InputField } from './InputField';
@@ -22,7 +18,6 @@ export const MessageComposer = ({ onSendMessage, onLayout }: Props) => {
     useState(false);
   const [isVoiceRecordingSheetVisible, setIsVoiceRecordingSheetVisible] =
     useState(false);
-  const { styles } = useStyles(stylesheet);
 
   const handleSendPress = useCallback(() => {
     const trimmedValue = inputValue.trim();
@@ -82,7 +77,7 @@ export const MessageComposer = ({ onSendMessage, onLayout }: Props) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     backgroundColor: theme.colors.backgroundPrimary,
     paddingTop: theme.spacing.small,

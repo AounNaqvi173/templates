@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { Button } from '../../craftrn-ui/components/Button/Button';
 import { Text } from '../../craftrn-ui/components/Text/Text';
 
 export const MarketingBanner = () => {
-  const { theme, styles } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   return (
     <View style={styles.container}>
@@ -28,15 +28,13 @@ export const MarketingBanner = () => {
             Unlock exclusive features and get the most out of your experience.
           </Text>
         </View>
-        <Button onPress={() => {}}>
-          Upgrade Now
-        </Button>
+        <Button onPress={() => {}}>Upgrade Now</Button>
       </View>
     </View>
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     borderRadius: theme.borderRadius.medium,
     marginHorizontal: theme.spacing.large,

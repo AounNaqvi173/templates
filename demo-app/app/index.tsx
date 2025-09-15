@@ -54,9 +54,9 @@ import {
   View,
 } from 'react-native';
 import {
-  createStyleSheet,
+  StyleSheet,
   UnistylesRuntime,
-  useStyles,
+  useUnistyles,
 } from 'react-native-unistyles';
 
 export const MenuItem: ComponentType<{
@@ -65,7 +65,6 @@ export const MenuItem: ComponentType<{
   imageSource: number;
   description: string;
 }> = ({ title, href, imageSource, description }) => {
-  const { styles } = useStyles(stylesheet);
   const router = useRouter();
 
   return (
@@ -93,7 +92,7 @@ const openDeviceSettings = () => {
 
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   return (
     <View style={styles.container}>
@@ -306,7 +305,7 @@ export default function HomeScreen() {
     </View>
   );
 }
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
   },

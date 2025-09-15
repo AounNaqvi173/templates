@@ -1,11 +1,7 @@
 import React, { ComponentType, useMemo, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { Notification, notificationsData } from './data/notifications';
 import { MoreOptionsBottomSheet } from './MoreOptionsBottomSheet';
 import { NotificationItem } from './NotificationItem';
@@ -23,7 +19,7 @@ export const NotificationsScreen: ComponentType<Props> = ({
   onRequestBottomSheetClose,
 }) => {
   const [selectedTab, setSelectedTab] = useState(INITIAL_ACTIVE_TAB);
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const filteredData = useMemo(
     () =>
@@ -69,7 +65,7 @@ export const NotificationsScreen: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
   },

@@ -4,11 +4,7 @@ import { Search } from '@/tetrisly-icons/Search';
 import { Slider } from '@/tetrisly-icons/Slider';
 import { ComponentType, default as React } from 'react';
 import { FlatList, View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { staysData } from './data/stays';
 import { ListingCard } from './ListingCard';
 
@@ -23,7 +19,7 @@ export const StaysSelectionScreen: ComponentType<Props> = ({
   onPressSearch,
   onPressFilter,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   return (
     <View style={styles.container}>
@@ -68,7 +64,7 @@ export const StaysSelectionScreen: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     paddingTop: UnistylesRuntime.insets.top,

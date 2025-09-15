@@ -3,7 +3,7 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { TimeClock } from '@/tetrisly-icons/TimeClock';
 import React from 'react';
 import { Keyboard, Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { Notification } from '../data/notifications';
 import { formatRelativeDate } from '../utils/date';
 import { AccessRequest } from './AccessRequest';
@@ -26,7 +26,7 @@ export const NotificationItem = ({
   index: _,
   ...item
 }: NotificationItemProps) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const handlePress = () => {
     if (Keyboard.isVisible()) {
@@ -89,7 +89,7 @@ export const NotificationItem = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flexDirection: 'row',
     paddingHorizontal: theme.spacing.large,

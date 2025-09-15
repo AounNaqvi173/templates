@@ -5,15 +5,13 @@ import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import AccordionItem from './AccordionItem';
 import { Divider } from './Divider';
 import { SectionHeader } from './SectionHeader';
 import { profileData } from './data/profileData';
 
 export const PersonalInformation: React.FC = () => {
-  const { styles } = useStyles(stylesheet);
-
   const [name, setName] = useState(profileData.name);
   const [email, setEmail] = useState(profileData.email);
   const [nameError, setNameError] = useState('');
@@ -105,9 +103,7 @@ export const PersonalInformation: React.FC = () => {
               autoCorrect={false}
             />
             <View style={styles.accordionButton}>
-              <Button onPress={handleSaveName}>
-                Save
-              </Button>
+              <Button onPress={handleSaveName}>Save</Button>
             </View>
           </View>
         </AccordionItem>
@@ -143,9 +139,7 @@ export const PersonalInformation: React.FC = () => {
               autoCorrect={false}
             />
             <View style={styles.accordionButton}>
-              <Button onPress={handleSaveEmail}>
-                Save
-              </Button>
+              <Button onPress={handleSaveEmail}>Save</Button>
             </View>
           </View>
         </AccordionItem>
@@ -155,7 +149,7 @@ export const PersonalInformation: React.FC = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   accordionContainer: {
     overflow: 'hidden',
   },

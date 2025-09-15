@@ -7,11 +7,7 @@ import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { useSafeAreaFrame } from 'react-native-safe-area-context';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { AccomodationTypeButton } from './AccomodationTypeButton';
 import { FilterItem } from './FilterItem';
 import { Shadow } from './Shadow';
@@ -26,12 +22,12 @@ const guestRatingOptions = {
 type GuestRating = (typeof guestRatingOptions)[keyof typeof guestRatingOptions];
 
 const Divider = () => {
-  const { styles } = useStyles(stylesheet);
+  
   return <View style={styles.divider} />;
 };
 
 export const StaysFiltersScreen: ComponentType = () => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const frame = useSafeAreaFrame();
   const [accomodationTypes, setAccomodationTypes] = useState(['stays']);
   const [priceRange, setPriceRange] = useState({ min: 500, max: 3000 });
@@ -222,7 +218,7 @@ export const StaysFiltersScreen: ComponentType = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     paddingBottom: theme.spacing.large + UnistylesRuntime.insets.bottom,

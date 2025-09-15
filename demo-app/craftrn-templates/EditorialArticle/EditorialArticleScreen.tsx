@@ -6,11 +6,7 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { AnimatedHeader } from './AnimatedHeader';
 import { editorialArticlesData } from './data/articles';
 import { usersData } from './data/users';
@@ -28,7 +24,7 @@ type Props = {
 };
 
 export const EditorialArticleScreen: ComponentType<Props> = ({ id }) => {
-  const { styles } = useStyles(stylesheet);
+  
   const scrollPosition = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler({
@@ -129,7 +125,7 @@ export const EditorialArticleScreen: ComponentType<Props> = ({ id }) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.backgroundSecondary,

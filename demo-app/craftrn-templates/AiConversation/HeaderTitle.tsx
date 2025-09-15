@@ -3,7 +3,7 @@ import { Text } from '@/craftrn-ui/components/Text/Text';
 import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
 import React from 'react';
 import { Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { AiAssistant } from './data/conversations';
 
 export const HeaderTitle = ({
@@ -13,7 +13,7 @@ export const HeaderTitle = ({
   title: string;
   aiAssistant: AiAssistant;
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const contextMenuItems = [
     {
@@ -59,7 +59,7 @@ export const HeaderTitle = ({
   );
 };
 
-const stylesheet = createStyleSheet(() => ({
+const styles = StyleSheet.create(() => ({
   titleContainer: {
     alignItems: 'center',
     justifyContent: 'center',

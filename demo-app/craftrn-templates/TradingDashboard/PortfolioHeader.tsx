@@ -2,7 +2,7 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { ChevronUp } from '@/tetrisly-icons/ChevronUp';
 import React from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 type PortfolioData = {
   value: string;
@@ -19,7 +19,7 @@ const portfolioData: PortfolioData = {
 };
 
 export const PortfolioHeader = () => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   return (
     <View style={styles.container}>
@@ -39,7 +39,7 @@ export const PortfolioHeader = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     paddingHorizontal: theme.spacing.large,
     gap: theme.spacing.small,

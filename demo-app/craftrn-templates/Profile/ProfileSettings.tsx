@@ -2,14 +2,13 @@ import { Card } from '@/craftrn-ui/components/Card';
 import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Switch } from '@/craftrn-ui/components/Switch';
 import React, { useState } from 'react';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { SectionHeader } from './SectionHeader';
 
 export const ProfileSettings = () => {
   const [profileVisibility, setProfileVisibility] = useState(true);
   const [wishlistVisibility, setWishlistVisibility] = useState(true);
 
-  const { styles } = useStyles(stylesheet);
   return (
     <>
       <SectionHeader>Profile Settings</SectionHeader>
@@ -42,7 +41,7 @@ export const ProfileSettings = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   settingsItem: {
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.medium,
