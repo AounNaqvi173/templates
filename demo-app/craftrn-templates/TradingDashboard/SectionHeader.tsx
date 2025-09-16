@@ -1,9 +1,8 @@
 import { Text } from '@/craftrn-ui/components/Text';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 export const SectionHeader = ({ title }: { title: string }) => {
-  const { styles } = useStyles(stylesheet);
   return (
     <View style={styles.container}>
       <Text variant="heading3">{title}</Text>
@@ -19,7 +18,7 @@ export const SectionHeader = ({ title }: { title: string }) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     paddingHorizontal: theme.spacing.large,
     flexDirection: 'row',

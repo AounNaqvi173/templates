@@ -11,11 +11,7 @@ import {
 } from 'react';
 import { Platform, SectionList, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import {
   Destination,
   popularDestinations,
@@ -30,7 +26,7 @@ type Section = {
 };
 
 export const StaysSearchScreen: ComponentType = () => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const [search, setSearch] = useState<string>('');
   const headerHeight = useHeaderHeight();
 
@@ -125,7 +121,7 @@ export const StaysSearchScreen: ComponentType = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
   },

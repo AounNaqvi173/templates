@@ -11,14 +11,12 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 const { height: screenHeight } = Dimensions.get('window');
 
 export const FloatingBackButton = () => {
-  const { styles, theme } = useStyles(stylesheet);
   const router = useRouter();
-
   const translateY = useSharedValue(0);
   const startY = useSharedValue(0);
   const opacity = useSharedValue(0);
@@ -94,7 +92,7 @@ export const FloatingBackButton = () => {
   );
 };
 
-const stylesheet = createStyleSheet(({ borderRadius, colors }) => ({
+const styles = StyleSheet.create(({ spacing, borderRadius, colors }) => ({
   container: {
     position: 'absolute',
     left: 8,
@@ -104,7 +102,7 @@ const stylesheet = createStyleSheet(({ borderRadius, colors }) => ({
   },
   button: {
     backgroundColor: colors.surfaceTertiary + '80',
-    borderRadius: 24,
-    padding: 8,
+    borderRadius: borderRadius.full,
+    padding: spacing.small,
   },
 }));

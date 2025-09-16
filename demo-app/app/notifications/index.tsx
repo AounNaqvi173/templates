@@ -3,12 +3,12 @@ import { ButtonRound } from '@/craftrn-ui/components/ButtonRound';
 import { MoreHorizontal } from '@/tetrisly-icons/MoreHorizontal';
 import { useNavigation } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 
 export default function Notifications() {
   const navigation = useNavigation();
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
 
   useLayoutEffect(() => {
     navigation.setOptions({

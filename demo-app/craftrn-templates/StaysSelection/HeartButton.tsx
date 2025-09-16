@@ -2,7 +2,7 @@ import { Heart } from '@/tetrisly-icons/Heart';
 import { HeartFilled } from '@/tetrisly-icons/HeartFilled';
 import React, { ComponentType, useState } from 'react';
 import { Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 const colorWithOpacity = (color: string, opacity: number) => {
   const hex = color.replace('#', '');
@@ -21,7 +21,7 @@ export const HeartButton: ComponentType<HeartButtonProps> = ({
   liked,
 }) => {
   const [likeValue, setLikeValue] = useState(liked);
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const handlePressLike = () => {
     const newLikeValue = !likeValue;
@@ -47,7 +47,7 @@ export const HeartButton: ComponentType<HeartButtonProps> = ({
   );
 };
 
-const stylesheet = createStyleSheet(() => ({
+const styles = StyleSheet.create(() => ({
   container: {
     position: 'absolute',
   },

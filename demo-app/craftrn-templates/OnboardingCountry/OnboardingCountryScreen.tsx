@@ -4,12 +4,12 @@ import { CheckLarge } from '@/tetrisly-icons/CheckLarge';
 import { Search } from '@/tetrisly-icons/Search';
 import { useHeaderHeight } from '@react-navigation/elements';
 import React, { ComponentType, useCallback, useMemo, useState } from 'react';
-import { FlatList, Image, Platform, StyleSheet, View } from 'react-native';
+import { FlatList, Image, Platform, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import {
-  createStyleSheet,
+  StyleSheet,
   UnistylesRuntime,
-  useStyles,
+  useUnistyles,
 } from 'react-native-unistyles';
 import { countryCodes } from './data/countryCodes';
 
@@ -26,7 +26,7 @@ export const OnboardingCountryScreen: ComponentType<Props> = ({
   countryCode,
   onPressCountryCode,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const headerHeight = useHeaderHeight();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -102,7 +102,7 @@ export const OnboardingCountryScreen: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
   },

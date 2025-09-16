@@ -5,7 +5,7 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { AiAssistant, Message } from '../data/conversations';
 import { BackToBottomButton } from './BackToBottomButton';
 import { MessageItem } from './MessageItem';
@@ -17,7 +17,6 @@ type AssistantMessagesListProps = {
 };
 
 export const MessagesList = ({ messages }: AssistantMessagesListProps) => {
-  const { styles } = useStyles(stylesheet);
   const [listHeight, setListHeight] = useState(0);
   const [userMessageHeight, setUserMessageHeight] = useState(0);
   const scrollRef = useAnimatedRef<Animated.FlatList<Message>>();
@@ -90,7 +89,7 @@ export const MessagesList = ({ messages }: AssistantMessagesListProps) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
   },

@@ -2,9 +2,9 @@ import { Text } from '@/craftrn-ui/components/Text';
 import React from 'react';
 import { Pressable, View } from 'react-native';
 import {
-  createStyleSheet,
+  StyleSheet,
   UnistylesRuntime,
-  useStyles,
+  useUnistyles,
 } from 'react-native-unistyles';
 import { AppleIcon } from './AppleIcon';
 
@@ -20,9 +20,7 @@ const colorWithOpacity = (color: string, opacity: number) => {
 export const ButtonApple = ({ onPress }: { onPress: () => void }) => {
   const colorScheme =
     UnistylesRuntime.colorScheme === 'dark' ? 'dark' : 'light';
-  const { styles, theme } = useStyles(stylesheet, {
-    colorScheme,
-  });
+  const { theme } = useUnistyles();
   return (
     <Pressable onPress={onPress} hitSlop={4}>
       {({ pressed }) => (
@@ -45,27 +43,15 @@ export const ButtonApple = ({ onPress }: { onPress: () => void }) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   button: (pressed: boolean) => ({
     borderRadius: theme.borderRadius.medium,
     padding: theme.spacing.medium,
     flexDirection: 'row',
-    variants: {
-      colorScheme: {
-        light: {
-          backgroundColor: colorWithOpacity(
-            theme.colors.black,
-            pressed ? 0.8 : 1,
-          ),
-        },
-        dark: {
-          backgroundColor: colorWithOpacity(
-            theme.colors.white,
-            pressed ? 0.8 : 1,
-          ),
-        },
-      },
-    },
+    backgroundColor:
+      UnistylesRuntime.colorScheme === 'dark'
+        ? colorWithOpacity(theme.colors.white, pressed ? 0.8 : 1)
+        : colorWithOpacity(theme.colors.black, pressed ? 0.8 : 1),
   }),
   appleIcon: {
     position: 'absolute',
@@ -79,16 +65,10 @@ const stylesheet = createStyleSheet(theme => ({
     flex: 1,
   },
   buttonText: {
-    variants: {
-      colorScheme: {
-        light: {
-          color: theme.colors.white,
-        },
-        dark: {
-          color: theme.colors.black,
-        },
-      },
-    },
+    color:
+      UnistylesRuntime.colorScheme === 'dark'
+        ? theme.colors.black
+        : theme.colors.white,
     textAlign: 'center',
     fontWeight: 'bold',
   },

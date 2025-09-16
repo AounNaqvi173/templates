@@ -1,7 +1,7 @@
 import { Text } from '@/craftrn-ui/components/Text/Text';
 import React, { useEffect, useState } from 'react';
 import { TextStyle } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 type ThinkingIndicatorProps = {
   style?: TextStyle;
@@ -10,13 +10,12 @@ type ThinkingIndicatorProps = {
   delay?: number;
 };
 
-export const ThinkingIndicator = ({ 
-  style, 
+export const ThinkingIndicator = ({
+  style,
   isTyping,
   isNewMessage,
-  delay = 400 
+  delay = 400,
 }: ThinkingIndicatorProps) => {
-  const { styles } = useStyles(stylesheet);
   const [showThinking, setShowThinking] = useState(!isTyping);
   const [ellipsisCount, setEllipsisCount] = useState(0);
 
@@ -54,7 +53,7 @@ export const ThinkingIndicator = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   typingText: {
     color: theme.colors.contentSecondary,
     fontStyle: 'italic',

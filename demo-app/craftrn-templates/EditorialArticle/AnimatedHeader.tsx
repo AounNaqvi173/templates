@@ -7,11 +7,7 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 
 type AnimatedHeaderProps = {
   scrollPosition: SharedValue<number>;
@@ -30,7 +26,7 @@ export const AnimatedHeader: ComponentType<AnimatedHeaderProps> = ({
   threshold,
 }) => {
   const headerHeight = useHeaderHeight();
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const headerAnimatedStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
@@ -68,7 +64,7 @@ export const AnimatedHeader: ComponentType<AnimatedHeaderProps> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   header: {
     paddingRight: theme.spacing.large,
     position: 'absolute',

@@ -4,7 +4,7 @@ import { Help } from '@/tetrisly-icons/Help';
 import { LogOut } from '@/tetrisly-icons/LogOut';
 import { UserClose } from '@/tetrisly-icons/UserClose';
 import React, { useState } from 'react';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { SectionHeader } from './SectionHeader';
 import { SettingsItem } from './SettingsItem';
 import { SignOutBottomSheet } from './SignOutBottomSheet';
@@ -12,7 +12,7 @@ import { SignOutBottomSheet } from './SignOutBottomSheet';
 export const SecurityPrivacySection = () => {
   const [signOutBottomSheetVisible, setSignOutBottomSheetVisible] =
     useState(false);
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const iconProps = {
     color: theme.colors.contentPrimary,
@@ -55,7 +55,7 @@ export const SecurityPrivacySection = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   card: {
     marginBottom: theme.spacing.large,
     marginHorizontal: theme.spacing.large,

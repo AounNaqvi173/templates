@@ -12,11 +12,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { AnimatedHeader } from './AnimatedHeader';
 import { Shadow } from './Shadow';
 import { staysData } from './data/stays';
@@ -28,7 +24,7 @@ type Props = {
 };
 
 export const StaysDetailsScreen: ComponentType<Props> = ({ id }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const headerHeight = useHeaderHeight();
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollPosition = useSharedValue(0);
@@ -168,7 +164,7 @@ export const StaysDetailsScreen: ComponentType<Props> = ({ id }) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.backgroundPrimary,

@@ -3,7 +3,7 @@ import { Download } from '@/tetrisly-icons/Download';
 import { File } from '@/tetrisly-icons/File';
 import React from 'react';
 import { Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 const ICON_CONTAINER_SIZE = 40;
 
@@ -16,7 +16,7 @@ export const FileAttachment = ({
   fileSize: string;
   onPressDownload: () => void;
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   return (
     <Pressable onPress={onPressDownload}>
@@ -42,7 +42,7 @@ export const FileAttachment = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flexDirection: 'row',
     borderWidth: 1,

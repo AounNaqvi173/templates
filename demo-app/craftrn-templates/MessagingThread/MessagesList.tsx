@@ -7,7 +7,7 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { BackToBottomButton } from './BackToBottomButton';
 import { Message } from './data/discussions';
 import { User } from './data/users';
@@ -24,7 +24,6 @@ export const MessagesList = ({
   messages,
   onShowMoreBottomSheet,
 }: MessagesListProps) => {
-  const { styles } = useStyles(stylesheet);
   const scrollRef = useAnimatedRef<Animated.FlatList<Message>>();
   const scrollPosition = useSharedValue(0);
 
@@ -117,7 +116,7 @@ export const MessagesList = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   flatList: {
     flex: 1,
     position: 'relative',

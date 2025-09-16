@@ -2,7 +2,7 @@ import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { ChevronRight } from '@/tetrisly-icons/ChevronRight';
 import React, { ComponentProps, ComponentType } from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 type SettingsItemProps = ComponentProps<typeof ListItem> & {
   chevronRight?: boolean;
@@ -14,7 +14,7 @@ export const SettingsItem: ComponentType<SettingsItemProps> = ({
   chevronRight = true,
   ...listItemProps
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const leftItem = itemLeft ? (
     <View style={styles.itemLeft}>{itemLeft}</View>
   ) : undefined;
@@ -34,7 +34,7 @@ export const SettingsItem: ComponentType<SettingsItemProps> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   listItem: {
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.small,

@@ -6,11 +6,7 @@ import { ChevronRight } from '@/tetrisly-icons/ChevronRight';
 import { Settings } from '@/tetrisly-icons/Settings';
 import React, { ComponentType, useState } from 'react';
 import { View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 
 type Props = {
   visible: boolean;
@@ -21,7 +17,7 @@ export const MoreOptionsBottomSheet: ComponentType<Props> = ({
   visible,
   onRequestClose,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const [notificationEnabled, setNotificationEnabled] = useState(true);
 
   const iconProps = {
@@ -67,7 +63,7 @@ export const MoreOptionsBottomSheet: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   bottomSheetContent: {
     paddingBottom: UnistylesRuntime.insets.bottom,
   },

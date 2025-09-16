@@ -6,7 +6,7 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 type AnimatedHeaderProps = {
   scrollPosition: SharedValue<number>;
@@ -18,7 +18,6 @@ export const AnimatedHeader: ComponentType<AnimatedHeaderProps> = ({
   carouselHeight,
 }) => {
   const headerHeight = useHeaderHeight();
-  const { styles } = useStyles(stylesheet);
 
   const headerAnimatedStyle = useAnimatedStyle(
     () => ({
@@ -42,7 +41,7 @@ export const AnimatedHeader: ComponentType<AnimatedHeaderProps> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   header: ({ headerHeight }: { headerHeight: number }) => ({
     position: 'absolute',
     top: 0,

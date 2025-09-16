@@ -1,7 +1,7 @@
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useCallback, useRef } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { EditorialCategory, EditorialCategoryData } from './data/categories';
 
 export const CATEGORY_ITEM_HEIGHT = 40;
@@ -16,12 +16,19 @@ export const CategoryItem = ({
   selected,
   onPress,
 }: CategoryItemProps) => {
-  const { styles } = useStyles(categoryItemStylesheet);
-
   return (
-    <View style={[styles.container, selected && styles.selectedContainer]}>
-      <Pressable onPress={onPress} hitSlop={4} style={styles.touchable}>
-        <View style={styles.contentContainer}>
+    <View
+      style={[
+        categoryItemStyles.container,
+        selected && categoryItemStyles.selectedContainer,
+      ]}
+    >
+      <Pressable
+        onPress={onPress}
+        hitSlop={4}
+        style={categoryItemStyles.touchable}
+      >
+        <View style={categoryItemStyles.contentContainer}>
           <Text
             variant="body2"
             color={selected ? 'contentAccent' : 'contentSecondary'}
@@ -34,7 +41,7 @@ export const CategoryItem = ({
   );
 };
 
-const categoryItemStylesheet = createStyleSheet(theme => ({
+const categoryItemStyles = StyleSheet.create(theme => ({
   container: {
     height: CATEGORY_ITEM_HEIGHT,
     marginHorizontal: theme.spacing.xsmall,
@@ -65,7 +72,6 @@ export const Categories: ComponentType<Props> = ({
   onPress,
   selectedCategoryTitle,
 }) => {
-  const { styles } = useStyles(categoriesStylesheet);
   const flatListRef = useRef<FlatList<EditorialCategory>>(null);
 
   const handlePressCategory = useCallback(
@@ -96,14 +102,14 @@ export const Categories: ComponentType<Props> = ({
       )}
       showsHorizontalScrollIndicator={false}
       keyExtractor={item => item.title.toString()}
-      style={styles.list}
-      contentContainerStyle={styles.contentContainer}
+      style={categoriesStyles.list}
+      contentContainerStyle={categoriesStyles.contentContainer}
       decelerationRate="fast"
     />
   );
 };
 
-const categoriesStylesheet = createStyleSheet(theme => ({
+const categoriesStyles = StyleSheet.create(theme => ({
   list: {
     paddingHorizontal: theme.spacing.medium,
   },

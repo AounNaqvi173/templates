@@ -1,7 +1,7 @@
 import { Text } from '@/craftrn-ui/components/Text';
 import { ComponentType, default as React } from 'react';
 import { Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 const config = {
   minHeight: 40,
@@ -18,7 +18,6 @@ export const FilterItem: ComponentType<FilterItemProps> = ({
   label,
   onPress,
 }) => {
-  const { styles } = useStyles(stylesheet);
   return (
     <Pressable onPress={onPress}>
       <View style={styles.container}>
@@ -33,7 +32,7 @@ export const FilterItem: ComponentType<FilterItemProps> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     minHeight: config.minHeight,
     justifyContent: 'space-between',

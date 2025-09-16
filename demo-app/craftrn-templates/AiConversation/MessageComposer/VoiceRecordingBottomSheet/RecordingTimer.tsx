@@ -1,6 +1,6 @@
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { useCallback, useEffect, useState } from 'react';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 type RecordingTimerProps = {
   isRunning: boolean;
@@ -13,7 +13,6 @@ export const RecordingTimer = ({
   shouldReset = false,
   onTimeChange,
 }: RecordingTimerProps) => {
-  const { styles } = useStyles(stylesheet);
   const [recordingTime, setRecordingTime] = useState(0);
 
   useEffect(() => {
@@ -57,7 +56,7 @@ export const RecordingTimer = ({
   );
 };
 
-const stylesheet = createStyleSheet(() => ({
+const styles = StyleSheet.create(() => ({
   timer: {
     fontFamily: 'SpaceMono',
     fontWeight: 'bold',

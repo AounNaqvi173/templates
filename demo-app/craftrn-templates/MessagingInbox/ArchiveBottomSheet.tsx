@@ -3,11 +3,7 @@ import { Button } from '@/craftrn-ui/components/Button/Button';
 import { Text } from '@/craftrn-ui/components/Text/Text';
 import React, { ComponentProps, ComponentType } from 'react';
 import { View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 
 type Props = Pick<
   ComponentProps<typeof BottomSheet>,
@@ -23,7 +19,7 @@ export const ArchiveBottomSheet: ComponentType<Props> = ({
   onPressCancel,
   onPressConfirm,
 }) => {
-  const { styles } = useStyles(stylesheet);
+  
   return (
     <BottomSheet
       enableOverlayTapToClose
@@ -48,7 +44,7 @@ export const ArchiveBottomSheet: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     paddingHorizontal: theme.spacing.large,
     paddingBottom: UnistylesRuntime.insets.bottom,

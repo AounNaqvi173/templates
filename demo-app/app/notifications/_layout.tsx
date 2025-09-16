@@ -1,9 +1,9 @@
 import { Stack } from 'expo-router';
 import React from 'react';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 
 export default function NotificationsLayout() {
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
   return (
     <Stack>
       <Stack.Screen

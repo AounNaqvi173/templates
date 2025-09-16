@@ -1,5 +1,4 @@
 import { FloatingBackButton } from '@/components/FloatingBackButton';
-import '@/craftrn-ui/themes/unistyles';
 import { useFonts } from 'expo-font';
 import { Stack, usePathname } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -42,15 +41,11 @@ export default function RootLayout() {
 
   useEffect(() => {
     async function onFetchUpdateAsync() {
-      try {
-        const update = await Updates.checkForUpdateAsync();
+      const update = await Updates.checkForUpdateAsync();
 
-        if (update.isAvailable) {
-          await Updates.fetchUpdateAsync();
-          await Updates.reloadAsync();
-        }
-      } catch (error) {
-        // Handle error
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
       }
     }
 

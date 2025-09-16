@@ -1,7 +1,7 @@
 import { Button } from '@/craftrn-ui/components/Button';
 import React from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 export const AccessRequest = ({
   onPressConfirm,
@@ -10,7 +10,6 @@ export const AccessRequest = ({
   onPressConfirm: () => void;
   onPressDeny: () => void;
 }) => {
-  const { styles } = useStyles(stylesheet);
   return (
     <View style={styles.container}>
       <Button intent="secondary" size="small" onPress={onPressDeny}>
@@ -23,7 +22,7 @@ export const AccessRequest = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flexDirection: 'row',
     gap: theme.spacing.small,

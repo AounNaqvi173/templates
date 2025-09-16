@@ -9,9 +9,9 @@ import React, {
 import { Platform } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import {
-  createStyleSheet,
+  StyleSheet,
   UnistylesRuntime,
-  useStyles,
+  useUnistyles,
 } from 'react-native-unistyles';
 import { getRandomAiResponse } from './data/ai-responses';
 import {
@@ -30,7 +30,7 @@ export const AiConversationScreen: ComponentType<Props> = ({
   id,
   updateNavigationHeader,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const headerHeight = useHeaderHeight();
 
   // Use measured header heights since React Navigation calculations are incorrect
@@ -101,7 +101,7 @@ export const AiConversationScreen: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.backgroundSecondary,

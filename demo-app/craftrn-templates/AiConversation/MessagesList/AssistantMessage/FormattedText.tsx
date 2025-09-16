@@ -1,7 +1,7 @@
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { useCallback } from 'react';
 import { TextStyle } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 type FormattedTextProps = {
   children: string;
@@ -9,8 +9,6 @@ type FormattedTextProps = {
 };
 
 export const FormattedText = ({ children, style }: FormattedTextProps) => {
-  const { styles } = useStyles(stylesheet);
-
   const parseContent = useCallback(() => {
     // Split by paragraphs first (double line breaks)
     const paragraphs = children.split('\n\n').filter(p => p.trim());
@@ -89,7 +87,7 @@ export const FormattedText = ({ children, style }: FormattedTextProps) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   boldText: {
     fontWeight: 'bold',
   },

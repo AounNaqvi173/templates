@@ -9,11 +9,7 @@ import React, {
   useState,
 } from 'react';
 import { View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { RecordingTimer } from './RecordingTimer';
 import { VoiceWaveAnimation } from './VoiceWaveAnimation';
 
@@ -30,7 +26,7 @@ export const VoiceRecordingBottomSheet: ComponentType<Props> = ({
   onClose,
   onSend,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const [shouldResetTimer, setShouldResetTimer] = useState(false);
 
   const handleClose = useCallback(() => {
@@ -79,7 +75,7 @@ export const VoiceRecordingBottomSheet: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     paddingHorizontal: theme.spacing.large,
     paddingTop: theme.spacing.xlarge,

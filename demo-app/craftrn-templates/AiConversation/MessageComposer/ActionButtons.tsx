@@ -4,7 +4,7 @@ import { Mic } from '@/tetrisly-icons/Mic';
 import { Plus } from '@/tetrisly-icons/Plus';
 import React from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 type ActionButtonsProps = {
   onAttachmentPress: () => void;
@@ -17,7 +17,7 @@ export const ActionButtons = ({
   onVoiceRecordingPress,
   onSendPress,
 }: ActionButtonsProps) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   return (
     <View style={styles.container}>
@@ -47,7 +47,7 @@ export const ActionButtons = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flexDirection: 'row',
     gap: theme.spacing.medium,

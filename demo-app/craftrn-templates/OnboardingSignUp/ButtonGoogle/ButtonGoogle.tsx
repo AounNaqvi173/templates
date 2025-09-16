@@ -1,13 +1,12 @@
 import { Text } from '@/craftrn-ui/components/Text';
 import React from 'react';
 import { Pressable, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { GoogleIcon } from './GoogleIcon';
 
 const ICON_SIZE = 40;
 
 export const ButtonGoogle = ({ onPress }: { onPress: () => void }) => {
-  const { styles } = useStyles(stylesheet);
   return (
     <Pressable onPress={onPress} hitSlop={4}>
       {({ pressed }) => (
@@ -26,7 +25,7 @@ export const ButtonGoogle = ({ onPress }: { onPress: () => void }) => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   button: (pressed: boolean) => ({
     backgroundColor: pressed
       ? theme.colors.backgroundTertiary

@@ -1,17 +1,12 @@
 import React, { ComponentType } from 'react';
 import { ScrollView } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { PersonalInformation } from './PersonalInformation';
 import { ProfileAvatar } from './ProfileAvatar';
 import { ProfileSettings } from './ProfileSettings';
 import { ProfileStats } from './ProfileStats';
 
 export const ProfileScreen: ComponentType = () => {
-  const { styles } = useStyles(stylesheet);
 
   return (
     <ScrollView
@@ -26,7 +21,7 @@ export const ProfileScreen: ComponentType = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.backgroundSecondary,

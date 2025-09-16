@@ -2,12 +2,12 @@ import { ButtonRound } from '@/craftrn-ui/components/ButtonRound/ButtonRound';
 import { ChevronLeft } from '@/tetrisly-icons/ChevronLeft';
 import React, { ComponentProps } from 'react';
 import { Platform, View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 export const NavigationBackButton = (
   props: Partial<ComponentProps<typeof ButtonRound>>,
 ) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   return (
     <View style={styles.container}>
       <ButtonRound
@@ -20,7 +20,7 @@ export const NavigationBackButton = (
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     marginRight:
       Platform.OS === 'ios' ? theme.spacing.xsmall : theme.spacing.medium,

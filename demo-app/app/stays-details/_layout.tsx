@@ -1,11 +1,11 @@
 import { Stack, useRouter } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 import { NavigationBackButton } from '../../components/NavigationBackButton';
 
 export default function StaysDetailsLayout() {
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
   const router = useRouter();
 
   return (

@@ -1,11 +1,11 @@
 import { NavigationBackButton } from '@/components/NavigationBackButton';
 import { Stack, useRouter } from 'expo-router';
 import React from 'react';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 
 export default function TradingOrderLayout() {
   const router = useRouter();
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
   return (
     <Stack>
       <Stack.Screen

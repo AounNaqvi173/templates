@@ -1,13 +1,13 @@
 import { ComponentType } from 'react';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 
 type Props = {
   height: number;
 };
 
 export const Gradient: ComponentType<Props> = ({ height }) => {
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
   return (
     <Svg height={height} width="100%">
       <Defs>

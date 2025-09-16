@@ -8,11 +8,7 @@ import React, {
 } from 'react';
 import { Platform } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { discussionsData } from './data/discussions';
 import { currentUser, User } from './data/users';
 import { MessageComposer } from './MessageComposer';
@@ -29,7 +25,7 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
   updateNavigationHeader,
 }) => {
   const [moreBottomSheetVisible, setMoreBottomSheetVisible] = useState(false);
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const headerHeight = useHeaderHeight();
 
@@ -89,7 +85,7 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.backgroundSecondary,

@@ -1,10 +1,10 @@
 import { Stack, useRouter } from 'expo-router';
 import React from 'react';
-import { useStyles } from 'react-native-unistyles';
+import { useUnistyles } from 'react-native-unistyles';
 import { NavigationBackButton } from '../../components/NavigationBackButton';
 
 export default function OnboardingOneTimeCodeLayout() {
-  const { theme } = useStyles();
+  const { theme } = useUnistyles();
   const router = useRouter();
   return (
     <Stack>

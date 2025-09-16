@@ -9,7 +9,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 const ANIMATION_DURATION = 250;
 const SCROLL_POSITION_THRESHOLD = 50;
@@ -21,7 +21,7 @@ export const BackToBottomButton = ({
   scrollPosition: SharedValue<number>;
   scrollRef: AnimatedRef<Animated.FlatList<any>>;
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const backToBottomButtonStyle = useAnimatedStyle(() => {
     const { value } = scrollPosition;
@@ -56,7 +56,7 @@ export const BackToBottomButton = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   button: {
     backgroundColor: theme.colors.surfacePrimary,
     bottom: theme.spacing.small,

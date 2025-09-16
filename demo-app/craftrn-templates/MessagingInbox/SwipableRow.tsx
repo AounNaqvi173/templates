@@ -12,7 +12,7 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 const RIGHT_ACTION_WIDTH = 72;
 
@@ -37,7 +37,6 @@ const RightAction = ({
   swipeableRef,
   onPress,
 }: RightActionProps) => {
-  const { styles } = useStyles(rightActionStylesheet);
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
       {
@@ -54,15 +53,18 @@ const RightAction = ({
   }, [swipeableRef, onPress]);
 
   return (
-    <Animated.View style={[styles.container, animatedStyle]}>
-      <RectButton style={[styles.rectButton(color)]} onPress={handleOnPress}>
+    <Animated.View style={[rightActionStyles.container, animatedStyle]}>
+      <RectButton
+        style={[rightActionStyles.rectButton(color)]}
+        onPress={handleOnPress}
+      >
         <View
-          style={styles.rectButtonContent}
+          style={rightActionStyles.rectButtonContent}
           accessible
           accessibilityRole="button"
         >
           {icon}
-          <Text variant="body2" style={styles.text}>
+          <Text variant="body2" style={rightActionStyles.text}>
             {text}
           </Text>
         </View>
@@ -71,7 +73,7 @@ const RightAction = ({
   );
 };
 
-const rightActionStylesheet = createStyleSheet(theme => ({
+const rightActionStyles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
   },
@@ -105,7 +107,7 @@ export const SwipeableRow = ({
   onPressArchive,
 }: SwipeableRowProps) => {
   const swipeableRef = useRef<SwipeableMethods>(null);
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   return (
     <ReanimatedSwipeable
@@ -143,7 +145,7 @@ export const SwipeableRow = ({
   );
 };
 
-const stylesheet = createStyleSheet({
+const styles = StyleSheet.create({
   rightAction: {
     flexDirection: 'row',
     width: RIGHT_ACTION_WIDTH * 2,

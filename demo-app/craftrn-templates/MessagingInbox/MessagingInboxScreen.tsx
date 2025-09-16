@@ -1,10 +1,6 @@
 import React, { ComponentType, useCallback, useMemo, useState } from 'react';
 import { FlatList } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { ChatItem, HEIGHT } from './ChatItem';
 import { InboxItem, inboxItemData } from './data/inbox';
 import { Filter, FilterList } from './FilterList';
@@ -22,7 +18,6 @@ export const MessagingInboxScreen: ComponentType<Props> = ({
   const [activeFilter, setActiveFilter] = useState<Filter>('all');
   const [moreBottomSheetVisible, setMoreBottomSheetVisible] = useState(false);
   const [selectedInboxId, setSelectedInboxId] = useState<string | null>(null);
-  const { styles } = useStyles(stylesheet);
 
   const filteredData = useMemo(() => {
     let data = inboxItemData;
@@ -118,7 +113,7 @@ export const MessagingInboxScreen: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
   },

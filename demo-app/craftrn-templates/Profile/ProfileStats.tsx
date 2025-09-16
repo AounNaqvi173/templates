@@ -1,12 +1,10 @@
 import { Text } from '@/craftrn-ui/components/Text';
 import React from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { profileData } from './data/profileData';
 
 export const ProfileStats = () => {
-  const { styles } = useStyles(stylesheet);
-
   return (
     <View style={styles.statsContainer}>
       <View style={styles.statCard}>
@@ -25,7 +23,7 @@ export const ProfileStats = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

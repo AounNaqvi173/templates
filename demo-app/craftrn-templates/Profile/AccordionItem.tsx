@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import { StyleSheet } from 'react-native-unistyles';
 
 interface AccordionItemProps {
   isExpanded: boolean;

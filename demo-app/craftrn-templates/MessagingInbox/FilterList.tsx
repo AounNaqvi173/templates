@@ -1,6 +1,6 @@
 import { Button } from '@/craftrn-ui/components/Button';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 export type Filter = 'all' | 'unread' | 'favourites';
 
@@ -17,7 +17,6 @@ export const FilterList = ({
   activeFilter: Filter;
   onFilterChange: (filter: Filter) => void;
 }) => {
-  const { styles } = useStyles(stylesheet);
   return (
     <View style={styles.filterContainer}>
       {filterOptions.map(filter => (
@@ -34,7 +33,7 @@ export const FilterList = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   filterContainer: {
     flexDirection: 'row',
     paddingHorizontal: theme.spacing.large,

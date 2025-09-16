@@ -8,7 +8,7 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 
 const WAVE_HEIGHT = 30;
 
@@ -19,8 +19,6 @@ type VoiceWaveAnimationProps = {
 export const VoiceWaveAnimation = ({
   isAnimating,
 }: VoiceWaveAnimationProps) => {
-  const { styles } = useStyles(stylesheet);
-
   // Create more wave bars for a smoother effect
   const waves = [
     useSharedValue(0.2),
@@ -36,9 +34,13 @@ export const VoiceWaveAnimation = ({
     useSharedValue(0.2),
   ];
 
-  const createNaturalAnimation = (waveValue: Animated.SharedValue<number>, baseHeight: number, index: number) => {
+  const createNaturalAnimation = (
+    waveValue: Animated.SharedValue<number>,
+    baseHeight: number,
+    index: number,
+  ) => {
     'worklet';
-    
+
     // Create more natural, random-like patterns
     const variations = [
       { height: baseHeight * 0.3, duration: 200 + Math.random() * 100 },
@@ -48,22 +50,20 @@ export const VoiceWaveAnimation = ({
       { height: baseHeight * 0.4, duration: 190 + Math.random() * 110 },
       { height: baseHeight * 0.7, duration: 170 + Math.random() * 90 },
     ];
-    
+
     const animateSequence = () => {
-      const randomVariation = variations[Math.floor(Math.random() * variations.length)];
-      
-      return withTiming(
-        randomVariation.height,
-        {
-          duration: randomVariation.duration,
-          easing: Easing.bezier(0.4, 0.0, 0.2, 1), // Natural easing
-        },
-      );
+      const randomVariation =
+        variations[Math.floor(Math.random() * variations.length)];
+
+      return withTiming(randomVariation.height, {
+        duration: randomVariation.duration,
+        easing: Easing.bezier(0.4, 0.0, 0.2, 1), // Natural easing
+      });
     };
 
     // Start with a slight delay based on position for wave effect
     const startDelay = index * 50;
-    
+
     setTimeout(() => {
       waveValue.value = withRepeat(
         withSequence(
@@ -81,14 +81,18 @@ export const VoiceWaveAnimation = ({
   useEffect(() => {
     if (isAnimating) {
       // Base heights for each bar (creates natural wave pattern)
-      const baseHeights = [0.3, 0.5, 0.7, 0.4, 0.9, 1.0, 0.8, 0.6, 0.5, 0.4, 0.3];
-      
+      const baseHeights = [
+        0.3, 0.5, 0.7, 0.4, 0.9, 1.0, 0.8, 0.6, 0.5, 0.4, 0.3,
+      ];
+
       waves.forEach((wave, index) => {
         createNaturalAnimation(wave, baseHeights[index], index);
       });
     } else {
       // Smoothly reset to base positions
-      const baseHeights = [0.2, 0.4, 0.6, 0.3, 0.8, 1.0, 0.7, 0.5, 0.4, 0.3, 0.2];
+      const baseHeights = [
+        0.2, 0.4, 0.6, 0.3, 0.8, 1.0, 0.7, 0.5, 0.4, 0.3, 0.2,
+      ];
       waves.forEach((wave, index) => {
         wave.value = withTiming(baseHeights[index] * 0.3, {
           duration: 400,
@@ -106,17 +110,14 @@ export const VoiceWaveAnimation = ({
         }));
 
         return (
-          <Animated.View
-            key={index}
-            style={[styles.waveBar, animatedStyle]}
-          />
+          <Animated.View key={index} style={[styles.waveBar, animatedStyle]} />
         );
       })}
     </View>
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   waveContainer: {
     flexDirection: 'row',
     alignItems: 'center',

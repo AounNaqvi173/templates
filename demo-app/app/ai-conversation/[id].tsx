@@ -6,12 +6,12 @@ import { Plus } from '@/tetrisly-icons/Plus';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useMemo } from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 export default function AiConversation() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const navigation = useNavigation();
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
 
   const conversation = useMemo(
     () => conversationsData.find((c: any) => c.id === id),
@@ -59,7 +59,7 @@ export default function AiConversation() {
   );
 }
 
-const stylesheet = createStyleSheet({
+const styles = StyleSheet.create({
   headerLeft: {
     opacity: 0,
   },

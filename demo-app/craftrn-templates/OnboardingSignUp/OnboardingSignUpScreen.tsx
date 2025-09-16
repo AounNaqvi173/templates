@@ -5,11 +5,7 @@ import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
 import React, { ComponentType, useCallback, useState } from 'react';
 import { ImageBackground, ScrollView, View } from 'react-native';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { ButtonApple } from './ButtonApple';
 import { ButtonGoogle } from './ButtonGoogle';
 import { countryCodes } from './data/countryCodes';
@@ -27,7 +23,7 @@ export const OnboardingSignUpScreen: ComponentType<Props> = ({
   onPressCountry,
   onPressContinue,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const [phoneNumber, setPhoneNumber] = useState<string>('');
 
   const handlePressCountry = useCallback(
@@ -128,7 +124,7 @@ export const OnboardingSignUpScreen: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   mainContainer: {
     flex: 1,
   },

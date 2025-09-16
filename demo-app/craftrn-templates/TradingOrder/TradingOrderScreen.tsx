@@ -4,7 +4,7 @@ import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useMemo, useState } from 'react';
 import { Platform, TextInput, View } from 'react-native';
 import { KeyboardStickyView } from 'react-native-keyboard-controller';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { AssetListItem } from './AssetListItem';
 import { assets } from './data/assets';
 import { ExchangeRate } from './ExchangeRate';
@@ -21,7 +21,7 @@ export const TradingOrderScreen: ComponentType<Props> = ({
   id,
   onPressInvest,
 }) => {
-  const { styles, theme } = useStyles(stylesheet);
+  const { theme } = useUnistyles();
   const [investValue, setInvestValue] = useState('');
 
   const asset = useMemo(() => {
@@ -97,7 +97,7 @@ export const TradingOrderScreen: ComponentType<Props> = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     gap: theme.spacing.small,
     paddingHorizontal: theme.spacing.large,

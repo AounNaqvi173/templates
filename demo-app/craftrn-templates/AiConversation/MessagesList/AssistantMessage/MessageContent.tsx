@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { Message } from '../../data/conversations';
 import { ActionButtons } from './ActionButtons';
 import { FormattedText } from './FormattedText';
@@ -20,7 +20,6 @@ export const MessageContent = ({
   isLoading,
   onNewMessageComplete,
 }: MessageContentProps) => {
-  const { styles } = useStyles(stylesheet);
   const [isTypewritingComplete, setIsTypewritingComplete] = useState(false);
 
   const handleTypewritingComplete = () => {
@@ -62,7 +61,7 @@ export const MessageContent = ({
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   messageText: {
     color: theme.colors.contentPrimary,
     lineHeight: 24,

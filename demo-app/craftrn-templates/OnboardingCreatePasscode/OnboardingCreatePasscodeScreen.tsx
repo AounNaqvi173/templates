@@ -2,14 +2,9 @@ import { PasscodeEntry } from '@/craftrn-ui/components/PasscodeEntry';
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType } from 'react';
 import { View } from 'react-native';
-import {
-  createStyleSheet,
-  UnistylesRuntime,
-  useStyles,
-} from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 
 export const OnboardingCreatePasscodeScreen: ComponentType = () => {
-  const { styles } = useStyles(stylesheet);
 
   return (
     <View style={styles.container}>
@@ -39,7 +34,7 @@ export const OnboardingCreatePasscodeScreen: ComponentType = () => {
   );
 };
 
-const stylesheet = createStyleSheet(theme => ({
+const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
   },
