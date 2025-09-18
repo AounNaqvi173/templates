@@ -1,10 +1,10 @@
-# AI Conversation Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+AI chat interface with typewriter animations, voice recording, and real-time messaging. Use this template for conversational AI, customer support, or interactive chat experiences.
 
-This AI Conversation template provides a complete chat interface designed for AI assistant interactions with real-time typing animations, voice recording, and rich text formatting. It follows the **colocation** principle with feature-focused modular components.
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 ### Core Components Structure
 
@@ -28,32 +28,12 @@ AiConversation/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `BottomSheet` for modal interfaces
 - `Text` components with typography scaling
 - `Card` for message bubbles
 - Keyboard-aware scrolling with `react-native-keyboard-controller`
-
-## Key Patterns for AI Customization
-
-### 1. Animation System Pattern
-
-- **Typewriter Effect**: Character-by-character text reveal using Reanimated
-- **Thinking Indicator**: Pulsing animation during AI processing
-- **Voice Wave Animation**: Visual feedback during recording
-- **Message Entry**: Smooth entrance animations for new messages
-
-### 2. Message Composition Pattern
-
-- **Compound Components**: MessageComposer coordinates input, buttons, and modals
-- **Render Props**: FormattedText accepts custom renderers for code blocks
-- **Custom Hooks**: Animation and behavior logic extracted into reusable hooks
-
-### 3. Voice Recording System
-
-- **Bottom Sheet Interface**: Modal for voice recording controls
-- **Wave Animation**: Visual feedback during recording
-- **Haptic Feedback**: Enhanced user interaction experience
 
 ## Data Structure & API Integration
 
@@ -85,7 +65,8 @@ Recommended pattern for AI service integration:
 export const useConversation = (conversationId: string) => {
   return useQuery({
     queryKey: ['conversation', conversationId],
-    queryFn: () => fetch(`/api/conversations/${conversationId}`).then(r => r.json()),
+    queryFn: () =>
+      fetch(`/api/conversations/${conversationId}`).then(r => r.json()),
   });
 };
 
@@ -129,7 +110,7 @@ const FormattedText = ({ content, renderCode }) => {
 };
 ```
 
-## Template Extension & Reuse Patterns
+## Integration & Extension Patterns
 
 ### AI Service Integration Options
 
@@ -164,7 +145,16 @@ This AI Conversation template can be adapted for:
 - **Message Search**: Implement conversation search functionality
 - **Message Threading**: Add reply-to-message functionality
 
-### Customization Guidelines
+## Code Style & TypeScript Rules
+
+**STRICT TYPING REQUIREMENTS:**
+
+- NEVER use `any` type - always provide specific types
+- NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
+- Use proper type definitions and interfaces
+- Use type guards and narrowing instead of assertions
+
+**COMPONENT PATTERNS:**
 
 - Follow existing component composition patterns
 - Use craftrn-ui components for consistency
@@ -173,18 +163,10 @@ This AI Conversation template can be adapted for:
 - Keep message flow and scrolling mechanics
 - Maintain feature-based file colocation - group related files together rather than separating by type (avoid generic `hooks/`, `components/` folders unless shared across multiple features)
 
-## TypeScript Rules
-
-**STRICT TYPING REQUIREMENTS:**
-- NEVER use `any` type - always provide specific types
-- NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
-- Use proper type definitions and interfaces
-- Use type guards and narrowing instead of assertions
-
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

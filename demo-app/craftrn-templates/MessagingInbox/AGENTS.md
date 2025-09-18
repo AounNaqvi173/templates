@@ -1,10 +1,10 @@
-# Messaging Inbox Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Comprehensive message list interface with conversation previews, unread indicators, and message management. Use for chat inboxes, conversation lists, or communication hubs.
 
-This Messaging Inbox template provides a sophisticated chat management interface with swipe gestures, filtering, and batch operations. It follows the **colocation** principle with gesture-driven interactions for comprehensive messaging applications.
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 ### Core Components Structure
 
@@ -23,34 +23,12 @@ MessagingInbox/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `Avatar` for participant profiles
 - `BottomSheet` for actions and confirmations
 - `ListItem` patterns for chat rows
 - High-performance `FlatList` with gesture integration
-
-## Key Patterns for AI Customization
-
-### 1. Advanced Swipe Gesture System
-
-- **Dual Actions**: More and Archive actions with different colors
-- **Smooth Animations**: `interpolate` for fluid reveal animations
-- **Gesture Control**: Auto-close after action selection
-- **Progressive Disclosure**: Actions reveal based on swipe distance
-
-### 2. High-Performance List Pattern
-
-- **Item Height Caching**: Pre-calculated item layouts
-- **Viewport Culling**: Removes off-screen items from memory
-- **Batch Rendering**: Controls render batch sizes
-- **Optimized Scroll**: Smooth scrolling with large datasets
-
-### 3. Multi-Filter System
-
-- **Filter Types**: All, Unread, Favorites
-- **Search Integration**: Real-time participant name search
-- **Combined Filtering**: Multiple filter criteria support
-- **State Persistence**: Maintains filter state across navigations
 
 ## Data Structure & API Integration
 
@@ -91,7 +69,8 @@ export const useInboxChats = (filters?: {
 }) => {
   return useQuery({
     queryKey: ['inboxChats', filters],
-    queryFn: () => fetch(`/api/chats?${new URLSearchParams(filters)}`).then(r => r.json()),
+    queryFn: () =>
+      fetch(`/api/chats?${new URLSearchParams(filters)}`).then(r => r.json()),
     refetchInterval: 30000, // Real-time updates
   });
 };
@@ -99,21 +78,23 @@ export const useInboxChats = (filters?: {
 // api/useChatActions.ts
 export const useChatActions = () => {
   const queryClient = useQueryClient();
-  
+
   return {
     archiveChat: useMutation({
-      mutationFn: (chatId: string) => fetch(`/api/chats/${chatId}/archive`, { method: 'POST' }),
+      mutationFn: (chatId: string) =>
+        fetch(`/api/chats/${chatId}/archive`, { method: 'POST' }),
       onSuccess: () => queryClient.invalidateQueries(['inboxChats']),
     }),
-    
+
     markAsRead: useMutation({
-      mutationFn: (chatId: string) => fetch(`/api/chats/${chatId}/read`, { method: 'POST' }),
-      onMutate: async (chatId) => {
+      mutationFn: (chatId: string) =>
+        fetch(`/api/chats/${chatId}/read`, { method: 'POST' }),
+      onMutate: async chatId => {
         // Optimistic update for instant UI feedback
         queryClient.setQueryData(['inboxChats'], (old: any) =>
           old?.map((chat: any) =>
-            chat.id === chatId ? { ...chat, unreadCount: 0 } : chat
-          )
+            chat.id === chatId ? { ...chat, unreadCount: 0 } : chat,
+          ),
         );
       },
     }),
@@ -140,19 +121,23 @@ const SwipeableRow = ({ children, onArchive, onMore }) => {
 Dynamic content filtering:
 
 ```typescript
-const useInboxFiltering = (data: InboxItem[], searchText: string, filter: string) => {
+const useInboxFiltering = (
+  data: InboxItem[],
+  searchText: string,
+  filter: string,
+) => {
   return useMemo(() => {
     let filteredData = data;
-    
+
     // Apply search filter
     if (searchText.trim()) {
       filteredData = filteredData.filter(item =>
         item.participants.some(participant =>
-          participant.name.toLowerCase().includes(searchText.toLowerCase())
-        )
+          participant.name.toLowerCase().includes(searchText.toLowerCase()),
+        ),
       );
     }
-    
+
     // Apply status filter
     switch (filter) {
       case 'unread':
@@ -162,7 +147,7 @@ const useInboxFiltering = (data: InboxItem[], searchText: string, filter: string
         filteredData = filteredData.filter(item => item.isFavourite);
         break;
     }
-    
+
     return filteredData;
   }, [data, searchText, filter]);
 };
@@ -216,15 +201,16 @@ This Messaging Inbox template can be adapted for:
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

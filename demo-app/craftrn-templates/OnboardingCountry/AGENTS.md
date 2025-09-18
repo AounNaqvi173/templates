@@ -1,10 +1,10 @@
-# Onboarding Country Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Country/region selection interface for onboarding flows with searchable list, country flags, and optimized performance. Use for location selection, region preferences, or geographical onboarding steps.
 
-This Onboarding Country template provides a comprehensive country/region selection interface for user onboarding flows with searchable list, country flags, and optimized performance. It follows the **colocation** principle with a focused, single-purpose design.
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 ### Core Components Structure
 
@@ -17,33 +17,18 @@ OnboardingCountry/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `InputText` for search functionality
 - `FlatList` with optimizations for smooth scrolling
 - Responsive design for various screen sizes
 
-## Key Patterns for AI Customization
+## Data Structure & API Integration
 
-### 1. High-Performance Search Pattern
-
-- **Real-time Filtering**: Instant search results as user types
-- **Multi-field Search**: Search by country name or phone code
-- **Case-insensitive**: Flexible search matching
-- **Optimized Performance**: Debounced input handling
-
-### 2. Optimized List Rendering
-
-- **Virtual Scrolling**: Renders only visible items for 200+ countries
-- **Item Height Optimization**: Pre-calculated layouts
-- **Batch Rendering**: Controlled rendering for smooth scrolling
-- **Memory Efficiency**: Removes off-screen components
-
-### 3. Country Data Structure
-
-- **Country Names**: Full country names in English
-- **Phone Codes**: International dialing codes
-- **Flag Support**: Unicode flag emojis
-- **ISO Codes**: Standard country identifiers
+- **Static Data**: Use countryCodes.tsx for comprehensive country information
+- **Search Logic**: Case-insensitive filtering by country name
+- **Accessibility**: Proper screen reader support for country selection
+- **Validation**: Country code format validation and ISO standards
 
 ## Data Structure & API Integration
 
@@ -51,10 +36,10 @@ Built with **craftrn-ui** components and **Unistyles** theming:
 
 ```typescript
 type CountryCode = {
-  country: string;   // "United States"
-  code: string;      // "+1"
-  flag: string;      // "🇺🇸"
-  iso: string;       // "US"
+  country: string; // "United States"
+  code: string; // "+1"
+  flag: string; // "🇺🇸"
+  iso: string; // "US"
 };
 ```
 
@@ -92,11 +77,12 @@ Optimized search functionality:
 const useCountrySearch = (countries: CountryCode[], searchText: string) => {
   return useMemo(() => {
     if (!searchText.trim()) return countries;
-    
+
     const lowerSearchText = searchText.toLowerCase();
-    return countries.filter(country => 
-      country.country.toLowerCase().includes(lowerSearchText) ||
-      country.code.includes(searchText)
+    return countries.filter(
+      country =>
+        country.country.toLowerCase().includes(lowerSearchText) ||
+        country.code.includes(searchText),
     );
   }, [countries, searchText]);
 };
@@ -108,7 +94,9 @@ Reusable country selection logic:
 
 ```typescript
 const useCountrySelection = (initialCountry?: string) => {
-  const [selectedCountry, setSelectedCountry] = useState<CountryCode | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode | null>(
+    null,
+  );
   // Follow existing selection patterns from OnboardingCountryScreen.tsx
 };
 ```
@@ -160,15 +148,16 @@ This Onboarding Country template can be adapted for:
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

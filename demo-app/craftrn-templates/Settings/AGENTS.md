@@ -1,10 +1,10 @@
-# Settings Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Comprehensive settings interface with security, notifications, privacy, and user preferences. Use for app configuration screens with hierarchical organization.
 
-This Settings template provides a comprehensive application configuration interface with organized sections for security, notifications, privacy, and user preferences. It follows the **colocation** principle with settings-focused modular components.
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 ### Core Components Structure
 
@@ -28,34 +28,12 @@ Settings/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `Switch` components for boolean settings
 - `ListItem` for navigational settings
 - `BottomSheet` for confirmation flows
 - `PasscodeEntry` for security settings
-
-## Key Patterns for AI Customization
-
-### 1. Hierarchical Settings Organization Pattern
-
-- **Logical Grouping**: Related settings organized into clear sections
-- **Visual Hierarchy**: Section headers with icons and descriptions
-- **Progressive Disclosure**: Detailed settings revealed in bottom sheets
-- **Contextual Actions**: Setting-specific action flows and confirmations
-
-### 2. Modal-Based Detail Views Pattern
-
-- **Passcode Management**: Secure passcode creation and modification flows
-- **Notification Settings**: Granular notification preference controls
-- **Confirmation Flows**: Delete account and sign out confirmations
-- **Privacy Controls**: Data management and privacy option interfaces
-
-### 3. State Management System
-
-- **Optimistic Updates**: Instant UI feedback with backend synchronization
-- **Error Handling**: Graceful fallback for failed setting updates
-- **Local Persistence**: Settings cached for offline access
-- **Audit Logging**: Security-sensitive changes tracked and logged
 
 ## Data Structure & API Integration
 
@@ -107,11 +85,14 @@ export const useUpdateSettings = () => {
         method: 'PATCH',
         body: JSON.stringify(settings),
       }),
-    onMutate: async (variables) => {
+    onMutate: async variables => {
       // Optimistic update
       queryClient.setQueryData(['appSettings'], (old: any) => ({
         ...old,
-        [variables.section]: { ...old[variables.section], ...variables.settings },
+        [variables.section]: {
+          ...old[variables.section],
+          ...variables.settings,
+        },
       }));
     },
   });
@@ -201,15 +182,16 @@ import { TwoFactorAuth } from 'react-native-2fa';
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

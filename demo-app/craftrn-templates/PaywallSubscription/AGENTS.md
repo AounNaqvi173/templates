@@ -1,8 +1,10 @@
-# Paywall Subscription Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Comprehensive subscription management interface with pricing tiers, feature comparisons, and payment processing. Use for subscription paywalls, premium upgrades, or monetization flows.
+
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 This Paywall Subscription template provides a complete subscription monetization interface with multiple pricing tiers, feature highlights, and seamless payment flow. It follows the **colocation** principle with subscription-focused modular components.
 
@@ -19,34 +21,12 @@ PaywallSubscription/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `Button` component for primary call-to-action
 - `Text` components with typography scaling
 - `BottomSheet` for payment success confirmation
 - Custom selection components for pricing tiers
-
-## Key Patterns for AI Customization
-
-### 1. Subscription Plan Selection Pattern
-
-- **Visual Plan Comparison**: Clear pricing tier presentation with savings display
-- **Popular Plan Highlighting**: Recommended option emphasis with visual badges
-- **Flexible Selection**: Easy switching between subscription plans
-- **Value Communication**: Savings percentage and benefit calculations
-
-### 2. Payment Flow Pattern
-
-- **Multi-step Process**: Plan selection → Payment → Confirmation
-- **Success Animation**: Celebratory confirmation experience
-- **Error Handling**: Graceful payment failure recovery
-- **Receipt Integration**: Automated payment confirmation
-
-### 3. Conversion Optimization System
-
-- **Trust Signals**: Security badges and testimonials
-- **Risk Reduction**: Free trial and cancellation messaging
-- **Social Proof**: User count and review integration
-- **Urgency Elements**: Limited-time offer presentations
 
 ## Data Structure & API Integration
 
@@ -84,7 +64,7 @@ export const useSubscription = () => {
         method: 'POST',
         body: JSON.stringify({ planId, paymentMethodId }),
       }),
-    onSuccess: (data) => {
+    onSuccess: data => {
       queryClient.invalidateQueries(['userProfile']);
     },
   });
@@ -185,15 +165,16 @@ import { PayPalPayments } from 'react-native-paypal';
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

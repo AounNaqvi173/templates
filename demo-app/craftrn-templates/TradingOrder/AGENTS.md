@@ -1,8 +1,33 @@
-# Trading Order Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Comprehensive order management interface for financial trading with order placement, validation, and execution. Use for trading apps, investment platforms, or financial transaction interfaces.
+
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
+
+## Template-Specific Rules
+
+**Order Entry Validation:**
+
+- Validate order quantity and price ranges in real-time
+- Implement proper number formatting for financial values
+- Check account balance and available funds before order placement
+- Show calculated order totals including fees
+
+**Order Types and Controls:**
+
+- Support different order types (market, limit, stop)
+- Implement proper UI controls for each order type
+- Show relevant fields based on selected order type
+- Handle order modification and cancellation flows
+
+**Financial Data Display:**
+
+- Use consistent number formatting for prices and quantities
+- Show real-time price updates during order entry
+- Implement proper color coding for buy/sell actions
+- Display order confirmation with all details before execution
 
 This Trading Order template provides a sophisticated financial transaction interface with advanced order entry functionality, real-time cost calculations, and keyboard-aware layouts. It follows the **colocation** principle with trading-focused modular components.
 
@@ -22,34 +47,12 @@ TradingOrder/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `Button`, `ButtonRound`, `InputText`, `ListItem` for order interface
 - `Text` components with financial formatting support
 - Advanced keyboard handling with `react-native-keyboard-controller`
 - Financial color schemes for order types and calculations
-
-## Key Patterns for AI Customization
-
-### 1. Real-time Cost Calculation Pattern
-
-- **Memoized Calculations**: Efficient real-time total cost calculations with fees
-- **Fee Transparency**: Clear breakdown of commission and platform fees
-- **Dynamic Updates**: Immediate recalculation on quantity or price changes
-- **Currency Formatting**: Proper financial number formatting and display
-
-### 2. Keyboard-Aware Layout Pattern
-
-- **Sticky Footer**: KeyboardStickyView keeps order summary and submit button visible
-- **Auto-Focus**: Immediate focus on quantity input for fast order entry
-- **Numeric Input**: Specialized keyboard type for financial data entry
-- **Smooth Transitions**: Seamless layout adjustments during keyboard interaction
-
-### 3. Dynamic Asset Loading Pattern
-
-- **Safe Resolution**: Robust asset lookup with null handling and error states
-- **Route Integration**: Dynamic asset loading based on navigation parameters
-- **Memoized Lookup**: Efficient asset filtering and retrieval
-- **Fallback Handling**: Graceful handling of missing or invalid asset data
 
 ## Data Structure & API Integration
 
@@ -89,10 +92,11 @@ Recommended pattern for order management:
 export const useOrderValidation = (orderData: Partial<TradingOrder>) => {
   return useQuery({
     queryKey: ['order', 'validation', orderData],
-    queryFn: () => fetch('/api/orders/validate', {
-      method: 'POST',
-      body: JSON.stringify(orderData),
-    }).then(r => r.json()),
+    queryFn: () =>
+      fetch('/api/orders/validate', {
+        method: 'POST',
+        body: JSON.stringify(orderData),
+      }).then(r => r.json()),
     enabled: !!orderData.assetId && !!orderData.quantity,
     staleTime: 10000, // 10 seconds
   });
@@ -106,11 +110,11 @@ export const useSubmitOrder = () => {
         method: 'POST',
         body: JSON.stringify(orderData),
       }),
-    onSuccess: (data) => {
+    onSuccess: data => {
       queryClient.invalidateQueries(['portfolio']);
       showNotification('Order submitted successfully', 'success');
     },
-    onError: (error) => {
+    onError: error => {
       showNotification(`Order failed: ${error.message}`, 'error');
     },
   });
@@ -128,18 +132,18 @@ const OrderEntryForm = ({ asset, onSubmit }) => {
   const [orderType, setOrderType] = useState('buy');
   const [quantity, setQuantity] = useState('');
   const [orderStyle, setOrderStyle] = useState('market');
-  
+
   const { data: validation } = useOrderValidation({
     assetId: asset.id,
     orderType,
     quantity: parseFloat(quantity),
   });
-  
+
   const totalCost = useMemo(() => {
     const cost = parseFloat(quantity) * parseFloat(asset.sellPrice) + FEES;
     return formatCurrency(cost);
   }, [quantity, asset]);
-  
+
   return (
     <KeyboardStickyView>
       <OrderTypeSelector value={orderType} onChange={setOrderType} />
@@ -163,7 +167,7 @@ const FeeBreakdown = ({ orderValue }) => {
     const commission = orderValue * 0.001; // 0.1%
     const platformFee = 1.15;
     const regulatory = orderValue * 0.0001; // 0.01%
-    
+
     return {
       commission,
       platformFee,
@@ -171,7 +175,7 @@ const FeeBreakdown = ({ orderValue }) => {
       total: commission + platformFee + regulatory,
     };
   }, [orderValue]);
-  
+
   return (
     <View style={styles.feeContainer}>
       <Text variant="heading4">Fee Breakdown</Text>
@@ -247,15 +251,16 @@ type OptionsOrder = {
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

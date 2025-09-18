@@ -1,10 +1,10 @@
-# Editorial Article Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Comprehensive article reading interface with rich text content, social features, and interactive elements. Use for blog posts, news articles, or long-form content display.
 
-This Editorial Article template provides a premium reading experience for long-form content with immersive hero images, animated header transitions, and elegant typography. It follows the **colocation** principle with feature-focused modular components.
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 ### Core Components Structure
 
@@ -22,33 +22,12 @@ EditorialArticle/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `Avatar` for author profiles
 - `Text` with semantic variants (heading2, body2, body3)
 - `Card` for related content sections
 - Scroll-based animations with Reanimated
-
-## Key Patterns for AI Customization
-
-### 1. Animated Header System
-
-- **Parallax Hero Image**: Full-screen background with gradient overlay
-- **Progressive Header Reveal**: Navigation appears based on scroll position
-- **Threshold Animation**: Uses 200px scroll threshold for smooth transitions
-- **Shared Values**: Reanimated scroll tracking for performance
-
-### 2. Content Structure Pattern
-
-- **Hero Section**: Full-width image with title and metadata overlay
-- **Typography Focus**: Optimized reading experience with proper hierarchy
-- **Author Integration**: Author card with credibility information
-- **Related Content**: Intelligent content discovery system
-
-### 3. Scroll Animation Pattern
-
-- **useAnimatedScrollHandler**: Optimized scroll event processing
-- **useDerivedValue**: Computed animation states
-- **Content Threshold**: Clean animation state management
 
 ## Data Structure & API Integration
 
@@ -98,7 +77,10 @@ export const useArticle = (articleId: string) => {
 export const useRelatedArticles = (articleId: string, categories: string[]) => {
   return useQuery({
     queryKey: ['relatedArticles', articleId, categories],
-    queryFn: () => fetch(`/api/articles/related?id=${articleId}&categories=${categories.join(',')}`).then(r => r.json()),
+    queryFn: () =>
+      fetch(
+        `/api/articles/related?id=${articleId}&categories=${categories.join(',')}`,
+      ).then(r => r.json()),
   });
 };
 ```
@@ -112,8 +94,8 @@ Smooth scroll-based header reveal:
 ```typescript
 const useScrollAnimation = (threshold: number) => {
   const scrollPosition = useSharedValue(0);
-  const isHeaderVisible = useDerivedValue(() => 
-    scrollPosition.value > threshold
+  const isHeaderVisible = useDerivedValue(
+    () => scrollPosition.value > threshold,
   );
   // Use existing animation patterns in AnimatedHeader.tsx
 };
@@ -179,15 +161,16 @@ This Editorial Article template can be adapted for:
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

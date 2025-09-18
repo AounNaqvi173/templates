@@ -1,8 +1,10 @@
-# Stays Selection Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Sophisticated accommodation booking interface with filtering, map integration, and location-based features. Use for property listings, hotel booking, or location-based search results.
+
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 This Stays Selection template provides a sophisticated accommodation browsing interface with card-based layouts, gesture handling, photo carousels, and interactive favorite functionality. It follows the **colocation** principle with listing-focused modular components.
 
@@ -20,34 +22,12 @@ StaysSelection/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `ButtonRound`, `InputSearch`, `PhotoCarousel` for card components
 - `Text` components with typography scaling
 - Advanced touch interactions with `react-native-gesture-handler`
 - Smooth transitions with `react-native-reanimated`
-
-## Key Patterns for AI Customization
-
-### 1. Gesture-Based Card Interaction Pattern
-
-- **Layered Gestures**: Separate handling for card tap and favorite button
-- **Gesture Priority**: External gesture failure requirements for nested interactions
-- **Touch Feedback**: Visual response to user interactions with press states
-- **Hitslop Optimization**: Extended touch areas for better usability
-
-### 2. Read-Only Search Input Pattern
-
-- **Navigation Trigger**: Search input acts as launcher rather than functional input
-- **Accessory Integration**: Left search icon and right filter button placement
-- **Visual Consistency**: Maintains search input appearance while being non-functional
-- **Touch Forwarding**: Entire input area forwards touch events to navigation
-
-### 3. Stateful Favorite System
-
-- **Local State Management**: Immediate UI feedback with optimistic updates
-- **Callback Propagation**: Parent component notified of state changes
-- **Visual States**: Different appearances for liked/unliked states
-- **Performance Optimization**: Efficient re-renders with proper state isolation
 
 ## Data Structure & API Integration
 
@@ -93,7 +73,7 @@ export const useStaysListing = (filters?: StaysFilters) => {
       });
       return fetch(`/api/stays?${params}`).then(r => r.json());
     },
-    getNextPageParam: (lastPage) => {
+    getNextPageParam: lastPage => {
       return lastPage.hasMore ? lastPage.nextPage : undefined;
     },
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -126,7 +106,7 @@ Interactive listing cards with embedded actions:
 ```typescript
 const ListingCard = ({ item, onPress, onFavorite }) => (
   <View style={styles.card}>
-    <PhotoCarousel 
+    <PhotoCarousel
       photos={item.photos}
       carouselHeight={PHOTO_HEIGHT}
     />
@@ -149,16 +129,14 @@ const ListingCard = ({ item, onPress, onFavorite }) => (
 Advanced gesture handling for card interactions:
 
 ```typescript
-const cardPress = Gesture.Tap()
-  .onStart(() => runOnJS(onPress)());
+const cardPress = Gesture.Tap().onStart(() => runOnJS(onPress)());
 
-const favoritePress = Gesture.Tap()
-  .onStart(() => runOnJS(onFavorite)());
+const favoritePress = Gesture.Tap().onStart(() => runOnJS(onFavorite)());
 
 // Ensure favorite button takes priority over card press
 const compositeGesture = Gesture.Simultaneous(
   cardPress.requireExternalGestureToFail(favoritePress),
-  favoritePress
+  favoritePress,
 );
 ```
 
@@ -226,15 +204,16 @@ type JobListing = {
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

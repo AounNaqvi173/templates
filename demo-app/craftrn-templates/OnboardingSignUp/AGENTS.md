@@ -1,8 +1,10 @@
-# Onboarding Sign Up Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Comprehensive user registration interface with form validation, terms acceptance, and smooth onboarding flow. Use for user registration, account creation, or signup processes.
+
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 This Onboarding Sign Up template provides a comprehensive user registration interface with multiple authentication options including phone number registration and social login (Google, Apple). It follows the **colocation** principle with modular social authentication components.
 
@@ -25,32 +27,12 @@ OnboardingSignUp/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `InputText` for form fields
 - `Button` for primary actions
 - Custom social authentication components
 - SVG gradient overlays for visual appeal
-
-## Key Patterns for AI Customization
-
-### 1. Multi-Modal Authentication System
-
-- **Phone Registration**: Primary phone number registration with country codes
-- **Social Login**: Google and Apple Sign-In integration
-- **Form Validation**: Real-time input validation and error handling
-- **Visual Hierarchy**: Clear action prioritization
-
-### 2. Background Design Pattern
-
-- **Hero Image**: Full-screen background with overlay
-- **Gradient Overlays**: Ensure text readability
-- **Visual Composition**: Balanced layout with content positioning
-
-### 3. Social Authentication Pattern
-
-- **Modular Components**: Reusable social login buttons
-- **Brand Guidelines**: Proper social platform branding
-- **Error Handling**: Authentication failure management
 
 ## Data Structure & API Integration
 
@@ -83,7 +65,7 @@ export const useSignUp = () => {
         method: 'POST',
         body: JSON.stringify(data),
       }),
-    onSuccess: (data) => {
+    onSuccess: data => {
       // Navigate to OTP verification
     },
   });
@@ -97,7 +79,7 @@ export const useSocialLogin = () => {
         method: 'POST',
         body: JSON.stringify({ provider, token }),
       }),
-    onSuccess: (data) => {
+    onSuccess: data => {
       // Store auth tokens and navigate to app
     },
   });
@@ -179,15 +161,16 @@ This Onboarding Sign Up template can be adapted for:
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

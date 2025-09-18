@@ -1,8 +1,10 @@
-# Stays Details Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Detailed accommodation view with image galleries, amenities, reviews, and booking functionality. Use for property details, hotel information, or comprehensive item showcase.
+
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 This Stays Details template provides a comprehensive accommodation viewing interface with immersive photo galleries, detailed property information, and booking functionality. It follows the **colocation** principle with accommodation-focused modular components.
 
@@ -20,34 +22,12 @@ StaysDetails/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `PhotoCarousel` component for image galleries
 - `Button` component for booking actions
 - `Avatar` and `ButtonRound` for user interactions
 - Advanced scroll animations with Reanimated
-
-## Key Patterns for AI Customization
-
-### 1. Advanced Scroll Animation Pattern
-
-- **Pull-to-Zoom Effect**: Interactive image scaling on carousel pull-down
-- **Parallax Header**: Dynamic header appearance based on scroll position
-- **Smooth Transitions**: 60fps scroll-based animations with worklets
-- **Platform Optimization**: iOS/Android specific scroll adjustments
-
-### 2. Immersive Photo Experience Pattern
-
-- **Photo Carousel**: Swipeable image gallery with progress indicators
-- **Zoom Interactions**: Pinch-to-zoom and pull-to-scale capabilities
-- **Progressive Loading**: Image loading with placeholders and error states
-- **Memory Optimization**: Efficient image caching and preloading
-
-### 3. Information Architecture System
-
-- **Property Overview**: Title, rating, pricing, and key details hierarchy
-- **Content Sections**: About, amenities, policies, and location organization
-- **Booking Integration**: Sticky footer with price calculation and CTA
-- **Social Features**: Wishlist, sharing, and host information display
 
 ## Data Structure & API Integration
 
@@ -103,7 +83,7 @@ export const useBookingFlow = () => {
         method: 'POST',
         body: JSON.stringify(bookingData),
       }),
-    onSuccess: (booking) => {
+    onSuccess: booking => {
       analytics.track('Booking Created', {
         stayId: booking.stayId,
         totalPrice: booking.totalPrice,
@@ -125,10 +105,10 @@ const AnimatedHeader = ({ scrollPosition, carouselHeight, stayTitle }) => {
     opacity: interpolate(
       scrollPosition.value,
       [0, carouselHeight - 100],
-      [0, 1]
+      [0, 1],
     ),
   }));
-  
+
   // Follow existing AnimatedHeader component patterns
   // Use Reanimated for smooth scroll-based animations
 };
@@ -141,12 +121,13 @@ Interactive image gallery with pull-to-zoom:
 ```typescript
 const PhotoCarousel = ({ photos, onImagePress }) => {
   const carouselScale = useAnimatedStyle(() => {
-    const scale = scrollPosition.value < 0
-      ? interpolate(scrollPosition.value, [-100, 0], [1.4, 1])
-      : 1;
+    const scale =
+      scrollPosition.value < 0
+        ? interpolate(scrollPosition.value, [-100, 0], [1.4, 1])
+        : 1;
     return { transform: [{ scale }] };
   });
-  
+
   // Follow existing carousel patterns with Reanimated
 };
 ```
@@ -178,7 +159,7 @@ type CarRental = {
   rentalTerms: RentalTerms;
 };
 
-// Property sales adaptation  
+// Property sales adaptation
 type PropertySale = {
   propertyType: 'house' | 'apartment' | 'condo';
   bedrooms: number;
@@ -193,7 +174,7 @@ type PropertySale = {
 
 - **Virtual Tours**: 360° photo integration and AR preview
 - **Interactive Maps**: Location context and nearby attractions
-- **Review System**: Guest reviews, ratings, and host responses  
+- **Review System**: Guest reviews, ratings, and host responses
 - **Dynamic Pricing**: Date-based pricing and availability calendar
 - **Comparison Tools**: Side-by-side property comparisons
 
@@ -214,15 +195,16 @@ type PropertySale = {
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

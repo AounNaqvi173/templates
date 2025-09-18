@@ -1,8 +1,10 @@
-# Profile Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Comprehensive user profile interface with personal information, statistics, and customization options. Use for user profiles, account pages, or personal dashboard views.
+
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 This Profile template provides a user profile management interface with avatar management, accordion-style information sections, and settings toggles. It follows the **colocation** principle with feature-focused modular components.
 
@@ -22,32 +24,12 @@ Profile/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `InputText` for editable fields
 - `Switch` for setting toggles
 - `Card` for content grouping
 - `ButtonRound` for avatar actions
-
-## Key Patterns for AI Customization
-
-### 1. Component Composition Pattern
-
-- **Avatar Management**: Photo upload/editing with fallback handling
-- **Statistics Display**: Metrics and activity summaries
-- **Personal Information**: Editable fields with validation
-- **Settings Integration**: Profile-specific toggles
-
-### 2. Accordion Interface Pattern
-
-- **Collapsible Sections**: Space-efficient organization
-- **Reanimated Animations**: Smooth expand/collapse transitions
-- **Interactive Controls**: Touch-friendly expand/collapse
-
-### 3. Form Management System
-
-- **Field Validation**: Real-time input validation
-- **Dirty State Tracking**: Unsaved changes detection
-- **Error Handling**: Clear messaging and recovery
 
 ## Data Structure & API Integration
 
@@ -87,7 +69,7 @@ export const useUserProfile = () => {
 // api/useUpdateProfile.ts
 export const useUpdateProfile = () => {
   return useMutation({
-    mutationFn: (data: Partial<UserProfile>) => 
+    mutationFn: (data: Partial<UserProfile>) =>
       fetch('/api/user/profile', {
         method: 'PATCH',
         body: JSON.stringify(data),
@@ -182,15 +164,16 @@ This Profile template can be adapted for:
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

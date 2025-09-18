@@ -1,52 +1,10 @@
-# Stays Filters Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Comprehensive filtering interface for accommodation search with multiple filter types and dynamic updates. Use for search refinement, property filtering, or criteria-based content discovery.
 
-This Stays Filters template provides a comprehensive filtering interface for accommodation search with multi-criteria filtering including accommodation type, price range, guest rating, and amenities. It follows the **colocation** principle with filtering-focused modular components.
-
-### Core Components Structure
-
-```
-StaysFilters/
-├── StaysFiltersScreen.tsx      # Main screen with filter logic
-├── AccomodationTypeButton.tsx  # Toggle button for accommodation types
-├── FilterItem.tsx              # Reusable filter row component
-└── Shadow.tsx                  # Shadow component for footer
-```
-
-### Design System Usage
-
-Built with **craftrn-ui** components and **Unistyles** theming:
-- Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
-- `Button`, `Checkbox`, `Counter`, `Radio` for filter controls
-- `SliderDual` for range selection
-- `Text` components with typography scaling
-- Consistent spacing and responsive theming
-
-## Key Patterns for AI Customization
-
-### 1. Multi-Type Selection Pattern
-
-- **Array-based Selection**: Toggle logic for multiple accommodation types
-- **Immutable Updates**: State management with functional updates
-- **Visual Feedback**: Selected states with clear visual indicators
-- **Type Safety**: Enum-based selections with TypeScript constraints
-
-### 2. Range Slider Integration Pattern
-
-- **Dual-handle Sliders**: Price range and rating filters
-- **Responsive Width**: Dynamic sizing based on screen dimensions
-- **Step Configuration**: Configurable increments for different use cases
-- **Real-time Updates**: Immediate visual feedback during interaction
-
-### 3. Form State Management System
-
-- **Centralized State**: Unified filter state management
-- **Debounced Updates**: Performance optimization for API calls
-- **Persistence**: Filter state preservation across sessions
-- **Reset Capabilities**: Clear all filters functionality
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 ## Data Structure & API Integration
 
@@ -185,15 +143,16 @@ type PropertyFilters = {
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

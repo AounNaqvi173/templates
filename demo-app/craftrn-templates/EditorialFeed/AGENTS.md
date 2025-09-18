@@ -1,10 +1,10 @@
-# Editorial Feed Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Vertical carousel content feed with category filtering and smooth animations. Use for news apps, content discovery, or article browsing experiences.
 
-This Editorial Feed template creates an engaging content discovery experience with a vertical carousel interface, category filtering, and smooth scroll animations. It follows the **colocation** principle with sophisticated animation components.
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 ### Core Components Structure
 
@@ -24,33 +24,12 @@ EditorialFeed/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `Card` for article containers
 - `Avatar` and `ButtonRound` for user interactions
 - `BottomSheet` for profile and settings
 - Category-based color theming
-
-## Key Patterns for AI Customization
-
-### 1. Vertical Carousel Animation System
-
-- **Scale-based Focus**: Cards scale up when centered, creating depth
-- **Smooth Interpolation**: Cards transition smoothly between states
-- **Snap-to-Interval**: Cards snap to center for precise positioning
-- **Worklet Performance**: Uses worklets for 60fps animations
-
-### 2. Category Filtering Pattern
-
-- **State Management**: Tracks selected category with optimized re-renders
-- **Data Filtering**: Uses `useMemo` for efficient category-based filtering
-- **Scroll Reset**: Automatically scrolls to top when category changes
-- **Visual Feedback**: Active category highlighting
-
-### 3. Header Animation Pattern
-
-- **Fixed Header**: Scroll-aware behavior with safe area integration
-- **Scroll Position Tracking**: Uses `useSharedValue` for smooth updates
-- **Component Communication**: Passes scroll events between components
 
 ## Data Structure & API Integration
 
@@ -87,9 +66,11 @@ Recommended pattern for content feeds:
 export const useFeedArticles = (category?: string) => {
   return useInfiniteQuery({
     queryKey: ['feedArticles', category],
-    queryFn: ({ pageParam = 1 }) => 
-      fetch(`/api/articles?category=${category}&page=${pageParam}`).then(r => r.json()),
-    getNextPageParam: (lastPage) => lastPage.nextPage,
+    queryFn: ({ pageParam = 1 }) =>
+      fetch(`/api/articles?category=${category}&page=${pageParam}`).then(r =>
+        r.json(),
+      ),
+    getNextPageParam: lastPage => lastPage.nextPage,
   });
 };
 
@@ -112,17 +93,24 @@ Advanced scroll-based animations:
 ```typescript
 const useCarouselAnimation = (cardHeight: number) => {
   const scrollY = useSharedValue(0);
-  
-  const createCardAnimation = (index: number) => 
+
+  const createCardAnimation = (index: number) =>
     useAnimatedStyle(() => {
       const scale = interpolate(
         scrollY.value,
-        [(index - 1) * cardHeight, index * cardHeight, (index + 1) * cardHeight],
-        [0.9, 1, 0.9]
+        [
+          (index - 1) * cardHeight,
+          index * cardHeight,
+          (index + 1) * cardHeight,
+        ],
+        [0.9, 1, 0.9],
       );
-      return { transform: [{ scale }], opacity: interpolate(scale, [0.9, 1], [0.6, 1]) };
+      return {
+        transform: [{ scale }],
+        opacity: interpolate(scale, [0.9, 1], [0.6, 1]),
+      };
     });
-  
+
   // Follow existing animation patterns in VerticalCarousel.tsx
 };
 ```
@@ -181,15 +169,16 @@ This Editorial Feed template can be adapted for:
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

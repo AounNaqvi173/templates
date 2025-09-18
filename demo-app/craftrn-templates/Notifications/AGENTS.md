@@ -1,8 +1,10 @@
-# Notifications Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Comprehensive notification management interface with notification history, filtering, and interaction capabilities. Use for notification centers, activity feeds, or alert management.
+
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 This Notifications template provides a comprehensive notification center with tabbed categorization, various notification types, and interactive elements. It follows the **colocation** principle with notification-type organization for modern notification management.
 
@@ -25,34 +27,12 @@ Notifications/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `Avatar` for sender identification
 - `Switch` components for notification toggles
 - `BottomSheet` for additional options
 - Tab-based navigation with smooth transitions
-
-## Key Patterns for AI Customization
-
-### 1. Tabbed Categorization System
-
-- **Dynamic Filtering**: Category-based notification filtering
-- **Tab State Management**: Persistent tab selection
-- **Badge Counts**: Unread notification counters per category
-- **Smooth Transitions**: Animated tab switching
-
-### 2. Multiple Notification Types
-
-- **Polymorphic Design**: Type-safe notification components
-- **Component Composition**: Different notification layouts per type
-- **Action Handling**: Type-specific interaction patterns
-- **Visual Hierarchy**: Clear notification importance
-
-### 3. Interactive Elements
-
-- **Swipe Actions**: Quick notification management
-- **Batch Operations**: Multi-select for bulk actions
-- **Real-time Updates**: Live notification status changes
-- **Context Menus**: Additional options per notification
 
 ## Data Structure & API Integration
 
@@ -96,7 +76,10 @@ Recommended pattern for notification data:
 export const useNotifications = (category?: string) => {
   return useQuery({
     queryKey: ['notifications', category],
-    queryFn: () => fetch(`/api/notifications?category=${category || 'all'}`).then(r => r.json()),
+    queryFn: () =>
+      fetch(`/api/notifications?category=${category || 'all'}`).then(r =>
+        r.json(),
+      ),
     refetchInterval: 30000, // Real-time updates
   });
 };
@@ -104,27 +87,29 @@ export const useNotifications = (category?: string) => {
 // api/useNotificationActions.ts
 export const useNotificationActions = () => {
   const queryClient = useQueryClient();
-  
+
   return {
     markAsRead: useMutation({
-      mutationFn: (notificationId: string) => 
+      mutationFn: (notificationId: string) =>
         fetch(`/api/notifications/${notificationId}/read`, { method: 'POST' }),
-      onMutate: async (notificationId) => {
+      onMutate: async notificationId => {
         // Optimistic update
         queryClient.setQueryData(['notifications'], (old: any) =>
           old?.map((notification: any) =>
-            notification.id === notificationId 
+            notification.id === notificationId
               ? { ...notification, isRead: true }
-              : notification
-          )
+              : notification,
+          ),
         );
       },
       onSuccess: () => queryClient.invalidateQueries(['notifications']),
     }),
-    
+
     archiveNotification: useMutation({
       mutationFn: (notificationId: string) =>
-        fetch(`/api/notifications/${notificationId}/archive`, { method: 'POST' }),
+        fetch(`/api/notifications/${notificationId}/archive`, {
+          method: 'POST',
+        }),
       onSuccess: () => queryClient.invalidateQueries(['notifications']),
     }),
   };
@@ -138,7 +123,10 @@ export const useNotificationActions = () => {
 Category-based notification filtering:
 
 ```typescript
-const useNotificationFiltering = (notifications: Notification[], selectedTab: number) => {
+const useNotificationFiltering = (
+  notifications: Notification[],
+  selectedTab: number,
+) => {
   return useMemo(() => {
     return notifications.filter(notification => {
       switch (selectedTab) {
@@ -214,15 +202,16 @@ This Notifications template can be adapted for:
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

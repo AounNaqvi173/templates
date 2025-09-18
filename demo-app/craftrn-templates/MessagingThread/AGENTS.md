@@ -1,10 +1,10 @@
-# Messaging Thread Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Real-time messaging interface with chat bubbles, keyboard handling, and message features. Use for chat apps, customer support threads, or team messaging.
 
-This Messaging Thread template provides a comprehensive chat conversation interface with real-time messaging, keyboard handling, and advanced message features. It follows the **colocation** principle with message-centric organization for immersive messaging experiences.
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 ### Core Components Structure
 
@@ -23,41 +23,12 @@ MessagingThread/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `Avatar` for participant identification
 - `ButtonRound` for action buttons
 - `BottomSheet` for additional options
 - Advanced keyboard handling with `react-native-keyboard-controller`
-
-## Key Patterns for AI Customization
-
-### 1. Advanced Keyboard Management
-
-- **Platform-Specific Handling**: Different behavior for iOS/Android
-- **Header Height Compensation**: Accounts for navigation header
-- **Safe Area Integration**: Respects device insets and notches
-- **Smooth Transitions**: Natural keyboard show/hide animations
-
-### 2. Message State Management
-
-- **Real-time Updates**: Live message synchronization
-- **Message Status**: Sent, delivered, read indicators
-- **Optimistic Updates**: Immediate UI feedback for sent messages
-- **Message Reactions**: Emoji reactions and interaction tracking
-
-### 3. Dynamic Header System
-
-- **Participant Information**: Shows conversation participant details
-- **Online Status**: Real-time presence indicators
-- **Typing Indicators**: Shows when other participants are typing
-- **Action Integration**: Quick access to conversation actions
-
-### 4. Auto-Scroll Pattern
-
-- **New Message Detection**: Auto-scroll to bottom on new messages
-- **Manual Override**: Allows users to browse message history
-- **Back-to-Bottom Button**: Quick navigation to latest messages
-- **Smooth Animations**: Natural scrolling transitions
 
 ## Data Structure & API Integration
 
@@ -100,9 +71,11 @@ Recommended pattern for messaging data:
 export const useConversationMessages = (conversationId: string) => {
   return useInfiniteQuery({
     queryKey: ['messages', conversationId],
-    queryFn: ({ pageParam = null }) => 
-      fetch(`/api/conversations/${conversationId}/messages?cursor=${pageParam}`).then(r => r.json()),
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    queryFn: ({ pageParam = null }) =>
+      fetch(
+        `/api/conversations/${conversationId}/messages?cursor=${pageParam}`,
+      ).then(r => r.json()),
+    getNextPageParam: lastPage => lastPage.nextCursor,
     refetchInterval: 30000, // Real-time updates
   });
 };
@@ -110,17 +83,22 @@ export const useConversationMessages = (conversationId: string) => {
 // api/useSendMessage.ts
 export const useSendMessage = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
-    mutationFn: ({ conversationId, content, type = 'text' }: {
+    mutationFn: ({
+      conversationId,
+      content,
+      type = 'text',
+    }: {
       conversationId: string;
       content: string;
       type?: 'text' | 'image' | 'file' | 'voice';
-    }) => fetch('/api/messages', {
-      method: 'POST',
-      body: JSON.stringify({ conversationId, content, type }),
-    }),
-    
+    }) =>
+      fetch('/api/messages', {
+        method: 'POST',
+        body: JSON.stringify({ conversationId, content, type }),
+      }),
+
     onMutate: async ({ conversationId, content }) => {
       // Optimistic update for immediate UI feedback
       const optimisticMessage = {
@@ -131,16 +109,19 @@ export const useSendMessage = () => {
         status: 'sending' as const,
         reactions: [],
       };
-      
+
       queryClient.setQueryData(['messages', conversationId], (old: any) => ({
         ...old,
         pages: [
-          { ...old.pages[0], messages: [optimisticMessage, ...old.pages[0].messages] },
+          {
+            ...old.pages[0],
+            messages: [optimisticMessage, ...old.pages[0].messages],
+          },
           ...old.pages.slice(1),
         ],
       }));
     },
-    
+
     onSuccess: () => {
       queryClient.invalidateQueries(['messages']);
     },
@@ -222,15 +203,16 @@ This Messaging Thread template can be adapted for:
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

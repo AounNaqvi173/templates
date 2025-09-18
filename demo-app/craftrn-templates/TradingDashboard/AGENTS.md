@@ -1,10 +1,10 @@
-# Trading Dashboard Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+Financial dashboard with real-time updates, scroll-driven animations, and asset management. Use for trading apps, portfolio tracking, or financial data visualization.
 
-This Trading Dashboard template provides a sophisticated financial dashboard interface with real-time updates, animated scroll behaviors, and comprehensive asset management. It follows the **colocation** principle with financial data-focused modular components.
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 ### Core Components Structure
 
@@ -26,34 +26,12 @@ TradingDashboard/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - `ListItem` and `Text` components for data display
 - `ChevronDown` and `ChevronUp` icons for trend indicators
 - Advanced scroll animations with `react-native-reanimated`
 - Financial color schemes for positive/negative values
-
-## Key Patterns for AI Customization
-
-### 1. Scroll-Driven Header Animation Pattern
-
-- **Sticky Header**: Header appears with scroll-based fade-in animation
-- **Portfolio Display**: Dynamic portfolio value visibility based on scroll position
-- **Smooth Transitions**: 60fps scroll-driven animations with interpolation
-- **Performance Optimization**: Shared values and animated styles for efficiency
-
-### 2. Asset Type Categorization Pattern
-
-- **Type-based Filtering**: Organize assets by currency, crypto, and shares
-- **Dynamic Sections**: Different display styles for each asset category
-- **Data Organization**: Structured asset presentation with consistent interfaces
-- **Flexible Layouts**: List, grid, and carousel views for different asset types
-
-### 3. Dynamic Trend Indicators System
-
-- **Visual Trend Direction**: ChevronUp/Down icons based on price movement
-- **Color-Coded Values**: Positive green, negative red color schemes
-- **Real-time Updates**: Immediate visual feedback for price changes
-- **Performance Metrics**: Change percentages and value displays
 
 ## Data Structure & API Integration
 
@@ -93,10 +71,11 @@ Recommended pattern for financial data management:
 export const useAssetPrices = (symbols: string[]) => {
   return useQuery({
     queryKey: ['assets', 'prices', symbols],
-    queryFn: () => fetch('/api/assets/prices', {
-      method: 'POST',
-      body: JSON.stringify({ symbols }),
-    }).then(r => r.json()),
+    queryFn: () =>
+      fetch('/api/assets/prices', {
+        method: 'POST',
+        body: JSON.stringify({ symbols }),
+      }).then(r => r.json()),
     refetchInterval: 30000, // Update every 30 seconds
     staleTime: 15000, // Consider fresh for 15 seconds
   });
@@ -127,7 +106,7 @@ const PortfolioOverview = ({ portfolioData, isLoading }) => (
     ) : (
       <Text variant="heading1">{portfolioData.value}</Text>
     )}
-    <PerformanceIndicator 
+    <PerformanceIndicator
       change={portfolioData.change}
       isPositive={portfolioData.isPositive}
     />
@@ -142,7 +121,7 @@ Dynamic visual indicators based on data values:
 ```typescript
 const TrendIndicator = ({ change }) => {
   const isNegative = change.substring(0, 1) === '-';
-  
+
   return (
     <View style={styles.trendContainer}>
       {isNegative ? (
@@ -218,15 +197,16 @@ type BusinessDashboard = {
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set

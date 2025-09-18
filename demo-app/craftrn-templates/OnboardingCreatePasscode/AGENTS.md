@@ -1,10 +1,10 @@
-# Onboarding Create Passcode Template - AI Customization Guide
+# AGENTS.md
 
+## Template Purpose
 
-**NOTE:** Always reference the `info.json` file in this template directory to understand the exact dependencies, components, and file structure before making any recommendations.
-## Template Purpose & Architecture
+**IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
-This Onboarding Create Passcode template provides a secure passcode creation interface for user authentication setup. It follows the **colocation** principle with focus on security patterns and user experience.
+This Onboarding Create Passcode template provides a passcode creation interface for user authentication setup.
 
 ### Core Components Structure
 
@@ -16,33 +16,11 @@ OnboardingCreatePasscode/
 ### Design System Usage
 
 Built with **craftrn-ui** components and **Unistyles** theming:
+
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
 - Custom `PasscodeEntry` component for secure input
 - Visual feedback for input states
 - Security-focused design patterns
-
-## Key Patterns for AI Customization
-
-### 1. Secure Input Pattern
-
-- **Visual Masking**: Dots/circles to hide passcode digits
-- **Real-time Validation**: Immediate feedback on input strength
-- **Error Handling**: Clear error states and recovery
-- **Progress Indication**: Visual progress through passcode creation
-
-### 2. Security Features
-
-- **Biometric Integration**: Face ID/Touch ID support preparation
-- **Passcode Strength**: Validation for secure combinations
-- **Confirmation Flow**: Require passcode re-entry for verification
-- **Security Guidelines**: User education on passcode best practices
-
-### 3. Accessibility Pattern
-
-- **VoiceOver Support**: Screen reader accessibility
-- **Large Touch Targets**: Easy interaction for all users
-- **Clear Instructions**: Step-by-step guidance
-- **Error Announcements**: Accessible error messaging
 
 ## Data Structure & API Integration
 
@@ -72,19 +50,22 @@ Recommended pattern for secure passcode management:
 // api/usePasscodeCreation.ts
 export const usePasscodeCreation = () => {
   return useMutation({
-    mutationFn: async ({ passcode, biometricEnabled }: {
+    mutationFn: async ({
+      passcode,
+      biometricEnabled,
+    }: {
       passcode: string;
       biometricEnabled: boolean;
     }) => {
       // Hash passcode client-side before sending
       const hashedPasscode = await hashPasscode(passcode);
-      
+
       return fetch('/api/auth/passcode', {
         method: 'POST',
         body: JSON.stringify({ hashedPasscode, biometricEnabled }),
       });
     },
-    
+
     onSuccess: async (data, variables) => {
       // Store passcode securely in device keychain/keystore
       await storePasscodeSecurely(variables.passcode);
@@ -105,7 +86,7 @@ export const usePasscodeValidation = () => {
         noRepeating: !hasRepeatingDigits(passcode),
         notCommon: !isCommonPasscode(passcode),
       };
-      
+
       const isValid = Object.values(validation).every(Boolean);
       return { isValid, validation };
     },
@@ -184,15 +165,16 @@ This template can be adapted for:
 ## TypeScript Rules
 
 **STRICT TYPING REQUIREMENTS:**
+
 - NEVER use `any` type - always provide specific types
 - NEVER use TypeScript type assertions (`as Type`, `<Type>value`) or casts
 - Use proper type definitions and interfaces
 - Use type guards and narrowing instead of assertions
 
-
 ## Dependencies & File Structure
 
 Refer to `info.json` in this template directory for:
+
 - `externalDependencies`: Required npm packages
 - `craftrnUiComponents`: craftrn-ui components used
 - `tetrislyIcons`: Icons from tetrisly icon set
