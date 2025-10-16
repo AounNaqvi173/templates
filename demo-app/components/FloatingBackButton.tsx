@@ -32,7 +32,7 @@ export const FloatingBackButton = () => {
   }, [opacity]);
 
   const handleBack = useCallback(() => {
-    router.dismissAll();
+    router.dismissTo('/templates');
   }, [router]);
 
   const panGesture = Gesture.Pan()

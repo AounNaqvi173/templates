@@ -4,7 +4,11 @@ import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useMemo, useState } from 'react';
 import { Platform, TextInput, View } from 'react-native';
 import { KeyboardStickyView } from 'react-native-keyboard-controller';
-import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 import { AssetListItem } from './AssetListItem';
 import { assets } from './data/assets';
 import { ExchangeRate } from './ExchangeRate';
@@ -65,7 +69,9 @@ export const TradingOrderScreen: ComponentType<Props> = ({
           ${INVEST_FEES} investment fees
         </Text>
       </View>
-      <KeyboardStickyView>
+      <KeyboardStickyView
+        offset={{ opened: 0, closed: -UnistylesRuntime.insets.bottom }}
+      >
         <View style={styles.bottomContent}>
           <AssetListItem
             text={asset.name}
