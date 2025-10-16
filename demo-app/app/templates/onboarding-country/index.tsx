@@ -11,7 +11,8 @@ export default function OnboardingCountry() {
   }>();
 
   const handlePressCountry = (countryCode: CountryCode) => {
-    const route = `/onboarding-sign-up?countryCode=${countryCode}` as const;
+    const route =
+      `/templates/onboarding-sign-up?countryCode=${countryCode}` as const;
     try {
       router.dismissTo(route);
     } catch {
