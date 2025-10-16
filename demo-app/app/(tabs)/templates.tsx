@@ -322,6 +322,7 @@ const styles = StyleSheet.create(theme => ({
     backgroundColor: theme.colors.backgroundSecondary,
   },
   scrollViewContent: {
+    backgroundColor: theme.colors.backgroundSecondary,
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.large,
     gap: theme.spacing.small,

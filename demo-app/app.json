@@ -11,7 +11,10 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.craftreactnative.craftrntemplates.demoapp",
-      "runtimeVersion": "1.0.0"
+      "runtimeVersion": "1.0.0",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "updates": {
       "url": "https://u.expo.dev/7b7f7a83-9f4c-4320-926d-d01d0517a6f4"
@@ -22,6 +25,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.craftreactnative.craftrntemplates.demoapp",
+      "versionCode": 2,
       "runtimeVersion": {
         "policy": "appVersion"
       },
