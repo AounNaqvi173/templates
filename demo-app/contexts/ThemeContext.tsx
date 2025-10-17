@@ -15,10 +15,7 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  // Initialize with the current system theme
-  const [theme, setTheme] = useState<Theme>(
-    UnistylesRuntime.colorScheme === 'dark' ? 'dark' : 'light',
-  );
+  const [theme, setTheme] = useState<Theme>('light');
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
