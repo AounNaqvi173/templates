@@ -70,6 +70,11 @@ export default function ComponentsScreen() {
             href="/components/counter"
           />
           <MenuItem
+            text="Divider"
+            textBelow="Renders a horizontal or vertical line to separate content"
+            href="/components/divider"
+          />
+          <MenuItem
             text="InputOTP"
             textBelow="Renders a text input field to enter a one-time passcode"
             href="/components/input-otp"
@@ -134,10 +139,10 @@ export default function ComponentsScreen() {
 const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.backgroundSecondary,
+    backgroundColor: theme.colors.backgroundScreen,
   },
   scrollViewContent: {
-    backgroundColor: theme.colors.backgroundSecondary,
+    backgroundColor: theme.colors.backgroundScreen,
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.large,
   },

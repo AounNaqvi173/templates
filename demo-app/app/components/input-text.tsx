@@ -3,8 +3,6 @@ import { Card } from '@/craftrn-ui/components/Card';
 import { InputText } from '@/craftrn-ui/components/InputText';
 import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Switch } from '@/craftrn-ui/components/Switch';
-import { Search } from '@/tetrisly-icons/Search';
-import { Slider } from '@/tetrisly-icons/Slider';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { Stack } from 'expo-router';
 import React, { useCallback, useState } from 'react';
@@ -15,6 +13,9 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
+import { Divider } from '../../craftrn-ui/components/Divider';
+import { File } from '../../tetrisly-icons/File';
+import { Lock } from '../../tetrisly-icons/Lock';
 
 type InputTextSize = 'small' | 'medium' | 'large';
 
@@ -67,14 +68,14 @@ export default function InputTextScreen() {
               leftAccessory={
                 hasLeftAccessory ? (
                   <View style={styles.leftAccessory}>
-                    <Search color={theme.colors.contentPrimary} />
+                    <File color={theme.colors.contentTertiary} />
                   </View>
                 ) : undefined
               }
               rightAccessory={
                 hasRightAccessory ? (
                   <View style={styles.rightAccessory}>
-                    <Slider color={theme.colors.contentPrimary} />
+                    <Lock color={theme.colors.contentTertiary} />
                   </View>
                 ) : undefined
               }
@@ -95,8 +96,7 @@ export default function InputTextScreen() {
                 <Button
                   key={s}
                   size="small"
-                  variant="subtle"
-                  intent={size === s ? 'primary' : 'secondary'}
+                  variant={size === s ? 'secondary' : 'neutral'}
                   onPress={() => handleSizeChange(s)}
                 >
                   {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -104,7 +104,7 @@ export default function InputTextScreen() {
               ))}
             </View>
           </View>
-          <View style={styles.divider} />
+          <Divider style={styles.divider} />
 
           {/* Toggle Controls */}
           <ListItem
@@ -126,7 +126,7 @@ export default function InputTextScreen() {
 
           <ListItem
             text="Left Accessory"
-            textBelow="Show search icon on the left"
+            textBelow="Show icon on the left"
             itemRight={
               <Switch
                 value={hasLeftAccessory}
@@ -138,7 +138,7 @@ export default function InputTextScreen() {
 
           <ListItem
             text="Right Accessory"
-            textBelow="Show slider icon on the right"
+            textBelow="Show icon on the right"
             itemRight={
               <Switch
                 value={hasRightAccessory}
@@ -167,7 +167,7 @@ const styles = StyleSheet.create(theme => ({
     paddingBottom: UnistylesRuntime.insets.bottom + theme.spacing.medium,
   },
   demoSection: {
-    flex: 1,
+    height: 300,
     marginBottom: theme.spacing.large,
   },
   demoContainer: {
@@ -177,10 +177,10 @@ const styles = StyleSheet.create(theme => ({
   },
   controlsCard: {
     padding: theme.spacing.large,
-    gap: theme.spacing.large,
+    gap: theme.spacing.small,
   },
   controlSection: {
-    gap: theme.spacing.medium,
+    gap: theme.spacing.small,
   },
   toggleGroup: {
     flexDirection: 'row',
@@ -188,15 +188,13 @@ const styles = StyleSheet.create(theme => ({
     flexWrap: 'wrap',
   },
   divider: {
-    height: 1,
-    backgroundColor: theme.colors.surfaceSecondary,
     marginVertical: theme.spacing.xsmall,
   },
   leftAccessory: {
-    marginRight: theme.spacing.small,
+    marginRight: theme.spacing.xsmall,
   },
   rightAccessory: {
-    marginLeft: theme.spacing.small,
+    marginLeft: theme.spacing.xsmall,
   },
   keyboardView: {
     flex: 1,

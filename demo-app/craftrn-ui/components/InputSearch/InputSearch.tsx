@@ -1,6 +1,13 @@
-import React, { forwardRef, useCallback, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   NativeSyntheticEvent,
+  Platform,
   Pressable,
   TextInput,
   TextInputFocusEventData,
@@ -8,10 +15,27 @@ import {
   View,
 } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import { darkTheme, lightTheme } from '../../themes/config';
 
-export const config = {
-  medium: 48,
-} as const;
+const createInputSearchTokens = (
+  theme: typeof lightTheme | typeof darkTheme,
+) => {
+  return {
+    size: {
+      height: 48,
+    },
+    colors: {
+      border: {
+        normal: theme.colors.borderNeutralSecondary,
+        active: theme.colors.interactiveSecondaryContent,
+      },
+      background: theme.colors.backgroundElevated,
+      text: theme.colors.contentPrimary,
+      placeholder: theme.colors.contentTertiary,
+      selection: theme.colors.interactiveSecondaryContent,
+    },
+  };
+};
 
 /**
  * Props for the InputSearch component.
@@ -46,6 +70,10 @@ export const InputSearch = forwardRef<TextInput, Props & TextInputProps>(
     ref,
   ) {
     const { theme } = useUnistyles();
+    const inputSearchTokens = useMemo(
+      () => createInputSearchTokens(theme),
+      [theme],
+    );
     const [isFocused, setIsFocused] = useState(false);
     const isActive = isFocused || !!value;
     const isReadOnly = !props.editable && !!props.readOnly;
@@ -91,7 +119,8 @@ export const InputSearch = forwardRef<TextInput, Props & TextInputProps>(
             onBlur={handleBlur}
             value={value}
             ref={ref}
-            placeholderTextColor={theme.colors.contentTertiary}
+            placeholderTextColor={inputSearchTokens.colors.placeholder}
+            selectionColor={inputSearchTokens.colors.selection}
             textAlignVertical="center"
             role="searchbox"
             {...props}
@@ -103,31 +132,34 @@ export const InputSearch = forwardRef<TextInput, Props & TextInputProps>(
   },
 );
 
-const styles = StyleSheet.create(({ colors, borderRadius, spacing }) => ({
-  container: {
-    shadowColor: colors.contentTertiary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 1,
-    shadowOpacity: 0.05,
-    width: '100%',
-  },
-  inputContainer: ({ active }) => ({
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: borderRadius.full,
-    backgroundColor: colors.backgroundPrimary,
-    borderWidth: 1,
-    borderColor: active ? colors.accentPrimary : colors.borderPrimary,
-    paddingHorizontal: spacing.small,
-    paddingVertical: spacing.xsmall,
-    height: config.medium,
-  }),
-  textInput: ({ readOnly }) => ({
-    flexGrow: 1,
-    padding: 0,
-    marginHorizontal: spacing.small,
-    height: config.medium - 2,
-    pointerEvents: readOnly ? 'none' : 'auto',
-    color: colors.contentPrimary,
-  }),
-}));
+const styles = StyleSheet.create(theme => {
+  const inputSearchTokens = createInputSearchTokens(theme);
+
+  return {
+    container: {
+      width: '100%',
+    },
+    inputContainer: ({ active }: { active: boolean }) => ({
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: theme.borderRadius.full,
+      borderWidth: 1,
+      borderColor: active
+        ? inputSearchTokens.colors.border.active
+        : inputSearchTokens.colors.border.normal,
+      paddingHorizontal: theme.spacing.small,
+      paddingVertical: theme.spacing.xsmall,
+      height: inputSearchTokens.size.height,
+      backgroundColor: inputSearchTokens.colors.background,
+    }),
+    textInput: ({ readOnly }: { readOnly: boolean }) => ({
+      flexGrow: 1,
+      padding: 0,
+      marginHorizontal: theme.spacing.small,
+      height: inputSearchTokens.size.height - 2,
+      pointerEvents: readOnly ? 'none' : 'auto',
+      color: inputSearchTokens.colors.text,
+      lineHeight: Platform.OS === 'ios' ? 0 : undefined,
+    }),
+  };
+});

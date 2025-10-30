@@ -9,15 +9,18 @@ export default function ComponentsLayout() {
   return (
     <Stack
       screenOptions={({ navigation }) => ({
-        contentStyle: { backgroundColor: theme.colors.backgroundSecondary }, // This sets the background color
-        headerStyle: { backgroundColor: theme.colors.backgroundSecondary },
+        contentStyle: { backgroundColor: theme.colors.backgroundScreen },
+        headerStyle: { backgroundColor: theme.colors.backgroundScreen },
         headerTintColor: theme.colors.contentPrimary,
         headerShadowVisible: false,
         headerLeft: ({ canGoBack }) =>
           canGoBack ? (
-            <NavigationBackButton onPress={navigation.goBack} />
+            <NavigationBackButton
+              onPress={navigation.goBack}
+              variant="neutral-secondary"
+            />
           ) : undefined,
-        headerRight: () => <ThemeToggleButton />,
+        headerRight: () => <ThemeToggleButton variant="neutral-secondary" />,
       })}
     />
   );

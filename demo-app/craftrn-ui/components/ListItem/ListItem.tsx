@@ -1,7 +1,23 @@
 import React from 'react';
 import { AccessibilityProps, Pressable, View, ViewProps } from 'react-native';
-import { StyleSheet, withUnistyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
+import { darkTheme, lightTheme } from '../../themes/config';
+import { Divider } from '../Divider';
 import { Text } from '../Text';
+
+const createListItemTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+  return {
+    colors: {
+      pressed: theme.colors.interactiveNeutralPress,
+      divider: theme.colors.borderNeutral,
+    },
+    spacing: {
+      gap: theme.spacing.small,
+      contentGap: theme.spacing.xxsmall,
+      paddingVertical: theme.spacing.xxsmall,
+    },
+  };
+};
 
 /**
  * Props for the ListItem component.
@@ -43,7 +59,7 @@ export type Props = Pick<ViewProps, 'style'> & {
 
 type ListItemProps = Props & AccessibilityProps;
 
-const ListItemComponent = ({
+export const ListItem = ({
   itemLeft,
   textAbove,
   text,
@@ -73,7 +89,7 @@ const ListItemComponent = ({
             {itemLeft}
             <View style={styles.itemContent}>
               {textAbove && (
-                <Text variant="body3" color="contentSecondary">
+                <Text variant="body3" color="contentTertiary">
                   {textAbove}
                 </Text>
               )}
@@ -82,12 +98,12 @@ const ListItemComponent = ({
                 color={
                   variant === 'danger' ? 'negativeSecondary' : 'contentPrimary'
                 }
-                style={styles.itemText}
+                style={styles.text}
               >
                 {text}
               </Text>
               {textBelow && (
-                <Text variant="body3" color="contentSecondary">
+                <Text variant="body3" color="contentTertiary">
                   {textBelow}
                 </Text>
               )}
@@ -96,34 +112,33 @@ const ListItemComponent = ({
           </View>
         )}
       </Pressable>
-      {divider && <View style={styles.itemDivider} />}
+      {divider && <Divider />}
     </>
   );
 };
 
-export const ListItem = withUnistyles(ListItemComponent);
+const styles = StyleSheet.create(theme => {
+  const listItemTokens = createListItemTokens(theme);
 
-const styles = StyleSheet.create(({ colors, spacing }) => ({
-  itemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: spacing.small,
-  },
-  itemContainerPressed: {
-    backgroundColor: colors.surfaceTertiary,
-  },
-  itemContent: {
-    flex: 1,
-    flexShrink: 1,
-    minWidth: 100,
-    gap: spacing.xxsmall,
-  },
-  itemText: {
-    fontWeight: 'bold',
-  },
-  itemDivider: {
-    borderBottomColor: colors.surfaceSecondary,
-    borderBottomWidth: 1,
-  },
-}));
+  return {
+    itemContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: listItemTokens.spacing.gap,
+    },
+    itemContainerPressed: {
+      backgroundColor: listItemTokens.colors.pressed,
+    },
+    itemContent: {
+      flex: 1,
+      flexShrink: 1,
+      minWidth: 100,
+      gap: listItemTokens.spacing.contentGap,
+      paddingVertical: listItemTokens.spacing.paddingVertical,
+    },
+    text: {
+      fontWeight: '500',
+    },
+  };
+});

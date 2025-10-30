@@ -2,6 +2,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -18,7 +19,6 @@ import Animated, {
   interpolate,
   runOnJS,
   useAnimatedStyle,
-  useDerivedValue,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
@@ -27,7 +27,27 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
+import { darkTheme, lightTheme } from '../../themes/config';
 import { ListItem } from '../ListItem';
+
+const createContextMenuTokens = (
+  theme: typeof lightTheme | typeof darkTheme,
+) => {
+  return {
+    size: {
+      minWidth: 200,
+    },
+    colors: {
+      overlay: theme.colors.backgroundOverlay,
+      background: theme.colors.backgroundPrimary,
+      shadow: theme.colors.backgroundNeutral,
+    },
+    animation: {
+      enterDuration: 200,
+      exitDuration: 150,
+    },
+  };
+};
 
 export type ContextMenuItem = {
   id: string;
@@ -55,11 +75,6 @@ export type ContextMenuProps = {
   offset?: { x: number; y: number };
 };
 
-const config = {
-  enterDuration: 200,
-  exitDuration: 150,
-};
-
 export const ContextMenu = ({
   items,
   trigger,
@@ -67,6 +82,10 @@ export const ContextMenu = ({
   offset = { x: 0, y: 8 },
 }: ContextMenuProps) => {
   const { theme } = useUnistyles();
+  const contextMenuTokens = useMemo(
+    () => createContextMenuTokens(theme),
+    [theme],
+  );
   const [visible, setVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [triggerPosition, setTriggerPosition] = useState({
@@ -75,121 +94,64 @@ export const ContextMenu = ({
     width: 0,
     height: 0,
   });
-  const [menuHeight, setMenuHeight] = useState(0);
+  const [menuSize, setMenuSize] = useState({ height: 0, width: 0 });
   const [hasMenuPositioned, setHasMenuPositioned] = useState(false);
   const triggerRef = useRef<View>(null);
-  const menuRef = useRef<View>(null);
 
   const animationProgress = useSharedValue(0);
+  const transformOriginX = useSharedValue(0);
+  const transformOriginY = useSharedValue(0);
 
-  const overlayOpacity = useDerivedValue(() =>
-    interpolate(animationProgress.value, [0, 1], [0, 0.3]),
-  );
-
-  const scale = useDerivedValue(() =>
-    interpolate(animationProgress.value, [0, 1], [0.8, 1]),
-  );
-
-  const hideModal = () => setIsModalVisible(false);
-
-  const measureTrigger = useCallback(() => {
-    if (triggerRef.current) {
-      triggerRef.current.measure((_x, _y, width, height, pageX, pageY) => {
-        setTriggerPosition({ x: pageX, y: pageY, width, height });
-        setHasMenuPositioned(true);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (visible && !hasMenuPositioned) {
-      const timer = setTimeout(() => {
-        measureTrigger();
-      }, 10);
-      return () => clearTimeout(timer);
-    }
-  }, [visible, measureTrigger, hasMenuPositioned]);
-
-  const getMenuPosition = () => {
-    const { x, y, width, height } = triggerPosition;
-    const screenWidth = Dimensions.get('window').width;
+  const isMenuOnTop = useCallback(() => {
+    const { y, height } = triggerPosition;
     const screenHeight = Dimensions.get('window').height;
-
     const screenY =
       Platform.OS === 'android' ? y - UnistylesRuntime.insets.top : y;
-
     const spaceAbove = screenY - UnistylesRuntime.insets.top;
     const spaceBelow =
       screenHeight - UnistylesRuntime.insets.bottom - (screenY + height);
 
-    const preferredIsTop = menuAnchorPosition.startsWith('top-');
-    const shouldShowOnTop = preferredIsTop
-      ? spaceAbove >= menuHeight + offset.y
-      : spaceBelow < menuHeight + offset.y &&
-        spaceAbove >= menuHeight + offset.y;
+    return menuAnchorPosition.startsWith('top-')
+      ? spaceAbove >= menuSize.height + offset.y
+      : spaceBelow < menuSize.height + offset.y &&
+          spaceAbove >= menuSize.height + offset.y;
+  }, [triggerPosition, menuAnchorPosition, menuSize.height, offset.y]);
 
-    const top = shouldShowOnTop
-      ? Math.max(screenY - menuHeight - offset.y, UnistylesRuntime.insets.top)
-      : Math.min(
-          screenY + height + offset.y,
-          screenHeight - UnistylesRuntime.insets.bottom - menuHeight,
-        );
+  useEffect(() => {
+    if (!menuSize.height || !menuSize.width || !hasMenuPositioned) return;
 
-    const baseStyle = {
-      top,
-    };
+    const align = menuAnchorPosition.split('-')[1] as HorizontalAlignment;
+    transformOriginY.value = isMenuOnTop()
+      ? menuSize.height / 2
+      : -menuSize.height / 2;
+    transformOriginX.value =
+      align === 'left'
+        ? -menuSize.width / 2
+        : align === 'right'
+          ? menuSize.width / 2
+          : 0;
+  }, [
+    menuSize,
+    hasMenuPositioned,
+    menuAnchorPosition,
+    isMenuOnTop,
+    transformOriginX,
+    transformOriginY,
+  ]);
 
-    const triggerLeft = x;
-    const triggerRight = screenWidth - (x + width);
+  const measureTrigger = useCallback(() => {
+    triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+      setTriggerPosition({ x: pageX, y: pageY, width, height });
+      setHasMenuPositioned(true);
+    });
+  }, []);
 
-    const horizontalAlign = menuAnchorPosition.split(
-      '-',
-    )[1] as HorizontalAlignment;
-
-    switch (horizontalAlign) {
-      case 'center':
-        return {
-          ...baseStyle,
-          alignSelf: 'center' as const,
-          marginHorizontal: theme.spacing.large,
-        };
-
-      case 'left':
-        return {
-          ...baseStyle,
-          left: triggerLeft + offset.x,
-        };
-
-      case 'right':
-        return {
-          ...baseStyle,
-          right: triggerRight + offset.x,
-        };
-
-      default:
-        return {
-          ...baseStyle,
-          left: theme.spacing.large,
-          right: theme.spacing.large,
-        };
+  useEffect(() => {
+    if (visible && !hasMenuPositioned) {
+      const timer = setTimeout(measureTrigger, 10);
+      return () => clearTimeout(timer);
     }
-  };
-
-  const onClose = useCallback(() => {
-    setVisible(false);
-  }, []);
-
-  const onOpen = useCallback(() => {
-    setVisible(true);
-  }, []);
-
-  const handleItemPress = useCallback(
-    (itemOnPress: () => void) => {
-      itemOnPress();
-      onClose();
-    },
-    [onClose],
-  );
+  }, [visible, measureTrigger, hasMenuPositioned]);
 
   useEffect(() => {
     if (visible) {
@@ -201,35 +163,103 @@ export const ContextMenu = ({
       animationProgress.value = withTiming(
         0,
         {
-          duration: config.exitDuration,
+          duration: contextMenuTokens.animation.exitDuration,
           easing: Easing.in(Easing.cubic),
         },
-        finished => {
-          if (finished) {
-            runOnJS(hideModal)();
-          }
-        },
+        finished => finished && runOnJS(setIsModalVisible)(false),
       );
     }
-  }, [visible, isModalVisible, animationProgress]);
+  }, [visible, isModalVisible, animationProgress, contextMenuTokens]);
+
+  const getMenuPosition = () => {
+    const { x, y, width, height } = triggerPosition;
+    const screenWidth = Dimensions.get('window').width;
+    const screenHeight = Dimensions.get('window').height;
+    const screenY =
+      Platform.OS === 'android' ? y - UnistylesRuntime.insets.top : y;
+
+    const align = menuAnchorPosition.split('-')[1] as HorizontalAlignment;
+
+    const top = isMenuOnTop()
+      ? Math.max(
+          screenY - menuSize.height - offset.y,
+          UnistylesRuntime.insets.top,
+        )
+      : Math.min(
+          screenY + height + offset.y,
+          screenHeight - UnistylesRuntime.insets.bottom - menuSize.height,
+        );
+
+    if (align === 'center') {
+      return {
+        top,
+        alignSelf: 'center' as const,
+        marginHorizontal: theme.spacing.large,
+      };
+    }
+    if (align === 'left') {
+      return { top, left: x + offset.x };
+    }
+    if (align === 'right') {
+      return { top, right: screenWidth - (x + width) + offset.x };
+    }
+    return { top, left: theme.spacing.large, right: theme.spacing.large };
+  };
+
+  const onClose = useCallback(() => setVisible(false), []);
+  const onOpen = useCallback(() => setVisible(true), []);
+
+  const handleItemPress = useCallback(
+    (itemOnPress: () => void) => {
+      itemOnPress();
+      onClose();
+    },
+    [onClose],
+  );
 
   useEffect(() => {
     if (visible && hasMenuPositioned && isModalVisible) {
       animationProgress.value = withTiming(1, {
-        duration: config.enterDuration,
+        duration: contextMenuTokens.animation.enterDuration,
         easing: Easing.out(Easing.cubic),
       });
     }
-  }, [visible, hasMenuPositioned, isModalVisible, animationProgress]);
+  }, [
+    visible,
+    hasMenuPositioned,
+    isModalVisible,
+    animationProgress,
+    contextMenuTokens,
+  ]);
 
   const overlayAnimatedStyle = useAnimatedStyle(() => ({
-    opacity: overlayOpacity.value,
+    opacity: interpolate(animationProgress.value, [0, 1], [0, 0.3]),
   }));
 
-  const menuAnimatedStyle = useAnimatedStyle(() => ({
-    opacity: animationProgress.value,
-    transform: [{ scale: scale.value }],
-  }));
+  const menuAnimatedStyle = useAnimatedStyle(() => {
+    const translateX = interpolate(
+      animationProgress.value,
+      [0, 1],
+      [transformOriginX.value, 0],
+    );
+    const translateY = interpolate(
+      animationProgress.value,
+      [0, 1],
+      [transformOriginY.value, 0],
+    );
+    const scale = interpolate(animationProgress.value, [0, 1], [0.8, 1]);
+
+    return {
+      opacity: animationProgress.value,
+      transform: [
+        { translateX },
+        { translateY },
+        { scale },
+        { translateX: -translateX },
+        { translateY: -translateY },
+      ],
+    };
+  });
 
   return (
     <>
@@ -247,12 +277,8 @@ export const ContextMenu = ({
             <Pressable style={styles.overlayPressable} onPress={onClose} />
           </Animated.View>
           <Animated.View
-            ref={menuRef}
             style={[styles.menu, getMenuPosition(), menuAnimatedStyle]}
-            onLayout={event => {
-              const { height } = event.nativeEvent.layout;
-              setMenuHeight(height);
-            }}
+            onLayout={e => setMenuSize(e.nativeEvent.layout)}
           >
             {items.map((item, index) => (
               <ListItem
@@ -273,31 +299,35 @@ export const ContextMenu = ({
   );
 };
 
-const styles = StyleSheet.create(({ colors, spacing }) => ({
-  overlay: {
-    flex: 1,
-    backgroundColor: colors.overlay,
-  },
-  overlayPressable: {
-    flex: 1,
-  },
-  menu: {
-    position: 'absolute',
-    backgroundColor: colors.backgroundPrimary,
-    borderRadius: spacing.medium,
-    shadowColor: colors.shadowPrimary,
-    shadowOffset: {
-      width: 0,
-      height: 8,
+const styles = StyleSheet.create(theme => {
+  const contextMenuTokens = createContextMenuTokens(theme);
+
+  return {
+    overlay: {
+      flex: 1,
+      backgroundColor: contextMenuTokens.colors.overlay,
     },
-    shadowOpacity: 0.24,
-    shadowRadius: 16,
-    elevation: 10,
-    overflow: 'hidden',
-    minWidth: 200,
-  },
-  menuItem: {
-    paddingHorizontal: spacing.medium,
-    paddingVertical: spacing.small,
-  },
-}));
+    overlayPressable: {
+      flex: 1,
+    },
+    menu: {
+      position: 'absolute',
+      backgroundColor: contextMenuTokens.colors.background,
+      borderRadius: theme.spacing.medium,
+      shadowColor: contextMenuTokens.colors.shadow,
+      shadowOffset: {
+        width: 0,
+        height: 8,
+      },
+      shadowOpacity: 1,
+      shadowRadius: 16,
+      elevation: 10,
+      overflow: 'hidden',
+      minWidth: contextMenuTokens.size.minWidth,
+    },
+    menuItem: {
+      paddingHorizontal: theme.spacing.medium,
+      paddingVertical: theme.spacing.small,
+    },
+  };
+});

@@ -21,15 +21,16 @@ export type Props = {
    * @default 'contentPrimary'
    */
   color?:
+    | 'interactivePrimaryContent'
+    | 'interactiveSecondaryContent'
     | 'contentPrimary'
     | 'contentSecondary'
     | 'contentTertiary'
-    | 'contentQuaternary'
     | 'contentAccent'
-    | 'positivePrimary'
-    | 'positiveSecondary'
-    | 'negativePrimary'
-    | 'negativeSecondary';
+    | 'sentimentPositive'
+    | 'sentimentPositiveSecondary'
+    | 'sentimentNegative'
+    | 'sentimentNegativeSecondary';
 };
 
 export const Text = ({

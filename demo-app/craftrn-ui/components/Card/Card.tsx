@@ -1,6 +1,15 @@
 import React from 'react';
 import { StyleSheet as RNStyleSheet, View, ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
+import { darkTheme, lightTheme } from '../../themes/config';
+
+const createCardTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+  return {
+    colors: {
+      background: theme.colors.backgroundElevated,
+    },
+  };
+};
 
 /**
  * Props for the Card component.
@@ -15,10 +24,14 @@ export const Card = ({ children, style, ...viewProps }: Props) => {
   );
 };
 
-const styles = StyleSheet.create(({ colors, borderRadius }) => ({
-  card: {
-    backgroundColor: colors.surfacePrimary,
-    borderRadius: borderRadius.large,
-    overflow: 'hidden',
-  },
-}));
+const styles = StyleSheet.create(theme => {
+  const cardTokens = createCardTokens(theme);
+
+  return {
+    card: {
+      backgroundColor: cardTokens.colors.background,
+      borderRadius: theme.borderRadius.large,
+      overflow: 'hidden',
+    },
+  };
+});

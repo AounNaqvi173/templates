@@ -13,6 +13,7 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
+import { Divider } from '../../craftrn-ui/components/Divider';
 
 export default function ListItemScreen() {
   const { theme } = useUnistyles();
@@ -71,23 +72,21 @@ export default function ListItemScreen() {
           <View style={styles.toggleGroup}>
             <Button
               size="small"
-              variant="subtle"
-              intent={hasTextAbove ? 'primary' : 'secondary'}
+              variant={hasTextAbove ? 'secondary' : 'neutral'}
               onPress={() => setHasTextAbove(!hasTextAbove)}
             >
               Text above
             </Button>
             <Button
               size="small"
-              variant="subtle"
-              intent={hasTextBelow ? 'primary' : 'secondary'}
+              variant={hasTextBelow ? 'secondary' : 'neutral'}
               onPress={() => setHasTextBelow(!hasTextBelow)}
             >
               Text below
             </Button>
           </View>
         </View>
-        <View style={styles.divider} />
+        <Divider style={styles.divider} />
 
         {/* Toggle Controls */}
         <ListItem
@@ -137,7 +136,7 @@ export default function ListItemScreen() {
             />
           </View>
         </View>
-        <View style={styles.divider} />
+        <Divider style={styles.divider} />
 
         <ListItem
           text="Divider"
@@ -168,10 +167,10 @@ const styles = StyleSheet.create(theme => ({
   },
   controlsCard: {
     padding: theme.spacing.large,
-    gap: theme.spacing.large,
+    gap: theme.spacing.small,
   },
   controlSection: {
-    gap: theme.spacing.medium,
+    gap: theme.spacing.small,
   },
   toggleGroup: {
     flexDirection: 'row',
@@ -184,8 +183,6 @@ const styles = StyleSheet.create(theme => ({
     alignItems: 'center',
   },
   divider: {
-    height: 1,
-    backgroundColor: theme.colors.surfaceSecondary,
     marginVertical: theme.spacing.xsmall,
   },
   leftAccessory: {

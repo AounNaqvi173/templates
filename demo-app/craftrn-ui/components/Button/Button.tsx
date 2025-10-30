@@ -1,57 +1,190 @@
-import React from 'react';
-import { AccessibilityProps, Pressable, View } from 'react-native';
+import React, { useMemo } from 'react';
+import { AccessibilityProps } from 'react-native';
+import Animated, {
+  interpolateColor,
+  useAnimatedStyle,
+  useSharedValue,
+  type SharedValue,
+} from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { darkTheme, lightTheme } from '../../themes/config';
-import { Text } from '../Text';
-
-export const config = {
-  small: {
-    buttonMinWidth: 44,
-    buttonMinHeight: 30,
-    hitSlop: 5,
-  },
-  regular: {
-    buttonMinWidth: 44,
-    buttonMinHeight: 40,
-    hitSlop: 2,
-  },
-  large: {
-    buttonMinWidth: 44,
-    buttonMinHeight: 48,
-    hitSlop: 0,
-  },
-};
-
-const borderWidth = StyleSheet.hairlineWidth * 2;
-
-type Size = 'large' | 'regular' | 'small';
-type Variant = 'solid' | 'outlined' | 'subtle' | 'text';
-type Intent = 'primary' | 'secondary' | 'positive' | 'negative';
+import { PressableScale, type AnimationConfig } from '../PressableScale';
 
 /**
- * Props for the Button component.
- * @see AccessibilityProps
+ * Convert a hex color to grayscale using luminance formula (0.299*R + 0.587*G + 0.114*B)
  */
-export type Props = {
+const hexToGrayscale = (hex: string): string =>
+  `#${Math.round(
+    0.299 * parseInt(hex.slice(1, 3), 16) +
+      0.587 * parseInt(hex.slice(3, 5), 16) +
+      0.114 * parseInt(hex.slice(5, 7), 16),
+  )
+    .toString(16)
+    .padStart(2, '0')
+    .repeat(3)}${hex.length === 9 ? hex.slice(7) : ''}`;
+
+type Size = 'large' | 'regular' | 'small';
+type Variant =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'neutral'
+  | 'neutral-secondary'
+  | 'negative';
+
+type ColorInterpolationConfig = {
+  backgroundColor: {
+    unpressed: string;
+    pressed: string;
+  };
+  contentColor: {
+    unpressed: string;
+    pressed: string;
+  };
+};
+
+const useColorInterpolation = (config: {
+  pressProgress: SharedValue<number>;
+  colorConfig: ColorInterpolationConfig;
+}) => {
+  const { pressProgress, colorConfig } = config;
+
+  const backgroundStyle = useAnimatedStyle(
+    () => ({
+      backgroundColor: interpolateColor(
+        pressProgress.value,
+        [0, 1],
+        [
+          colorConfig.backgroundColor.unpressed,
+          colorConfig.backgroundColor.pressed,
+        ],
+      ),
+    }),
+    [
+      colorConfig.backgroundColor.unpressed,
+      colorConfig.backgroundColor.pressed,
+    ],
+  );
+
+  const contentStyle = useAnimatedStyle(
+    () => ({
+      color: interpolateColor(
+        pressProgress.value,
+        [0, 1],
+        [colorConfig.contentColor.unpressed, colorConfig.contentColor.pressed],
+      ),
+    }),
+    [colorConfig.contentColor.unpressed, colorConfig.contentColor.pressed],
+  );
+
+  return { backgroundStyle, contentStyle };
+};
+
+const createButtonTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+  return {
+    size: {
+      small: {
+        minHeight: 30,
+        minWidth: 44,
+      },
+      regular: {
+        minHeight: 40,
+        minWidth: 44,
+      },
+      large: {
+        minHeight: 48,
+        minWidth: 44,
+      },
+    },
+    spacing: {
+      small: {
+        paddingHorizontal: theme.spacing.small,
+        paddingVertical: theme.spacing.xsmall,
+        hitSlop: { top: 2, bottom: 2, left: 4, right: 4 },
+      },
+      regular: {
+        paddingHorizontal: theme.spacing.medium,
+        paddingVertical: theme.spacing.small,
+        hitSlop: { top: 2, bottom: 2, left: 2, right: 2 },
+      },
+      large: {
+        paddingHorizontal: theme.spacing.large,
+        paddingVertical: theme.spacing.medium,
+        hitSlop: { top: 0, bottom: 0, left: 0, right: 0 },
+      },
+    },
+    colors: {
+      backgroundColor: {
+        primary: {
+          normal: theme.colors.interactivePrimary,
+          pressed: theme.colors.interactivePrimaryPress,
+        },
+        secondary: {
+          normal: theme.colors.interactiveSecondary,
+          pressed: theme.colors.interactiveSecondaryPress,
+        },
+        tertiary: {
+          normal: `${theme.colors.interactiveSecondary}00`,
+          pressed: theme.colors.interactiveSecondary,
+        },
+        neutral: {
+          normal: theme.colors.interactiveNeutral,
+          pressed: theme.colors.interactiveNeutralPress,
+        },
+        'neutral-secondary': {
+          normal: theme.colors.interactiveNeutralSecondary,
+          pressed: theme.colors.interactiveNeutralSecondaryPress,
+        },
+        negative: {
+          normal: theme.colors.sentimentNegative,
+          pressed: theme.colors.sentimentNegativePress,
+        },
+      },
+      contentColor: {
+        primary: {
+          normal: theme.colors.interactivePrimaryContent,
+          pressed: theme.colors.interactivePrimaryContentPress,
+        },
+        secondary: {
+          normal: theme.colors.interactiveSecondaryContent,
+          pressed: theme.colors.interactiveSecondaryContentPress,
+        },
+        tertiary: {
+          normal: theme.colors.interactiveSecondaryContent,
+          pressed: theme.colors.interactiveSecondaryContentPress,
+        },
+        neutral: {
+          normal: theme.colors.interactiveNeutralContent,
+          pressed: theme.colors.interactiveNeutralContentPress,
+        },
+        'neutral-secondary': {
+          normal: theme.colors.interactiveNeutralContent,
+          pressed: theme.colors.interactiveNeutralContentPress,
+        },
+        negative: {
+          normal: theme.colors.sentimentNegativeSecondary,
+          pressed: theme.colors.sentimentNegativeSecondaryPress,
+        },
+      },
+    },
+    borderRadius: {
+      small: theme.borderRadius.full,
+      regular: theme.borderRadius.full,
+      large: theme.borderRadius.full,
+    },
+    typography: {
+      small: { ...theme.textVariants.body3, fontWeight: '700' as '700' },
+      regular: { ...theme.textVariants.body2, fontWeight: '700' as '700' },
+      large: { ...theme.textVariants.body1, fontWeight: '700' as '700' },
+    },
+  };
+};
+
+type BaseProps = {
   /**
    * The text content of the button.
    */
   children: string | string[];
-  /**
-   * The visual style variant of the button.
-   * @default 'solid'
-   */
-  variant?: Variant;
-  /**
-   * The intent/purpose of the button.
-   * @default 'primary'
-   */
-  intent?: Intent;
-  /**
-   * The size of the button.
-   * @default 'regular'
-   */
-  size?: Size;
   /**
    * Callback function triggered when the button is pressed.
    */
@@ -61,254 +194,110 @@ export type Props = {
    * @default false
    */
   disabled?: boolean;
+  /**
+   * The size of the button.
+   * @default 'regular'
+   */
+  size?: Size;
+  /**
+   * The visual style variant of the button.
+   * @default 'primary'
+   */
+  variant?: Variant;
+  /**
+   * Animation configuration for press interactions
+   */
+  animationConfig?: AnimationConfig;
 };
 
-type ButtonProps = Props & AccessibilityProps;
-
-const getButtonStyles = (
-  variant: Variant,
-  intent: Intent,
-  pressed: boolean,
-  disabled: boolean,
-  colors: typeof lightTheme.colors | typeof darkTheme.colors,
-) => {
-  if (disabled) {
-    return {
-      backgroundColor:
-        variant === 'text' ? 'transparent' : colors.backgroundTertiary,
-      ...(variant === 'outlined' && {
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: colors.backgroundTertiary,
-      }),
-    };
-  }
-
-  switch (variant) {
-    case 'solid':
-      switch (intent) {
-        case 'primary':
-          return {
-            backgroundColor: pressed
-              ? colors.accentSecondary
-              : colors.accentPrimary,
-          };
-        case 'secondary':
-          return {
-            backgroundColor: pressed
-              ? colors.surfaceQuaternary
-              : colors.surfaceTertiary,
-          };
-        case 'positive':
-          return {
-            backgroundColor: pressed
-              ? colors.positivePrimary
-              : colors.positiveSecondary,
-          };
-        case 'negative':
-          return {
-            backgroundColor: pressed
-              ? colors.negativePrimary
-              : colors.negativeSecondary,
-          };
-      }
-    case 'subtle':
-      switch (intent) {
-        case 'primary':
-          return {
-            backgroundColor: pressed
-              ? colors.accentTertiary
-              : colors.accentQuaternary,
-          };
-        case 'secondary':
-          return {
-            backgroundColor: pressed
-              ? colors.surfaceTertiary
-              : colors.surfaceSecondary,
-          };
-        case 'positive':
-          return {
-            backgroundColor: pressed
-              ? colors.positiveTertiary
-              : colors.positiveQuaternary,
-          };
-        case 'negative':
-          return {
-            backgroundColor: pressed
-              ? colors.negativeTertiary
-              : colors.negativeQuaternary,
-          };
-      }
-    case 'outlined':
-      switch (intent) {
-        case 'primary':
-          return {
-            backgroundColor: pressed ? colors.accentQuaternary : 'transparent',
-            borderWidth,
-            borderColor: colors.accentPrimary,
-          };
-        case 'secondary':
-          return {
-            backgroundColor: pressed ? colors.surfaceSecondary : 'transparent',
-            borderWidth,
-            borderColor: colors.contentSecondary,
-          };
-        case 'positive':
-          return {
-            backgroundColor: pressed
-              ? colors.positiveQuaternary
-              : 'transparent',
-            borderWidth,
-            borderColor: colors.positivePrimary,
-          };
-        case 'negative':
-          return {
-            backgroundColor: pressed
-              ? colors.negativeQuaternary
-              : 'transparent',
-            borderWidth,
-            borderColor: colors.negativePrimary,
-          };
-      }
-    case 'text':
-      switch (intent) {
-        case 'primary':
-          return {
-            backgroundColor: pressed ? colors.accentQuaternary : 'transparent',
-          };
-        case 'secondary':
-          return {
-            backgroundColor: pressed ? colors.surfaceSecondary : 'transparent',
-          };
-        case 'positive':
-          return {
-            backgroundColor: pressed
-              ? colors.positiveQuaternary
-              : 'transparent',
-          };
-        case 'negative':
-          return {
-            backgroundColor: pressed
-              ? colors.negativeQuaternary
-              : 'transparent',
-          };
-      }
-  }
-};
-
-const getTextColor = (
-  variant: Variant,
-  intent: Intent,
-  disabled: boolean,
-  colors: typeof lightTheme.colors | typeof darkTheme.colors,
-) => {
-  if (disabled) return colors.contentTertiary;
-
-  switch (variant) {
-    case 'solid':
-      switch (intent) {
-        case 'primary':
-        case 'positive':
-        case 'negative':
-          return colors.contentReversed;
-        case 'secondary':
-          return colors.contentPrimary;
-      }
-    case 'outlined':
-    case 'subtle':
-    case 'text':
-      switch (intent) {
-        case 'primary':
-          return colors.contentAccent;
-        case 'secondary':
-          return colors.contentPrimary;
-        case 'positive':
-          return colors.positivePrimary;
-        case 'negative':
-          return colors.negativePrimary;
-      }
-  }
-};
+/**
+ * Props for the Button component.
+ * @see AccessibilityProps
+ */
+export type Props = BaseProps & AccessibilityProps;
 
 export const Button = ({
   children,
   onPress,
-  variant = 'solid',
-  intent = 'primary',
   size = 'regular',
   disabled = false,
+  variant = 'primary',
+  animationConfig,
   ...accessibilityProps
-}: ButtonProps) => {
+}: Props) => {
   const { theme } = useUnistyles();
 
+  const buttonTokens = useMemo(() => createButtonTokens(theme), [theme]);
+
+  const pressProgress = useSharedValue(0);
+
+  const colorConfig = useMemo<ColorInterpolationConfig>(() => {
+    const bgColors = buttonTokens.colors.backgroundColor[variant];
+    const contentColors = buttonTokens.colors.contentColor[variant];
+
+    return {
+      backgroundColor: {
+        unpressed: disabled ? hexToGrayscale(bgColors.normal) : bgColors.normal,
+        pressed: disabled ? hexToGrayscale(bgColors.pressed) : bgColors.pressed,
+      },
+      contentColor: {
+        unpressed: disabled
+          ? hexToGrayscale(contentColors.normal)
+          : contentColors.normal,
+        pressed: disabled
+          ? hexToGrayscale(contentColors.pressed)
+          : contentColors.pressed,
+      },
+    };
+  }, [variant, disabled, buttonTokens]);
+
+  const { backgroundStyle, contentStyle } = useColorInterpolation({
+    pressProgress,
+    colorConfig,
+  });
+
   return (
-    <Pressable
+    <PressableScale
       onPress={onPress}
-      hitSlop={{ top: config[size].hitSlop, bottom: config[size].hitSlop }}
       disabled={disabled}
+      hitSlop={buttonTokens.spacing[size].hitSlop}
       role="button"
+      animationConfig={animationConfig}
+      pressProgress={pressProgress}
       {...accessibilityProps}
     >
-      {({ pressed }) => (
-        <View
-          style={[
-            styles.button({ disabled, size }),
-            getButtonStyles(variant, intent, pressed, disabled, theme.colors),
-          ]}
-        >
-          <Text
-            style={[
-              styles.text({ size }),
-              { color: getTextColor(variant, intent, disabled, theme.colors) },
-            ]}
-          >
-            {children}
-          </Text>
-        </View>
-      )}
-    </Pressable>
+      <Animated.View
+        style={[styles.button({ size, disabled }), backgroundStyle]}
+      >
+        <Animated.Text style={[styles.text({ size }), contentStyle]}>
+          {children}
+        </Animated.Text>
+      </Animated.View>
+    </PressableScale>
   );
 };
 
-const styles = StyleSheet.create(({ borderRadius, spacing, textVariants }) => ({
-  button: (params: { disabled: boolean; size: Size }) => ({
-    justifyContent: 'center',
-    opacity: params.disabled ? 0.5 : 1,
-    ...(params.size === 'large' && {
-      paddingHorizontal: spacing.large,
-      paddingVertical: spacing.medium,
-      minHeight: config.large.buttonMinHeight,
-      minWidth: config.large.buttonMinWidth,
-      borderRadius: borderRadius.xlarge,
+const styles = StyleSheet.create(theme => {
+  const buttonTokens = createButtonTokens(theme);
+
+  return {
+    button: ({ size, disabled }: { size: Size; disabled: boolean }) => {
+      const sizeTokens = buttonTokens.spacing[size];
+      const sizeConfig = buttonTokens.size[size];
+      return {
+        justifyContent: 'center',
+        alignItems: 'center',
+        opacity: disabled ? 0.5 : 1,
+        paddingHorizontal: sizeTokens.paddingHorizontal,
+        paddingVertical: sizeTokens.paddingVertical,
+        minHeight: sizeConfig.minHeight,
+        minWidth: sizeConfig.minWidth,
+        borderRadius: buttonTokens.borderRadius[size],
+      };
+    },
+    text: ({ size }: { size: Size }) => ({
+      ...buttonTokens.typography[size],
+      textAlign: 'center',
     }),
-    ...(params.size === 'regular' && {
-      paddingHorizontal: spacing.medium,
-      paddingVertical: spacing.small,
-      minHeight: config.regular.buttonMinHeight,
-      minWidth: config.regular.buttonMinWidth,
-      borderRadius: borderRadius.large,
-    }),
-    ...(params.size === 'small' && {
-      paddingHorizontal: spacing.small,
-      paddingVertical: spacing.xsmall,
-      minHeight: config.small.buttonMinHeight,
-      minWidth: config.small.buttonMinWidth,
-      borderRadius: borderRadius.medium,
-    }),
-  }),
-  text: (params: { size: Size }) => ({
-    textAlign: 'center',
-    fontWeight: 'bold',
-    ...(params.size === 'large' && {
-      ...textVariants.body1,
-      fontWeight: 'bold',
-    }),
-    ...(params.size === 'regular' && {
-      ...textVariants.body2,
-      fontWeight: 'bold',
-    }),
-    ...(params.size === 'small' && {
-      ...textVariants.body3,
-      fontWeight: 'bold',
-    }),
-  }),
-}));
+  };
+});

@@ -2,6 +2,7 @@ import React, {
   forwardRef,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -22,19 +23,74 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import { darkTheme, lightTheme } from '../../themes/config';
 import { Text } from '../Text';
 
-export const config = {
-  small: {
-    height: 40,
-  },
-  medium: {
-    height: 48,
-  },
-  large: {
-    height: 56,
-  },
-} as const;
+type Size = 'small' | 'medium' | 'large';
+
+const createInputTextTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+  return {
+    size: {
+      small: {
+        height: 40,
+      },
+      medium: {
+        height: 48,
+      },
+      large: {
+        height: 56,
+      },
+    },
+    spacing: {
+      small: {
+        paddingHorizontal: theme.spacing.small,
+        paddingVertical: theme.spacing.xsmall,
+        accessoryMargin: theme.spacing.xsmall,
+        labelMarginTop: 0,
+      },
+      medium: {
+        paddingHorizontal: theme.spacing.small,
+        paddingVertical: theme.spacing.xsmall,
+        accessoryMargin: theme.spacing.xsmall,
+        labelMarginTop: theme.spacing.large,
+      },
+      large: {
+        paddingHorizontal: theme.spacing.small,
+        paddingVertical: theme.spacing.xsmall,
+        accessoryMargin: theme.spacing.xsmall,
+        labelMarginTop: theme.spacing.large,
+      },
+    },
+    colors: {
+      border: {
+        normal: theme.colors.borderNeutralSecondary,
+        active: theme.colors.interactiveSecondaryContent,
+        error: theme.colors.sentimentNegative,
+      },
+      background: theme.colors.backgroundElevated,
+      text: theme.colors.contentPrimary,
+      label: theme.colors.contentTertiary,
+      placeholder: theme.colors.contentTertiary,
+      selection: theme.colors.interactiveSecondaryContent,
+    },
+    borderRadius: {
+      small: theme.borderRadius.medium,
+      medium: theme.borderRadius.medium,
+      large: theme.borderRadius.medium,
+    },
+    animation: {
+      label: {
+        duration: 200,
+        easing: Easing.inOut(Easing.cubic),
+      },
+    },
+    typography: {
+      small: theme.textVariants.body3,
+      medium: theme.textVariants.body2,
+      large: theme.textVariants.body1,
+    },
+  };
+};
 
 /**
  * Base props for the InputText component.
@@ -44,7 +100,7 @@ type BaseProps = {
    * The size of the input.
    * @default 'medium'
    */
-  size?: keyof typeof config;
+  size?: Size;
   /**
    * Callback function triggered when the input is pressed.
    */
@@ -110,23 +166,24 @@ export const InputText = forwardRef<TextInput, Props & TextInputProps>(
     ref,
   ) {
     const { theme } = useUnistyles();
+    const inputTextTokens = useMemo(
+      () => createInputTextTokens(theme),
+      [theme],
+    );
     const [isFocused, setIsFocused] = useState(false);
     const inputRef = useRef<TextInput>(null);
     const reduceMotion = useReducedMotion();
     const isActive = isFocused || !!value;
-    const isActiveShared = useSharedValue(false);
+    const isActiveShared = useSharedValue(isActive);
 
-    // Fix Fabric timing issue - always use requestAnimationFrame for consistency
     useEffect(() => {
-      requestAnimationFrame(() => {
-        isActiveShared.value = isActive;
-      });
+      isActiveShared.value = isActive;
     }, [isActive, isActiveShared]);
 
     const labelAnimatedStyle = useAnimatedStyle(() => {
       const animationConfig = {
-        easing: Easing.inOut(Easing.cubic),
-        duration: reduceMotion ? 0 : 200,
+        easing: inputTextTokens.animation.label.easing,
+        duration: reduceMotion ? 0 : inputTextTokens.animation.label.duration,
       };
 
       return {
@@ -142,7 +199,7 @@ export const InputText = forwardRef<TextInput, Props & TextInputProps>(
           },
         ],
       };
-    }, [reduceMotion]);
+    }, [reduceMotion, inputTextTokens.animation.label]);
 
     const handlePress = useCallback(() => {
       inputRef.current?.focus();
@@ -166,24 +223,17 @@ export const InputText = forwardRef<TextInput, Props & TextInputProps>(
                 styles.container({
                   active: pressed || isFocused,
                   error: !!error,
+                  size,
                 }),
-                size === 'small' && styles.containerSmall,
-                size === 'medium' && styles.containerMedium,
-                size === 'large' && styles.containerLarge,
               ]}
             >
               {leftAccessory && (
-                <View style={styles.accessory}>{leftAccessory}</View>
+                <View style={styles.accessory({ size })}>{leftAccessory}</View>
               )}
               <View style={styles.textInputContainer}>
                 {label && (
                   <Animated.Text
-                    style={[
-                      styles.label,
-                      size === 'medium' && styles.labelMedium,
-                      size === 'large' && styles.labelLarge,
-                      labelAnimatedStyle,
-                    ]}
+                    style={[styles.label({ size }), labelAnimatedStyle]}
                   >
                     {label}
                   </Animated.Text>
@@ -191,25 +241,12 @@ export const InputText = forwardRef<TextInput, Props & TextInputProps>(
                 <TextInput
                   {...restProps}
                   ref={ref ?? inputRef}
-                  style={[
-                    styles.textInput,
-                    size === 'small' && styles.textInputSmall,
-                    size === 'medium' && styles.textInputMedium,
-                    size === 'large' && styles.textInputLarge,
-                    !!label && styles.textInputWithLabel,
-                    !!label &&
-                      size === 'medium' &&
-                      styles.textInputWithLabelMedium,
-                    !!label &&
-                      size === 'large' &&
-                      styles.textInputWithLabelLarge,
-                    style,
-                  ]}
+                  style={[styles.textInput({ size, hasLabel: !!label }), style]}
                   value={value}
                   onFocus={handleFocus}
                   onBlur={() => setIsFocused(false)}
-                  placeholderTextColor={theme.colors.contentTertiary}
-                  selectionColor={theme.colors.accentPrimary}
+                  placeholderTextColor={inputTextTokens.colors.placeholder}
+                  selectionColor={inputTextTokens.colors.selection}
                   pointerEvents={!editable || readOnly ? 'none' : undefined}
                   editable={editable}
                   readOnly={readOnly}
@@ -217,13 +254,13 @@ export const InputText = forwardRef<TextInput, Props & TextInputProps>(
                 />
               </View>
               {rightAccessory && (
-                <View style={styles.accessory}>{rightAccessory}</View>
+                <View style={styles.accessory({ size })}>{rightAccessory}</View>
               )}
             </View>
           )}
         </Pressable>
         {error && (
-          <Text variant="body2" color="negativeSecondary" style={styles.error}>
+          <Text variant="body3" color="sentimentNegative" style={styles.error}>
             {error}
           </Text>
         )}
@@ -232,82 +269,78 @@ export const InputText = forwardRef<TextInput, Props & TextInputProps>(
   },
 );
 
-const styles = StyleSheet.create(
-  ({ colors, borderRadius, spacing, textVariants }) => ({
-    container: ({ active, error }: { active: boolean; error: boolean }) => ({
-      borderRadius: borderRadius.medium,
-      borderWidth: 1,
-      borderColor: active
-        ? colors.accentPrimary
-        : error
-          ? colors.negativeSecondary
-          : colors.borderPrimary,
-      backgroundColor: colors.surfacePrimary,
-      paddingVertical: spacing.xsmall,
-      paddingHorizontal: spacing.small,
-      flexDirection: 'row',
-      alignItems: 'center',
-      overflow: 'hidden',
-    }),
-    containerSmall: {
-      minHeight: config.small.height,
-      borderRadius: borderRadius.small,
-    },
-    containerMedium: {
-      minHeight: config.medium.height,
-      borderRadius: borderRadius.medium,
-    },
-    containerLarge: {
-      minHeight: config.large.height,
-      borderRadius: borderRadius.large,
+const styles = StyleSheet.create(theme => {
+  const inputTextTokens = createInputTextTokens(theme);
+
+  return {
+    container: ({
+      active,
+      error,
+      size,
+    }: {
+      active: boolean;
+      error: boolean;
+      size: Size;
+    }) => {
+      const sizeTokens = inputTextTokens.spacing[size];
+      const sizeConfig = inputTextTokens.size[size];
+      return {
+        borderRadius: inputTextTokens.borderRadius[size],
+        borderWidth: 1,
+        borderColor: active
+          ? inputTextTokens.colors.border.active
+          : error
+            ? inputTextTokens.colors.border.error
+            : inputTextTokens.colors.border.normal,
+        backgroundColor: inputTextTokens.colors.background,
+        paddingVertical: sizeTokens.paddingVertical,
+        paddingHorizontal: sizeTokens.paddingHorizontal,
+        minHeight: sizeConfig.height,
+        flexDirection: 'row',
+        alignItems: 'center',
+        overflow: 'hidden',
+      };
     },
     textInputContainer: {
-      flexGrow: 1,
+      flex: 1,
       position: 'relative',
     },
-    label: {
-      zIndex: 1,
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      color: colors.contentSecondary,
-      textAlign: 'left',
-      transformOrigin: '0 50%',
+    label: ({ size }: { size: Size }) => {
+      const sizeTokens = inputTextTokens.spacing[size];
+      const sizeConfig = inputTextTokens.size[size];
+      const typographyTokens = inputTextTokens.typography[size];
+      return {
+        zIndex: 1,
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        color: inputTextTokens.colors.label,
+        textAlign: 'left',
+        transformOrigin: '0 50%',
+        ...typographyTokens,
+        lineHeight: sizeConfig.height - sizeTokens.paddingVertical * 2 - 2,
+      };
     },
-    labelMedium: {
-      ...textVariants.body2,
-      lineHeight: config.medium.height - spacing.xsmall * 2,
+    textInput: ({ size, hasLabel }: { size: Size; hasLabel: boolean }) => {
+      const sizeTokens = inputTextTokens.spacing[size];
+      const typographyTokens = inputTextTokens.typography[size];
+      return {
+        flex: 1,
+        paddingVertical: 0,
+        paddingLeft: 0,
+        minWidth: 0,
+        color: inputTextTokens.colors.text,
+        ...typographyTokens,
+        lineHeight: Platform.OS === 'ios' ? 0 : typographyTokens.lineHeight,
+        marginTop: hasLabel ? sizeTokens.labelMarginTop : 0,
+      };
     },
-    labelLarge: {
-      ...textVariants.body1,
-      lineHeight: config.large.height - spacing.xsmall * 2,
-    },
-    textInput: {
-      flexGrow: 1,
-      lineHeight: Platform.OS === 'ios' ? 0 : undefined,
-      paddingVertical: 0,
-      paddingLeft: 0,
-      minWidth: 0,
-      color: colors.contentPrimary,
-    },
-    textInputSmall: textVariants.body3,
-    textInputMedium: textVariants.body2,
-    textInputLarge: textVariants.body1,
-    textInputWithLabel: {
-      marginTop: 0,
-    },
-    textInputWithLabelMedium: {
-      marginTop: spacing.medium,
-    },
-    textInputWithLabelLarge: {
-      marginTop: spacing.large,
-    },
-    accessory: {
-      marginHorizontal: spacing.xsmall,
-    },
+    accessory: ({ size }: { size: Size }) => ({
+      marginHorizontal: inputTextTokens.spacing[size].accessoryMargin,
+    }),
     error: {
-      marginTop: spacing.xsmall,
+      marginTop: theme.spacing.xsmall,
     },
-  }),
-);
+  };
+});

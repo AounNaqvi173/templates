@@ -156,17 +156,17 @@ const styles = StyleSheet.create(theme => ({
   square: {
     width: 80,
     height: 80,
-    backgroundColor: theme.colors.surfacePrimary,
+    backgroundColor: theme.colors.backgroundNeutral,
     borderRadius: theme.borderRadius.medium,
-    borderWidth: 2,
-    borderColor: theme.colors.borderPrimary,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: theme.colors.borderNeutralSecondary,
     position: 'relative',
   },
   dot: {
     width: theme.spacing.small,
     height: theme.spacing.small,
     borderRadius: theme.spacing.small / 2,
-    backgroundColor: theme.colors.accentPrimary,
+    backgroundColor: theme.colors.interactiveSecondaryContent,
     position: 'absolute',
   },
   topLeft: {

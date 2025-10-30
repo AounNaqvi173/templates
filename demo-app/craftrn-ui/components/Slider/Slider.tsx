@@ -1,31 +1,56 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { AccessibilityInfo, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
+  Easing,
   runOnJS,
+  useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import { darkTheme, lightTheme } from '../../themes/config';
 
-const config = {
-  knobSize: 20,
-  sliderHeight: 4,
-  sliderWidth: 300,
-  activeKnobScale: 1.2,
-};
-
-const scaleSpringConfig = {
-  mass: 0.3,
-  damping: 12,
-  stiffness: 250,
-};
-
-const positionSpringConfig = {
-  mass: 0.1,
-  damping: 20,
-  stiffness: 400,
+const createSliderTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+  return {
+    size: {
+      knob: 20,
+      sliderHeight: 4,
+    },
+    colors: {
+      track: theme.colors.borderNeutralSecondary,
+      fill: theme.colors.interactiveSecondaryContent,
+      knob: theme.colors.interactiveSecondaryContent,
+    },
+    borderRadius: {
+      track: theme.borderRadius.full,
+      fill: theme.borderRadius.full,
+      knob: theme.borderRadius.full,
+    },
+    animation: {
+      scale: {
+        activeKnobScale: 1.2,
+        spring: {
+          mass: 0.2,
+          damping: 15,
+          stiffness: 300,
+        },
+        timing: {
+          duration: 100,
+          easing: Easing.out(Easing.cubic),
+        },
+      },
+      position: {
+        spring: {
+          mass: 0.05,
+          damping: 15,
+          stiffness: 500,
+        },
+      },
+    },
+  };
 };
 
 /**
@@ -79,7 +104,7 @@ export type Props = {
 export const Slider = ({
   min,
   max,
-  width = config.sliderWidth,
+  width = 300,
   initialValue = min,
   onValueChange,
   ariaLabel,
@@ -87,12 +112,15 @@ export const Slider = ({
   step = 1,
   accessibilityStep = step,
 }: Props) => {
-  const sliderWidth = width - config.knobSize;
+  const { theme } = useUnistyles();
+  const sliderTokens = useMemo(() => createSliderTokens(theme), [theme]);
+
+  const sliderWidth = width - sliderTokens.size.knob;
   const [accessibilityValue, setAccessibilityValue] = useState(initialValue);
 
   const prevPosition = useSharedValue(0);
   const knobScale = useSharedValue(1);
-  const lastCallbackTime = useSharedValue(0);
+  const isDragging = useSharedValue(false);
 
   const getPositionFromValue = (value: number) => {
     'worklet';
@@ -122,19 +150,31 @@ export const Slider = ({
   );
 
   const notifyValueChange = useCallback(
-    (throttle = false) => {
+    (shouldUpdate = true) => {
       'worklet';
-      if (throttle) {
-        const now = Date.now();
-        if (now - lastCallbackTime.value <= 32) return;
-        lastCallbackTime.value = now;
-      }
+      if (!shouldUpdate) return;
 
       const value = getSliderValue(position.value);
       runOnJS(onValueChange)(value);
       runOnJS(setAccessibilityValue)(value);
     },
-    [getSliderValue, onValueChange, lastCallbackTime, position],
+    [getSliderValue, onValueChange, position],
+  );
+
+  useAnimatedReaction(
+    () => {
+      return {
+        pos: position.value,
+        dragging: isDragging.value,
+      };
+    },
+    (current, previous) => {
+      if (current.dragging && current.pos !== previous?.pos) {
+        const value = getSliderValue(current.pos);
+        runOnJS(onValueChange)(value);
+      }
+    },
+    [isDragging, position, getSliderValue, onValueChange],
   );
 
   const adjustValue = useCallback(
@@ -146,7 +186,10 @@ export const Slider = ({
           ? Math.min(max, currentValue + accessibilityStep)
           : Math.max(min, currentValue - accessibilityStep);
       const newPosition = getPositionFromValue(newValue);
-      position.value = withSpring(newPosition, positionSpringConfig);
+      position.value = withSpring(
+        newPosition,
+        sliderTokens.animation.position.spring,
+      );
 
       runOnJS(AccessibilityInfo.announceForAccessibility)(`${newValue}`);
       runOnJS(onValueChange)(newValue);
@@ -160,6 +203,7 @@ export const Slider = ({
       min,
       getPositionFromValue,
       onValueChange,
+      sliderTokens.animation.position.spring,
     ],
   );
 
@@ -182,35 +226,44 @@ export const Slider = ({
     .onBegin(() => {
       'worklet';
       prevPosition.value = position.value;
-      knobScale.value = withSpring(config.activeKnobScale, scaleSpringConfig);
+      isDragging.value = true;
+      knobScale.value = withTiming(
+        sliderTokens.animation.scale.activeKnobScale,
+        sliderTokens.animation.scale.timing,
+      );
     })
     .onUpdate(e => {
       'worklet';
       const newPosition = prevPosition.value + e.translationX;
       position.value = Math.max(0, Math.min(newPosition, sliderWidth));
-      notifyValueChange(true);
     })
     .onFinalize(() => {
       'worklet';
+      isDragging.value = false;
       const rawValue = (position.value / sliderWidth) * (max - min) + min;
       const snappedValue = snapToStep(rawValue);
       const finalPosition = getPositionFromValue(snappedValue);
 
-      position.value = withSpring(finalPosition, positionSpringConfig);
-      knobScale.value = withSpring(1, scaleSpringConfig);
+      position.value = withSpring(
+        finalPosition,
+        sliderTokens.animation.position.spring,
+      );
+      knobScale.value = withTiming(1, sliderTokens.animation.scale.timing);
       notifyValueChange();
     });
 
   const knobStyle = useAnimatedStyle(() => ({
     transform: [
-      { translateX: position.value - config.knobSize / 2 },
+      { translateX: position.value - sliderTokens.size.knob / 2 },
       { scale: knobScale.value },
     ],
+    backgroundColor: sliderTokens.colors.knob,
   }));
 
   const fillStyle = useAnimatedStyle(() => ({
     left: 0,
     width: position.value,
+    backgroundColor: sliderTokens.colors.fill,
   }));
 
   return (
@@ -220,6 +273,7 @@ export const Slider = ({
         <GestureDetector gesture={gesture}>
           <Animated.View
             style={[styles.knob, knobStyle]}
+            hitSlop={4}
             accessible={true}
             role="slider"
             aria-label={ariaLabel}
@@ -247,29 +301,30 @@ export const Slider = ({
   );
 };
 
-const styles = StyleSheet.create(({ borderRadius, colors }) => ({
-  container: {
-    minHeight: config.sliderHeight + config.knobSize,
-    paddingTop: config.knobSize / 2,
-  },
-  slider: (width: number) => ({
-    width,
-    height: config.sliderHeight,
-    backgroundColor: colors.borderPrimary,
-    borderRadius: borderRadius.full,
-  }),
-  fill: {
-    height: config.sliderHeight,
-    backgroundColor: colors.accentPrimary,
-    borderRadius: borderRadius.full,
-    position: 'absolute',
-  },
-  knob: {
-    width: config.knobSize,
-    height: config.knobSize,
-    borderRadius: borderRadius.full,
-    position: 'absolute',
-    backgroundColor: colors.accentPrimary,
-    top: -(config.knobSize / 2 - config.sliderHeight / 2),
-  },
-}));
+const styles = StyleSheet.create(theme => {
+  const sliderTokens = createSliderTokens(theme);
+
+  return {
+    container: {
+      minHeight: sliderTokens.size.sliderHeight + sliderTokens.size.knob,
+      paddingTop: sliderTokens.size.knob / 2,
+    },
+    slider: (width: number) => ({
+      width,
+      height: sliderTokens.size.sliderHeight,
+      backgroundColor: sliderTokens.colors.track,
+      borderRadius: sliderTokens.borderRadius.track,
+    }),
+    fill: {
+      height: sliderTokens.size.sliderHeight,
+      borderRadius: sliderTokens.borderRadius.fill,
+      position: 'absolute' as const,
+    },
+    knob: {
+      width: sliderTokens.size.knob,
+      height: sliderTokens.size.knob,
+      borderRadius: sliderTokens.borderRadius.knob,
+      top: -(sliderTokens.size.knob / 2 - sliderTokens.size.sliderHeight / 2),
+    },
+  };
+});

@@ -65,7 +65,7 @@ export const MenuItem: ComponentType<{
   const router = useRouter();
 
   return (
-    <Card style={styles.menuItemCard}>
+    <Card>
       <Pressable onPress={() => router.push(href)} style={styles.menuItem}>
         <Image source={imageSource} style={styles.menuItemImage} />
         <View style={styles.menuItemContent}>
@@ -277,12 +277,12 @@ export default function TemplatesScreen() {
               <LinearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
                 <Stop
                   offset="0"
-                  stopColor={theme.colors.backgroundSecondary}
+                  stopColor={theme.colors.backgroundScreen}
                   stopOpacity="0"
                 />
                 <Stop
                   offset="1"
-                  stopColor={theme.colors.backgroundSecondary}
+                  stopColor={theme.colors.backgroundScreen}
                   stopOpacity="1"
                 />
               </LinearGradient>
@@ -302,7 +302,7 @@ export default function TemplatesScreen() {
                 WebBrowser.openBrowserAsync(
                   'https://www.craftreactnative.com/pricing',
                   {
-                    controlsColor: theme.colors.accentPrimary,
+                    controlsColor: theme.colors.interactivePrimary,
                     presentationStyle:
                       WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET,
                   },
@@ -319,10 +319,10 @@ export default function TemplatesScreen() {
 const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.backgroundSecondary,
+    backgroundColor: theme.colors.backgroundScreen,
   },
   scrollViewContent: {
-    backgroundColor: theme.colors.backgroundSecondary,
+    backgroundColor: theme.colors.backgroundScreen,
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.large,
     gap: theme.spacing.small,
@@ -330,10 +330,6 @@ const styles = StyleSheet.create(theme => ({
   listItem: {
     paddingVertical: theme.spacing.medium,
     paddingHorizontal: theme.spacing.medium,
-    backgroundColor: theme.colors.surfacePrimary,
-  },
-  menuItemCard: {
-    backgroundColor: theme.colors.surfacePrimary,
   },
   menuItem: {
     flexDirection: 'row',
@@ -349,18 +345,17 @@ const styles = StyleSheet.create(theme => ({
   },
   menuItemText: {
     ...theme.textVariants.body1,
-    fontWeight: 'bold',
+    fontWeight: '500',
     color: theme.colors.contentPrimary,
   },
   menuItemTextBelow: {
-    ...theme.textVariants.body2,
-    color: theme.colors.contentSecondary,
+    ...theme.textVariants.body3,
+    color: theme.colors.contentTertiary,
   },
   bottomWrapper: {
     position: 'relative',
   },
   fixedBottomContainer: {
-    backgroundColor: theme.colors.backgroundSecondary,
     paddingHorizontal: theme.spacing.large,
     paddingTop: theme.spacing.small,
     paddingBottom: theme.spacing.large,

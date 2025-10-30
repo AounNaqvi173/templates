@@ -20,7 +20,7 @@ export default function InputSearchScreen() {
   const { theme } = useUnistyles();
   const headerHeight = useHeaderHeight();
 
-  const [hasLeftAccessory, setHasLeftAccessory] = useState(false);
+  const [hasLeftAccessory, setHasLeftAccessory] = useState(true);
   const [hasRightAccessory, setHasRightAccessory] = useState(false);
 
   return (
@@ -56,6 +56,7 @@ export default function InputSearchScreen() {
               rightAccessory={
                 hasRightAccessory ? (
                   <ButtonRound
+                    variant="neutral-secondary"
                     renderContent={({ iconSize }) => (
                       <Slider
                         size={iconSize}
@@ -66,7 +67,7 @@ export default function InputSearchScreen() {
                   />
                 ) : undefined
               }
-              selectionColor={theme.colors.accentPrimary}
+              selectionColor={theme.colors.interactiveSecondaryContent}
             />
           </Card>
         </View>
@@ -109,7 +110,7 @@ const styles = StyleSheet.create(theme => ({
     paddingBottom: UnistylesRuntime.insets.bottom + theme.spacing.medium,
   },
   demoSection: {
-    flex: 1,
+    height: 300,
     marginBottom: theme.spacing.large,
   },
   demoContainer: {
@@ -119,7 +120,7 @@ const styles = StyleSheet.create(theme => ({
   },
   controlsCard: {
     padding: theme.spacing.large,
-    gap: theme.spacing.large,
+    gap: theme.spacing.small,
   },
   leftAccessory: {
     marginHorizontal: theme.spacing.xsmall,

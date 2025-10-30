@@ -1,15 +1,39 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   AccessibilityActionEvent,
   AccessibilityInfo,
   AccessibilityProps,
   View,
 } from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import { darkTheme, lightTheme } from '../../themes/config';
 import { ButtonRound } from '../ButtonRound';
 import { Text } from '../Text';
 import { Minus } from './Minus';
 import { Plus } from './Plus';
+
+const AnimatedText = Animated.createAnimatedComponent(Text);
+
+const createCounterTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+  return {
+    spacing: {
+      minWidth: 50,
+    },
+    colors: {
+      icon: theme.colors.contentPrimary,
+    },
+    animation: {
+      duration: 100,
+      easing: Easing.ease,
+    },
+  };
+};
 
 /**
  * Props for the Counter component.
@@ -64,6 +88,11 @@ export const Counter = ({
       : minValue,
   );
   const { theme } = useUnistyles();
+  const counterTokens = useMemo(() => createCounterTokens(theme), [theme]);
+
+  // Shared values for animation
+  const translateY = useSharedValue(0);
+  const opacity = useSharedValue(1);
 
   useEffect(() => {
     if (value !== undefined) {
@@ -79,11 +108,32 @@ export const Counter = ({
     (action: 'increment' | 'decrement') => {
       const newValue =
         count + (action === 'increment' ? increment : -increment);
-      setInternalCount(newValue);
+
+      // Determine animation direction: -1 = down, 1 = up
+      const direction = action === 'increment' ? -1 : 1;
+      const distance = 10; // Large enough to move text out of view with overflow: hidden
+
+      // Animate out
+      translateY.value = withTiming(
+        direction * distance,
+        counterTokens.animation,
+      );
+      opacity.value = withTiming(0, counterTokens.animation);
+
+      // Update value and animate in after exit animation completes
+      setTimeout(() => {
+        setInternalCount(newValue);
+        translateY.value = direction * -distance; // Start from opposite direction
+        opacity.value = 0;
+
+        translateY.value = withTiming(0, counterTokens.animation);
+        opacity.value = withTiming(1, counterTokens.animation);
+      }, counterTokens.animation.duration / 2);
+
       onValueChange(newValue);
       AccessibilityInfo.announceForAccessibility(`${newValue}`);
     },
-    [count, onValueChange, increment],
+    [count, onValueChange, increment, translateY, opacity, counterTokens],
   );
 
   const increase = useCallback(() => {
@@ -112,6 +162,13 @@ export const Counter = ({
     [increase, decrease],
   );
 
+  const displayValue = count ? count : emptyLabel;
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+    opacity: opacity.value,
+  }));
+
   return (
     <View
       style={styles.container}
@@ -139,23 +196,23 @@ export const Counter = ({
       <ButtonRound
         onPress={decrease}
         size="small"
-        intent="secondary"
+        variant="neutral"
         renderContent={({ iconSize }) => (
-          <Minus color={theme.colors.contentPrimary} size={iconSize} />
+          <Minus color={counterTokens.colors.icon} size={iconSize} />
         )}
         disabled={!canDecrease}
       />
       <View style={styles.countContainer}>
-        <Text variant="body2" style={styles.countText}>
-          {count ? count : emptyLabel}
-        </Text>
+        <AnimatedText variant="body2" style={[styles.countText, animatedStyle]}>
+          {displayValue}
+        </AnimatedText>
       </View>
       <ButtonRound
         onPress={increase}
         size="small"
-        intent="secondary"
+        variant="neutral"
         renderContent={({ iconSize }) => (
-          <Plus color={theme.colors.contentPrimary} size={iconSize} />
+          <Plus color={counterTokens.colors.icon} size={iconSize} />
         )}
         disabled={!canIncrease}
       />
@@ -163,18 +220,24 @@ export const Counter = ({
   );
 };
 
-const styles = StyleSheet.create(({ spacing }) => ({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  countContainer: {
-    minWidth: 50,
-    paddingHorizontal: spacing.medium,
-    alignItems: 'center',
-  },
-  countText: {
-    fontWeight: 'bold',
-  },
-}));
+const styles = StyleSheet.create(theme => {
+  const counterTokens = createCounterTokens(theme);
+
+  return {
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    countContainer: {
+      minWidth: counterTokens.spacing.minWidth,
+      paddingHorizontal: theme.spacing.medium,
+      alignItems: 'center',
+      overflow: 'hidden',
+      position: 'relative',
+    },
+    countText: {
+      fontWeight: 'bold',
+    },
+  };
+});

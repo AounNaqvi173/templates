@@ -1,26 +1,42 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   AccessibilityProps,
   Image,
   ImageSourcePropType,
   View,
 } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import { darkTheme, lightTheme } from '../../themes/config';
 import { Text } from '../Text';
 
-export const config = {
-  small: {
-    avatarSize: 32,
-    indicatorSize: 10,
-  },
-  medium: {
-    avatarSize: 40,
-    indicatorSize: 10,
-  },
-  large: {
-    avatarSize: 48,
-    indicatorSize: 12,
-  },
+const createAvatarTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+  return {
+    size: {
+      small: {
+        avatar: 32,
+        indicator: 10,
+      },
+      medium: {
+        avatar: 44,
+        indicator: 12,
+      },
+      large: {
+        avatar: 56,
+        indicator: 14,
+      },
+    },
+    colors: {
+      fallback: {
+        0: theme.colors.wineStrong,
+        1: theme.colors.berryStrong,
+        2: theme.colors.darkOliveStrong,
+        3: theme.colors.imperialBlueStrong,
+      },
+      text: theme.colors.white,
+      indicatorBorder: theme.colors.baseLight,
+      indicatorBackground: theme.colors.sentimentPositive,
+    },
+  };
 };
 
 /**
@@ -82,9 +98,11 @@ export const Avatar = ({
   alt,
   ...accessibilityProps
 }: AvatarProps) => {
+  const { theme } = useUnistyles();
+  const avatarTokens = useMemo(() => createAvatarTokens(theme), [theme]);
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const avatarIndicatorSize = config[size].indicatorSize;
+  const avatarIndicatorSize = avatarTokens.size[size].indicator;
 
   return (
     <View
@@ -124,65 +142,59 @@ export const Avatar = ({
   );
 };
 
-const styles = StyleSheet.create(({ borderRadius, colors, spacing }) => ({
-  container: (params: { size: 'small' | 'medium' | 'large' }) => ({
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    ...(params.size === 'small' && {
-      width: config.small.avatarSize,
-      height: config.small.avatarSize,
-      borderRadius: borderRadius.small,
+const styles = StyleSheet.create(theme => {
+  const avatarTokens = createAvatarTokens(theme);
+
+  return {
+    container: (params: { size: 'small' | 'medium' | 'large' }) => ({
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+      ...(params.size === 'small' && {
+        width: avatarTokens.size.small.avatar,
+        height: avatarTokens.size.small.avatar,
+        borderRadius: theme.borderRadius.full,
+      }),
+      ...(params.size === 'medium' && {
+        width: avatarTokens.size.medium.avatar,
+        height: avatarTokens.size.medium.avatar,
+        borderRadius: theme.borderRadius.full,
+      }),
+      ...(params.size === 'large' && {
+        width: avatarTokens.size.large.avatar,
+        height: avatarTokens.size.large.avatar,
+        borderRadius: theme.borderRadius.full,
+      }),
     }),
-    ...(params.size === 'medium' && {
-      width: config.medium.avatarSize,
-      height: config.medium.avatarSize,
-      borderRadius: borderRadius.medium,
+    containerFallback: (params: { color: number }) => ({
+      backgroundColor:
+        avatarTokens.colors.fallback[params.color as 0 | 1 | 2 | 3],
     }),
-    ...(params.size === 'large' && {
-      width: config.large.avatarSize,
-      height: config.large.avatarSize,
-      borderRadius: borderRadius.medium,
-    }),
-  }),
-  containerFallback: (params: { color: number }) => ({
-    ...(params.color === 0 && {
-      backgroundColor: colors.wineStrong,
-    }),
-    ...(params.color === 1 && {
-      backgroundColor: colors.berryStrong,
-    }),
-    ...(params.color === 2 && {
-      backgroundColor: colors.darkOliveStrong,
-    }),
-    ...(params.color === 3 && {
-      backgroundColor: colors.imperialBlueStrong,
-    }),
-  }),
-  fallbackContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-    position: 'relative',
-  },
-  image: {
-    borderRadius: borderRadius.medium,
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
-  text: {
-    color: colors.white,
-    fontWeight: 'bold',
-  },
-  indicator: {
-    position: 'absolute',
-    bottom: -spacing.xsmall,
-    right: -spacing.xsmall,
-    borderRadius: borderRadius.full,
-    borderWidth: 1,
-    borderColor: colors.white,
-    backgroundColor: colors.positivePrimary,
-  },
-}));
+    fallbackContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      height: '100%',
+      position: 'relative',
+    },
+    image: {
+      borderRadius: theme.borderRadius.full,
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+    },
+    text: {
+      color: avatarTokens.colors.text,
+      fontWeight: 'bold',
+    },
+    indicator: {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      borderRadius: theme.borderRadius.full,
+      borderWidth: 1,
+      borderColor: avatarTokens.colors.indicatorBorder,
+      backgroundColor: avatarTokens.colors.indicatorBackground,
+    },
+  };
+});

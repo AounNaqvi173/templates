@@ -15,18 +15,18 @@ export const Switch = ({ ...props }: Props) => {
       trackColor={{
         false:
           Platform.OS === 'android'
-            ? theme.colors.backgroundSecondary
-            : theme.colors.backgroundTertiary,
+            ? theme.colors.interactiveSecondary
+            : theme.colors.interactiveNeutral,
         true:
           Platform.OS === 'android'
-            ? theme.colors.accentTertiary
-            : theme.colors.accentPrimary,
+            ? theme.colors.interactivePrimary
+            : theme.colors.interactiveSecondaryContent,
       }}
       thumbColor={
         Platform.OS === 'android'
           ? props.value
-            ? theme.colors.accentPrimary
-            : theme.colors.backgroundQuaternary
+            ? theme.colors.interactiveSecondary
+            : theme.colors.baseLight
           : undefined
       }
       style={styles.switch}
