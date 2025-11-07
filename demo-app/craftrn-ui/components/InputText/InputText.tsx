@@ -23,12 +23,12 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 import { Text } from '../Text';
 
 type Size = 'small' | 'medium' | 'large';
 
-const createInputTextTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+const createInputTextTokens = (theme: Theme) => {
   return {
     size: {
       small: {

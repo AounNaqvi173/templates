@@ -28,9 +28,9 @@ export type Props = {
     | 'contentTertiary'
     | 'contentAccent'
     | 'sentimentPositive'
-    | 'sentimentPositiveSecondary'
+    | 'sentimentSecondaryPositive'
     | 'sentimentNegative'
-    | 'sentimentNegativeSecondary';
+    | 'sentimentSecondaryNegative';
 };
 
 export const Text = ({

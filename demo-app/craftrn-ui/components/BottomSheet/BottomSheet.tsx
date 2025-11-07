@@ -30,11 +30,9 @@ import Animated, {
   WithTimingConfig,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 
-const createBottomSheetTokens = (
-  theme: typeof lightTheme | typeof darkTheme,
-) => {
+const createBottomSheetTokens = (theme: Theme) => {
   return {
     colors: {
       overlay: theme.colors.backgroundOverlay,
@@ -300,7 +298,7 @@ export const BottomSheet = ({
               onAccessibilityEscape={onRequestClose}
               {...accessibilityProps}
             >
-              <View style={styles.content}>
+              <View>
                 {showHandleBar && (
                   <View style={styles.handleBarContainer}>
                     <View style={styles.handleBar} />

@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet as RNStyleSheet, View, ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 
-const createCardTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+const createCardTokens = (theme: Theme) => {
   return {
     colors: {
       background: theme.colors.backgroundElevated,

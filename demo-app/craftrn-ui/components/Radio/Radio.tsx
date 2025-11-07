@@ -6,10 +6,10 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 import { PressableScale, type AnimationConfig } from '../PressableScale';
 
-const createRadioTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+const createRadioTokens = (theme: Theme) => {
   return {
     size: {
       container: 24,

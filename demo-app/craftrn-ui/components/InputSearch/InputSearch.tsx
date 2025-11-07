@@ -15,11 +15,9 @@ import {
   View,
 } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 
-const createInputSearchTokens = (
-  theme: typeof lightTheme | typeof darkTheme,
-) => {
+const createInputSearchTokens = (theme: Theme) => {
   return {
     size: {
       height: 48,

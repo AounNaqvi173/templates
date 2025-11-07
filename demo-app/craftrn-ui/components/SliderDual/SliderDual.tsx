@@ -12,11 +12,9 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 
-const createSliderDualTokens = (
-  theme: typeof lightTheme | typeof darkTheme,
-) => {
+const createSliderDualTokens = (theme: Theme) => {
   return {
     size: {
       knob: 20,

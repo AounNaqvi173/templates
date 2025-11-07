@@ -102,13 +102,15 @@ export const PressableScale = ({
   }, [config.scaleIn]);
 
   return (
-    <Pressable
-      disabled={disabled}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      {...pressableProps}
-    >
-      <Animated.View style={scaleStyle}>{children}</Animated.View>
-    </Pressable>
+    <Animated.View style={scaleStyle}>
+      <Pressable
+        disabled={disabled}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        {...pressableProps}
+      >
+        {children}
+      </Pressable>
+    </Animated.View>
   );
 };

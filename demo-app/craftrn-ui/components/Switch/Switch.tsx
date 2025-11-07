@@ -13,22 +13,10 @@ export const Switch = ({ ...props }: Props) => {
   return (
     <RNSwitch
       trackColor={{
-        false:
-          Platform.OS === 'android'
-            ? theme.colors.interactiveSecondary
-            : theme.colors.interactiveNeutral,
-        true:
-          Platform.OS === 'android'
-            ? theme.colors.interactivePrimary
-            : theme.colors.interactiveSecondaryContent,
+        false: theme.colors.interactiveNeutral,
+        true: theme.colors.interactiveSecondaryContent,
       }}
-      thumbColor={
-        Platform.OS === 'android'
-          ? props.value
-            ? theme.colors.interactiveSecondary
-            : theme.colors.baseLight
-          : undefined
-      }
+      thumbColor={theme.colors.baseLight}
       style={styles.switch}
       {...props}
     />

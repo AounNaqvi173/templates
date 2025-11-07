@@ -6,10 +6,10 @@ import {
   View,
 } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 import { Text } from '../Text';
 
-const createAvatarTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+const createAvatarTokens = (theme: Theme) => {
   return {
     size: {
       small: {
@@ -27,10 +27,10 @@ const createAvatarTokens = (theme: typeof lightTheme | typeof darkTheme) => {
     },
     colors: {
       fallback: {
-        0: theme.colors.wineStrong,
-        1: theme.colors.berryStrong,
-        2: theme.colors.darkOliveStrong,
-        3: theme.colors.imperialBlueStrong,
+        0: theme.colors.purple,
+        1: theme.colors.maroon,
+        2: theme.colors.forest,
+        3: theme.colors.steel,
       },
       text: theme.colors.white,
       indicatorBorder: theme.colors.baseLight,
@@ -102,13 +102,19 @@ export const Avatar = ({
   const avatarTokens = useMemo(() => createAvatarTokens(theme), [theme]);
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  const hasValidSource =
+    source &&
+    (typeof source === 'number' ||
+      !('uri' in source) ||
+      (source.uri && source.uri.trim() !== ''));
+
   const avatarIndicatorSize = avatarTokens.size[size].indicator;
 
   return (
     <View
       style={[
         styles.container({ size }),
-        (!source || !imageLoaded) &&
+        (!hasValidSource || !imageLoaded) &&
           styles.containerFallback({ color: fallbackColor }),
       ]}
       accessible
@@ -116,12 +122,12 @@ export const Avatar = ({
       {...accessibilityProps}
     >
       <View style={styles.fallbackContainer}>
-        {(!source || !imageLoaded) && (
+        {(!hasValidSource || !imageLoaded) && (
           <Text variant={textVariantBySize[size]} style={styles.text}>
             {fallbackInitials}
           </Text>
         )}
-        {source && (
+        {hasValidSource && (
           <Image
             source={source}
             style={[styles.image, { opacity: imageLoaded ? 1 : 0 }]}

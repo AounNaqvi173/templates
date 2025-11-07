@@ -27,19 +27,18 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
+import { Divider } from '../Divider';
 import { ListItem } from '../ListItem';
 
-const createContextMenuTokens = (
-  theme: typeof lightTheme | typeof darkTheme,
-) => {
+const createContextMenuTokens = (theme: Theme) => {
   return {
     size: {
       minWidth: 200,
     },
     colors: {
       overlay: theme.colors.backgroundOverlay,
-      background: theme.colors.backgroundPrimary,
+      background: theme.colors.backgroundElevated,
       shadow: theme.colors.backgroundNeutral,
     },
     animation: {
@@ -50,6 +49,7 @@ const createContextMenuTokens = (
 };
 
 export type ContextMenuItem = {
+  type?: 'item';
   id: string;
   label: string;
   subtitle?: string;
@@ -57,6 +57,13 @@ export type ContextMenuItem = {
   itemRight?: ReactElement;
   onPress: () => void;
 };
+
+export type ContextMenuDivider = {
+  type: 'divider';
+  id: string;
+};
+
+export type ContextMenuElement = ContextMenuItem | ContextMenuDivider;
 
 export type MenuAnchorPosition =
   | 'top-center'
@@ -69,7 +76,7 @@ export type MenuAnchorPosition =
 type HorizontalAlignment = 'left' | 'center' | 'right';
 
 export type ContextMenuProps = {
-  items: ContextMenuItem[];
+  items: ContextMenuElement[];
   trigger: (onPress: () => void) => ReactElement;
   menuAnchorPosition?: MenuAnchorPosition;
   offset?: { x: number; y: number };
@@ -86,6 +93,7 @@ export const ContextMenu = ({
     () => createContextMenuTokens(theme),
     [theme],
   );
+
   const [visible, setVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [triggerPosition, setTriggerPosition] = useState({
@@ -99,14 +107,21 @@ export const ContextMenu = ({
   const triggerRef = useRef<View>(null);
 
   const animationProgress = useSharedValue(0);
-  const transformOriginX = useSharedValue(0);
-  const transformOriginY = useSharedValue(0);
 
-  const isMenuOnTop = useCallback(() => {
-    const { y, height } = triggerPosition;
+  const screenY = useMemo(() => {
+    return Platform.OS === 'android'
+      ? triggerPosition.y - UnistylesRuntime.insets.top
+      : triggerPosition.y;
+  }, [triggerPosition.y]);
+
+  const alignment = useMemo(
+    () => menuAnchorPosition.split('-')[1] as HorizontalAlignment,
+    [menuAnchorPosition],
+  );
+
+  const isMenuOnTop = useMemo(() => {
+    const { height } = triggerPosition;
     const screenHeight = Dimensions.get('window').height;
-    const screenY =
-      Platform.OS === 'android' ? y - UnistylesRuntime.insets.top : y;
     const spaceAbove = screenY - UnistylesRuntime.insets.top;
     const spaceBelow =
       screenHeight - UnistylesRuntime.insets.bottom - (screenY + height);
@@ -115,29 +130,7 @@ export const ContextMenu = ({
       ? spaceAbove >= menuSize.height + offset.y
       : spaceBelow < menuSize.height + offset.y &&
           spaceAbove >= menuSize.height + offset.y;
-  }, [triggerPosition, menuAnchorPosition, menuSize.height, offset.y]);
-
-  useEffect(() => {
-    if (!menuSize.height || !menuSize.width || !hasMenuPositioned) return;
-
-    const align = menuAnchorPosition.split('-')[1] as HorizontalAlignment;
-    transformOriginY.value = isMenuOnTop()
-      ? menuSize.height / 2
-      : -menuSize.height / 2;
-    transformOriginX.value =
-      align === 'left'
-        ? -menuSize.width / 2
-        : align === 'right'
-          ? menuSize.width / 2
-          : 0;
-  }, [
-    menuSize,
-    hasMenuPositioned,
-    menuAnchorPosition,
-    isMenuOnTop,
-    transformOriginX,
-    transformOriginY,
-  ]);
+  }, [triggerPosition, menuAnchorPosition, menuSize.height, offset.y, screenY]);
 
   const measureTrigger = useCallback(() => {
     triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
@@ -147,40 +140,44 @@ export const ContextMenu = ({
   }, []);
 
   useEffect(() => {
-    if (visible && !hasMenuPositioned) {
-      const timer = setTimeout(measureTrigger, 10);
-      return () => clearTimeout(timer);
-    }
-  }, [visible, measureTrigger, hasMenuPositioned]);
-
-  useEffect(() => {
     if (visible) {
-      setHasMenuPositioned(false);
       setIsModalVisible(true);
       animationProgress.value = 0;
       Keyboard.dismiss();
-    } else if (isModalVisible) {
+    }
+  }, [visible]);
+
+  useEffect(() => {
+    if (!visible && isModalVisible) {
       animationProgress.value = withTiming(
         0,
         {
           duration: contextMenuTokens.animation.exitDuration,
           easing: Easing.in(Easing.cubic),
         },
-        finished => finished && runOnJS(setIsModalVisible)(false),
+        finished => {
+          if (finished) {
+            runOnJS(setIsModalVisible)(false);
+            runOnJS(setHasMenuPositioned)(false);
+          }
+        },
       );
     }
-  }, [visible, isModalVisible, animationProgress, contextMenuTokens]);
+  }, [visible, isModalVisible]);
 
-  const getMenuPosition = () => {
-    const { x, y, width, height } = triggerPosition;
+  useEffect(() => {
+    if (visible && !hasMenuPositioned) {
+      const timer = setTimeout(measureTrigger, 10);
+      return () => clearTimeout(timer);
+    }
+  }, [visible, hasMenuPositioned, measureTrigger]);
+
+  const menuPosition = useMemo(() => {
+    const { x, width, height } = triggerPosition;
     const screenWidth = Dimensions.get('window').width;
     const screenHeight = Dimensions.get('window').height;
-    const screenY =
-      Platform.OS === 'android' ? y - UnistylesRuntime.insets.top : y;
 
-    const align = menuAnchorPosition.split('-')[1] as HorizontalAlignment;
-
-    const top = isMenuOnTop()
+    const top = isMenuOnTop
       ? Math.max(
           screenY - menuSize.height - offset.y,
           UnistylesRuntime.insets.top,
@@ -190,24 +187,35 @@ export const ContextMenu = ({
           screenHeight - UnistylesRuntime.insets.bottom - menuSize.height,
         );
 
-    if (align === 'center') {
-      return {
-        top,
-        alignSelf: 'center' as const,
-        marginHorizontal: theme.spacing.large,
-      };
+    switch (alignment) {
+      case 'center':
+        return {
+          top,
+          alignSelf: 'center' as const,
+          marginHorizontal: theme.spacing.large,
+        };
+      case 'left':
+        return { top, left: x + offset.x };
+      case 'right':
+        return { top, right: screenWidth - (x + width) + offset.x };
     }
-    if (align === 'left') {
-      return { top, left: x + offset.x };
-    }
-    if (align === 'right') {
-      return { top, right: screenWidth - (x + width) + offset.x };
-    }
-    return { top, left: theme.spacing.large, right: theme.spacing.large };
-  };
+  }, [
+    triggerPosition,
+    menuSize,
+    offset,
+    alignment,
+    isMenuOnTop,
+    screenY,
+    theme.spacing.large,
+  ]);
 
-  const onClose = useCallback(() => setVisible(false), []);
-  const onOpen = useCallback(() => setVisible(true), []);
+  const onClose = useCallback(() => {
+    setVisible(false);
+  }, []);
+
+  const onOpen = useCallback(() => {
+    setVisible(true);
+  }, []);
 
   const handleItemPress = useCallback(
     (itemOnPress: () => void) => {
@@ -224,28 +232,32 @@ export const ContextMenu = ({
         easing: Easing.out(Easing.cubic),
       });
     }
-  }, [
-    visible,
-    hasMenuPositioned,
-    isModalVisible,
-    animationProgress,
-    contextMenuTokens,
-  ]);
+  }, [visible, hasMenuPositioned, isModalVisible, contextMenuTokens]);
 
   const overlayAnimatedStyle = useAnimatedStyle(() => ({
     opacity: interpolate(animationProgress.value, [0, 1], [0, 0.3]),
   }));
 
   const menuAnimatedStyle = useAnimatedStyle(() => {
+    const transformOriginY = isMenuOnTop
+      ? menuSize.height / 2
+      : -menuSize.height / 2;
+    const transformOriginX =
+      alignment === 'left'
+        ? -menuSize.width / 2
+        : alignment === 'right'
+          ? menuSize.width / 2
+          : 0;
+
     const translateX = interpolate(
       animationProgress.value,
       [0, 1],
-      [transformOriginX.value, 0],
+      [transformOriginX, 0],
     );
     const translateY = interpolate(
       animationProgress.value,
       [0, 1],
-      [transformOriginY.value, 0],
+      [transformOriginY, 0],
     );
     const scale = interpolate(animationProgress.value, [0, 1], [0.8, 1]);
 
@@ -272,26 +284,39 @@ export const ContextMenu = ({
           visible
           animationType="none"
           onRequestClose={onClose}
+          aria-modal={true}
         >
-          <Animated.View style={[styles.overlay, overlayAnimatedStyle]}>
-            <Pressable style={styles.overlayPressable} onPress={onClose} />
+          <Animated.View
+            style={[styles.overlay, overlayAnimatedStyle]}
+            aria-hidden={true}
+          >
+            <Pressable
+              style={styles.overlayPressable}
+              onPress={onClose}
+              aria-hidden={true}
+            />
           </Animated.View>
           <Animated.View
-            style={[styles.menu, getMenuPosition(), menuAnimatedStyle]}
+            style={[styles.menu, menuPosition, menuAnimatedStyle]}
             onLayout={e => setMenuSize(e.nativeEvent.layout)}
+            role="menu"
+            aria-label="Context menu"
           >
-            {items.map((item, index) => (
-              <ListItem
-                key={item.id}
-                text={item.label}
-                textBelow={item.subtitle}
-                itemLeft={item.itemLeft}
-                itemRight={item.itemRight}
-                onPress={() => handleItemPress(item.onPress)}
-                divider={index !== items.length - 1}
-                style={styles.menuItem}
-              />
-            ))}
+            {items.map(element =>
+              element.type === 'divider' ? (
+                <Divider key={element.id} style={styles.sectionDivider} />
+              ) : (
+                <ListItem
+                  key={element.id}
+                  text={element.label}
+                  textBelow={element.subtitle}
+                  itemLeft={element.itemLeft}
+                  itemRight={element.itemRight}
+                  onPress={() => handleItemPress(element.onPress)}
+                  style={styles.menuItem}
+                />
+              ),
+            )}
           </Animated.View>
         </Modal>
       )}
@@ -324,10 +349,18 @@ const styles = StyleSheet.create(theme => {
       elevation: 10,
       overflow: 'hidden',
       minWidth: contextMenuTokens.size.minWidth,
+      paddingVertical: theme.spacing.xsmall,
     },
     menuItem: {
-      paddingHorizontal: theme.spacing.medium,
+      paddingHorizontal: theme.spacing.small,
+      marginHorizontal: theme.spacing.xsmall,
       paddingVertical: theme.spacing.small,
+      borderRadius: theme.borderRadius.small,
+      overflow: 'hidden',
+    },
+    sectionDivider: {
+      marginVertical: theme.spacing.xsmall,
+      marginHorizontal: theme.spacing.medium,
     },
   };
 });

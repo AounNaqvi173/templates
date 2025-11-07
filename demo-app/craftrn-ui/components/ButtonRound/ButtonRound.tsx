@@ -7,7 +7,7 @@ import Animated, {
   type SharedValue,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 import { PressableScale, type AnimationConfig } from '../PressableScale';
 
 /**
@@ -66,9 +66,7 @@ const useColorInterpolation = (
   return { backgroundStyle };
 };
 
-const createButtonRoundTokens = (
-  theme: typeof lightTheme | typeof darkTheme,
-) => {
+const createButtonRoundTokens = (theme: Theme) => {
   return {
     size: {
       small: {
@@ -226,7 +224,7 @@ export const ButtonRound = ({
       disabled={disabled}
       hitSlop={sizeTokens.hitSlop}
       role="button"
-      style={styles.container({ size })}
+      style={styles.pressable}
       animationConfig={animationConfig}
       pressProgress={pressProgress}
       {...accessibilityProps}
@@ -247,11 +245,9 @@ const styles = StyleSheet.create(theme => {
   const buttonTokens = createButtonRoundTokens(theme);
 
   return {
-    container: ({ size }: { size: Size }) => {
-      return {
-        alignItems: 'center',
-        justifyContent: 'center',
-      };
+    pressable: {
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     button: ({ disabled, size }: { disabled: boolean; size: Size }) => {
       const sizeTokens = buttonTokens.size[size];

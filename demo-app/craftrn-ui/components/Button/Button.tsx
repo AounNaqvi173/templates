@@ -7,7 +7,7 @@ import Animated, {
   type SharedValue,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 import { PressableScale, type AnimationConfig } from '../PressableScale';
 
 /**
@@ -80,7 +80,7 @@ const useColorInterpolation = (config: {
   return { backgroundStyle, contentStyle };
 };
 
-const createButtonTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+const createButtonTokens = (theme: Theme) => {
   return {
     size: {
       small: {
@@ -162,8 +162,8 @@ const createButtonTokens = (theme: typeof lightTheme | typeof darkTheme) => {
           pressed: theme.colors.interactiveNeutralContentPress,
         },
         negative: {
-          normal: theme.colors.sentimentNegativeSecondary,
-          pressed: theme.colors.sentimentNegativeSecondaryPress,
+          normal: theme.colors.sentimentSecondaryNegative,
+          pressed: theme.colors.sentimentSecondaryNegativePress,
         },
       },
     },

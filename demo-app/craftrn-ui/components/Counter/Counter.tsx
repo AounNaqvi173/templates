@@ -12,7 +12,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 import { ButtonRound } from '../ButtonRound';
 import { Text } from '../Text';
 import { Minus } from './Minus';
@@ -20,10 +20,10 @@ import { Plus } from './Plus';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
-const createCounterTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+const createCounterTokens = (theme: Theme) => {
   return {
     spacing: {
-      minWidth: 50,
+      minWidth: 56,
     },
     colors: {
       icon: theme.colors.contentPrimary,

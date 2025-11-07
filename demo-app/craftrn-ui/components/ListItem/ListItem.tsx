@@ -1,11 +1,11 @@
 import React from 'react';
 import { AccessibilityProps, Pressable, View, ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { Theme } from '../../themes/config';
 import { Divider } from '../Divider';
 import { Text } from '../Text';
 
-const createListItemTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+const createListItemTokens = (theme: Theme) => {
   return {
     colors: {
       pressed: theme.colors.interactiveNeutralPress,
@@ -96,7 +96,7 @@ export const ListItem = ({
               <Text
                 variant="body2"
                 color={
-                  variant === 'danger' ? 'negativeSecondary' : 'contentPrimary'
+                  variant === 'danger' ? 'sentimentNegative' : 'contentPrimary'
                 }
                 style={styles.text}
               >

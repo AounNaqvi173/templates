@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 
-const createDividerTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+const createDividerTokens = (theme: Theme) => {
   return {
     colors: {
       divider: theme.colors.borderNeutral,

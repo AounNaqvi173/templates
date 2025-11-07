@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 import { Text } from '../Text';
 import { Backspace } from './Backspace';
 import { Key } from './Key';
@@ -11,9 +11,7 @@ const config = {
   pinLength: 6,
 };
 
-const createPasscodeEntryTokens = (
-  theme: typeof lightTheme | typeof darkTheme,
-) => {
+const createPasscodeEntryTokens = (theme: Theme) => {
   return {
     colors: {
       keyContent: theme.colors.interactiveNeutralContent,

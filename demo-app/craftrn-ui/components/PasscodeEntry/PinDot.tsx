@@ -7,9 +7,9 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 
-const createPinDotTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+const createPinDotTokens = (theme: Theme) => {
   return {
     size: 16,
     colors: {

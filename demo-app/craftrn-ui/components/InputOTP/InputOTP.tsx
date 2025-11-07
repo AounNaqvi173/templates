@@ -15,14 +15,14 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { darkTheme, lightTheme } from '../../themes/config';
+import { type Theme } from '../../themes/config';
 import { Text } from '../Text';
 
 const config = {
   length: 6,
 };
 
-const createInputOTPTokens = (theme: typeof lightTheme | typeof darkTheme) => {
+const createInputOTPTokens = (theme: Theme) => {
   return {
     colors: {
       border: {

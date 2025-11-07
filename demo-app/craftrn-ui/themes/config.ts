@@ -1,59 +1,55 @@
 export const colors = {
-  brightTeal100: '#bdf0f0',
+  brightTeal100: '#c1f2f2',
   brightTeal200: '#9de2e2',
   brightTeal300: '#6ED1D1',
   brightTeal400: '#48B8B8',
 
-  darkGreen500: '#1e809e',
-  darkGreen600: '#157183',
-  darkGreen700: '#105161',
-  darkGreen800: '#09414f',
-  darkGreen900: '#072829',
-  darkGreen950: '#031a1d',
+  darkTeal500: '#1e809e',
+  darkTeal600: '#157183',
+  darkTeal700: '#105161',
+  darkTeal800: '#09414f',
+  darkTeal900: '#072829',
+  darkTeal950: '#031a1d',
 
-  brightOrange100: '#fecea5',
-  brightOrange200: '#fdbb82',
-  brightOrange300: '#fca85e',
+  brightOrange100: '#f2ddc1',
+  brightOrange200: '#e2c49d',
+  brightOrange300: '#d1a76e',
+  brightOrange400: '#b88a48',
 
-  darkPurple800: '#390f47',
-  darkPurple900: '#210729',
+  darkOrange500: '#9e661e',
+  darkOrange600: '#835515',
+  darkOrange700: '#613e10',
+  darkOrange800: '#4f3109',
+  darkOrange900: '#291c07',
+  darkOrange950: '#1d1303',
 
-  brightPink100: '#FFD7EF',
-  brightPink200: '#ffb4e1',
-  brightPink300: '#ff96d5',
+  slate10: '#fcfcff',
+  slate50: '#f9f9fb',
+  slate100: '#e0e0e6',
+  slate200: '#d0d0d8',
+  slate300: '#c0c0c9',
+  slate400: '#b0b0ba',
+  slate500: '#9696a4',
+  slate600: '#7c7c93',
+  slate700: '#636375',
+  slate800: '#4a4a5b',
+  slate900: '#353545',
+  slate950: '#202029',
+  slate990: '#121217',
 
-  darkMaroon800: '#420909',
-  darkMaroon900: '#320707',
-
-  brightYellow: '#FFEB69',
-  darkGold: '#3A341C',
-
-  neutral10: '#fcfcff',
-  neutral50: '#f9f9fb',
-  neutral100: '#e0e0e6',
-  neutral200: '#d0d0d8',
-  neutral300: '#c0c0c9',
-  neutral400: '#b0b0ba',
-  neutral500: '#9696a4',
-  neutral600: '#7c7c93',
-  neutral700: '#636375',
-  neutral800: '#4a4a5b',
-  neutral900: '#353545',
-  neutral950: '#202029',
-  neutral990: '#121217',
-
-  // neutral50: '#f9f9f7',
-  // neutral100: '#dfdfd4',
-  // neutral200: '#cfcfc4',
-  // neutral300: '#bfbfb4',
-  // neutral400: '#afafa4',
-  // neutral500: '#95948f',
-  // neutral600: '#7b7b76',
-  // neutral700: '#62625d',
-  // neutral800: '#494944',
-  // neutral900: '#30302b',
-  // neutral950: '#262623',
-  // neutral990: '#111110',
+  stone10: '#fdfcfb',
+  stone50: '#faf8f6',
+  stone100: '#e5e2df',
+  stone200: '#d5d1cd',
+  stone300: '#c5c0bc',
+  stone400: '#b5afaa',
+  stone500: '#9a9490',
+  stone600: '#827c77',
+  stone700: '#6a6460',
+  stone800: '#524d49',
+  stone900: '#3d3936',
+  stone950: '#272421',
+  stone990: '#161413',
 
   negative50: '#ffe5e5',
   negative100: '#f0d1d1',
@@ -70,49 +66,13 @@ export const colors = {
   positive900: '#0f1b05',
   positive950: '#070e03',
 
-  stone50: '#fafaf9',
-  stone100: '#f5f5f4',
-  stone150: '#f0efec',
-  stone200: '#e7e5e4',
-  stone300: '#d6d3d1',
-  stone400: '#beb9b6',
-  stone500: '#837b75',
-  stone600: '#57534e',
-  stone700: '#44403c',
-  stone800: '#292524',
-  stone900: '#1c1917',
-  stone950: '#110e0c',
-
-  teal150: '#d4edf0',
-  teal300: '#a3d6da',
-  teal400: '#6bbbc4',
-  teal500: '#048391',
-  teal600: '#007884',
-  teal700: '#006771',
-  teal800: '#004247',
-  teal900: '#00282c',
-
-  // Semantic colors
-  green150: '#d2f2dd',
-  green300: '#86efac',
-  green500: '#22c55e',
-  green700: '#15803d',
-  green800: '#166534',
-
-  red150: '#f0dada',
-  red300: '#d19a9a',
-  red500: '#c44e4e',
-  red700: '#9b3535',
-  red800: '#7a2828',
-
+  // Non-semantic colors
   blue300: '#6aa7f1',
   blue700: '#1d4ed8',
-
-  // Non-semantic colors
-  grape600: '#544171',
-  eggplant600: '#714148',
-  fjord600: '#415171',
-  olive600: '#456138',
+  purple600: '#544171',
+  maroon600: '#714148',
+  steel600: '#415171',
+  forest600: '#456138',
   sunshine200: '#f5be0a',
 } as const;
 
@@ -143,112 +103,21 @@ const fontSizes = {
   },
 } as const;
 
-export const lightTheme = {
+const baseTheme = {
   colors: {
-    interactivePrimary: colors.brightTeal200,
-    interactivePrimaryPress: colors.brightTeal300,
-    interactivePrimaryContent: colors.darkGreen900,
-    interactivePrimaryContentPress: colors.darkGreen950,
-
-    interactiveSecondary: colors.brightTeal100,
-    interactiveSecondaryPress: colors.brightTeal200,
-    interactiveSecondaryContent: colors.darkGreen800,
-    interactiveSecondaryContentPress: colors.darkGreen900,
-
-    interactiveNeutral: colors.neutral100,
-    interactiveNeutralPress: colors.neutral200,
-    interactiveNeutralContent: colors.neutral900,
-    interactiveNeutralContentPress: colors.neutral990,
-
-    interactiveNeutralSecondary: colors.neutral10,
-    interactiveNeutralSecondaryPress: colors.neutral200,
-
-    interactiveNeutralReversed: colors.neutral990,
-    interactiveNeutralReversedPress: colors.neutral900,
-    interactiveNeutralReversedContent: colors.neutral50,
-    interactiveNeutralReversedContentPress: colors.neutral10,
-
-    sentimentNegative: colors.negative400,
-    sentimentNegativePress: colors.negative500,
-
-    sentimentNegativeSecondary: colors.negative50,
-    sentimentNegativeSecondaryPress: colors.negative100,
-
-    sentimentPositive: colors.positive400,
-    sentimentPositivePress: colors.positive500,
-
-    sentimentPositiveSecondary: colors.positive50,
-    sentimentPositiveSecondaryPress: colors.positive100,
-
-    backgroundScreen: colors.neutral100,
-    backgroundElevated: colors.neutral10,
-    backgroundNeutral: `${colors.neutral950}15`,
-    backgroundOverlay: `${colors.neutral950}80`,
-
-    baseLight: colors.neutral10,
-    baseDark: colors.neutral990,
-
-    borderNeutral: `${colors.neutral950}10`,
-    borderNeutralSecondary: `${colors.neutral950}30`,
-
-    contentPrimary: colors.neutral990,
-    contentSecondary: colors.neutral900,
-    contentTertiary: colors.neutral700,
-    contentAccent: colors.darkGreen800,
-
-    /////////
-
-    // backgroundPrimary: colors.stone100,
-    // backgroundSecondary: colors.stone200,
-    // backgroundTertiary: colors.stone300,
-    // backgroundQuaternary: colors.stone400,
-
-    // surfacePrimary: colors.stone100,
-    // surfaceSecondary: colors.stone200,
-    // surfaceTertiary: colors.stone300,
-    // surfaceQuaternary: colors.stone500,
-
-    // surfaceReversedPrimary: colors.stone800,
-    // surfaceReversedSecondary: colors.stone700,
-
-    // accentPrimary: colors.teal700,
-    // accentSecondary: colors.teal800,
-    // accentTertiary: colors.teal300,
-    // accentQuaternary: colors.teal150,
-
-    // contentQuaternary: colors.stone500,
-    // contentReversed: colors.stone50,
-
-    // borderPrimary: colors.stone500,
-    // borderSecondary: colors.stone300,
-
-    // shadowPrimary: colors.stone800,
-
-    // overlay: colors.stone600,
-
     transparent: 'transparent',
 
-    // Semantic colors
-    informativePrimary: colors.blue700,
-
-    positivePrimary: colors.green800,
-    positiveSecondary: colors.green700,
-    positiveTertiary: colors.green300,
-    positiveQuaternary: colors.green150,
-
-    negativePrimary: colors.red800,
-    negativeSecondary: colors.red700,
-    negativeTertiary: colors.red300,
-    negativeQuaternary: colors.red150,
-
     // Non-semantic colors
-    white: colors.stone50,
-    black: colors.stone950,
-    berryStrong: colors.grape600,
-    wineStrong: colors.eggplant600,
-    imperialBlueStrong: colors.fjord600,
-    darkOliveStrong: colors.olive600,
-    sunshineStrong: colors.sunshine200,
+    white: colors.stone10,
+    black: colors.stone900,
+    purple: colors.purple600,
+    maroon: colors.maroon600,
+    steel: colors.steel600,
+    forest: colors.forest600,
+    sunshine: colors.sunshine200,
+    red: colors.negative500,
+    green: colors.positive500,
+    blue: colors.blue700,
   },
   borderRadius: {
     xsmall: 4,
@@ -296,96 +165,253 @@ export const lightTheme = {
       fontWeight: '400',
     },
   },
-} as const;
+};
 
-export const darkTheme = {
-  ...lightTheme,
+export const lightTealTheme = {
+  ...baseTheme,
   colors: {
-    ...lightTheme.colors,
+    ...baseTheme.colors,
+    interactivePrimary: colors.brightTeal200,
+    interactivePrimaryPress: colors.brightTeal300,
+    interactivePrimaryContent: colors.darkTeal900,
+    interactivePrimaryContentPress: colors.darkTeal950,
 
-    interactivePrimary: colors.brightTeal300,
-    interactivePrimaryPress: colors.brightTeal200,
-    interactivePrimaryContent: colors.darkGreen900,
-    interactivePrimaryContentPress: colors.darkGreen800,
+    interactiveSecondary: colors.brightTeal100,
+    interactiveSecondaryPress: colors.brightTeal200,
+    interactiveSecondaryContent: colors.darkTeal800,
+    interactiveSecondaryContentPress: colors.darkTeal900,
 
-    interactiveSecondary: colors.darkGreen800,
-    interactiveSecondaryPress: colors.darkGreen600,
-    interactiveSecondaryContent: colors.brightTeal300,
-    interactiveSecondaryContentPress: colors.brightTeal100,
+    interactiveNeutral: colors.slate100,
+    interactiveNeutralPress: colors.slate200,
+    interactiveNeutralContent: colors.slate900,
+    interactiveNeutralContentPress: colors.slate990,
 
-    interactiveNeutral: colors.neutral900,
-    interactiveNeutralPress: colors.neutral800,
-    interactiveNeutralContent: colors.neutral100,
-    interactiveNeutralContentPress: colors.neutral50,
+    interactiveNeutralSecondary: colors.slate10,
+    interactiveNeutralSecondaryPress: colors.slate200,
 
-    interactiveNeutralSecondary: colors.neutral950,
-    interactiveNeutralSecondaryPress: colors.neutral900,
+    interactiveNeutralReversed: colors.slate990,
+    interactiveNeutralReversedPress: colors.slate900,
+    interactiveNeutralReversedContent: colors.slate50,
+    interactiveNeutralReversedContentPress: colors.slate10,
 
-    sentimentNegative: colors.negative200,
-    sentimentNegativePress: colors.negative100,
+    backgroundScreen: colors.slate100,
+    backgroundScreenSecondary: colors.slate10,
+    backgroundElevated: colors.slate10,
+    backgroundNeutral: `${colors.slate950}15`,
+    backgroundOverlay: `${colors.slate950}80`,
 
-    sentimentNegativeSecondary: colors.negative950,
-    sentimentNegativeSecondaryPress: colors.negative900,
+    baseLight: colors.slate10,
+    baseDark: colors.slate990,
+
+    borderNeutral: `${colors.slate950}10`,
+    borderNeutralSecondary: `${colors.slate950}30`,
+
+    contentPrimary: colors.slate990,
+    contentSecondary: colors.slate900,
+    contentTertiary: colors.slate700,
+    contentAccent: colors.darkTeal800,
+
+    // Semantic colors
+    informativePrimary: colors.blue700,
+
+    sentimentNegative: colors.negative400,
+    sentimentNegativePress: colors.negative500,
+
+    sentimentSecondaryNegative: colors.negative50,
+    sentimentSecondaryNegativePress: colors.negative100,
 
     sentimentPositive: colors.positive400,
     sentimentPositivePress: colors.positive500,
 
-    sentimentPositiveSecondary: colors.positive950,
-    sentimentPositiveSecondaryPress: colors.positive900,
+    sentimentSecondaryPositive: colors.positive50,
+    sentimentSecondaryPositivePress: colors.positive100,
+  },
+} as const;
 
-    backgroundScreen: colors.neutral990,
-    backgroundElevated: `${colors.neutral500}20`,
-    backgroundNeutral: `${colors.neutral200}15`,
-    backgroundOverlay: `${colors.neutral100}80`,
+export const darkTealTheme = {
+  ...lightTealTheme,
+  colors: {
+    ...lightTealTheme.colors,
 
-    borderNeutral: `${colors.neutral10}10`,
-    borderNeutralSecondary: `${colors.neutral10}30`,
+    interactivePrimary: colors.brightTeal300,
+    interactivePrimaryPress: colors.brightTeal200,
+    interactivePrimaryContent: colors.darkTeal900,
+    interactivePrimaryContentPress: colors.darkTeal800,
 
-    contentPrimary: colors.neutral10,
-    contentSecondary: colors.neutral100,
-    contentTertiary: colors.neutral200,
+    interactiveSecondary: colors.darkTeal800,
+    interactiveSecondaryPress: colors.darkTeal600,
+    interactiveSecondaryContent: colors.brightTeal300,
+    interactiveSecondaryContentPress: colors.brightTeal100,
+
+    interactiveNeutral: colors.slate900,
+    interactiveNeutralPress: colors.slate800,
+    interactiveNeutralContent: colors.slate100,
+    interactiveNeutralContentPress: colors.slate50,
+
+    interactiveNeutralSecondary: colors.slate950,
+    interactiveNeutralSecondaryPress: colors.slate900,
+
+    interactiveNeutralReversed: colors.slate10,
+    interactiveNeutralReversedPress: colors.slate100,
+    interactiveNeutralReversedContent: colors.slate900,
+    interactiveNeutralReversedContentPress: colors.slate990,
+
+    backgroundScreen: colors.slate990,
+    backgroundScreenSecondary: colors.slate950,
+    backgroundElevated: `${colors.slate950}`,
+    backgroundNeutral: `${colors.slate200}15`,
+    backgroundOverlay: `${colors.slate100}80`,
+
+    borderNeutral: `${colors.slate10}10`,
+    borderNeutralSecondary: `${colors.slate10}30`,
+
+    contentPrimary: colors.slate10,
+    contentSecondary: colors.slate100,
+    contentTertiary: colors.slate200,
     contentAccent: colors.brightTeal200,
-
-    //////////
-
-    // backgroundPrimary: colors.neutral950,
-    // backgroundSecondary: colors.neutral990,
-    // backgroundTertiary: colors.neutral100,
-    // backgroundQuaternary: colors.stone600,
-
-    // surfacePrimary: colors.neutral950,
-    // surfaceSecondary: colors.stone700,
-    // surfaceTertiary: colors.stone600,
-    // surfaceQuaternary: colors.stone500,
-
-    // surfaceReversedPrimary: colors.stone100,
-    // surfaceReversedSecondary: colors.stone200,
-
-    // accentPrimary: colors.teal600,
-    // accentSecondary: colors.teal700,
-    // accentTertiary: colors.teal800,
-    // accentQuaternary: colors.teal900,
-
-    // contentReversed: colors.stone900,
-
-    // borderPrimary: colors.stone700,
-    // borderSecondary: colors.stone900,
-
-    // shadowPrimary: colors.stone600,
-
-    // overlay: colors.stone600,
 
     // Semantic colors
     informativePrimary: colors.blue300,
 
-    positivePrimary: colors.green300,
-    positiveSecondary: colors.green150,
-    positiveTertiary: colors.green700,
-    positiveQuaternary: colors.green800,
+    sentimentNegative: colors.negative200,
+    sentimentNegativePress: colors.negative100,
 
-    negativePrimary: colors.red300,
-    negativeSecondary: colors.red150,
-    negativeTertiary: colors.red700,
-    negativeQuaternary: colors.red800,
+    sentimentSecondaryNegative: colors.negative950,
+    sentimentSecondaryNegativePress: colors.negative900,
+
+    sentimentPositive: colors.positive400,
+    sentimentPositivePress: colors.positive500,
+
+    sentimentSecondaryPositive: colors.positive950,
+    sentimentSecondaryPositivePress: colors.positive900,
   },
 } as const;
+
+export const lightOrangeTheme = {
+  ...baseTheme,
+  colors: {
+    ...baseTheme.colors,
+    interactivePrimary: colors.brightOrange200,
+    interactivePrimaryPress: colors.brightOrange300,
+    interactivePrimaryContent: colors.darkOrange900,
+    interactivePrimaryContentPress: colors.darkOrange950,
+
+    interactiveSecondary: colors.brightOrange100,
+    interactiveSecondaryPress: colors.brightOrange200,
+    interactiveSecondaryContent: colors.darkOrange800,
+    interactiveSecondaryContentPress: colors.darkOrange900,
+
+    interactiveNeutral: colors.stone100,
+    interactiveNeutralPress: colors.stone200,
+    interactiveNeutralContent: colors.stone900,
+    interactiveNeutralContentPress: colors.stone990,
+
+    interactiveNeutralSecondary: colors.stone10,
+    interactiveNeutralSecondaryPress: colors.stone200,
+
+    interactiveNeutralReversed: colors.stone990,
+    interactiveNeutralReversedPress: colors.stone900,
+    interactiveNeutralReversedContent: colors.stone50,
+    interactiveNeutralReversedContentPress: colors.stone10,
+
+    backgroundScreen: colors.stone100,
+    backgroundScreenSecondary: colors.stone10,
+    backgroundElevated: colors.stone10,
+    backgroundNeutral: `${colors.stone950}15`,
+    backgroundOverlay: `${colors.stone950}80`,
+
+    baseLight: colors.stone10,
+    baseDark: colors.stone990,
+
+    borderNeutral: `${colors.stone950}10`,
+    borderNeutralSecondary: `${colors.stone950}30`,
+
+    contentPrimary: colors.stone990,
+    contentSecondary: colors.stone900,
+    contentTertiary: colors.stone700,
+    contentAccent: colors.darkOrange800,
+
+    // Semantic colors
+    informativePrimary: colors.blue300,
+
+    sentimentNegative: colors.negative400,
+    sentimentNegativePress: colors.negative500,
+
+    sentimentSecondaryNegative: colors.negative50,
+    sentimentSecondaryNegativePress: colors.negative100,
+
+    sentimentPositive: colors.positive400,
+    sentimentPositivePress: colors.positive500,
+
+    sentimentSecondaryPositive: colors.positive50,
+    sentimentSecondaryPositivePress: colors.positive100,
+  },
+} as const;
+
+export const darkOrangeTheme = {
+  ...baseTheme,
+  colors: {
+    ...baseTheme.colors,
+
+    interactivePrimary: colors.brightOrange300,
+    interactivePrimaryPress: colors.brightOrange200,
+    interactivePrimaryContent: colors.darkOrange900,
+    interactivePrimaryContentPress: colors.darkOrange800,
+
+    interactiveSecondary: colors.darkOrange800,
+    interactiveSecondaryPress: colors.darkOrange600,
+    interactiveSecondaryContent: colors.brightOrange300,
+    interactiveSecondaryContentPress: colors.brightOrange100,
+
+    interactiveNeutral: colors.stone900,
+    interactiveNeutralPress: colors.stone800,
+    interactiveNeutralContent: colors.stone100,
+    interactiveNeutralContentPress: colors.stone50,
+
+    interactiveNeutralSecondary: colors.stone950,
+    interactiveNeutralSecondaryPress: colors.stone900,
+
+    interactiveNeutralReversed: colors.stone10,
+    interactiveNeutralReversedPress: colors.stone100,
+    interactiveNeutralReversedContent: colors.stone900,
+    interactiveNeutralReversedContentPress: colors.stone990,
+
+    backgroundScreen: colors.stone990,
+    backgroundScreenSecondary: colors.stone950,
+    backgroundElevated: `${colors.stone950}`,
+    backgroundNeutral: `${colors.stone200}15`,
+    backgroundOverlay: `${colors.stone100}80`,
+
+    baseLight: colors.stone10,
+    baseDark: colors.stone990,
+
+    borderNeutral: `${colors.stone10}10`,
+    borderNeutralSecondary: `${colors.stone10}30`,
+
+    contentPrimary: colors.stone10,
+    contentSecondary: colors.stone100,
+    contentTertiary: colors.stone200,
+    contentAccent: colors.brightOrange200,
+
+    // Semantic colors
+    informativePrimary: colors.blue300,
+
+    sentimentNegative: colors.negative200,
+    sentimentNegativePress: colors.negative100,
+
+    sentimentSecondaryNegative: colors.negative950,
+    sentimentSecondaryNegativePress: colors.negative900,
+
+    sentimentPositive: colors.positive400,
+    sentimentPositivePress: colors.positive500,
+
+    sentimentSecondaryPositive: colors.positive950,
+    sentimentSecondaryPositivePress: colors.positive900,
+  },
+} as const;
+
+export type Theme =
+  | typeof lightTealTheme
+  | typeof darkTealTheme
+  | typeof lightOrangeTheme
+  | typeof darkOrangeTheme;
