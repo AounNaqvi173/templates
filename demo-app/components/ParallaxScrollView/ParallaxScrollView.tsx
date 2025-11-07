@@ -20,7 +20,7 @@ type Props = PropsWithChildren<{
 
 export default function ParallaxScrollView({ children, title }: Props) {
   const { theme } = useUnistyles();
-  const { theme: currentTheme } = useTheme();
+  const { mode } = useTheme();
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
   const headerAnimatedStyle = useAnimatedStyle(() => {
@@ -54,15 +54,13 @@ export default function ParallaxScrollView({ children, title }: Props) {
       <Animated.View
         style={[
           styles.header,
-          { backgroundColor: theme.colors.backgroundPrimary },
+          { backgroundColor: theme.colors.backgroundElevated },
           headerAnimatedStyle,
         ]}
       >
         <View style={styles.parallaxHeader}>
           <Image
-            source={
-              currentTheme === 'light' ? CraftRNLogoLight : CraftRNLogoDark
-            }
+            source={mode === 'light' ? CraftRNLogoLight : CraftRNLogoDark}
             style={styles.headerLogo}
           />
           <Text variant="heading1">{title}</Text>

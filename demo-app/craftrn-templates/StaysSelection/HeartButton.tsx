@@ -35,7 +35,7 @@ export const HeartButton: ComponentType<HeartButtonProps> = ({
         <HeartFilled
           color={
             likeValue
-              ? theme.colors.negativePrimary
+              ? theme.colors.red
               : colorWithOpacity(theme.colors.black, 0.3)
           }
         />

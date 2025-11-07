@@ -4,7 +4,7 @@ import { Pressable, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 import { GoogleIcon } from './GoogleIcon';
 
-const ICON_SIZE = 40;
+const ICON_SIZE = 48;
 
 export const ButtonGoogle = ({ onPress }: { onPress: () => void }) => {
   return (
@@ -28,9 +28,9 @@ export const ButtonGoogle = ({ onPress }: { onPress: () => void }) => {
 const styles = StyleSheet.create(theme => ({
   button: (pressed: boolean) => ({
     backgroundColor: pressed
-      ? theme.colors.backgroundTertiary
-      : theme.colors.backgroundPrimary,
-    borderRadius: theme.borderRadius.medium,
+      ? theme.colors.interactiveNeutralPress
+      : theme.colors.interactiveNeutral,
+    borderRadius: theme.borderRadius.full,
     padding: theme.spacing.medium,
     flexDirection: 'row',
   }),

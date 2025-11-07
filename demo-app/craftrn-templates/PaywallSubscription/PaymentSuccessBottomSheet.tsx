@@ -4,7 +4,11 @@ import { Text } from '@/craftrn-ui/components/Text';
 import { CheckBadgeFill } from '@/tetrisly-icons/CheckBadgeFill';
 import React, { ComponentProps } from 'react';
 import { View } from 'react-native';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 
 type Props = Pick<
   ComponentProps<typeof BottomSheet>,
@@ -24,7 +28,7 @@ export const PaymentSuccessBottomSheet = ({
     <BottomSheet visible={visible} onRequestClose={onRequestClose}>
       <View style={styles.container}>
         <View style={styles.iconContainer}>
-          <CheckBadgeFill size={40} color={theme.colors.sunshineStrong} />
+          <CheckBadgeFill size={40} color={theme.colors.sunshine} />
         </View>
         <Text variant="heading3" style={styles.textCenter}>
           Thank you for subscribing

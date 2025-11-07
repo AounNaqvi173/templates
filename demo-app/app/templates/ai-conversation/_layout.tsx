@@ -13,9 +13,11 @@ export default function AiConversationLayout() {
           headerTransparent: false,
           headerShadowVisible: false,
           headerStyle: {
-            backgroundColor: theme.colors.backgroundPrimary,
+            backgroundColor: theme.colors.backgroundElevated,
           },
-          contentStyle: { backgroundColor: theme.colors.backgroundPrimary },
+          contentStyle: {
+            backgroundColor: theme.colors.backgroundScreen,
+          },
           headerTintColor: theme.colors.contentPrimary,
           headerBackVisible: false,
         }}

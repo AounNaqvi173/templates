@@ -30,10 +30,10 @@ export default function AvatarScreen() {
   const sizes: AvatarSize[] = ['small', 'medium', 'large'];
   const fallbackColors: AvatarColor[] = [0, 1, 2, 3];
   const themeColors = [
-    theme.colors.wineStrong,
-    theme.colors.berryStrong,
-    theme.colors.darkOliveStrong,
-    theme.colors.imperialBlueStrong,
+    theme.colors.purple,
+    theme.colors.maroon,
+    theme.colors.forest,
+    theme.colors.steel,
   ];
 
   return (

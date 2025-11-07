@@ -97,7 +97,7 @@ const styles = StyleSheet.create(theme => ({
   codeText: {
     fontFamily: 'SpaceMono',
     fontSize: 13,
-    backgroundColor: theme.colors.surfacePrimary,
+    backgroundColor: theme.colors.backgroundElevated,
   },
   strikethroughText: {
     textDecorationLine: 'line-through',

@@ -124,7 +124,7 @@ const styles = StyleSheet.create(theme => ({
     height: 8,
     borderRadius: theme.borderRadius.full,
     marginTop: theme.spacing.small,
-    backgroundColor: theme.colors.informativePrimary,
+    backgroundColor: theme.colors.blue,
   },
   boldText: {
     fontWeight: 'bold',

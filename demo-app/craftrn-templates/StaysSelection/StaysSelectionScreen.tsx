@@ -4,7 +4,11 @@ import { Search } from '@/tetrisly-icons/Search';
 import { Slider } from '@/tetrisly-icons/Slider';
 import { ComponentType, default as React } from 'react';
 import { FlatList, View } from 'react-native';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 import { staysData } from './data/stays';
 import { ListingCard } from './ListingCard';
 
@@ -40,7 +44,7 @@ export const StaysSelectionScreen: ComponentType<Props> = ({
                     color={theme.colors.contentTertiary}
                   />
                 )}
-                intent="secondary"
+                variant="neutral"
                 onPress={onPressFilter}
               />
             }
@@ -93,7 +97,7 @@ const styles = StyleSheet.create(theme => ({
   textFieldView: {
     borderRadius: theme.borderRadius.full,
     paddingHorizontal: theme.spacing.large,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
   },
   flatListContent: {
     gap: theme.spacing.xlarge,

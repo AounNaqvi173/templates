@@ -88,7 +88,7 @@ const openDeviceSettings = () => {
 };
 
 export default function TemplatesScreen() {
-  const { theme: currentTheme } = useTheme();
+  const { mode } = useTheme();
   const { theme } = useUnistyles();
 
   return (
@@ -100,9 +100,7 @@ export default function TemplatesScreen() {
             description="Chat interface inspired by AI assistant apps with clean design and modern messaging."
             href="/templates/ai-conversation/a7b8c9d0-e1f2-3456-abcd-789012345678"
             imageSource={
-              currentTheme === 'light'
-                ? aiConversationLight
-                : aiConversationDark
+              mode === 'light' ? aiConversationLight : aiConversationDark
             }
           />
           <MenuItem
@@ -110,9 +108,7 @@ export default function TemplatesScreen() {
             description="A detailed article view with rich content and related readings."
             href="/templates/editorial-article/16d48496-00b0-4270-854d-94393828952a"
             imageSource={
-              currentTheme === 'light'
-                ? editorialArticleLight
-                : editorialArticleDark
+              mode === 'light' ? editorialArticleLight : editorialArticleDark
             }
           />
           <MenuItem
@@ -120,7 +116,7 @@ export default function TemplatesScreen() {
             description="A feed of editorial content, perfect for news or blog layouts."
             href="/templates/editorial-feed"
             imageSource={
-              currentTheme === 'light' ? editorialFeedLight : editorialFeedDark
+              mode === 'light' ? editorialFeedLight : editorialFeedDark
             }
           />
           <MenuItem
@@ -128,9 +124,7 @@ export default function TemplatesScreen() {
             description="An inbox for managing messages and conversations."
             href="/templates/messaging-inbox"
             imageSource={
-              currentTheme === 'light'
-                ? messagingInboxLight
-                : messagingInboxDark
+              mode === 'light' ? messagingInboxLight : messagingInboxDark
             }
           />
           <MenuItem
@@ -138,9 +132,7 @@ export default function TemplatesScreen() {
             description="A detailed view of a single messaging thread."
             href="/templates/messaging-thread/7d3463b7-9acd-4ee3-8d0e-3c28fab32945"
             imageSource={
-              currentTheme === 'light'
-                ? messagingThreadLight
-                : messagingThreadDark
+              mode === 'light' ? messagingThreadLight : messagingThreadDark
             }
           />
           <MenuItem
@@ -148,7 +140,7 @@ export default function TemplatesScreen() {
             description="Display and manage user notifications."
             href="/templates/notifications"
             imageSource={
-              currentTheme === 'light' ? notificationsLight : notificationsDark
+              mode === 'light' ? notificationsLight : notificationsDark
             }
           />
           <MenuItem
@@ -156,9 +148,7 @@ export default function TemplatesScreen() {
             description="Select your country during the onboarding process."
             href="/templates/onboarding-country?countryCode=FR"
             imageSource={
-              currentTheme === 'light'
-                ? onboardingCountryLight
-                : onboardingCountryDark
+              mode === 'light' ? onboardingCountryLight : onboardingCountryDark
             }
           />
           <MenuItem
@@ -166,7 +156,7 @@ export default function TemplatesScreen() {
             description="Set up a secure passcode for your account."
             href="/templates/onboarding-create-passcode"
             imageSource={
-              currentTheme === 'light'
+              mode === 'light'
                 ? onboardingCreatePasscodeLight
                 : onboardingCreatePasscodeDark
             }
@@ -176,7 +166,7 @@ export default function TemplatesScreen() {
             description="Enter a one-time code for verification."
             href="/templates/onboarding-one-time-code"
             imageSource={
-              currentTheme === 'light'
+              mode === 'light'
                 ? onboardingOneTimeCodeLight
                 : onboardingOneTimeCodeDark
             }
@@ -186,9 +176,7 @@ export default function TemplatesScreen() {
             description="User registration and sign-up flow."
             href="/templates/onboarding-sign-up"
             imageSource={
-              currentTheme === 'light'
-                ? onboardingSignUpLight
-                : onboardingSignUpDark
+              mode === 'light' ? onboardingSignUpLight : onboardingSignUpDark
             }
           />
           <MenuItem
@@ -196,7 +184,7 @@ export default function TemplatesScreen() {
             description="Manage and subscribe to premium content."
             href="/templates/paywall-subscription"
             imageSource={
-              currentTheme === 'light'
+              mode === 'light'
                 ? paywallSubscriptionLight
                 : paywallSubscriptionDark
             }
@@ -205,22 +193,20 @@ export default function TemplatesScreen() {
             title="Profile"
             description="View and edit user profile information."
             href="/templates/profile"
-            imageSource={currentTheme === 'light' ? profileLight : profileDark}
+            imageSource={mode === 'light' ? profileLight : profileDark}
           />
           <MenuItem
             title="Settings"
             description="Configure application settings and preferences."
             href="/templates/settings"
-            imageSource={
-              currentTheme === 'light' ? settingsLight : settingsDark
-            }
+            imageSource={mode === 'light' ? settingsLight : settingsDark}
           />
           <MenuItem
             title="Stays details"
             description="Detailed information about a specific stay or accommodation."
             href="/templates/stays-details/f7a97e34-1b6f-4f5c-ae16-d7c28f1de169"
             imageSource={
-              currentTheme === 'light' ? staysDetailsLight : staysDetailsDark
+              mode === 'light' ? staysDetailsLight : staysDetailsDark
             }
           />
           <MenuItem
@@ -228,25 +214,21 @@ export default function TemplatesScreen() {
             description="Apply filters to refine your search for stays."
             href="/templates/stays-filters"
             imageSource={
-              currentTheme === 'light' ? staysFiltersLight : staysFiltersDark
+              mode === 'light' ? staysFiltersLight : staysFiltersDark
             }
           />
           <MenuItem
             title="Stays search"
             description="Search for available stays and accommodations."
             href="/templates/stays-search"
-            imageSource={
-              currentTheme === 'light' ? staysSearchLight : staysSearchDark
-            }
+            imageSource={mode === 'light' ? staysSearchLight : staysSearchDark}
           />
           <MenuItem
             title="Stays selection"
             description="Select and manage your chosen stays."
             href="/templates/stays-selection"
             imageSource={
-              currentTheme === 'light'
-                ? staysSelectionLight
-                : staysSelectionDark
+              mode === 'light' ? staysSelectionLight : staysSelectionDark
             }
           />
           <MenuItem
@@ -254,9 +236,7 @@ export default function TemplatesScreen() {
             description="Monitor and manage your trading activities."
             href="/templates/trading-dashboard"
             imageSource={
-              currentTheme === 'light'
-                ? tradingDashboardLight
-                : tradingDashboardDark
+              mode === 'light' ? tradingDashboardLight : tradingDashboardDark
             }
           />
           <MenuItem
@@ -264,7 +244,7 @@ export default function TemplatesScreen() {
             description="Place and manage your trading orders."
             href="/templates/trading-order/3e458e61-677c-4d55-b908-507a490a4853"
             imageSource={
-              currentTheme === 'light' ? tradingOrderLight : tradingOrderDark
+              mode === 'light' ? tradingOrderLight : tradingOrderDark
             }
           />
         </View>

@@ -30,7 +30,7 @@ export default function AiConversation() {
               disabled
               size="medium"
               renderContent={() => <></>}
-              intent="secondary"
+              variant="neutral"
             />
           </View>
         ),
@@ -39,8 +39,9 @@ export default function AiConversation() {
             renderContent={({ iconSize }) => (
               <Plus color={theme.colors.contentPrimary} size={iconSize} />
             )}
+            animationConfig={{ scaleIn: 1.1 }}
             onPress={() => console.log('New message pressed')}
-            intent="secondary"
+            variant="neutral"
           />
         ),
       });

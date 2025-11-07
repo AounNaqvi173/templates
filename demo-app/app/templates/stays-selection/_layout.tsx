@@ -10,7 +10,7 @@ export default function StaysSelectionLayout() {
       <Stack.Screen
         name="index"
         options={{
-          contentStyle: { backgroundColor: theme.colors.backgroundSecondary },
+          contentStyle: { backgroundColor: theme.colors.backgroundScreen },
           headerShown: false,
           headerLeft: () => null,
         }}

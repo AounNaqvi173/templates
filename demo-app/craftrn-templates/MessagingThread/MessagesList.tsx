@@ -57,7 +57,7 @@ export const MessagesList = ({
               onLongPress={onShowMoreBottomSheet}
             >
               {({ pressed }) => (
-                <View style={styles.itemContainer({ pressed })}>
+                <View style={styles.itemContainer}>
                   <Avatar
                     fallbackInitials={sender.initials}
                     fallbackColor={sender.avatarColor}
@@ -120,18 +120,16 @@ const styles = StyleSheet.create(theme => ({
   flatList: {
     flex: 1,
     position: 'relative',
-    backgroundColor: theme.colors.backgroundPrimary,
   },
   flatListContentContainer: {
     paddingTop: theme.spacing.small,
   },
-  itemContainer: ({ pressed }: { pressed: boolean }) => ({
+  itemContainer: {
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.small,
     flexDirection: 'row',
     gap: theme.spacing.medium,
-    backgroundColor: pressed ? theme.colors.backgroundTertiary : undefined,
-  }),
+  },
   itemContent: {
     flex: 1,
     gap: theme.spacing.xsmall,
@@ -156,11 +154,11 @@ const styles = StyleSheet.create(theme => ({
   },
   reactionItem: ({ pressed }) => ({
     backgroundColor: pressed
-      ? theme.colors.backgroundTertiary
-      : theme.colors.backgroundSecondary,
+      ? theme.colors.interactiveNeutralPress
+      : theme.colors.interactiveNeutral,
     paddingHorizontal: theme.spacing.small,
     paddingVertical: theme.spacing.xsmall,
-    borderRadius: 12,
-    borderColor: theme.colors.borderPrimary,
+    borderRadius: theme.borderRadius.full,
+    borderColor: theme.colors.borderNeutral,
   }),
 }));

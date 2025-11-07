@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { ListRenderItemInfo, View } from 'react-native';
 import { SharedValue, useSharedValue } from 'react-native-reanimated';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
 import { Card } from './Card';
 import { CATEGORY_ITEM_HEIGHT } from './Categories';
 import { EditorialArticleItem, editorialArticlesData } from './data/articles';
@@ -22,7 +22,6 @@ type Props = {
 export const EditorialFeedScreen: ComponentType<Props> = ({
   onPressArticle,
 }) => {
-  
   const scrollY = useSharedValue(0);
   const carouselRef = useRef<VerticalCarouselHandle>(null);
   const [selectedCategory, setSelectedCategory] = useState<
@@ -81,7 +80,6 @@ export const EditorialFeedScreen: ComponentType<Props> = ({
 const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.backgroundSecondary,
   },
   carouselContainer: {
     flex: 1,

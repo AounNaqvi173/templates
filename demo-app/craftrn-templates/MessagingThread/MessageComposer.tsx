@@ -7,7 +7,11 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 
 const BUTTON_SIZE = 36;
 const TEXT_INPUT_HEIGHT = 36;
@@ -53,7 +57,7 @@ export const MessageComposer = () => {
         renderContent={({ iconSize }) => (
           <Attachment color={theme.colors.contentPrimary} size={iconSize} />
         )}
-        intent="primary"
+        variant="neutral-secondary"
       />
       <Animated.View
         style={[styles.textInputAnimatedContainer, inputAnimatedStyle]}
@@ -88,7 +92,8 @@ export const MessageComposer = () => {
 const styles = StyleSheet.create(theme => ({
   container: {
     borderTopWidth: 1,
-    borderTopColor: theme.colors.borderPrimary,
+    backgroundColor: theme.colors.backgroundScreen,
+    borderTopColor: theme.colors.borderNeutral,
     paddingTop: theme.spacing.medium,
     paddingHorizontal: theme.spacing.large,
     paddingBottom: Math.max(
@@ -103,7 +108,7 @@ const styles = StyleSheet.create(theme => ({
     flex: 1,
     flexDirection: 'row',
     paddingHorizontal: theme.spacing.small,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     borderRadius: theme.borderRadius.medium,
     height: TEXT_INPUT_HEIGHT,
     shadowColor: theme.colors.contentPrimary,
@@ -125,8 +130,8 @@ const styles = StyleSheet.create(theme => ({
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
     backgroundColor: pressed
-      ? theme.colors.accentSecondary
-      : theme.colors.accentPrimary,
+      ? theme.colors.interactiveSecondaryContentPress
+      : theme.colors.interactiveSecondaryContent,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: theme.borderRadius.medium,

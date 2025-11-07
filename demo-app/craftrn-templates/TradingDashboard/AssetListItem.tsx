@@ -1,7 +1,8 @@
 import { ListItem } from '@/craftrn-ui/components/ListItem';
 import React, { ComponentProps, ComponentType } from 'react';
-import { Image, View, ViewStyle } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
+import { Avatar } from '../../craftrn-ui/components/Avatar';
 
 const IMAGE_SIZE = 40;
 
@@ -20,36 +21,27 @@ export const AssetListItem: ComponentType<Props> = ({
   ...listItemProps
 }) => {
   return (
-    <>
-      <ListItem
-        {...listItemProps}
-        style={[styles.listItem, StyleSheet.flatten(listItemProps?.style)]}
-        itemLeft={
-          <View style={styles.itemLeft}>
-            <Image
-              source={{
-                uri: imageURL,
-              }}
-              style={styles.image}
-            />
-          </View>
-        }
-        divider={divider}
-      />
-    </>
+    <ListItem
+      {...listItemProps}
+      style={[styles.listItem, StyleSheet.flatten(listItemProps?.style)]}
+      itemLeft={
+        <View style={styles.itemLeft}>
+          <Avatar
+            source={{
+              uri: imageURL,
+            }}
+          />
+        </View>
+      }
+      divider={divider}
+    />
   );
 };
 
 const styles = StyleSheet.create(theme => ({
-  image: {
-    borderRadius: theme.borderRadius.medium,
-    width: IMAGE_SIZE,
-    height: IMAGE_SIZE,
-  },
   listItem: {
-    marginVertical: theme.spacing.xsmall,
-    paddingVertical: theme.spacing.xsmall,
-    borderRadius: theme.borderRadius.large,
+    paddingVertical: theme.spacing.small,
+    paddingHorizontal: theme.spacing.medium,
   },
   itemLeft: {
     marginRight: theme.spacing.medium,

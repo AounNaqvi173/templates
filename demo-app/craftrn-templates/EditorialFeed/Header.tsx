@@ -8,7 +8,11 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 import { Categories } from './Categories';
 import { EditorialCategory, EditorialCategoryData } from './data/categories';
 import { Gradient } from './Gradient';
@@ -86,7 +90,7 @@ export const Header: ComponentType<Props> = ({
                   <User size={iconSize} color={theme.colors.contentPrimary} />
                 )}
                 onPress={() => setProfileBottomSheetVisible(true)}
-                intent="secondary"
+                variant="neutral"
               />
             </View>
           </Animated.View>
@@ -118,7 +122,7 @@ const styles = StyleSheet.create(theme => ({
     zIndex: 1,
   },
   headerContainer: {
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     justifyContent: 'flex-end',
     paddingBottom: theme.spacing.medium,
   },
@@ -138,8 +142,8 @@ const styles = StyleSheet.create(theme => ({
     right: 0,
   },
   categoriesContainer: {
-    backgroundColor: theme.colors.backgroundPrimary,
-    borderBottomColor: theme.colors.borderPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
+    borderBottomColor: theme.colors.borderNeutralSecondary,
     borderBottomWidth: 1,
   },
 }));

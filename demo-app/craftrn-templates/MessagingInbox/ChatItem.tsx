@@ -1,4 +1,4 @@
-import { Avatar, avatarConfig } from '@/craftrn-ui/components/Avatar';
+import { Avatar } from '@/craftrn-ui/components/Avatar';
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useCallback, useMemo, useState } from 'react';
 import { Pressable, View } from 'react-native';
@@ -62,7 +62,7 @@ export const ChatItem: ComponentType<ChatItemProps> = ({
                   <Text variant="body2" style={styles.rowContentDetailsName}>
                     {user.name}
                   </Text>
-                  <Text variant="body3" color="contentQuaternary">
+                  <Text variant="body3" color="contentTertiary">
                     {formatRelativeDate(item.lastMessage.date)}
                   </Text>
                 </View>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create(theme => ({
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.small,
     height: HEIGHT,
-    backgroundColor: pressed ? theme.colors.surfaceTertiary : undefined,
+    backgroundColor: pressed ? theme.colors.interactiveNeutralPress : undefined,
   }),
   rowContent: {
     gap: theme.spacing.xsmall,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create(theme => ({
     flex: 1,
   },
   unreadBadge: {
-    backgroundColor: theme.colors.accentPrimary,
+    backgroundColor: theme.colors.interactiveNeutral,
     borderRadius: theme.borderRadius.full,
     width: 20,
     height: 20,
@@ -140,14 +140,14 @@ const styles = StyleSheet.create(theme => ({
     paddingHorizontal: theme.spacing.xsmall,
   },
   unreadText: {
-    color: theme.colors.white,
+    color: theme.colors.interactiveNeutralContent,
   },
   divider: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.borderPrimary,
+    borderBottomColor: theme.colors.borderNeutralSecondary,
     marginLeft:
       theme.spacing.large +
-      avatarConfig.medium.avatarSize +
+      44 + // Avatar size medium
       theme.spacing.medium,
   },
 }));

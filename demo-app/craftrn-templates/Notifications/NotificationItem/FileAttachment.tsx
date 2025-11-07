@@ -46,16 +46,16 @@ const styles = StyleSheet.create(theme => ({
   container: {
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: theme.colors.borderPrimary,
+    borderColor: theme.colors.borderNeutral,
     borderRadius: theme.borderRadius.large,
     padding: theme.spacing.small,
     alignItems: 'center',
     justifyContent: 'space-between',
     overflow: 'hidden',
-    backgroundColor: theme.colors.backgroundSecondary,
+    backgroundColor: theme.colors.backgroundNeutral,
   },
   pressed: {
-    backgroundColor: theme.colors.backgroundTertiary,
+    backgroundColor: theme.colors.interactiveNeutralPress,
   },
   infoContainer: {
     flexDirection: 'row',
@@ -65,7 +65,7 @@ const styles = StyleSheet.create(theme => ({
   iconContainer: {
     width: ICON_CONTAINER_SIZE,
     height: ICON_CONTAINER_SIZE,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundNeutral,
     borderRadius: theme.borderRadius.medium,
     alignItems: 'center',
     justifyContent: 'center',

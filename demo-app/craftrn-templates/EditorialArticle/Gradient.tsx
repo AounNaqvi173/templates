@@ -14,12 +14,12 @@ export const Gradient: ComponentType<Props> = ({ height }) => {
         <LinearGradient id="headerGradient" x1="0%" y1="0%" x2="0%" y2="100%">
           <Stop
             offset="0%"
-            stopColor={theme.colors.backgroundSecondary}
+            stopColor={theme.colors.backgroundScreen}
             stopOpacity="0"
           />
           <Stop
             offset="90%"
-            stopColor={theme.colors.backgroundSecondary}
+            stopColor={theme.colors.backgroundScreen}
             stopOpacity="1"
           />
         </LinearGradient>

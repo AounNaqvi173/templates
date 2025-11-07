@@ -28,7 +28,7 @@ export default function StaysDetails() {
             <Upload color={theme.colors.contentPrimary} size={iconSize} />
           )}
           onPress={handleShare}
-          intent="secondary"
+          variant="neutral"
         />
       ),
     });

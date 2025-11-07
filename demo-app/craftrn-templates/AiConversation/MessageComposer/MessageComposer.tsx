@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { TextInput, View, ViewProps } from 'react-native';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
 import { ActionButtons } from './ActionButtons';
 import { AttachmentBottomSheet } from './AttachmentBottomSheet';
 import { InputField } from './InputField';
@@ -79,7 +79,7 @@ export const MessageComposer = ({ onSendMessage, onLayout }: Props) => {
 
 const styles = StyleSheet.create(theme => ({
   container: {
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     paddingTop: theme.spacing.small,
     paddingHorizontal: theme.spacing.large,
     paddingBottom: Math.max(
@@ -88,10 +88,5 @@ const styles = StyleSheet.create(theme => ({
     ),
     borderTopLeftRadius: theme.borderRadius.large,
     borderTopRightRadius: theme.borderRadius.large,
-    elevation: 12,
-    shadowColor: theme.colors.shadowPrimary,
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
   },
 }));

@@ -1,8 +1,10 @@
 import { NavigationBackButton } from '@/components/NavigationBackButton/NavigationBackButton';
 import { Stack, useRouter } from 'expo-router';
 import React from 'react';
+import { useUnistyles } from 'react-native-unistyles';
 
 export default function EditorialArticleLayout() {
+  const { theme } = useUnistyles();
   const router = useRouter();
 
   return (
@@ -13,9 +15,10 @@ export default function EditorialArticleLayout() {
           headerShown: true,
           headerTitle: '',
           headerTransparent: true,
+          contentStyle: { backgroundColor: theme.colors.backgroundScreen },
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton intent="secondary" onPress={router.back} />
+              <NavigationBackButton variant="neutral" onPress={router.back} />
             ) : undefined,
         }}
       />

@@ -12,7 +12,11 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 import { AnimatedHeader } from './AnimatedHeader';
 import { Shadow } from './Shadow';
 import { staysData } from './data/stays';
@@ -167,19 +171,18 @@ export const StaysDetailsScreen: ComponentType<Props> = ({ id }) => {
 const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.backgroundPrimary,
   },
   headerRight: {
     marginTop: theme.spacing.xxsmall,
   },
   carouselContainer: {
-    backgroundColor: theme.colors.backgroundTertiary,
+    backgroundColor: theme.colors.backgroundNeutral,
     transformOrigin: 'bottom center',
   },
   contentContainer: {
     flex: 1,
     borderRadius: theme.borderRadius.large,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     paddingHorizontal: theme.spacing.large,
     transform: [{ translateY: -theme.borderRadius.xlarge }],
   },
@@ -206,8 +209,8 @@ const styles = StyleSheet.create(theme => ({
   },
   footer: {
     borderTopWidth: 1,
-    borderTopColor: theme.colors.borderSecondary,
-    backgroundColor: theme.colors.backgroundPrimary,
+    borderTopColor: theme.colors.borderNeutral,
+    backgroundColor: theme.colors.backgroundElevated,
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.medium,
     position: 'relative',

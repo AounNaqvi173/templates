@@ -48,9 +48,9 @@ export const AssetHighlightsCard = ({
       </View>
       <View style={cardStyles.changeContainer(isNegative)}>
         {isNegative ? (
-          <ChevronDown size={16} color={theme.colors.negativePrimary} />
+          <ChevronDown size={16} color={theme.colors.sentimentNegative} />
         ) : (
-          <ChevronUp size={16} color={theme.colors.positivePrimary} />
+          <ChevronUp size={16} color={theme.colors.sentimentPositive} />
         )}
         <Text variant="body2" style={cardStyles.changeText(isNegative)}>
           {change}
@@ -65,7 +65,7 @@ const cardStyles = StyleSheet.create(theme => ({
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
     gap: theme.spacing.xsmall,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     borderRadius: theme.borderRadius.large,
     paddingHorizontal: theme.spacing.medium,
     paddingVertical: theme.spacing.small,
@@ -91,16 +91,16 @@ const cardStyles = StyleSheet.create(theme => ({
     borderRadius: theme.borderRadius.medium,
     borderWidth: 1,
     borderColor: isNegative
-      ? theme.colors.negativePrimary
-      : theme.colors.positivePrimary,
+      ? theme.colors.sentimentNegative
+      : theme.colors.sentimentPositive,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   }),
   changeText: (isNegative: boolean) => ({
     color: isNegative
-      ? theme.colors.negativePrimary
-      : theme.colors.positivePrimary,
+      ? theme.colors.sentimentNegative
+      : theme.colors.sentimentPositive,
     fontWeight: 'bold',
     textAlign: 'center',
   }),

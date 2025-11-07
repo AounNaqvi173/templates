@@ -31,7 +31,9 @@ export const CategoryItem = ({
         <View style={categoryItemStyles.contentContainer}>
           <Text
             variant="body2"
-            color={selected ? 'contentAccent' : 'contentSecondary'}
+            color={
+              selected ? 'interactiveSecondaryContent' : 'contentSecondary'
+            }
           >
             {title}
           </Text>
@@ -50,7 +52,7 @@ const categoryItemStyles = StyleSheet.create(theme => ({
     borderBottomColor: 'transparent',
   },
   selectedContainer: {
-    borderBottomColor: theme.colors.contentAccent,
+    borderBottomColor: theme.colors.interactiveSecondaryContent,
   },
   touchable: {
     height: CATEGORY_ITEM_HEIGHT,

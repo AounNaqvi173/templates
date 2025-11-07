@@ -27,9 +27,9 @@ export const ExchangeRate: ComponentType<ExchangeRateProps> = ({
       </Text>
       <View style={styles.changeContainer}>
         {isNegative ? (
-          <ChevronDown size={16} color={theme.colors.negativePrimary} />
+          <ChevronDown size={16} color={theme.colors.sentimentNegative} />
         ) : (
-          <ChevronUp size={16} color={theme.colors.positivePrimary} />
+          <ChevronUp size={16} color={theme.colors.sentimentPositive} />
         )}
         <Text variant="body2" style={styles.change(isNegative)}>
           {change}

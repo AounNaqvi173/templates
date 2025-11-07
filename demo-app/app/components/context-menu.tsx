@@ -1,7 +1,7 @@
 import { Card } from '@/craftrn-ui/components/Card';
 import {
   ContextMenu,
-  ContextMenuItem,
+  ContextMenuElement,
 } from '@/craftrn-ui/components/ContextMenu';
 import { Stack } from 'expo-router';
 import React from 'react';
@@ -11,34 +11,44 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
-import { ChevronRight } from '../../tetrisly-icons/ChevronRight';
+import { Block } from '../../tetrisly-icons/Block';
+import { Copy } from '../../tetrisly-icons/Copy';
+import { Share } from '../../tetrisly-icons/Share';
+import { UserEdit } from '../../tetrisly-icons/UserEdit';
 
 export default function ContextMenuScreen() {
   const { theme } = useUnistyles();
 
-  const contextMenuItems: ContextMenuItem[] = [
+  const contextMenuItems: ContextMenuElement[] = [
     {
       id: '1',
       label: 'Edit',
       subtitle: 'Modify this item',
       onPress: () => Alert.alert('Edit', 'Edit action pressed'),
-      itemRight: <ChevronRight color={theme.colors.contentSecondary} />,
+      itemLeft: <UserEdit color={theme.colors.contentSecondary} />,
     },
     {
       id: '2',
       label: 'Share',
       onPress: () => Alert.alert('Share', 'Share action pressed'),
+      itemLeft: <Share color={theme.colors.contentSecondary} />,
     },
     {
       id: '3',
       label: 'Copy Link',
       subtitle: 'Copy to clipboard',
       onPress: () => Alert.alert('Copy Link', 'Link copied to clipboard'),
+      itemLeft: <Copy color={theme.colors.contentSecondary} />,
+    },
+    {
+      type: 'divider',
+      id: 'divider-1',
     },
     {
       id: '4',
       label: 'Delete',
       onPress: () => Alert.alert('Delete', 'Delete action pressed'),
+      itemLeft: <Block color={theme.colors.contentSecondary} />,
     },
   ];
 

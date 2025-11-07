@@ -79,7 +79,7 @@ const styles = StyleSheet.create(theme => ({
   carouselContainer: {
     borderRadius: theme.borderRadius.large,
     overflow: 'hidden',
-    backgroundColor: theme.colors.backgroundTertiary,
+    backgroundColor: theme.colors.backgroundNeutral,
   },
   heartButtonContainer: {
     position: 'absolute',

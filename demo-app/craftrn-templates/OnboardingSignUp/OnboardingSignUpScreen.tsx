@@ -5,7 +5,12 @@ import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
 import React, { ComponentType, useCallback, useState } from 'react';
 import { ImageBackground, ScrollView, View } from 'react-native';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
+import { Divider } from '../../craftrn-ui/components/Divider';
 import { ButtonApple } from './ButtonApple';
 import { ButtonGoogle } from './ButtonGoogle';
 import { countryCodes } from './data/countryCodes';
@@ -54,12 +59,12 @@ export const OnboardingSignUpScreen: ComponentType<Props> = ({
             <LinearGradient id="fadeGradient" x1="0" y1="0" x2="0" y2="1">
               <Stop
                 offset="0"
-                stopColor={theme.colors.backgroundSecondary}
+                stopColor={theme.colors.backgroundElevated}
                 stopOpacity="0"
               />
               <Stop
                 offset="1"
-                stopColor={theme.colors.backgroundSecondary}
+                stopColor={theme.colors.backgroundElevated}
                 stopOpacity="1"
               />
             </LinearGradient>
@@ -103,7 +108,7 @@ export const OnboardingSignUpScreen: ComponentType<Props> = ({
             </View>
           </View>
           <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
+            <Divider />
             <View style={styles.dividerTextContainer}>
               <Text
                 variant="body3"
@@ -175,13 +180,9 @@ const styles = StyleSheet.create(theme => ({
     marginVertical: theme.spacing.xxlarge,
     position: 'relative',
   },
-  dividerLine: {
-    borderBottomColor: theme.colors.borderPrimary,
-    borderBottomWidth: 1,
-  },
   dividerTextContainer: {
     position: 'absolute',
-    backgroundColor: theme.colors.backgroundSecondary,
+    backgroundColor: theme.colors.backgroundElevated,
     top: -theme.spacing.small,
     paddingHorizontal: theme.spacing.small,
     alignSelf: 'center',

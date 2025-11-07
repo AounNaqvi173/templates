@@ -7,7 +7,12 @@ import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { useSafeAreaFrame } from 'react-native-safe-area-context';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
+import { Divider } from '../../craftrn-ui/components/Divider';
 import { AccomodationTypeButton } from './AccomodationTypeButton';
 import { FilterItem } from './FilterItem';
 import { Shadow } from './Shadow';
@@ -20,11 +25,6 @@ const guestRatingOptions = {
 } as const;
 
 type GuestRating = (typeof guestRatingOptions)[keyof typeof guestRatingOptions];
-
-const Divider = () => {
-  
-  return <View style={styles.divider} />;
-};
 
 export const StaysFiltersScreen: ComponentType = () => {
   const { theme } = useUnistyles();
@@ -159,15 +159,21 @@ export const StaysFiltersScreen: ComponentType = () => {
           <View style={styles.listContainer}>
             <FilterItem
               label="Bedrooms"
-              rightAccessory={<Counter onValueChange={() => {}} />}
+              rightAccessory={
+                <Counter onValueChange={() => {}} emptyLabel="Any" />
+              }
             />
             <FilterItem
               label="Beds"
-              rightAccessory={<Counter onValueChange={() => {}} />}
+              rightAccessory={
+                <Counter onValueChange={() => {}} emptyLabel="Any" />
+              }
             />
             <FilterItem
               label="Bathrooms"
-              rightAccessory={<Counter onValueChange={() => {}} />}
+              rightAccessory={
+                <Counter onValueChange={() => {}} emptyLabel="Any" />
+              }
             />
           </View>
           <Divider />
@@ -248,10 +254,6 @@ const styles = StyleSheet.create(theme => ({
     flexWrap: 'wrap',
     marginHorizontal: theme.spacing.large,
   },
-  divider: {
-    borderBottomColor: theme.colors.borderPrimary,
-    borderBottomWidth: 1,
-  },
   sectionSubheader: {
     marginHorizontal: theme.spacing.large,
   },
@@ -274,7 +276,7 @@ const styles = StyleSheet.create(theme => ({
     marginHorizontal: theme.spacing.large,
   },
   footer: {
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     paddingHorizontal: theme.spacing.large,
     paddingTop: theme.spacing.medium,
     position: 'relative',

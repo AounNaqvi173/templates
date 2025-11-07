@@ -24,8 +24,8 @@ export const AssetGridItem = ({
 
   const ChevronIcon = isNegative ? ChevronDown : ChevronUp;
   const chevronColor = isNegative
-    ? theme.colors.negativePrimary
-    : theme.colors.positivePrimary;
+    ? theme.colors.sentimentNegative
+    : theme.colors.sentimentPositive;
 
   return (
     <Pressable onPress={onPress} style={styles.pressableContainer}>
@@ -57,8 +57,8 @@ const styles = StyleSheet.create(theme => ({
     gap: theme.spacing.xsmall,
     padding: theme.spacing.small,
     backgroundColor: pressed
-      ? theme.colors.backgroundTertiary
-      : theme.colors.backgroundPrimary,
+      ? theme.colors.interactiveNeutralPress
+      : theme.colors.transparent,
     borderRadius: theme.borderRadius.large,
   }),
   image: {
@@ -75,7 +75,7 @@ const styles = StyleSheet.create(theme => ({
   },
   changeText: (isNegative: boolean) => ({
     color: isNegative
-      ? theme.colors.negativePrimary
-      : theme.colors.positivePrimary,
+      ? theme.colors.sentimentNegative
+      : theme.colors.sentimentPositive,
   }),
 }));

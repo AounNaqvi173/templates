@@ -12,13 +12,15 @@ export default function ListingsLayout() {
         name="index"
         options={{
           title: 'Filters',
-          headerStyle: { backgroundColor: theme.colors.backgroundPrimary },
-          contentStyle: { backgroundColor: theme.colors.backgroundPrimary },
+          headerStyle: { backgroundColor: theme.colors.backgroundElevated },
+          contentStyle: {
+            backgroundColor: theme.colors.backgroundScreenSecondary,
+          },
           headerShadowVisible: false,
           headerTintColor: theme.colors.contentPrimary,
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} intent="secondary" />
+              <NavigationBackButton onPress={router.back} variant="neutral" />
             ) : undefined,
         }}
       />

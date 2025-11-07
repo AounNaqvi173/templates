@@ -119,8 +119,8 @@ export const SwipeableRow = ({
         <View style={styles.rightAction}>
           <RightAction
             text="More"
-            icon={<MoreHorizontal color={theme.colors.white} />}
-            color={theme.colors.surfaceQuaternary}
+            icon={<MoreHorizontal color={theme.colors.baseLight} />}
+            color={theme.colors.interactiveNeutralContent}
             x={RIGHT_ACTION_WIDTH * 2}
             progress={progress}
             totalWidth={RIGHT_ACTION_WIDTH * 2}
@@ -129,8 +129,8 @@ export const SwipeableRow = ({
           />
           <RightAction
             text="Archive"
-            icon={<Archive color={theme.colors.white} />}
-            color={theme.colors.accentSecondary}
+            icon={<Archive color={theme.colors.baseLight} />}
+            color={theme.colors.interactiveSecondaryContent}
             x={RIGHT_ACTION_WIDTH}
             progress={progress}
             totalWidth={RIGHT_ACTION_WIDTH * 2}

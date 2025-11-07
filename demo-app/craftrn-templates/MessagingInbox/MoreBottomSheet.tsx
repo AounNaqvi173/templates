@@ -1,7 +1,6 @@
 import { Avatar } from '@/craftrn-ui/components/Avatar';
 import { BottomSheet } from '@/craftrn-ui/components/BottomSheet';
 import { ButtonRound } from '@/craftrn-ui/components/ButtonRound';
-import { Card } from '@/craftrn-ui/components/Card';
 import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Text } from '@/craftrn-ui/components/Text';
 import { Block } from '@/tetrisly-icons/Block';
@@ -11,7 +10,12 @@ import { InfoCircle } from '@/tetrisly-icons/InfoCircle';
 import { LogOut } from '@/tetrisly-icons/LogOut';
 import React, { ComponentProps, ComponentType, useMemo } from 'react';
 import { View } from 'react-native';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
+import { Card } from '../../craftrn-ui/components/Card';
 import { inboxItemData } from './data/inbox';
 import { currentUser } from './data/users';
 
@@ -52,7 +56,6 @@ export const MoreBottomSheet: ComponentType<Props> = ({
       onRequestClose={onRequestClose}
       onClose={onClose}
       visible={visible}
-      variant="secondary"
     >
       <View style={styles.container}>
         <View style={styles.header}>
@@ -69,11 +72,11 @@ export const MoreBottomSheet: ComponentType<Props> = ({
             </Text>
           </View>
           <ButtonRound
-            renderContent={({ iconSize }) => (
-              <Close size={iconSize} color={theme.colors.contentTertiary} />
+            renderContent={({ iconSize, iconColor }) => (
+              <Close size={iconSize} color={iconColor} />
             )}
             onPress={onRequestClose}
-            intent="primary"
+            variant="neutral-secondary"
           />
         </View>
         <View style={styles.content}>
@@ -81,22 +84,23 @@ export const MoreBottomSheet: ComponentType<Props> = ({
             <ListItem
               text="Contact info"
               onPress={onRequestClose}
-              itemRight={
+              itemLeft={
                 <View style={styles.icon}>
                   <InfoCircle {...iconProps} />
                 </View>
               }
-              divider={true}
+              divider
               style={styles.item}
             />
             <ListItem
               text="Add to Favourites"
               onPress={onRequestClose}
-              itemRight={
+              itemLeft={
                 <View style={styles.icon}>
                   <Heart {...iconProps} />
                 </View>
               }
+              divider
               style={styles.item}
             />
           </Card>
@@ -104,26 +108,26 @@ export const MoreBottomSheet: ComponentType<Props> = ({
             <ListItem
               text={`Block ${participant.name}`}
               onPress={onRequestClose}
-              itemRight={
+              itemLeft={
                 <View style={styles.icon}>
                   <Block
                     {...iconProps}
-                    color={theme.colors.negativeSecondary}
+                    color={theme.colors.sentimentNegative}
                   />
                 </View>
               }
-              divider={true}
+              divider
               style={styles.item}
               variant="danger"
             />
             <ListItem
               text="Leave chat"
               onPress={onRequestClose}
-              itemRight={
+              itemLeft={
                 <View style={styles.icon}>
                   <LogOut
                     {...iconProps}
-                    color={theme.colors.negativeSecondary}
+                    color={theme.colors.sentimentNegative}
                   />
                 </View>
               }
@@ -139,16 +143,17 @@ export const MoreBottomSheet: ComponentType<Props> = ({
 
 const styles = StyleSheet.create(theme => ({
   container: {
+    backgroundColor: theme.colors.backgroundScreen,
     paddingHorizontal: theme.spacing.large,
     paddingBottom: UnistylesRuntime.insets.bottom,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: theme.spacing.large,
   },
   participantContainer: {
     flexDirection: 'row',
-    marginBottom: theme.spacing.large,
     alignItems: 'center',
   },
   name: {
@@ -159,7 +164,7 @@ const styles = StyleSheet.create(theme => ({
     gap: theme.spacing.small,
   },
   item: {
-    padding: theme.spacing.large,
+    padding: theme.spacing.medium,
   },
   icon: {
     marginRight: theme.spacing.small,

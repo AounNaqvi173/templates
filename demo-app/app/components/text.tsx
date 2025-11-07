@@ -19,9 +19,9 @@ type TextColor =
   | 'interactivePrimaryContent'
   | 'interactiveSecondaryContent'
   | 'sentimentPositive'
-  | 'sentimentPositiveSecondary'
+  | 'sentimentSecondaryPositive'
   | 'sentimentNegative'
-  | 'sentimentNegativeSecondary';
+  | 'sentimentSecondaryNegative';
 
 export default function TextScreen() {
   const { theme } = useUnistyles();
@@ -65,9 +65,9 @@ export default function TextScreen() {
       value: theme.colors.sentimentPositive,
     },
     {
-      key: 'sentimentPositiveSecondary',
+      key: 'sentimentSecondaryPositive',
       label: 'Sentiment Positive Secondary',
-      value: theme.colors.sentimentPositiveSecondary,
+      value: theme.colors.sentimentSecondaryPositive,
     },
     {
       key: 'sentimentNegative',
@@ -75,9 +75,9 @@ export default function TextScreen() {
       value: theme.colors.sentimentNegative,
     },
     {
-      key: 'sentimentNegativeSecondary',
+      key: 'sentimentSecondaryNegative',
       label: 'Sentiment Negative Secondary',
-      value: theme.colors.sentimentNegativeSecondary,
+      value: theme.colors.sentimentSecondaryNegative,
     },
   ];
 

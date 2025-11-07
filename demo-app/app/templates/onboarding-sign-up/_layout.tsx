@@ -10,8 +10,10 @@ export default function OnboardingSignUp() {
         name="index"
         options={{
           headerShown: false,
-          headerStyle: { backgroundColor: theme.colors.backgroundSecondary },
-          contentStyle: { backgroundColor: theme.colors.backgroundSecondary },
+          headerStyle: { backgroundColor: theme.colors.backgroundElevated },
+          contentStyle: {
+            backgroundColor: theme.colors.backgroundScreenSecondary,
+          },
           headerLeft: () => <></>,
         }}
       />
