@@ -13,7 +13,8 @@
       "bundleIdentifier": "com.craftreactnative.craftrntemplates.demoapp",
       "runtimeVersion": "1.0.0",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIDesignRequiresCompatibility": true
       }
     },
     "updates": {
