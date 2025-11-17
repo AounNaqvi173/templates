@@ -90,7 +90,7 @@ const rightActionStyles = StyleSheet.create(theme => ({
     gap: theme.spacing.xxsmall,
   },
   text: {
-    color: theme.colors.white,
+    color: theme.colors.interactiveNeutralContent,
     fontWeight: 'semibold',
   },
 }));
@@ -122,7 +122,7 @@ export const SwipeableRow = ({
             icon={
               <MoreHorizontal color={theme.colors.interactiveNeutralContent} />
             }
-            color={theme.colors.baseDark}
+            color={theme.colors.interactiveNeutral}
             x={RIGHT_ACTION_WIDTH * 2}
             progress={progress}
             totalWidth={RIGHT_ACTION_WIDTH * 2}

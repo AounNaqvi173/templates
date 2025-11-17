@@ -61,6 +61,7 @@ export const colors = {
 
   positive50: '#effae7',
   positive100: '#e2f6d3',
+  positive200: '#c5e9a8',
   positive400: '#427b18',
   positive500: '#305911',
   positive900: '#0f1b05',
@@ -199,7 +200,7 @@ const baseDark = {
     sentimentSecondaryNegative: colors.negative950,
     sentimentSecondaryNegativePress: colors.negative900,
 
-    sentimentPositive: colors.positive400,
+    sentimentPositive: colors.positive200,
     sentimentPositivePress: colors.positive500,
 
     sentimentSecondaryPositive: colors.positive950,
