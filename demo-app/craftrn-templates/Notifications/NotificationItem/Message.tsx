@@ -22,7 +22,7 @@ export const Message = ({
           <TextInput
             placeholder="Type your reply..."
             placeholderTextColor={theme.colors.contentTertiary}
-            selectionColor={theme.colors.interactiveSecondaryContent}
+            selectionColor={theme.colors.contentAccentSecondary}
             style={styles.textInput}
           />
           <Pressable onPress={onPressReply}>

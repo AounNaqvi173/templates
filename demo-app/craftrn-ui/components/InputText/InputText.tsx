@@ -180,7 +180,7 @@ export const InputText = forwardRef<TextInput, Props & TextInputProps>(
                   onFocus={handleFocus}
                   onBlur={() => setIsFocused(false)}
                   placeholderTextColor={theme.colors.contentTertiary}
-                  selectionColor={theme.colors.interactiveSecondaryContent}
+                  selectionColor={theme.colors.contentAccentSecondary}
                   pointerEvents={!editable || readOnly ? 'none' : undefined}
                   editable={editable}
                   readOnly={readOnly}

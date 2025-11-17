@@ -17,6 +17,7 @@ export const InputField = forwardRef<TextInput, InputFieldProps>(
           ref={ref}
           placeholder="Chat with Claude..."
           placeholderTextColor={theme.colors.contentTertiary}
+          selectionColor={theme.colors.contentAccentSecondary}
           value={value}
           onChangeText={onChangeText}
           multiline

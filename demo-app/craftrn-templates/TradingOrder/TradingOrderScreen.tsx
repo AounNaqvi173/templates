@@ -61,7 +61,7 @@ export const TradingOrderScreen: ComponentType<Props> = ({
             onChangeText={text => setInvestValue(text)}
             autoFocus
             style={styles.input}
-            selectionColor={theme.colors.interactiveSecondaryContent}
+            selectionColor={theme.colors.contentAccentSecondary}
             keyboardType="numeric"
           />
         </View>

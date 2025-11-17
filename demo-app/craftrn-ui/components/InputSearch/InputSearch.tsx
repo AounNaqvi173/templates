@@ -81,7 +81,7 @@ export const InputSearch = forwardRef<TextInput, Props & TextInputProps>(
             value={value}
             ref={ref}
             placeholderTextColor={theme.colors.contentTertiary}
-            selectionColor={theme.colors.interactiveSecondaryContent}
+            selectionColor={theme.colors.contentAccentSecondary}
             textAlignVertical="center"
             role="searchbox"
             {...props}

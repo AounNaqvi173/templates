@@ -66,6 +66,7 @@ export const MessageComposer = () => {
           ref={inputRef}
           placeholder="Type a message"
           placeholderTextColor={theme.colors.contentTertiary}
+          selectionColor={theme.colors.contentAccentSecondary}
           value={inputValue}
           onChangeText={setInputValue}
           returnKeyType="send"
