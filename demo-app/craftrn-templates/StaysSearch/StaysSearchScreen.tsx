@@ -99,8 +99,8 @@ export const StaysSearchScreen: ComponentType = () => {
         <View style={styles.inputSearchContainer}>
           <InputSearch
             placeholder="Destination or hotel name"
-            leftAccessory={
-              <View style={styles.inputSearchLeftAccessory}>
+            itemLeft={
+              <View style={styles.inputSearchItemLeft}>
                 <Search color={theme.colors.contentTertiary} />
               </View>
             }
@@ -141,7 +141,7 @@ const styles = StyleSheet.create(theme => ({
     paddingHorizontal: theme.spacing.large,
     marginVertical: theme.spacing.medium,
   },
-  inputSearchLeftAccessory: {
+  inputSearchItemLeft: {
     paddingHorizontal: theme.spacing.small,
   },
   divider: {

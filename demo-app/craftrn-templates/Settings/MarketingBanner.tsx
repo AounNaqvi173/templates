@@ -31,7 +31,7 @@ export const MarketingBanner = () => {
             Unlock exclusive features and get the most out of your experience.
           </Text>
         </View>
-        <Button variant="neutral" onPress={() => {}}>
+        <Button variant="neutral-secondary" onPress={() => {}}>
           Upgrade Now
         </Button>
       </View>

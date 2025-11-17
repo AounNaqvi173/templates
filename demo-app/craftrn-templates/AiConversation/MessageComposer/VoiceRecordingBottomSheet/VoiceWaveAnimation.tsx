@@ -19,14 +19,13 @@ type VoiceWaveAnimationProps = {
 export const VoiceWaveAnimation = ({
   isAnimating,
 }: VoiceWaveAnimationProps) => {
-  // Create more wave bars for a smoother effect
   const waves = [
     useSharedValue(0.2),
     useSharedValue(0.4),
     useSharedValue(0.6),
     useSharedValue(0.3),
     useSharedValue(0.8),
-    useSharedValue(1.0), // Center bar - tallest
+    useSharedValue(1.0),
     useSharedValue(0.7),
     useSharedValue(0.5),
     useSharedValue(0.4),
@@ -41,7 +40,6 @@ export const VoiceWaveAnimation = ({
   ) => {
     'worklet';
 
-    // Create more natural, random-like patterns
     const variations = [
       { height: baseHeight * 0.3, duration: 200 + Math.random() * 100 },
       { height: baseHeight * 0.8, duration: 150 + Math.random() * 100 },
@@ -57,11 +55,10 @@ export const VoiceWaveAnimation = ({
 
       return withTiming(randomVariation.height, {
         duration: randomVariation.duration,
-        easing: Easing.bezier(0.4, 0.0, 0.2, 1), // Natural easing
+        easing: Easing.bezier(0.4, 0.0, 0.2, 1),
       });
     };
 
-    // Start with a slight delay based on position for wave effect
     const startDelay = index * 50;
 
     setTimeout(() => {
@@ -80,7 +77,6 @@ export const VoiceWaveAnimation = ({
 
   useEffect(() => {
     if (isAnimating) {
-      // Base heights for each bar (creates natural wave pattern)
       const baseHeights = [
         0.3, 0.5, 0.7, 0.4, 0.9, 1.0, 0.8, 0.6, 0.5, 0.4, 0.3,
       ];
@@ -89,7 +85,6 @@ export const VoiceWaveAnimation = ({
         createNaturalAnimation(wave, baseHeights[index], index);
       });
     } else {
-      // Smoothly reset to base positions
       const baseHeights = [
         0.2, 0.4, 0.6, 0.3, 0.8, 1.0, 0.7, 0.5, 0.4, 0.3, 0.2,
       ];
@@ -106,7 +101,7 @@ export const VoiceWaveAnimation = ({
     <View style={styles.waveContainer}>
       {waves.map((wave, index) => {
         const animatedStyle = useAnimatedStyle(() => ({
-          height: Math.max(wave.value * WAVE_HEIGHT, 2), // Minimum height of 2
+          height: Math.max(wave.value * WAVE_HEIGHT, 2),
         }));
 
         return (
@@ -122,13 +117,13 @@ const styles = StyleSheet.create(theme => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 3, // Tighter spacing for smoother look
+    gap: 3,
     height: WAVE_HEIGHT,
   },
   waveBar: {
-    width: 3, // Slightly thinner bars
-    backgroundColor: theme.colors.contentAccent,
-    borderRadius: 1.5, // Fully rounded ends
+    width: 3,
+    backgroundColor: theme.colors.contentAccentSecondary,
+    borderRadius: 1.5,
     minHeight: 2,
   },
 }));

@@ -31,12 +31,12 @@ export const StaysSelectionScreen: ComponentType<Props> = ({
         <View style={styles.inputSearchWrapper}>
           <InputSearch
             placeholder="Search for a destination"
-            leftAccessory={
-              <View style={styles.inputSearchLeftAccessory}>
+            itemLeft={
+              <View style={styles.inputSearchItemLeft}>
                 <Search color={theme.colors.contentTertiary} />
               </View>
             }
-            rightAccessory={
+            itemRight={
               <ButtonRound
                 renderContent={({ iconSize }) => (
                   <Slider
@@ -44,6 +44,7 @@ export const StaysSelectionScreen: ComponentType<Props> = ({
                     color={theme.colors.contentTertiary}
                   />
                 )}
+                animationConfig={{ scaleIn: 1.1 }}
                 variant="neutral"
                 onPress={onPressFilter}
               />
@@ -88,7 +89,7 @@ const styles = StyleSheet.create(theme => ({
     shadowRadius: 1,
     shadowOpacity: 0.05,
   },
-  inputSearchLeftAccessory: {
+  inputSearchItemLeft: {
     paddingHorizontal: theme.spacing.small,
   },
   listingCardContainer: {

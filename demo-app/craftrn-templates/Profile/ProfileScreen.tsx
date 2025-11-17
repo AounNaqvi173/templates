@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { ScrollView } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
 import { PersonalInformation } from './PersonalInformation';
 import { ProfileAvatar } from './ProfileAvatar';
@@ -8,15 +8,16 @@ import { ProfileStats } from './ProfileStats';
 
 export const ProfileScreen: ComponentType = () => {
   return (
-    <ScrollView
+    <KeyboardAwareScrollView
       style={styles.container}
       contentContainerStyle={styles.scrollContent}
+      bottomOffset={24}
     >
       <ProfileAvatar />
       <ProfileStats />
       <PersonalInformation />
       <ProfileSettings />
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 

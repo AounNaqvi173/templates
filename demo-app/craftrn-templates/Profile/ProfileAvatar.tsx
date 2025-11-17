@@ -29,10 +29,10 @@ export const ProfileAvatar: ComponentType = () => {
           <ButtonRound
             onPress={() => {}}
             size="medium"
-            variant="neutral-secondary"
+            variant="primary"
             accessibilityLabel="Edit profile picture"
-            renderContent={({ iconSize }) => (
-              <UserEdit color={theme.colors.contentPrimary} size={iconSize} />
+            renderContent={({ iconSize, iconColor }) => (
+              <UserEdit color={iconColor} size={iconSize} />
             )}
           />
         </View>

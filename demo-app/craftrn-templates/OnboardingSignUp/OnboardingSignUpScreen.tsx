@@ -54,6 +54,12 @@ export const OnboardingSignUpScreen: ComponentType<Props> = ({
         style={styles.backgroundImage}
         resizeMode="cover"
       >
+        <View
+          style={[
+            styles.accentOverlay,
+            { backgroundColor: theme.colors.contentAccentSecondary },
+          ]}
+        />
         <Svg style={styles.gradientOverlay}>
           <Defs>
             <LinearGradient id="fadeGradient" x1="0" y1="0" x2="0" y2="1">
@@ -90,9 +96,7 @@ export const OnboardingSignUpScreen: ComponentType<Props> = ({
               value={selectedCountryCode.name}
               readOnly={true}
               onPress={handlePressCountry(selectedCountryCode.code)}
-              rightAccessory={
-                <ChevronDown color={theme.colors.contentPrimary} />
-              }
+              itemRight={<ChevronDown color={theme.colors.contentPrimary} />}
             />
             <InputText
               label="Phone number"
@@ -149,7 +153,15 @@ const styles = StyleSheet.create(theme => ({
     top: 0,
     left: 0,
     right: 0,
-    height: 250,
+    height: 350,
+  },
+  accentOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0.5,
   },
   gradientOverlay: {
     position: 'absolute',

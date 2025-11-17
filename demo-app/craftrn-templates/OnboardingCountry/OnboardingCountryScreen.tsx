@@ -66,7 +66,7 @@ export const OnboardingCountryScreen: ComponentType<Props> = ({
           value={searchQuery}
           onChangeText={setSearchQuery}
           style={styles.searchInput}
-          leftAccessory={
+          itemLeft={
             <View style={styles.searchIconContainer}>
               <Search color={theme.colors.contentTertiary} />
             </View>

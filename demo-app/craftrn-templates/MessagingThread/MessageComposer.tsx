@@ -80,7 +80,7 @@ export const MessageComposer = () => {
         <Pressable onPress={() => null}>
           {({ pressed }) => (
             <View style={styles.button({ pressed })}>
-              <Paperplane color={theme.colors.white} />
+              <Paperplane color={theme.colors.interactivePrimaryContent} />
             </View>
           )}
         </Pressable>
@@ -130,8 +130,8 @@ const styles = StyleSheet.create(theme => ({
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
     backgroundColor: pressed
-      ? theme.colors.interactiveSecondaryContentPress
-      : theme.colors.interactiveSecondaryContent,
+      ? theme.colors.interactivePrimaryPress
+      : theme.colors.interactivePrimary,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: theme.borderRadius.medium,

@@ -96,8 +96,8 @@ Enhanced search input with contextual controls:
 const SearchHeader = ({ value, onChangeText, onFocus }) => (
   <InputSearch
     placeholder="Destination or hotel name"
-    leftAccessory={<Search color={theme.colors.contentTertiary} />}
-    rightAccessory={value ? <ClearButton onPress={() => onChangeText('')} /> : null}
+    itemLeft={<Search color={theme.colors.contentTertiary} />}
+    itemRight={value ? <ClearButton onPress={() => onChangeText('')} /> : null}
     value={value}
     onChangeText={onChangeText}
     autoFocus

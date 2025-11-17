@@ -53,7 +53,7 @@ const styles = StyleSheet.create(theme => ({
   change: (isNegative: boolean) => ({
     marginLeft: theme.spacing.xsmall,
     color: isNegative
-      ? theme.colors.negativePrimary
-      : theme.colors.positivePrimary,
+      ? theme.colors.sentimentNegative
+      : theme.colors.sentimentPositive,
   }),
 }));

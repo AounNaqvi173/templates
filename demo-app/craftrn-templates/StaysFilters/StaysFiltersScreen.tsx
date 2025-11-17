@@ -126,28 +126,28 @@ export const StaysFiltersScreen: ComponentType = () => {
             <FilterItem
               label="All ratings"
               onPress={handlePressGuestRating(guestRatingOptions.any)}
-              rightAccessory={
+              itemRight={
                 <Radio checked={guestRating === guestRatingOptions.any} />
               }
             />
             <FilterItem
               label="Good 3.5+"
               onPress={handlePressGuestRating(guestRatingOptions.good)}
-              rightAccessory={
+              itemRight={
                 <Radio checked={guestRating === guestRatingOptions.good} />
               }
             />
             <FilterItem
               label="Very good 4+"
               onPress={handlePressGuestRating(guestRatingOptions.veryGood)}
-              rightAccessory={
+              itemRight={
                 <Radio checked={guestRating === guestRatingOptions.veryGood} />
               }
             />
             <FilterItem
               label="Great 4.5+"
               onPress={handlePressGuestRating(guestRatingOptions.great)}
-              rightAccessory={
+              itemRight={
                 <Radio checked={guestRating === guestRatingOptions.great} />
               }
             />
@@ -159,21 +159,15 @@ export const StaysFiltersScreen: ComponentType = () => {
           <View style={styles.listContainer}>
             <FilterItem
               label="Bedrooms"
-              rightAccessory={
-                <Counter onValueChange={() => {}} emptyLabel="Any" />
-              }
+              itemRight={<Counter onValueChange={() => {}} emptyLabel="Any" />}
             />
             <FilterItem
               label="Beds"
-              rightAccessory={
-                <Counter onValueChange={() => {}} emptyLabel="Any" />
-              }
+              itemRight={<Counter onValueChange={() => {}} emptyLabel="Any" />}
             />
             <FilterItem
               label="Bathrooms"
-              rightAccessory={
-                <Counter onValueChange={() => {}} emptyLabel="Any" />
-              }
+              itemRight={<Counter onValueChange={() => {}} emptyLabel="Any" />}
             />
           </View>
           <Divider />
@@ -184,7 +178,7 @@ export const StaysFiltersScreen: ComponentType = () => {
             <FilterItem
               label="Airport shuttle"
               onPress={handleToggleAmenities('airportShuttle')}
-              rightAccessory={
+              itemRight={
                 <Checkbox
                   checked={amenitiesSelected.includes('airportShuttle')}
                 />
@@ -193,21 +187,21 @@ export const StaysFiltersScreen: ComponentType = () => {
             <FilterItem
               label="Swimming pool"
               onPress={handleToggleAmenities('pool')}
-              rightAccessory={
+              itemRight={
                 <Checkbox checked={amenitiesSelected.includes('pool')} />
               }
             />
             <FilterItem
               label="Restaurant"
               onPress={handleToggleAmenities('restaurant')}
-              rightAccessory={
+              itemRight={
                 <Checkbox checked={amenitiesSelected.includes('restaurant')} />
               }
             />
             <FilterItem
               label="Wifi"
               onPress={handleToggleAmenities('wifi')}
-              rightAccessory={
+              itemRight={
                 <Checkbox checked={amenitiesSelected.includes('wifi')} />
               }
             />
@@ -250,7 +244,7 @@ const styles = StyleSheet.create(theme => ({
   buttonContainer: {
     alignItems: 'flex-start',
     flexDirection: 'row',
-    gap: theme.spacing.medium,
+    gap: theme.spacing.small,
     flexWrap: 'wrap',
     marginHorizontal: theme.spacing.large,
   },
