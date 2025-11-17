@@ -29,6 +29,7 @@ export default function StaysDetails() {
           )}
           onPress={handleShare}
           variant="neutral"
+          animationConfig={{ scaleIn: 1.1 }}
         />
       ),
     });

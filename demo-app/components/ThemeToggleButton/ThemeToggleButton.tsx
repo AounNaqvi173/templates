@@ -13,6 +13,7 @@ import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { Brush } from '../../tetrisly-icons/Brush';
+import { CheckLarge } from '../../tetrisly-icons/CheckLarge';
 
 type ThemeToggleButtonProps = {
   variant?: ButtonRoundProps['variant'];
@@ -25,7 +26,7 @@ const ColorCircle = ({ color }: { color: string }) => (
 export const ThemeToggleButton = ({
   variant = 'neutral',
 }: ThemeToggleButtonProps) => {
-  const { setMode, setColor } = useTheme();
+  const { setMode, setColor, mode, color } = useTheme();
   const { theme } = useUnistyles();
 
   const menuItems: ContextMenuElement[] = useMemo(
@@ -34,12 +35,20 @@ export const ThemeToggleButton = ({
         id: 'light',
         label: 'Light',
         itemLeft: <SunIcon color={theme.colors.contentPrimary} size={20} />,
+        itemRight:
+          mode === 'light' ? (
+            <CheckLarge color={theme.colors.contentPrimary} size={20} />
+          ) : undefined,
         onPress: () => setMode('light'),
       },
       {
         id: 'dark',
         label: 'Dark',
         itemLeft: <MoonIcon color={theme.colors.contentPrimary} size={20} />,
+        itemRight:
+          mode === 'dark' ? (
+            <CheckLarge color={theme.colors.contentPrimary} size={20} />
+          ) : undefined,
         onPress: () => setMode('dark'),
       },
       {
@@ -50,16 +59,24 @@ export const ThemeToggleButton = ({
         id: 'teal',
         label: 'Teal',
         itemLeft: <ColorCircle color="#1e809e" />,
+        itemRight:
+          color === 'teal' ? (
+            <CheckLarge color={theme.colors.contentPrimary} size={20} />
+          ) : undefined,
         onPress: () => setColor('teal'),
       },
       {
         id: 'orange',
         label: 'Orange',
         itemLeft: <ColorCircle color="#9e661e" />,
+        itemRight:
+          color === 'orange' ? (
+            <CheckLarge color={theme.colors.contentPrimary} size={20} />
+          ) : undefined,
         onPress: () => setColor('orange'),
       },
     ],
-    [theme, setMode, setColor],
+    [theme, setMode, setColor, mode, color],
   );
 
   return (
