@@ -4,10 +4,12 @@ import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useSharedValue,
-  type SharedValue,
 } from 'react-native-reanimated';
-import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 import { PressableScale, type AnimationConfig } from '../PressableScale';
 
 /**
@@ -31,108 +33,17 @@ type Variant =
   | 'neutral-secondary'
   | 'reversed';
 
-type ColorInterpolationConfig = {
-  backgroundColor: {
-    unpressed: string;
-    pressed: string;
-  };
-  contentColor: {
-    unpressed: string;
-    pressed: string;
-  };
-};
+const hitSlop = {
+  small: 4,
+  medium: 2,
+  large: 2,
+} as const;
 
-const useColorInterpolation = (
-  pressProgress: SharedValue<number>,
-  colorConfig: ColorInterpolationConfig,
-) => {
-  const backgroundStyle = useAnimatedStyle(
-    () => ({
-      backgroundColor: interpolateColor(
-        pressProgress.value,
-        [0, 1],
-        [
-          colorConfig.backgroundColor.unpressed,
-          colorConfig.backgroundColor.pressed,
-        ],
-      ),
-    }),
-    [
-      colorConfig.backgroundColor.unpressed,
-      colorConfig.backgroundColor.pressed,
-    ],
-  );
-
-  return { backgroundStyle };
-};
-
-const createButtonRoundTokens = (theme: Theme) => {
-  return {
-    size: {
-      small: {
-        buttonSize: 24,
-        iconSize: 14,
-        hitSlop: 4,
-      },
-      medium: {
-        buttonSize: 32,
-        iconSize: 18,
-        hitSlop: 2,
-      },
-      large: {
-        buttonSize: 40,
-        iconSize: 24,
-        hitSlop: 2,
-      },
-    },
-    colors: {
-      backgroundColor: {
-        primary: {
-          normal: theme.colors.interactivePrimary,
-          pressed: theme.colors.interactivePrimaryPress,
-        },
-        secondary: {
-          normal: theme.colors.interactiveSecondary,
-          pressed: theme.colors.interactiveSecondaryPress,
-        },
-        neutral: {
-          normal: theme.colors.interactiveNeutral,
-          pressed: theme.colors.interactiveNeutralPress,
-        },
-        'neutral-secondary': {
-          normal: theme.colors.interactiveNeutralSecondary,
-          pressed: theme.colors.interactiveNeutralSecondaryPress,
-        },
-        reversed: {
-          normal: theme.colors.interactiveNeutralReversed,
-          pressed: theme.colors.interactiveNeutralReversedPress,
-        },
-      },
-      contentColor: {
-        primary: {
-          normal: theme.colors.interactivePrimaryContent,
-          pressed: theme.colors.interactivePrimaryContentPress,
-        },
-        secondary: {
-          normal: theme.colors.interactiveSecondaryContent,
-          pressed: theme.colors.interactiveSecondaryContentPress,
-        },
-        neutral: {
-          normal: theme.colors.interactiveNeutralContent,
-          pressed: theme.colors.interactiveNeutralContentPress,
-        },
-        'neutral-secondary': {
-          normal: theme.colors.interactiveNeutralContent,
-          pressed: theme.colors.interactiveNeutralContentPress,
-        },
-        reversed: {
-          normal: theme.colors.interactiveNeutralReversedContent,
-          pressed: theme.colors.interactiveNeutralReversedContentPress,
-        },
-      },
-    },
-  };
-};
+const iconSize = {
+  small: 14,
+  medium: 18,
+  large: 24,
+} as const;
 
 type BaseProps = {
   /**
@@ -186,43 +97,69 @@ export const ButtonRound = ({
   ...accessibilityProps
 }: Props) => {
   const { theme } = useUnistyles();
-
-  const buttonRoundTokens = useMemo(
-    () => createButtonRoundTokens(theme),
-    [theme],
-  );
-
-  const sizeTokens = buttonRoundTokens.size[size];
-
   const pressProgress = useSharedValue(0);
 
-  const colorConfig = useMemo<ColorInterpolationConfig>(() => {
-    const bgColors = buttonRoundTokens.colors.backgroundColor[variant];
-    const contentColors = buttonRoundTokens.colors.contentColor[variant];
+  const colorConfig = useMemo(() => {
+    let backgroundUnpressed: string;
+    let backgroundPressed: string;
+    let iconColor: string;
+
+    switch (variant) {
+      case 'primary':
+        backgroundUnpressed = theme.colors.interactivePrimary;
+        backgroundPressed = theme.colors.interactivePrimaryPress;
+        iconColor = theme.colors.interactivePrimaryContent;
+        break;
+      case 'secondary':
+        backgroundUnpressed = theme.colors.interactiveSecondary;
+        backgroundPressed = theme.colors.interactiveSecondaryPress;
+        iconColor = theme.colors.interactiveSecondaryContent;
+        break;
+      case 'neutral':
+        backgroundUnpressed = theme.colors.interactiveNeutral;
+        backgroundPressed = theme.colors.interactiveNeutralPress;
+        iconColor = theme.colors.interactiveNeutralContent;
+        break;
+      case 'neutral-secondary':
+        backgroundUnpressed = theme.colors.interactiveNeutralSecondary;
+        backgroundPressed = theme.colors.interactiveNeutralSecondaryPress;
+        iconColor = theme.colors.interactiveNeutralContent;
+        break;
+      case 'reversed':
+        backgroundUnpressed = theme.colors.interactiveNeutralReversed;
+        backgroundPressed = theme.colors.interactiveNeutralReversedPress;
+        iconColor = theme.colors.interactiveNeutralReversedContent;
+        break;
+    }
+
+    if (disabled) {
+      backgroundUnpressed = hexToGrayscale(backgroundUnpressed);
+      iconColor = hexToGrayscale(iconColor);
+    }
 
     return {
-      backgroundColor: {
-        unpressed: disabled ? hexToGrayscale(bgColors.normal) : bgColors.normal,
-        pressed: disabled ? hexToGrayscale(bgColors.pressed) : bgColors.pressed,
-      },
-      contentColor: {
-        unpressed: disabled
-          ? hexToGrayscale(contentColors.normal)
-          : contentColors.normal,
-        pressed: disabled
-          ? hexToGrayscale(contentColors.pressed)
-          : contentColors.pressed,
-      },
+      backgroundUnpressed,
+      backgroundPressed,
+      iconColor,
     };
-  }, [variant, disabled, buttonRoundTokens]);
+  }, [variant, disabled, theme]);
 
-  const { backgroundStyle } = useColorInterpolation(pressProgress, colorConfig);
+  const backgroundStyle = useAnimatedStyle(
+    () => ({
+      backgroundColor: interpolateColor(
+        pressProgress.value,
+        [0, 1],
+        [colorConfig.backgroundUnpressed, colorConfig.backgroundPressed],
+      ),
+    }),
+    [colorConfig.backgroundUnpressed, colorConfig.backgroundPressed],
+  );
 
   return (
     <PressableScale
       onPress={onPress}
       disabled={disabled}
-      hitSlop={sizeTokens.hitSlop}
+      hitSlop={hitSlop[size]}
       role="button"
       style={styles.pressable}
       animationConfig={animationConfig}
@@ -230,36 +167,41 @@ export const ButtonRound = ({
       {...accessibilityProps}
     >
       <Animated.View
+        key={`button-round-${UnistylesRuntime.themeName}`}
         style={[styles.button({ disabled, size }), backgroundStyle]}
       >
         {renderContent({
-          iconSize: sizeTokens.iconSize,
-          iconColor: colorConfig.contentColor.unpressed,
+          iconSize: iconSize[size],
+          iconColor: colorConfig.iconColor,
         })}
       </Animated.View>
     </PressableScale>
   );
 };
 
-const styles = StyleSheet.create(theme => {
-  const buttonTokens = createButtonRoundTokens(theme);
-
-  return {
-    pressable: {
+const styles = StyleSheet.create(theme => ({
+  pressable: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: ({ disabled, size }: { disabled: boolean; size: Size }) => {
+    return {
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    button: ({ disabled, size }: { disabled: boolean; size: Size }) => {
-      const sizeTokens = buttonTokens.size[size];
-
-      return {
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: theme.borderRadius.full,
-        opacity: disabled ? 0.5 : 1,
-        width: sizeTokens.buttonSize,
-        height: sizeTokens.buttonSize,
-      };
-    },
-  };
-});
+      borderRadius: theme.borderRadius.full,
+      opacity: disabled ? 0.5 : 1,
+      ...(size === 'small' && {
+        width: 24,
+        height: 24,
+      }),
+      ...(size === 'medium' && {
+        width: 32,
+        height: 32,
+      }),
+      ...(size === 'large' && {
+        width: 40,
+        height: 40,
+      }),
+    };
+  },
+}));

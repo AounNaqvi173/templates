@@ -14,35 +14,22 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
-import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
+import { StyleSheet } from 'react-native-unistyles';
 import { Text } from '../Text';
 
 const config = {
   length: 6,
 };
 
-const createInputOTPTokens = (theme: Theme) => {
-  return {
-    colors: {
-      border: {
-        normal: theme.colors.borderNeutralSecondary,
-        active: theme.colors.interactiveSecondaryContent,
-        error: theme.colors.sentimentNegative,
-      },
-      background: theme.colors.backgroundElevated,
-    },
-    animation: {
-      fadeIn: {
-        duration: 200,
-        easing: Easing.out(Easing.quad),
-      },
-      shake: {
-        duration: 80,
-        offset: 4,
-      },
-    },
-  };
+const animationConfig = {
+  fadeIn: {
+    duration: 200,
+    easing: Easing.out(Easing.quad),
+  },
+  shake: {
+    duration: 80,
+    offset: 4,
+  },
 };
 
 /**
@@ -60,8 +47,6 @@ export type Props = {
 };
 
 export const InputOTP = ({ onChange, error = false }: Props) => {
-  const { theme } = useUnistyles();
-  const inputOTPTokens = useMemo(() => createInputOTPTokens(theme), [theme]);
   const hiddenInputRef = useRef<TextInput>(null);
   const [code, setCode] = useState('');
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
@@ -71,7 +56,7 @@ export const InputOTP = ({ onChange, error = false }: Props) => {
 
   useEffect(() => {
     if (error) {
-      const { duration, offset } = inputOTPTokens.animation.shake;
+      const { duration, offset } = animationConfig.shake;
       translateX.value = withSequence(
         withTiming(-offset, { duration }),
         withTiming(offset, { duration }),
@@ -156,8 +141,8 @@ export const InputOTP = ({ onChange, error = false }: Props) => {
               {char && shouldAnimate ? (
                 <Animated.View
                   entering={FadeInDown.duration(
-                    inputOTPTokens.animation.fadeIn.duration,
-                  ).easing(inputOTPTokens.animation.fadeIn.easing)}
+                    animationConfig.fadeIn.duration,
+                  ).easing(animationConfig.fadeIn.easing)}
                 >
                   <Text
                     variant="heading3"
@@ -211,39 +196,35 @@ export const InputOTP = ({ onChange, error = false }: Props) => {
   );
 };
 
-const styles = StyleSheet.create(theme => {
-  const inputOTPTokens = createInputOTPTokens(theme);
-
-  return {
-    container: {
-      flexDirection: 'row',
-      gap: theme.spacing.xsmall,
-      position: 'relative',
-    },
-    codeInputItem: {
-      width: 44,
-      height: 52,
-      borderWidth: 1,
-      borderColor: inputOTPTokens.colors.border.normal,
-      borderRadius: theme.borderRadius.medium,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: inputOTPTokens.colors.background,
-    },
-    focusedInput: {
-      borderColor: inputOTPTokens.colors.border.active,
-    },
-    errorInput: {
-      borderColor: inputOTPTokens.colors.border.error,
-    },
-    hiddenInput: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      opacity: 0.05,
-      fontSize: 1,
-    },
-  };
-});
+const styles = StyleSheet.create(theme => ({
+  container: {
+    flexDirection: 'row',
+    gap: theme.spacing.xsmall,
+    position: 'relative',
+  },
+  codeInputItem: {
+    width: 44,
+    height: 52,
+    borderWidth: 1,
+    borderColor: theme.colors.borderNeutralSecondary,
+    borderRadius: theme.borderRadius.medium,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.colors.backgroundElevated,
+  },
+  focusedInput: {
+    borderColor: theme.colors.contentAccentSecondary,
+  },
+  errorInput: {
+    borderColor: theme.colors.sentimentNegative,
+  },
+  hiddenInput: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    opacity: 0.05,
+    fontSize: 1,
+  },
+}));

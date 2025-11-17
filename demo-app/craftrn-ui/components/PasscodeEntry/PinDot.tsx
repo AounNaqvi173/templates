@@ -13,7 +13,7 @@ const createPinDotTokens = (theme: Theme) => {
   return {
     size: 16,
     colors: {
-      filled: theme.colors.interactiveSecondaryContent,
+      filled: theme.colors.contentAccentSecondary,
       empty: theme.colors.borderNeutralSecondary,
     },
     borderRadius: theme.borderRadius.full,

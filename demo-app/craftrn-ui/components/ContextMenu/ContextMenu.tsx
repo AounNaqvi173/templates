@@ -20,6 +20,7 @@ import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
+  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 import {
@@ -27,25 +28,19 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
 import { Divider } from '../Divider';
 import { ListItem } from '../ListItem';
 
-const createContextMenuTokens = (theme: Theme) => {
-  return {
-    size: {
-      minWidth: 200,
-    },
-    colors: {
-      overlay: theme.colors.backgroundOverlay,
-      background: theme.colors.backgroundElevated,
-      shadow: theme.colors.backgroundNeutral,
-    },
-    animation: {
-      enterDuration: 200,
-      exitDuration: 150,
-    },
-  };
+const animationConfig = {
+  enter: {
+    damping: 20,
+    stiffness: 300,
+    mass: 0.8,
+    overshootClamping: false,
+  },
+  exit: {
+    duration: 150,
+  },
 };
 
 export type ContextMenuItem = {
@@ -89,10 +84,6 @@ export const ContextMenu = ({
   offset = { x: 0, y: 8 },
 }: ContextMenuProps) => {
   const { theme } = useUnistyles();
-  const contextMenuTokens = useMemo(
-    () => createContextMenuTokens(theme),
-    [theme],
-  );
 
   const [visible, setVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -152,7 +143,7 @@ export const ContextMenu = ({
       animationProgress.value = withTiming(
         0,
         {
-          duration: contextMenuTokens.animation.exitDuration,
+          duration: animationConfig.exit.duration,
           easing: Easing.in(Easing.cubic),
         },
         finished => {
@@ -227,12 +218,9 @@ export const ContextMenu = ({
 
   useEffect(() => {
     if (visible && hasMenuPositioned && isModalVisible) {
-      animationProgress.value = withTiming(1, {
-        duration: contextMenuTokens.animation.enterDuration,
-        easing: Easing.out(Easing.cubic),
-      });
+      animationProgress.value = withSpring(1, animationConfig.enter);
     }
-  }, [visible, hasMenuPositioned, isModalVisible, contextMenuTokens]);
+  }, [visible, hasMenuPositioned, isModalVisible]);
 
   const overlayAnimatedStyle = useAnimatedStyle(() => ({
     opacity: interpolate(animationProgress.value, [0, 1], [0, 0.3]),
@@ -324,43 +312,39 @@ export const ContextMenu = ({
   );
 };
 
-const styles = StyleSheet.create(theme => {
-  const contextMenuTokens = createContextMenuTokens(theme);
-
-  return {
-    overlay: {
-      flex: 1,
-      backgroundColor: contextMenuTokens.colors.overlay,
+const styles = StyleSheet.create(theme => ({
+  overlay: {
+    flex: 1,
+    backgroundColor: theme.colors.backgroundOverlay,
+  },
+  overlayPressable: {
+    flex: 1,
+  },
+  menu: {
+    position: 'absolute',
+    backgroundColor: theme.colors.backgroundElevated,
+    borderRadius: theme.spacing.medium,
+    shadowColor: theme.colors.backgroundNeutral,
+    shadowOffset: {
+      width: 0,
+      height: 8,
     },
-    overlayPressable: {
-      flex: 1,
-    },
-    menu: {
-      position: 'absolute',
-      backgroundColor: contextMenuTokens.colors.background,
-      borderRadius: theme.spacing.medium,
-      shadowColor: contextMenuTokens.colors.shadow,
-      shadowOffset: {
-        width: 0,
-        height: 8,
-      },
-      shadowOpacity: 1,
-      shadowRadius: 16,
-      elevation: 10,
-      overflow: 'hidden',
-      minWidth: contextMenuTokens.size.minWidth,
-      paddingVertical: theme.spacing.xsmall,
-    },
-    menuItem: {
-      paddingHorizontal: theme.spacing.small,
-      marginHorizontal: theme.spacing.xsmall,
-      paddingVertical: theme.spacing.small,
-      borderRadius: theme.borderRadius.small,
-      overflow: 'hidden',
-    },
-    sectionDivider: {
-      marginVertical: theme.spacing.xsmall,
-      marginHorizontal: theme.spacing.medium,
-    },
-  };
-});
+    shadowOpacity: 1,
+    shadowRadius: 16,
+    elevation: 10,
+    overflow: 'hidden',
+    minWidth: 200,
+    paddingVertical: theme.spacing.xsmall,
+  },
+  menuItem: {
+    paddingHorizontal: theme.spacing.small,
+    marginHorizontal: theme.spacing.xsmall,
+    paddingVertical: theme.spacing.small,
+    borderRadius: theme.borderRadius.small,
+    overflow: 'hidden',
+  },
+  sectionDivider: {
+    marginVertical: theme.spacing.xsmall,
+    marginHorizontal: theme.spacing.medium,
+  },
+}));

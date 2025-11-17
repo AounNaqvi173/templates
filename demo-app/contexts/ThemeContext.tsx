@@ -4,12 +4,11 @@ import { UnistylesRuntime } from 'react-native-unistyles';
 
 type ThemeColor = 'teal' | 'orange';
 type ThemeMode = 'light' | 'dark';
-type ThemeName = 'lightTeal' | 'darkTeal' | 'lightOrange' | 'darkOrange';
+type ThemeName = NonNullable<typeof UnistylesRuntime.themeName>;
 
 interface ThemeContextType {
   color: ThemeColor;
   mode: ThemeMode;
-  themeName: ThemeName;
   setColor: (color: ThemeColor) => void;
   setMode: (mode: ThemeMode) => void;
   toggleMode: () => void;
@@ -38,7 +37,6 @@ const getThemeName = (mode: ThemeMode, color: ThemeColor): ThemeName => {
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [mode, setModeState] = useState<ThemeMode>('light');
   const [color, setColorState] = useState<ThemeColor>('teal');
-  const themeName = getThemeName(mode, color);
 
   const setMode = (newMode: ThemeMode) => {
     setModeState(newMode);
@@ -60,7 +58,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   return (
     <ThemeContext.Provider
-      value={{ color, mode, themeName, setColor, setMode, toggleMode }}
+      value={{ color, mode, setColor, setMode, toggleMode }}
     >
       {children}
     </ThemeContext.Provider>

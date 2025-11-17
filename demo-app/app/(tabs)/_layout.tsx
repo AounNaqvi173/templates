@@ -26,7 +26,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: theme.colors.interactiveSecondaryContent,
+        tabBarActiveTintColor: theme.colors.contentAccentSecondary,
         headerTransparent: true,
         headerRight: () => (
           <View style={{ marginRight: 16 }}>

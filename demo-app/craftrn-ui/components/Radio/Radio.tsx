@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { AccessibilityProps } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -6,26 +6,15 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
 import { PressableScale, type AnimationConfig } from '../PressableScale';
 
-const createRadioTokens = (theme: Theme) => {
-  return {
-    size: {
-      container: 24,
-      dot: 8,
-    },
-    colors: {
-      background: {
-        unchecked: theme.colors.backgroundNeutral,
-        checked: theme.colors.interactiveSecondaryContent,
-      },
-      dot: theme.colors.baseLight,
-    },
-    animation: {
-      duration: 200,
-    },
-  };
+const animConfig = {
+  duration: 200,
+};
+
+const sizeConfig = {
+  container: 24,
+  dot: 10,
 };
 
 /**
@@ -57,20 +46,19 @@ export const Radio = ({
   checked = false,
   disabled = false,
   onPress,
-  animationConfig,
+  animationConfig = {
+    scaleIn: 1.1,
+  },
   ...accessibilityProps
 }: RadioProps) => {
   const { theme } = useUnistyles();
-
-  const radioTokens = useMemo(() => createRadioTokens(theme), [theme]);
-
   const appearance = useSharedValue(checked ? 1 : 0);
 
   useEffect(() => {
     appearance.value = withTiming(checked ? 1 : 0, {
-      duration: radioTokens.animation.duration,
+      duration: animConfig.duration,
     });
-  }, [checked, appearance, radioTokens.animation]);
+  }, [checked, appearance, animConfig.duration]);
 
   const checkedAnimatedStyle = useAnimatedStyle(() => ({
     opacity: appearance.value,
@@ -78,8 +66,8 @@ export const Radio = ({
 
   const dotAnimatedStyle = useAnimatedStyle(() => {
     const size =
-      appearance.value * (radioTokens.size.dot - radioTokens.size.container) +
-      radioTokens.size.container;
+      appearance.value * (sizeConfig.dot - sizeConfig.container) +
+      sizeConfig.container;
 
     return {
       width: size,
@@ -94,11 +82,7 @@ export const Radio = ({
       role="radio"
       aria-checked={checked}
       disabled={disabled}
-      animationConfig={
-        animationConfig ?? {
-          scaleIn: 1.1,
-        }
-      }
+      animationConfig={animationConfig}
       {...accessibilityProps}
     >
       <Animated.View
@@ -112,35 +96,29 @@ export const Radio = ({
   );
 };
 
-const styles = StyleSheet.create(theme => {
-  const radioTokens = createRadioTokens(theme);
-
-  return {
-    container: {
-      borderRadius: theme.borderRadius.full,
-      backgroundColor: radioTokens.colors.background.unchecked,
-      width: radioTokens.size.container,
-      height: radioTokens.size.container,
-      overflow: 'hidden',
-    },
-    containerDisabled: {
-      opacity: 0.5,
-    },
-    checked: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: radioTokens.colors.background.checked,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    dot: {
-      borderRadius: theme.borderRadius.full,
-      backgroundColor: radioTokens.colors.dot,
-      width: radioTokens.size.dot,
-      height: radioTokens.size.dot,
-    },
-  };
-});
+const styles = StyleSheet.create(theme => ({
+  container: {
+    borderRadius: theme.borderRadius.full,
+    backgroundColor: theme.colors.interactiveNeutral,
+    overflow: 'hidden',
+    width: sizeConfig.container,
+    height: sizeConfig.container,
+  },
+  containerDisabled: {
+    opacity: 0.5,
+  },
+  checked: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: theme.colors.contentAccentSecondary,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dot: {
+    borderRadius: theme.borderRadius.full,
+    backgroundColor: theme.colors.baseLight,
+  },
+}));

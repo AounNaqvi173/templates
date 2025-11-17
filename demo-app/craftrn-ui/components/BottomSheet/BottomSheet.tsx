@@ -30,37 +30,33 @@ import Animated, {
   WithTimingConfig,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
 
-const createBottomSheetTokens = (theme: Theme) => {
-  return {
-    colors: {
-      overlay: theme.colors.backgroundOverlay,
-      sheet: theme.colors.backgroundElevated,
-      handleBar: theme.colors.interactiveNeutral,
-    },
-    animation: {
-      sheetOpenClose: {
-        duration: 400,
-        easing: Easing.inOut(Easing.cubic),
-      } satisfies WithTimingConfig,
-      swipeToDismiss: {
-        velocity: 0,
-        damping: 100,
-        stiffness: 500,
-        mass: 0.5,
-        overshootClamping: true,
-      } satisfies WithSpringConfig,
-      overlayDrag: {
-        duration: 50,
-        easing: Easing.inOut(Easing.cubic),
-      } satisfies WithTimingConfig,
-      overlayFadeOut: {
-        duration: 200,
-        easing: Easing.inOut(Easing.cubic),
-      } satisfies WithTimingConfig,
-    },
-  };
+const animationConfig = {
+  sheetOpen: {
+    damping: 20,
+    stiffness: 220,
+    mass: 0.8,
+    overshootClamping: false,
+  } satisfies WithSpringConfig,
+  sheetClose: {
+    duration: 400,
+    easing: Easing.inOut(Easing.cubic),
+  } satisfies WithTimingConfig,
+  swipeToDismiss: {
+    velocity: 0,
+    damping: 100,
+    stiffness: 500,
+    mass: 0.5,
+    overshootClamping: true,
+  } satisfies WithSpringConfig,
+  overlayDrag: {
+    duration: 50,
+    easing: Easing.inOut(Easing.cubic),
+  } satisfies WithTimingConfig,
+  overlayFadeOut: {
+    duration: 200,
+    easing: Easing.inOut(Easing.cubic),
+  } satisfies WithTimingConfig,
 };
 
 /**
@@ -124,12 +120,6 @@ export const BottomSheet = ({
   const [isScreenReaderEnabled, setIsScreenReaderEnabled] = useState(false);
   const { height: windowHeight } = useWindowDimensions();
   const { theme } = useUnistyles();
-
-  const bottomSheetTokens = useMemo(
-    () => createBottomSheetTokens(theme),
-    [theme],
-  );
-
   const translateY = useSharedValue(windowHeight);
   const overlayOpacity = useSharedValue(0);
   const startY = useSharedValue(0);
@@ -146,23 +136,19 @@ export const BottomSheet = ({
   }, [visible]);
 
   useEffect(() => {
-    const checkScreenReaderStatus = async () => {
-      const enabled = await AccessibilityInfo.isScreenReaderEnabled();
+    AccessibilityInfo.isScreenReaderEnabled().then(enabled => {
       setIsScreenReaderEnabled(enabled);
-    };
-
-    checkScreenReaderStatus();
+    });
   }, []);
 
   useEffect(() => {
     if (contentHeight) {
-      translateY.value = withTiming(
-        visible ? 0 : contentHeight,
-        bottomSheetTokens.animation.sheetOpenClose,
-      );
+      translateY.value = visible
+        ? withSpring(0, animationConfig.sheetOpen)
+        : withTiming(contentHeight, animationConfig.sheetClose);
       overlayOpacity.value = withTiming(
         visible ? 0.5 : 0,
-        bottomSheetTokens.animation.sheetOpenClose,
+        visible ? animationConfig.sheetClose : animationConfig.sheetClose,
         () => {
           if (!visible) {
             runOnJS(setShowModal)(false);
@@ -174,14 +160,7 @@ export const BottomSheet = ({
         },
       );
     }
-  }, [
-    visible,
-    translateY,
-    overlayOpacity,
-    contentHeight,
-    onClose,
-    bottomSheetTokens,
-  ]);
+  }, [visible, translateY, overlayOpacity, contentHeight, onClose]);
 
   const closeGestureThreshold = useMemo(() => {
     const currentContentHeight = contentHeight ?? 100;
@@ -200,7 +179,7 @@ export const BottomSheet = ({
         translateY.value = newTranslateY;
         overlayOpacity.value = withTiming(
           0.5 * (1 - Math.min(newTranslateY / (contentHeight ?? 200), 1)),
-          bottomSheetTokens.animation.overlayDrag,
+          animationConfig.overlayDrag,
         );
       }
     })
@@ -216,27 +195,18 @@ export const BottomSheet = ({
         translateY.value = withSpring(
           contentHeight ?? windowHeight,
           {
-            ...bottomSheetTokens.animation.swipeToDismiss,
+            ...animationConfig.swipeToDismiss,
             velocity: event.velocityY,
           },
           () => {
             runOnJS(onRequestClose)();
           },
         );
-        overlayOpacity.value = withTiming(
-          0,
-          bottomSheetTokens.animation.overlayFadeOut,
-        );
+        overlayOpacity.value = withTiming(0, animationConfig.overlayFadeOut);
       } else {
         // Snap back to open position
-        translateY.value = withTiming(
-          0,
-          bottomSheetTokens.animation.sheetOpenClose,
-        );
-        overlayOpacity.value = withTiming(
-          0.5,
-          bottomSheetTokens.animation.sheetOpenClose,
-        );
+        translateY.value = withTiming(0, animationConfig.sheetClose);
+        overlayOpacity.value = withTiming(0.5, animationConfig.sheetClose);
       }
     });
 
@@ -298,7 +268,7 @@ export const BottomSheet = ({
               onAccessibilityEscape={onRequestClose}
               {...accessibilityProps}
             >
-              <View>
+              <View style={styles.contentWrapper}>
                 {showHandleBar && (
                   <View style={styles.handleBarContainer}>
                     <View style={styles.handleBar} />
@@ -329,45 +299,44 @@ export const BottomSheet = ({
   );
 };
 
-const styles = StyleSheet.create(theme => {
-  const bottomSheetTokens = createBottomSheetTokens(theme);
-
-  return {
-    container: {
-      flex: 1,
-    },
-    overlay: {
-      zIndex: 1,
-      backgroundColor: bottomSheetTokens.colors.overlay,
-    },
-    overlayContent: {
-      flex: 1,
-    },
-    sheet: ({ maxHeight }: { maxHeight: number }) => ({
-      backgroundColor: bottomSheetTokens.colors.sheet,
-      zIndex: 2,
-      borderTopLeftRadius: theme.borderRadius.xlarge,
-      borderTopRightRadius: theme.borderRadius.xlarge,
-      position: 'absolute',
-      bottom: 0,
-      left: theme.spacing.small,
-      right: theme.spacing.small,
-      maxHeight,
-      overflow: 'hidden',
-    }),
-    handleBarContainer: {
-      alignItems: 'center',
-      paddingVertical: theme.spacing.small,
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-    },
-    handleBar: {
-      width: 36,
-      height: 4,
-      backgroundColor: bottomSheetTokens.colors.handleBar,
-      borderRadius: theme.borderRadius.full,
-    },
-  };
-});
+const styles = StyleSheet.create(theme => ({
+  container: {
+    flex: 1,
+  },
+  overlay: {
+    zIndex: 1,
+    backgroundColor: theme.colors.backgroundOverlay,
+  },
+  overlayContent: {
+    flex: 1,
+  },
+  sheet: ({ maxHeight }: { maxHeight: number }) => ({
+    backgroundColor: theme.colors.backgroundElevated,
+    zIndex: 2,
+    borderTopLeftRadius: theme.borderRadius.xlarge,
+    borderTopRightRadius: theme.borderRadius.xlarge,
+    position: 'absolute',
+    bottom: -50,
+    left: theme.spacing.small,
+    right: theme.spacing.small,
+    maxHeight,
+    overflow: 'hidden',
+  }),
+  contentWrapper: {
+    paddingBottom: 50,
+  },
+  handleBarContainer: {
+    alignItems: 'center',
+    paddingVertical: theme.spacing.small,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+  handleBar: {
+    width: 36,
+    height: 4,
+    backgroundColor: theme.colors.interactiveNeutral,
+    borderRadius: theme.borderRadius.full,
+  },
+}));

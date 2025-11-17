@@ -14,7 +14,7 @@ export const Switch = ({ ...props }: Props) => {
     <RNSwitch
       trackColor={{
         false: theme.colors.interactiveNeutral,
-        true: theme.colors.interactiveSecondaryContent,
+        true: theme.colors.contentAccentSecondary,
       }}
       thumbColor={theme.colors.baseLight}
       style={styles.switch}

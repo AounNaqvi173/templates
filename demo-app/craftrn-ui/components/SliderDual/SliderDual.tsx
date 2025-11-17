@@ -1,5 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { AccessibilityInfo, View } from 'react-native';
+import React, { useCallback, useId, useState } from 'react';
+import {
+  AccessibilityActionEvent,
+  AccessibilityInfo,
+  View,
+} from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Easing,
@@ -11,42 +15,38 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 
-const createSliderDualTokens = (theme: Theme) => {
-  return {
-    size: {
-      knob: 20,
-      sliderHeight: 4,
+const sizeConfig = {
+  knob: 20,
+  hitSlop: 4,
+  sliderHeight: 4,
+};
+
+const animationConfig = {
+  scale: {
+    activeKnobScale: 1.2,
+    spring: {
+      mass: 0.2,
+      damping: 15,
+      stiffness: 300,
     },
-    animation: {
-      scale: {
-        activeKnobScale: 1.2,
-        spring: {
-          mass: 0.2,
-          damping: 15,
-          stiffness: 300,
-        },
-        timing: {
-          duration: 100,
-          easing: Easing.out(Easing.cubic),
-        },
-      },
-      position: {
-        spring: {
-          mass: 0.05,
-          damping: 15,
-          stiffness: 500,
-        },
-      },
+    timing: {
+      duration: 100,
+      easing: Easing.out(Easing.cubic),
     },
-    colors: {
-      track: theme.colors.borderNeutralSecondary,
-      fill: theme.colors.interactiveSecondaryContent,
-      knob: theme.colors.interactiveSecondaryContent,
+  },
+  position: {
+    spring: {
+      mass: 0.05,
+      damping: 15,
+      stiffness: 500,
     },
-  };
+  },
 };
 
 /**
@@ -97,15 +97,16 @@ export type Props = {
 const useKnobAnimatedStyle = (
   position: SharedValue<number>,
   scale: SharedValue<number>,
-  sliderTokens: ReturnType<typeof createSliderDualTokens>,
-) =>
-  useAnimatedStyle(() => ({
+) => {
+  const { theme } = useUnistyles();
+  return useAnimatedStyle(() => ({
     transform: [
-      { translateX: position.value - sliderTokens.size.knob / 2 },
+      { translateX: position.value - sizeConfig.knob / 2 },
       { scale: scale.value },
     ],
-    backgroundColor: sliderTokens.colors.knob,
+    backgroundColor: theme.colors.contentAccentSecondary,
   }));
+};
 
 export const SliderDual = ({
   min,
@@ -117,9 +118,10 @@ export const SliderDual = ({
   step = 1,
   accessibilityStep = step,
 }: Props) => {
+  const id = useId();
   const { theme } = useUnistyles();
-  const sliderTokens = useMemo(() => createSliderDualTokens(theme), [theme]);
-  const sliderWidth = width - sliderTokens.size.knob;
+
+  const sliderWidth = width - sizeConfig.knob;
 
   const getPositionFromValue = useCallback(
     (value: number) => {
@@ -186,7 +188,6 @@ export const SliderDual = ({
     [getSliderValue, onValuesChange, leftPosition, rightPosition],
   );
 
-  // Efficiently notify value changes during dragging
   useAnimatedReaction(
     () => {
       return {
@@ -236,10 +237,7 @@ export const SliderDual = ({
 
       const constrainedValue = getConstrainedValue();
       const newPosition = getPositionFromValue(constrainedValue);
-      position.value = withSpring(
-        newPosition,
-        sliderTokens.animation.position.spring,
-      );
+      position.value = withSpring(newPosition, animationConfig.position.spring);
 
       const label = isLeft ? 'Minimum' : 'Maximum';
       runOnJS(AccessibilityInfo.announceForAccessibility)(
@@ -271,12 +269,12 @@ export const SliderDual = ({
       min,
       max,
       step,
-      sliderTokens.animation.position.spring,
+      animationConfig.position.spring,
     ],
   );
 
   const createAccessibilityActionHandler = useCallback(
-    (knob: 'left' | 'right') => (event: any) => {
+    (knob: 'left' | 'right') => (event: AccessibilityActionEvent) => {
       switch (event.nativeEvent.actionName) {
         case 'increment':
           adjustValue(knob, 'increment');
@@ -313,8 +311,8 @@ export const SliderDual = ({
           prevPosition.value = position.value;
           isDragging.value = true;
           scale.value = withTiming(
-            sliderTokens.animation.scale.activeKnobScale,
-            sliderTokens.animation.scale.timing,
+            animationConfig.scale.activeKnobScale,
+            animationConfig.scale.timing,
           );
         })
         .onUpdate(e => {
@@ -358,16 +356,16 @@ export const SliderDual = ({
           const finalPosition = getPositionFromValue(finalValue);
           position.value = withSpring(
             finalPosition,
-            sliderTokens.animation.position.spring,
+            animationConfig.position.spring,
           );
-          scale.value = withTiming(1, sliderTokens.animation.scale.timing);
+          scale.value = withTiming(1, animationConfig.scale.timing);
           notifyValueChange();
         }),
     [
       isDragging,
-      sliderTokens.animation.scale.activeKnobScale,
-      sliderTokens.animation.scale.timing,
-      sliderTokens.animation.position.spring,
+      animationConfig.scale.activeKnobScale,
+      animationConfig.scale.timing,
+      animationConfig.position.spring,
       notifyValueChange,
       sliderWidth,
       max,
@@ -395,31 +393,26 @@ export const SliderDual = ({
     isLeft: false,
   });
 
-  const leftKnobStyle = useKnobAnimatedStyle(
-    leftPosition,
-    leftKnobScale,
-    sliderTokens,
-  );
-  const rightKnobStyle = useKnobAnimatedStyle(
-    rightPosition,
-    rightKnobScale,
-    sliderTokens,
-  );
-
+  const leftKnobStyle = useKnobAnimatedStyle(leftPosition, leftKnobScale);
+  const rightKnobStyle = useKnobAnimatedStyle(rightPosition, rightKnobScale);
   const fillStyle = useAnimatedStyle(() => ({
     left: leftPosition.value,
     width: rightPosition.value - leftPosition.value,
-    backgroundColor: sliderTokens.colors.fill,
+    backgroundColor: theme.colors.contentAccentSecondary,
   }));
 
   return (
     <View style={styles.container}>
       <View style={styles.slider(sliderWidth)}>
-        <Animated.View style={[styles.fill, fillStyle]} />
+        <Animated.View
+          key={`slider-dual-fill-${id}-${UnistylesRuntime.themeName}`}
+          style={[styles.fill, fillStyle]}
+        />
         <GestureDetector gesture={leftGesture}>
           <Animated.View
+            key={`slider-dual-left-knob-${id}-${UnistylesRuntime.themeName}`}
             style={[styles.knob, leftKnobStyle]}
-            hitSlop={4}
+            hitSlop={sizeConfig.hitSlop}
             accessible={true}
             role="slider"
             accessibilityLabel="Minimum value slider"
@@ -444,8 +437,9 @@ export const SliderDual = ({
         </GestureDetector>
         <GestureDetector gesture={rightGesture}>
           <Animated.View
+            key={`slider-dual-right-knob-${id}-${UnistylesRuntime.themeName}`}
             style={[styles.knob, rightKnobStyle]}
-            hitSlop={4}
+            hitSlop={sizeConfig.hitSlop}
             accessible={true}
             role="slider"
             accessibilityLabel="Maximum value slider"
@@ -473,31 +467,27 @@ export const SliderDual = ({
   );
 };
 
-const styles = StyleSheet.create(theme => {
-  const sliderTokens = createSliderDualTokens(theme);
-
-  return {
-    container: {
-      minHeight: sliderTokens.size.sliderHeight + sliderTokens.size.knob,
-      paddingTop: sliderTokens.size.knob / 2,
-    },
-    slider: (width: number) => ({
-      width,
-      height: sliderTokens.size.sliderHeight,
-      backgroundColor: sliderTokens.colors.track,
-      borderRadius: theme.borderRadius.full,
-    }),
-    fill: {
-      height: sliderTokens.size.sliderHeight,
-      borderRadius: theme.borderRadius.full,
-      position: 'absolute',
-    },
-    knob: {
-      width: sliderTokens.size.knob,
-      height: sliderTokens.size.knob,
-      borderRadius: theme.borderRadius.full,
-      position: 'absolute',
-      top: -(sliderTokens.size.knob / 2 - sliderTokens.size.sliderHeight / 2),
-    },
-  };
-});
+const styles = StyleSheet.create(theme => ({
+  container: {
+    minHeight: sizeConfig.sliderHeight + sizeConfig.knob,
+    paddingTop: sizeConfig.knob / 2,
+  },
+  slider: (width: number) => ({
+    width,
+    height: sizeConfig.sliderHeight,
+    backgroundColor: theme.colors.borderNeutralSecondary,
+    borderRadius: theme.borderRadius.full,
+  }),
+  fill: {
+    height: sizeConfig.sliderHeight,
+    borderRadius: theme.borderRadius.full,
+    position: 'absolute',
+  },
+  knob: {
+    width: sizeConfig.knob,
+    height: sizeConfig.knob,
+    borderRadius: theme.borderRadius.full,
+    position: 'absolute',
+    top: -(sizeConfig.knob / 2 - sizeConfig.sliderHeight / 2),
+  },
+}));

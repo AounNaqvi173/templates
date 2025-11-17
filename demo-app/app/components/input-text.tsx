@@ -25,8 +25,8 @@ export default function InputTextScreen() {
 
   const [size, setSize] = useState<InputTextSize>('medium');
   const [hasLabel, setHasLabel] = useState(true);
-  const [hasLeftAccessory, setHasLeftAccessory] = useState(false);
-  const [hasRightAccessory, setHasRightAccessory] = useState(false);
+  const [hasItemLeft, setHasItemLeft] = useState(false);
+  const [hasItemRight, setHasItemRight] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [value, setValue] = useState('');
 
@@ -65,16 +65,16 @@ export default function InputTextScreen() {
               {...(hasLabel && size !== 'small'
                 ? { label: 'Sample Label' }
                 : { placeholder: 'Enter text here...' })}
-              leftAccessory={
-                hasLeftAccessory ? (
-                  <View style={styles.leftAccessory}>
+              itemLeft={
+                hasItemLeft ? (
+                  <View style={styles.itemLeft}>
                     <File color={theme.colors.contentTertiary} />
                   </View>
                 ) : undefined
               }
-              rightAccessory={
-                hasRightAccessory ? (
-                  <View style={styles.rightAccessory}>
+              itemRight={
+                hasItemRight ? (
+                  <View style={styles.itemRight}>
                     <Lock color={theme.colors.contentTertiary} />
                   </View>
                 ) : undefined
@@ -125,25 +125,19 @@ export default function InputTextScreen() {
           />
 
           <ListItem
-            text="Left Accessory"
+            text="Item Left"
             textBelow="Show icon on the left"
             itemRight={
-              <Switch
-                value={hasLeftAccessory}
-                onValueChange={setHasLeftAccessory}
-              />
+              <Switch value={hasItemLeft} onValueChange={setHasItemLeft} />
             }
             divider
           />
 
           <ListItem
-            text="Right Accessory"
+            text="Item Right"
             textBelow="Show icon on the right"
             itemRight={
-              <Switch
-                value={hasRightAccessory}
-                onValueChange={setHasRightAccessory}
-              />
+              <Switch value={hasItemRight} onValueChange={setHasItemRight} />
             }
             divider
           />
@@ -190,10 +184,10 @@ const styles = StyleSheet.create(theme => ({
   divider: {
     marginVertical: theme.spacing.xsmall,
   },
-  leftAccessory: {
+  itemLeft: {
     marginRight: theme.spacing.xsmall,
   },
-  rightAccessory: {
+  itemRight: {
     marginLeft: theme.spacing.xsmall,
   },
   keyboardView: {

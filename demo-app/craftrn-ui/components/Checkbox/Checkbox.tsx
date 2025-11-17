@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { AccessibilityProps, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -6,26 +6,11 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
 import { PressableScale, type AnimationConfig } from '../PressableScale';
 import { CheckLarge } from './CheckLarge';
 
-const createCheckboxTokens = (theme: Theme) => {
-  return {
-    size: {
-      container: 24,
-    },
-    colors: {
-      background: {
-        unchecked: theme.colors.interactiveNeutral,
-        checked: theme.colors.interactiveSecondaryContent,
-      },
-      icon: theme.colors.white,
-    },
-    animation: {
-      duration: 200,
-    },
-  };
+const animConfig = {
+  duration: 200,
 };
 
 /**
@@ -59,20 +44,20 @@ export const Checkbox = ({
   checked = false,
   disabled = false,
   onPress,
-  animationConfig,
+  animationConfig = {
+    scaleIn: 1.1,
+  },
   ...accessibilityProps
 }: CheckboxProps) => {
   const { theme } = useUnistyles();
-
-  const checkboxTokens = useMemo(() => createCheckboxTokens(theme), [theme]);
 
   const appearance = useSharedValue(checked ? 1 : 0);
 
   useEffect(() => {
     appearance.value = withTiming(checked ? 1 : 0, {
-      duration: checkboxTokens.animation.duration,
+      duration: animConfig.duration,
     });
-  }, [checked, appearance, checkboxTokens.animation]);
+  }, [checked, appearance]);
 
   const checkedStyle = useAnimatedStyle(() => ({
     opacity: appearance.value,
@@ -84,46 +69,38 @@ export const Checkbox = ({
       accessible
       role="checkbox"
       aria-checked={checked}
-      disabled={disabled}
-      animationConfig={
-        animationConfig ?? {
-          scaleIn: 1.1,
-        }
-      }
+      disabled={disabled || !onPress}
+      animationConfig={animationConfig}
       {...accessibilityProps}
     >
       <View style={[styles.container, disabled && styles.containerDisabled]}>
         <Animated.View style={[styles.checked, checkedStyle]}>
-          <CheckLarge color={checkboxTokens.colors.icon} />
+          <CheckLarge color={theme.colors.baseLight} />
         </Animated.View>
       </View>
     </PressableScale>
   );
 };
 
-const styles = StyleSheet.create(theme => {
-  const checkboxTokens = createCheckboxTokens(theme);
-
-  return {
-    container: {
-      borderRadius: theme.borderRadius.small,
-      backgroundColor: checkboxTokens.colors.background.unchecked,
-      width: checkboxTokens.size.container,
-      height: checkboxTokens.size.container,
-      overflow: 'hidden',
-    },
-    checked: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: checkboxTokens.colors.background.checked,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    containerDisabled: {
-      opacity: 0.5,
-    },
-  };
-});
+const styles = StyleSheet.create(theme => ({
+  container: {
+    borderRadius: theme.borderRadius.small,
+    backgroundColor: theme.colors.interactiveNeutral,
+    width: 24,
+    height: 24,
+    overflow: 'hidden',
+  },
+  checked: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: theme.colors.contentAccentSecondary,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  containerDisabled: {
+    opacity: 0.5,
+  },
+}));

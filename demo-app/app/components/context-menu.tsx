@@ -176,7 +176,7 @@ const styles = StyleSheet.create(theme => ({
     width: theme.spacing.small,
     height: theme.spacing.small,
     borderRadius: theme.spacing.small / 2,
-    backgroundColor: theme.colors.interactiveSecondaryContent,
+    backgroundColor: theme.colors.contentAccentSecondary,
     position: 'absolute',
   },
   topLeft: {

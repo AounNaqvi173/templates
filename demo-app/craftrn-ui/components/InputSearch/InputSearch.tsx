@@ -1,10 +1,4 @@
-import React, {
-  forwardRef,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { forwardRef, useCallback, useRef, useState } from 'react';
 import {
   NativeSyntheticEvent,
   Platform,
@@ -15,25 +9,6 @@ import {
   View,
 } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
-
-const createInputSearchTokens = (theme: Theme) => {
-  return {
-    size: {
-      height: 48,
-    },
-    colors: {
-      border: {
-        normal: theme.colors.borderNeutralSecondary,
-        active: theme.colors.interactiveSecondaryContent,
-      },
-      background: theme.colors.backgroundElevated,
-      text: theme.colors.contentPrimary,
-      placeholder: theme.colors.contentTertiary,
-      selection: theme.colors.interactiveSecondaryContent,
-    },
-  };
-};
 
 /**
  * Props for the InputSearch component.
@@ -45,33 +20,21 @@ export type Props = {
    */
   onPress?: () => void;
   /**
-   * Left accessory element. Will be placed before the input.
+   * Left element. Will be placed before the input.
    */
-  leftAccessory?: React.ReactNode;
+  itemLeft?: React.ReactNode;
   /**
-   * Right accessory element. Will be placed after the input.
+   * Right element. Will be placed after the input.
    */
-  rightAccessory?: React.ReactNode;
+  itemRight?: React.ReactNode;
 };
 
 export const InputSearch = forwardRef<TextInput, Props & TextInputProps>(
   function InputSearch(
-    {
-      onPress,
-      onFocus,
-      onBlur,
-      value,
-      leftAccessory,
-      rightAccessory,
-      ...props
-    },
+    { onPress, onFocus, onBlur, value, itemLeft, itemRight, ...props },
     ref,
   ) {
     const { theme } = useUnistyles();
-    const inputSearchTokens = useMemo(
-      () => createInputSearchTokens(theme),
-      [theme],
-    );
     const [isFocused, setIsFocused] = useState(false);
     const isActive = isFocused || !!value;
     const isReadOnly = !props.editable && !!props.readOnly;
@@ -110,20 +73,20 @@ export const InputSearch = forwardRef<TextInput, Props & TextInputProps>(
             active: isActive,
           })}
         >
-          {leftAccessory}
+          {itemLeft}
           <TextInput
             style={styles.textInput({ readOnly: isReadOnly })}
             onFocus={handleFocus}
             onBlur={handleBlur}
             value={value}
             ref={ref}
-            placeholderTextColor={inputSearchTokens.colors.placeholder}
-            selectionColor={inputSearchTokens.colors.selection}
+            placeholderTextColor={theme.colors.contentTertiary}
+            selectionColor={theme.colors.interactiveSecondaryContent}
             textAlignVertical="center"
             role="searchbox"
             {...props}
           />
-          {rightAccessory}
+          {itemRight}
         </View>
       </Pressable>
     );
@@ -131,8 +94,6 @@ export const InputSearch = forwardRef<TextInput, Props & TextInputProps>(
 );
 
 const styles = StyleSheet.create(theme => {
-  const inputSearchTokens = createInputSearchTokens(theme);
-
   return {
     container: {
       width: '100%',
@@ -143,20 +104,20 @@ const styles = StyleSheet.create(theme => {
       borderRadius: theme.borderRadius.full,
       borderWidth: 1,
       borderColor: active
-        ? inputSearchTokens.colors.border.active
-        : inputSearchTokens.colors.border.normal,
+        ? theme.colors.contentAccentSecondary
+        : theme.colors.borderNeutralSecondary,
       paddingHorizontal: theme.spacing.small,
       paddingVertical: theme.spacing.xsmall,
-      height: inputSearchTokens.size.height,
-      backgroundColor: inputSearchTokens.colors.background,
+      height: 48,
+      backgroundColor: theme.colors.backgroundElevated,
     }),
     textInput: ({ readOnly }: { readOnly: boolean }) => ({
       flexGrow: 1,
       padding: 0,
       marginHorizontal: theme.spacing.small,
-      height: inputSearchTokens.size.height - 2,
+      height: 48 - 2,
       pointerEvents: readOnly ? 'none' : 'auto',
-      color: inputSearchTokens.colors.text,
+      color: theme.colors.contentPrimary,
       lineHeight: Platform.OS === 'ios' ? 0 : undefined,
     }),
   };

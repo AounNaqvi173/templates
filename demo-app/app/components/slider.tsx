@@ -114,9 +114,10 @@ const styles = StyleSheet.create(theme => ({
   },
   demoContainer: {
     flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    padding: theme.spacing.large,
     gap: theme.spacing.medium,
+    padding: theme.spacing.large,
   },
   controlsCard: {
     padding: theme.spacing.large,

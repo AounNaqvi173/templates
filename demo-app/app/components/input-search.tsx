@@ -20,8 +20,8 @@ export default function InputSearchScreen() {
   const { theme } = useUnistyles();
   const headerHeight = useHeaderHeight();
 
-  const [hasLeftAccessory, setHasLeftAccessory] = useState(true);
-  const [hasRightAccessory, setHasRightAccessory] = useState(false);
+  const [hasItemLeft, setHasItemLeft] = useState(true);
+  const [hasItemRight, setHasItemRight] = useState(false);
 
   return (
     <KeyboardAvoidingView
@@ -46,15 +46,15 @@ export default function InputSearchScreen() {
           <Card style={styles.demoContainer}>
             <InputSearch
               placeholder="Search for a destination"
-              leftAccessory={
-                hasLeftAccessory ? (
-                  <View style={styles.leftAccessory}>
+              itemLeft={
+                hasItemLeft ? (
+                  <View style={styles.itemLeft}>
                     <Search color={theme.colors.contentTertiary} />
                   </View>
                 ) : undefined
               }
-              rightAccessory={
-                hasRightAccessory ? (
+              itemRight={
+                hasItemRight ? (
                   <ButtonRound
                     variant="neutral-secondary"
                     renderContent={({ iconSize }) => (
@@ -75,25 +75,19 @@ export default function InputSearchScreen() {
         {/* Controls */}
         <Card style={styles.controlsCard}>
           <ListItem
-            text="Left Accessory"
+            text="Item Left"
             textBelow="Show search icon on the left"
             itemRight={
-              <Switch
-                value={hasLeftAccessory}
-                onValueChange={setHasLeftAccessory}
-              />
+              <Switch value={hasItemLeft} onValueChange={setHasItemLeft} />
             }
             divider
           />
 
           <ListItem
-            text="Right Accessory"
+            text="Item Right"
             textBelow="Show filter button on the right"
             itemRight={
-              <Switch
-                value={hasRightAccessory}
-                onValueChange={setHasRightAccessory}
-              />
+              <Switch value={hasItemRight} onValueChange={setHasItemRight} />
             }
           />
         </Card>
@@ -122,7 +116,7 @@ const styles = StyleSheet.create(theme => ({
     padding: theme.spacing.large,
     gap: theme.spacing.small,
   },
-  leftAccessory: {
+  itemLeft: {
     marginHorizontal: theme.spacing.xsmall,
   },
   keyboardView: {

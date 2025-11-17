@@ -1,43 +1,12 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import {
   AccessibilityProps,
   Image,
   ImageSourcePropType,
   View,
 } from 'react-native';
-import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
+import { StyleSheet } from 'react-native-unistyles';
 import { Text } from '../Text';
-
-const createAvatarTokens = (theme: Theme) => {
-  return {
-    size: {
-      small: {
-        avatar: 32,
-        indicator: 10,
-      },
-      medium: {
-        avatar: 44,
-        indicator: 12,
-      },
-      large: {
-        avatar: 56,
-        indicator: 14,
-      },
-    },
-    colors: {
-      fallback: {
-        0: theme.colors.purple,
-        1: theme.colors.maroon,
-        2: theme.colors.forest,
-        3: theme.colors.steel,
-      },
-      text: theme.colors.white,
-      indicatorBorder: theme.colors.baseLight,
-      indicatorBackground: theme.colors.sentimentPositive,
-    },
-  };
-};
 
 /**
  * Color of the avatar when the image cannot be loaded.
@@ -98,8 +67,6 @@ export const Avatar = ({
   alt,
   ...accessibilityProps
 }: AvatarProps) => {
-  const { theme } = useUnistyles();
-  const avatarTokens = useMemo(() => createAvatarTokens(theme), [theme]);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const hasValidSource =
@@ -108,14 +75,12 @@ export const Avatar = ({
       !('uri' in source) ||
       (source.uri && source.uri.trim() !== ''));
 
-  const avatarIndicatorSize = avatarTokens.size[size].indicator;
-
   return (
     <View
       style={[
         styles.container({ size }),
         (!hasValidSource || !imageLoaded) &&
-          styles.containerFallback({ color: fallbackColor }),
+          styles.containerColor({ color: fallbackColor }),
       ]}
       accessible
       accessibilityHint={showOnlineIndicator ? 'online' : undefined}
@@ -136,71 +101,82 @@ export const Avatar = ({
           />
         )}
       </View>
-      {showOnlineIndicator && (
-        <View
-          style={[
-            styles.indicator,
-            { width: avatarIndicatorSize, height: avatarIndicatorSize },
-          ]}
-        />
-      )}
+      {showOnlineIndicator && <View style={[styles.indicator({ size })]} />}
     </View>
   );
 };
 
-const styles = StyleSheet.create(theme => {
-  const avatarTokens = createAvatarTokens(theme);
-
-  return {
-    container: (params: { size: 'small' | 'medium' | 'large' }) => ({
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'relative',
-      ...(params.size === 'small' && {
-        width: avatarTokens.size.small.avatar,
-        height: avatarTokens.size.small.avatar,
-        borderRadius: theme.borderRadius.full,
-      }),
-      ...(params.size === 'medium' && {
-        width: avatarTokens.size.medium.avatar,
-        height: avatarTokens.size.medium.avatar,
-        borderRadius: theme.borderRadius.full,
-      }),
-      ...(params.size === 'large' && {
-        width: avatarTokens.size.large.avatar,
-        height: avatarTokens.size.large.avatar,
-        borderRadius: theme.borderRadius.full,
-      }),
-    }),
-    containerFallback: (params: { color: number }) => ({
-      backgroundColor:
-        avatarTokens.colors.fallback[params.color as 0 | 1 | 2 | 3],
-    }),
-    fallbackContainer: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '100%',
-      height: '100%',
-      position: 'relative',
-    },
-    image: {
+const styles = StyleSheet.create(theme => ({
+  container: (params: { size: 'small' | 'medium' | 'large' }) => ({
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    ...(params.size === 'small' && {
+      width: 32,
+      height: 32,
       borderRadius: theme.borderRadius.full,
-      width: '100%',
-      height: '100%',
-      position: 'absolute',
-    },
-    text: {
-      color: avatarTokens.colors.text,
-      fontWeight: 'bold',
-    },
-    indicator: {
-      position: 'absolute',
-      bottom: 0,
-      right: 0,
+    }),
+    ...(params.size === 'medium' && {
+      width: 44,
+      height: 44,
       borderRadius: theme.borderRadius.full,
-      borderWidth: 1,
-      borderColor: avatarTokens.colors.indicatorBorder,
-      backgroundColor: avatarTokens.colors.indicatorBackground,
-    },
-  };
-});
+    }),
+    ...(params.size === 'large' && {
+      width: 56,
+      height: 56,
+      borderRadius: theme.borderRadius.full,
+    }),
+  }),
+  containerColor: (params: { color: AvatarColor }) => ({
+    ...(params.color === 0 && {
+      backgroundColor: theme.colors.purple,
+    }),
+    ...(params.color === 1 && {
+      backgroundColor: theme.colors.maroon,
+    }),
+    ...(params.color === 2 && {
+      backgroundColor: theme.colors.forest,
+    }),
+    ...(params.color === 3 && {
+      backgroundColor: theme.colors.steel,
+    }),
+  }),
+  fallbackContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+  },
+  image: {
+    borderRadius: theme.borderRadius.full,
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  text: {
+    color: theme.colors.baseLight,
+    fontWeight: 'bold',
+  },
+  indicator: (params: { size: 'small' | 'medium' | 'large' }) => ({
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    borderRadius: theme.borderRadius.full,
+    borderWidth: 1,
+    borderColor: theme.colors.baseLight,
+    backgroundColor: theme.colors.sentimentPositive,
+    ...(params.size === 'small' && {
+      width: 10,
+      height: 10,
+    }),
+    ...(params.size === 'medium' && {
+      width: 12,
+      height: 12,
+    }),
+    ...(params.size === 'large' && {
+      width: 14,
+      height: 14,
+    }),
+  }),
+}));

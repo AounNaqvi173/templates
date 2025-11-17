@@ -4,24 +4,24 @@ export const colors = {
   brightTeal300: '#6ED1D1',
   brightTeal400: '#48B8B8',
 
-  darkTeal500: '#1e809e',
+  darkTeal500: '#228c98',
   darkTeal600: '#157183',
   darkTeal700: '#105161',
   darkTeal800: '#09414f',
   darkTeal900: '#072829',
   darkTeal950: '#031a1d',
 
-  brightOrange100: '#f2ddc1',
-  brightOrange200: '#e2c49d',
-  brightOrange300: '#d1a76e',
-  brightOrange400: '#b88a48',
+  brightOrange100: '#f4d9ad',
+  brightOrange200: '#efc685',
+  brightOrange300: '#e8b05f',
+  brightOrange400: '#df9940',
 
-  darkOrange500: '#9e661e',
-  darkOrange600: '#835515',
-  darkOrange700: '#613e10',
-  darkOrange800: '#4f3109',
-  darkOrange900: '#291c07',
-  darkOrange950: '#1d1303',
+  darkOrange500: '#b8824a',
+  darkOrange600: '#9a652e',
+  darkOrange700: '#7a4a1d',
+  darkOrange800: '#5d3715',
+  darkOrange900: '#3f240e',
+  darkOrange950: '#241407',
 
   slate10: '#fcfcff',
   slate50: '#f9f9fb',
@@ -37,23 +37,23 @@ export const colors = {
   slate950: '#202029',
   slate990: '#121217',
 
-  stone10: '#fdfcfb',
-  stone50: '#faf8f6',
-  stone100: '#e5e2df',
-  stone200: '#d5d1cd',
-  stone300: '#c5c0bc',
-  stone400: '#b5afaa',
-  stone500: '#9a9490',
-  stone600: '#827c77',
-  stone700: '#6a6460',
-  stone800: '#524d49',
-  stone900: '#3d3936',
-  stone950: '#272421',
-  stone990: '#161413',
+  stone10: '#fdfcfa',
+  stone50: '#faf9f7',
+  stone100: '#ebe8e4',
+  stone200: '#dcd8d2',
+  stone300: '#cdc7c0',
+  stone400: '#beb6ae',
+  stone500: '#a59c93',
+  stone600: '#8a827a',
+  stone700: '#6f6962',
+  stone800: '#54504a',
+  stone900: '#3e3b36',
+  stone950: '#282623',
+  stone990: '#191715',
 
   negative50: '#ffe5e5',
-  negative100: '#f0d1d1',
-  negative200: '#dea0a0',
+  negative100: '#e6c1c1',
+  negative200: '#d09090',
   negative400: '#b30000',
   negative500: '#800000',
   negative900: '#330000',
@@ -106,8 +106,6 @@ const fontSizes = {
 const baseTheme = {
   colors: {
     transparent: 'transparent',
-
-    // Non-semantic colors
     white: colors.stone10,
     black: colors.stone900,
     purple: colors.purple600,
@@ -141,36 +139,78 @@ const baseTheme = {
   textVariants: {
     heading1: {
       ...fontSizes.xxlarge,
-      fontWeight: '900',
+      fontWeight: '900' as const,
       letterSpacing: -1,
     },
     heading2: {
       ...fontSizes.xlarge,
-      fontWeight: '800',
+      fontWeight: '800' as const,
     },
     heading3: {
       ...fontSizes.large,
-      fontWeight: '700',
+      fontWeight: '700' as const,
     },
     body1: {
       ...fontSizes.medium,
-      fontWeight: '400',
+      fontWeight: '400' as const,
     },
     body2: {
       ...fontSizes.small,
-      fontWeight: '400',
+      fontWeight: '400' as const,
     },
     body3: {
       ...fontSizes.xsmall,
-      fontWeight: '400',
+      fontWeight: '400' as const,
     },
   },
-};
+} as const;
 
-export const lightTealTheme = {
+const baseLight = {
   ...baseTheme,
   colors: {
     ...baseTheme.colors,
+
+    informativePrimary: colors.blue700,
+
+    sentimentNegative: colors.negative400,
+    sentimentNegativePress: colors.negative500,
+
+    sentimentSecondaryNegative: colors.negative50,
+    sentimentSecondaryNegativePress: colors.negative100,
+
+    sentimentPositive: colors.positive400,
+    sentimentPositivePress: colors.positive500,
+
+    sentimentSecondaryPositive: colors.positive50,
+    sentimentSecondaryPositivePress: colors.positive100,
+  },
+} as const;
+
+const baseDark = {
+  ...baseTheme,
+  colors: {
+    ...baseTheme.colors,
+
+    informativePrimary: colors.blue300,
+
+    sentimentNegative: colors.negative200,
+    sentimentNegativePress: colors.negative100,
+
+    sentimentSecondaryNegative: colors.negative950,
+    sentimentSecondaryNegativePress: colors.negative900,
+
+    sentimentPositive: colors.positive400,
+    sentimentPositivePress: colors.positive500,
+
+    sentimentSecondaryPositive: colors.positive950,
+    sentimentSecondaryPositivePress: colors.positive900,
+  },
+} as const;
+
+export const lightTealTheme = {
+  ...baseLight,
+  colors: {
+    ...baseLight.colors,
     interactivePrimary: colors.brightTeal200,
     interactivePrimaryPress: colors.brightTeal300,
     interactivePrimaryContent: colors.darkTeal900,
@@ -210,28 +250,14 @@ export const lightTealTheme = {
     contentSecondary: colors.slate900,
     contentTertiary: colors.slate700,
     contentAccent: colors.darkTeal800,
-
-    // Semantic colors
-    informativePrimary: colors.blue700,
-
-    sentimentNegative: colors.negative400,
-    sentimentNegativePress: colors.negative500,
-
-    sentimentSecondaryNegative: colors.negative50,
-    sentimentSecondaryNegativePress: colors.negative100,
-
-    sentimentPositive: colors.positive400,
-    sentimentPositivePress: colors.positive500,
-
-    sentimentSecondaryPositive: colors.positive50,
-    sentimentSecondaryPositivePress: colors.positive100,
+    contentAccentSecondary: colors.darkTeal500,
   },
 } as const;
 
 export const darkTealTheme = {
-  ...lightTealTheme,
+  ...baseDark,
   colors: {
-    ...lightTealTheme.colors,
+    ...baseDark.colors,
 
     interactivePrimary: colors.brightTeal300,
     interactivePrimaryPress: colors.brightTeal200,
@@ -265,32 +291,21 @@ export const darkTealTheme = {
     borderNeutral: `${colors.slate10}10`,
     borderNeutralSecondary: `${colors.slate10}30`,
 
+    baseLight: colors.slate10,
+    baseDark: colors.slate990,
+
     contentPrimary: colors.slate10,
     contentSecondary: colors.slate100,
-    contentTertiary: colors.slate200,
+    contentTertiary: colors.slate300,
     contentAccent: colors.brightTeal200,
-
-    // Semantic colors
-    informativePrimary: colors.blue300,
-
-    sentimentNegative: colors.negative200,
-    sentimentNegativePress: colors.negative100,
-
-    sentimentSecondaryNegative: colors.negative950,
-    sentimentSecondaryNegativePress: colors.negative900,
-
-    sentimentPositive: colors.positive400,
-    sentimentPositivePress: colors.positive500,
-
-    sentimentSecondaryPositive: colors.positive950,
-    sentimentSecondaryPositivePress: colors.positive900,
+    contentAccentSecondary: colors.brightTeal400,
   },
 } as const;
 
 export const lightOrangeTheme = {
-  ...baseTheme,
+  ...baseLight,
   colors: {
-    ...baseTheme.colors,
+    ...baseLight.colors,
     interactivePrimary: colors.brightOrange200,
     interactivePrimaryPress: colors.brightOrange300,
     interactivePrimaryContent: colors.darkOrange900,
@@ -330,28 +345,14 @@ export const lightOrangeTheme = {
     contentSecondary: colors.stone900,
     contentTertiary: colors.stone700,
     contentAccent: colors.darkOrange800,
-
-    // Semantic colors
-    informativePrimary: colors.blue300,
-
-    sentimentNegative: colors.negative400,
-    sentimentNegativePress: colors.negative500,
-
-    sentimentSecondaryNegative: colors.negative50,
-    sentimentSecondaryNegativePress: colors.negative100,
-
-    sentimentPositive: colors.positive400,
-    sentimentPositivePress: colors.positive500,
-
-    sentimentSecondaryPositive: colors.positive50,
-    sentimentSecondaryPositivePress: colors.positive100,
+    contentAccentSecondary: colors.darkOrange500,
   },
 } as const;
 
 export const darkOrangeTheme = {
-  ...baseTheme,
+  ...baseDark,
   colors: {
-    ...baseTheme.colors,
+    ...baseDark.colors,
 
     interactivePrimary: colors.brightOrange300,
     interactivePrimaryPress: colors.brightOrange200,
@@ -390,23 +391,9 @@ export const darkOrangeTheme = {
 
     contentPrimary: colors.stone10,
     contentSecondary: colors.stone100,
-    contentTertiary: colors.stone200,
+    contentTertiary: colors.stone300,
     contentAccent: colors.brightOrange200,
-
-    // Semantic colors
-    informativePrimary: colors.blue300,
-
-    sentimentNegative: colors.negative200,
-    sentimentNegativePress: colors.negative100,
-
-    sentimentSecondaryNegative: colors.negative950,
-    sentimentSecondaryNegativePress: colors.negative900,
-
-    sentimentPositive: colors.positive400,
-    sentimentPositivePress: colors.positive500,
-
-    sentimentSecondaryPositive: colors.positive950,
-    sentimentSecondaryPositivePress: colors.positive900,
+    contentAccentSecondary: colors.brightOrange400,
   },
 } as const;
 

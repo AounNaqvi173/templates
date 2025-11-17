@@ -1,15 +1,6 @@
 import React from 'react';
 import { View, ViewProps } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
-
-const createDividerTokens = (theme: Theme) => {
-  return {
-    colors: {
-      divider: theme.colors.borderNeutral,
-    },
-  };
-};
 
 /**
  * Props for the Divider component.
@@ -33,18 +24,14 @@ export const Divider = ({ orientation = 'horizontal', style }: Props) => {
   );
 };
 
-const styles = StyleSheet.create(theme => {
-  const dividerTokens = createDividerTokens(theme);
-
-  return {
-    horizontal: {
-      borderBottomColor: dividerTokens.colors.divider,
-      borderBottomWidth: 1,
-    },
-    vertical: {
-      borderRightColor: dividerTokens.colors.divider,
-      borderRightWidth: 1,
-      height: '100%',
-    },
-  };
-});
+const styles = StyleSheet.create(theme => ({
+  horizontal: {
+    borderBottomColor: theme.colors.borderNeutral,
+    borderBottomWidth: 1,
+  },
+  vertical: {
+    borderRightColor: theme.colors.borderNeutral,
+    borderRightWidth: 1,
+    height: '100%',
+  },
+}));

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   AccessibilityActionEvent,
   AccessibilityInfo,
@@ -11,8 +11,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { type Theme } from '../../themes/config';
+import { StyleSheet } from 'react-native-unistyles';
 import { ButtonRound } from '../ButtonRound';
 import { Text } from '../Text';
 import { Minus } from './Minus';
@@ -20,19 +19,9 @@ import { Plus } from './Plus';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
-const createCounterTokens = (theme: Theme) => {
-  return {
-    spacing: {
-      minWidth: 56,
-    },
-    colors: {
-      icon: theme.colors.contentPrimary,
-    },
-    animation: {
-      duration: 100,
-      easing: Easing.ease,
-    },
-  };
+const animationConfig = {
+  duration: 100,
+  easing: Easing.ease,
 };
 
 /**
@@ -87,8 +76,6 @@ export const Counter = ({
       ? Math.min(Math.max(value, minValue), maxValue)
       : minValue,
   );
-  const { theme } = useUnistyles();
-  const counterTokens = useMemo(() => createCounterTokens(theme), [theme]);
 
   // Shared values for animation
   const translateY = useSharedValue(0);
@@ -114,11 +101,8 @@ export const Counter = ({
       const distance = 10; // Large enough to move text out of view with overflow: hidden
 
       // Animate out
-      translateY.value = withTiming(
-        direction * distance,
-        counterTokens.animation,
-      );
-      opacity.value = withTiming(0, counterTokens.animation);
+      translateY.value = withTiming(direction * distance, animationConfig);
+      opacity.value = withTiming(0, animationConfig);
 
       // Update value and animate in after exit animation completes
       setTimeout(() => {
@@ -126,14 +110,14 @@ export const Counter = ({
         translateY.value = direction * -distance; // Start from opposite direction
         opacity.value = 0;
 
-        translateY.value = withTiming(0, counterTokens.animation);
-        opacity.value = withTiming(1, counterTokens.animation);
-      }, counterTokens.animation.duration / 2);
+        translateY.value = withTiming(0, animationConfig);
+        opacity.value = withTiming(1, animationConfig);
+      }, animationConfig.duration / 2);
 
       onValueChange(newValue);
       AccessibilityInfo.announceForAccessibility(`${newValue}`);
     },
-    [count, onValueChange, increment, translateY, opacity, counterTokens],
+    [count, onValueChange, increment, translateY, opacity],
   );
 
   const increase = useCallback(() => {
@@ -198,7 +182,7 @@ export const Counter = ({
         size="small"
         variant="neutral"
         renderContent={({ iconSize }) => (
-          <Minus color={counterTokens.colors.icon} size={iconSize} />
+          <Minus color={styles.icon.color} size={iconSize} />
         )}
         disabled={!canDecrease}
       />
@@ -212,7 +196,7 @@ export const Counter = ({
         size="small"
         variant="neutral"
         renderContent={({ iconSize }) => (
-          <Plus color={counterTokens.colors.icon} size={iconSize} />
+          <Plus color={styles.icon.color} size={iconSize} />
         )}
         disabled={!canIncrease}
       />
@@ -220,24 +204,23 @@ export const Counter = ({
   );
 };
 
-const styles = StyleSheet.create(theme => {
-  const counterTokens = createCounterTokens(theme);
-
-  return {
-    container: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    countContainer: {
-      minWidth: counterTokens.spacing.minWidth,
-      paddingHorizontal: theme.spacing.medium,
-      alignItems: 'center',
-      overflow: 'hidden',
-      position: 'relative',
-    },
-    countText: {
-      fontWeight: 'bold',
-    },
-  };
-});
+const styles = StyleSheet.create(theme => ({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  countContainer: {
+    minWidth: 56,
+    paddingHorizontal: theme.spacing.medium,
+    alignItems: 'center',
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  countText: {
+    fontWeight: 'bold',
+  },
+  icon: {
+    color: theme.colors.contentPrimary,
+  },
+}));
