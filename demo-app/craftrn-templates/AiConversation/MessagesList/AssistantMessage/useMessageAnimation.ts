@@ -6,11 +6,6 @@ import {
   withTiming,
 } from 'react-native-reanimated';
 
-type ScrollMetrics = {
-  listHeight?: number;
-  contentOffset?: number;
-};
-
 const animationConfig = {
   expandDuration: 1000,
   contractDuration: 1000,
@@ -19,61 +14,59 @@ const animationConfig = {
 
 export const useMessageAnimation = (
   isNewMessage: boolean,
-  scrollMetrics: ScrollMetrics,
+  availableSpace?: number,
 ) => {
-  const [initialListHeight, setInitialListHeight] = useState<number | null>(
-    null,
-  );
-  const [hasListHeightChanged, setHasListHeightChanged] = useState(false);
+  const [initialAvailableSpace, setInitialAvailableSpace] = useState<
+    number | null
+  >(null);
+  const [hasSpaceChanged, setHasSpaceChanged] = useState(false);
   const animatedMinHeight = useSharedValue(0);
 
-  const { listHeight, contentOffset } = scrollMetrics;
-
   useEffect(() => {
-    const hasValidMeasurements =
-      (listHeight ?? 0) > 0 && (contentOffset ?? 0) > 0;
+    if (availableSpace === undefined) {
+      const targetHeight = isNewMessage ? 0 : 0;
+      const duration = isNewMessage
+        ? animationConfig.newMessageDuration
+        : animationConfig.contractDuration;
+      const easing = isNewMessage
+        ? Easing.out(Easing.exp)
+        : Easing.in(Easing.exp);
+      animatedMinHeight.value = withTiming(targetHeight, { duration, easing });
+      return;
+    }
 
-    if (hasValidMeasurements && initialListHeight === null && listHeight) {
-      setInitialListHeight(listHeight);
+    if (initialAvailableSpace === null) {
+      setInitialAvailableSpace(availableSpace);
     }
 
     if (
-      initialListHeight !== null &&
-      listHeight !== initialListHeight &&
-      !hasListHeightChanged
+      initialAvailableSpace !== null &&
+      Math.abs(availableSpace - initialAvailableSpace) > 10 &&
+      !hasSpaceChanged
     ) {
-      setHasListHeightChanged(true);
+      setHasSpaceChanged(true);
       animatedMinHeight.value = withTiming(0, { duration: 0 });
       return;
     }
 
-    if (hasListHeightChanged) {
+    if (hasSpaceChanged) {
       return;
     }
 
-    const shouldExpandMessage = isNewMessage && hasValidMeasurements;
-    const targetHeight = shouldExpandMessage
-      ? Math.max((listHeight ?? 0) - (contentOffset ?? 0), 0)
-      : 0;
-
-    const duration = shouldExpandMessage
+    const targetHeight = isNewMessage ? availableSpace : 0;
+    const duration = isNewMessage
       ? animationConfig.expandDuration
-      : isNewMessage
-        ? animationConfig.newMessageDuration
-        : animationConfig.contractDuration;
-
+      : animationConfig.contractDuration;
     const easing = isNewMessage
       ? Easing.out(Easing.exp)
       : Easing.in(Easing.exp);
-
     animatedMinHeight.value = withTiming(targetHeight, { duration, easing });
   }, [
     isNewMessage,
-    listHeight,
-    contentOffset,
+    availableSpace,
     animatedMinHeight,
-    initialListHeight,
-    hasListHeightChanged,
+    initialAvailableSpace,
+    hasSpaceChanged,
   ]);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -82,6 +75,5 @@ export const useMessageAnimation = (
 
   return {
     animatedStyle,
-    hasInitialLayoutCompleted: initialListHeight !== null,
   };
 };

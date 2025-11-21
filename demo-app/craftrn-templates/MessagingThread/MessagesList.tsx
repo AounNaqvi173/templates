@@ -39,7 +39,7 @@ export const MessagesList = ({
 
   const keyboardPadding =
     Platform.OS === 'ios'
-      ? composerHeight
+      ? composerHeight - UnistylesRuntime.insets.bottom
       : composerHeight + UnistylesRuntime.insets.bottom - theme.spacing.medium;
 
   const scrollHandler = useAnimatedScrollHandler(event => {
@@ -72,7 +72,6 @@ export const MessagesList = ({
       <Animated.FlatList<Message>
         ref={scrollRef}
         style={[styles.flatList, flatListAnimatedStyle]}
-        contentContainerStyle={[styles.flatListContentContainer]}
         data={messagesReversed}
         keyboardShouldPersistTaps="handled"
         renderItem={({ item }: { item: Message }) => {
@@ -146,9 +145,6 @@ const styles = StyleSheet.create(theme => ({
   flatList: {
     flex: 1,
     position: 'relative',
-  },
-  flatListContentContainer: {
-    // paddingTop: theme.spacing.xlarge,
   },
   itemContainer: {
     paddingHorizontal: theme.spacing.large,

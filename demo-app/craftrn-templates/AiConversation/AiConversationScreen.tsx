@@ -1,4 +1,7 @@
-import { useHeaderHeight } from '@react-navigation/elements';
+import {
+  getDefaultHeaderHeight,
+  useHeaderHeight,
+} from '@react-navigation/elements';
 import React, {
   ComponentType,
   useCallback,
@@ -6,13 +9,9 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { Platform } from 'react-native';
+import { Platform, useWindowDimensions } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
-import {
-  StyleSheet,
-  UnistylesRuntime,
-  useUnistyles,
-} from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
 import { getRandomAiResponse } from './data/ai-responses';
 import {
   conversationsData,
@@ -30,16 +29,21 @@ export const AiConversationScreen: ComponentType<Props> = ({
   id,
   updateNavigationHeader,
 }) => {
-  const { theme } = useUnistyles();
+  const [composerHeight, setComposerHeight] = useState(80); // Default fallback
   const headerHeight = useHeaderHeight();
+  const { width, height } = useWindowDimensions();
 
-  // Use measured header heights since React Navigation calculations are incorrect
-  const keyboardVerticalOffset =
-    Platform.OS === 'android'
-      ? 112
-      : UnistylesRuntime.insets.bottom
-        ? headerHeight - theme.spacing.large
-        : headerHeight;
+  const keyboardVerticalOffset = useMemo(() => {
+    if (Platform.OS === 'ios') {
+      return headerHeight;
+    }
+    const calculatedHeaderHeight = getDefaultHeaderHeight(
+      { width, height },
+      false,
+      0,
+    );
+    return calculatedHeaderHeight;
+  }, [headerHeight, width, height]);
 
   const conversation = useMemo(
     () => conversationsData.find(conversation => conversation.id === id),
@@ -87,22 +91,28 @@ export const AiConversationScreen: ComponentType<Props> = ({
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-      keyboardVerticalOffset={keyboardVerticalOffset}
-    >
-      <MessagesList
-        messages={messages}
-        aiAssistant={conversation.aiAssistant}
+    <>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior="padding"
+        keyboardVerticalOffset={keyboardVerticalOffset}
+      >
+        <MessagesList
+          messages={messages}
+          aiAssistant={conversation.aiAssistant}
+          composerHeight={composerHeight}
+        />
+      </KeyboardAvoidingView>
+      <MessageComposer
+        onSendMessage={handleSendMessage}
+        onHeightChange={setComposerHeight}
       />
-      <MessageComposer onSendMessage={handleSendMessage} />
-    </KeyboardAvoidingView>
+    </>
   );
 };
 
-const styles = StyleSheet.create(theme => ({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-}));
+});
