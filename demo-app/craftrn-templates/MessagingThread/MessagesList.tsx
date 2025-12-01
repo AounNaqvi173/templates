@@ -15,6 +15,7 @@ import {
   useUnistyles,
 } from 'react-native-unistyles';
 import { BackToBottomButton } from './BackToBottomButton';
+import { useComposerHeight } from './ComposerHeightContext';
 import { Message } from './data/discussions';
 import { User } from './data/users';
 import { formatTime } from './utils/date';
@@ -23,19 +24,18 @@ type MessagesListProps = {
   participants: User[];
   messages: Message[];
   onShowMoreBottomSheet: () => void;
-  composerHeight: number;
 };
 
 export const MessagesList = ({
   participants,
   messages,
   onShowMoreBottomSheet,
-  composerHeight,
 }: MessagesListProps) => {
   const scrollRef = useAnimatedRef<Animated.FlatList<Message>>();
   const scrollPosition = useSharedValue(0);
   const { progress } = useReanimatedKeyboardAnimation();
   const { theme } = useUnistyles();
+  const { composerHeight } = useComposerHeight();
 
   const keyboardPadding =
     Platform.OS === 'ios'

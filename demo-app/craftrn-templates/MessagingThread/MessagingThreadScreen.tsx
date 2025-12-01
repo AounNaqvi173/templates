@@ -12,6 +12,7 @@ import React, {
 import { Platform, useWindowDimensions } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { StyleSheet } from 'react-native-unistyles';
+import { ComposerHeightProvider } from './ComposerHeightContext';
 import { discussionsData } from './data/discussions';
 import { currentUser, User } from './data/users';
 import { MessageComposer } from './MessageComposer';
@@ -28,7 +29,6 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
   updateNavigationHeader,
 }) => {
   const [moreBottomSheetVisible, setMoreBottomSheetVisible] = useState(false);
-  const [composerHeight, setComposerHeight] = useState(64); // Default fallback
   const headerHeight = useHeaderHeight();
   const { width, height } = useWindowDimensions();
 
@@ -71,7 +71,7 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
   }
 
   return (
-    <>
+    <ComposerHeightProvider>
       <KeyboardAvoidingView
         style={styles.container}
         behavior="padding"
@@ -81,15 +81,14 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
           participants={chat.participants}
           messages={chat.messages}
           onShowMoreBottomSheet={handleShowMoreBottomSheet}
-          composerHeight={composerHeight}
         />
       </KeyboardAvoidingView>
-      <MessageComposer onHeightChange={setComposerHeight} />
+      <MessageComposer />
       <MoreBottomSheet
         visible={moreBottomSheetVisible}
         onRequestClose={handleMoreBottomSheetRequestClose}
       />
-    </>
+    </ComposerHeightProvider>
   );
 };
 

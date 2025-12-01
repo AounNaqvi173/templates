@@ -12,6 +12,7 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
+import { useComposerHeight } from '../ComposerHeightContext';
 import { AiAssistant, Message } from '../data/conversations';
 import { BackToBottomButton } from './BackToBottomButton';
 import { MessageItem } from './MessageItem';
@@ -20,23 +21,17 @@ import { useNewMessageDetection } from './useNewMessageDetection';
 type AssistantMessagesListProps = {
   messages: Message[];
   aiAssistant: AiAssistant;
-  composerHeight: number;
 };
 
-export const MessagesList = ({
-  messages,
-  composerHeight,
-}: AssistantMessagesListProps) => {
+export const MessagesList = ({ messages }: AssistantMessagesListProps) => {
   const [listHeight, setListHeight] = useState(0);
   const [userMessageHeight, setUserMessageHeight] = useState(0);
   const scrollRef = useAnimatedRef<Animated.FlatList<Message>>();
   const scrollPosition = useSharedValue(0);
   const { progress } = useReanimatedKeyboardAnimation();
   const { theme } = useUnistyles();
+  const { composerHeight } = useComposerHeight();
 
-  // Calculate padding based on measured composer height and platform-specific adjustments
-  // iOS: Just the composer height
-  // Android: composerHeight + bottomInset - spacing.large (accounts for the added bottom inset in composer)
   const keyboardPadding =
     Platform.OS === 'ios'
       ? composerHeight - UnistylesRuntime.insets.bottom

@@ -14,6 +14,7 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
+import { useComposerHeight } from './ComposerHeightContext';
 
 const BUTTON_SIZE = 36;
 const TEXT_INPUT_HEIGHT = 36;
@@ -25,14 +26,11 @@ const animConfig = {
 export const getStickyOffset = (theme: Theme) =>
   Math.max(UnistylesRuntime.insets.bottom, theme.spacing.medium);
 
-type MessageComposerProps = {
-  onHeightChange?: (height: number) => void;
-};
-
-export const MessageComposer = ({ onHeightChange }: MessageComposerProps) => {
+export const MessageComposer = () => {
   const inputRef = useRef<TextInput>(null);
   const [inputValue, setInputValue] = useState('');
   const { theme } = useUnistyles();
+  const { setComposerHeight } = useComposerHeight();
   const buttonTranslateDistance = theme.spacing.large * 2;
 
   const stickyOffset = getStickyOffset(theme);
@@ -75,7 +73,7 @@ export const MessageComposer = ({ onHeightChange }: MessageComposerProps) => {
         style={styles.container}
         onLayout={event => {
           const { height } = event.nativeEvent.layout;
-          onHeightChange?.(height);
+          setComposerHeight(height);
         }}
       >
         <ButtonRound

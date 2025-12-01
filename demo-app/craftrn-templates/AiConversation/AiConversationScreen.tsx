@@ -12,6 +12,7 @@ import React, {
 import { Platform, useWindowDimensions } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { StyleSheet } from 'react-native-unistyles';
+import { ComposerHeightProvider } from './ComposerHeightContext';
 import { getRandomAiResponse } from './data/ai-responses';
 import {
   conversationsData,
@@ -29,7 +30,6 @@ export const AiConversationScreen: ComponentType<Props> = ({
   id,
   updateNavigationHeader,
 }) => {
-  const [composerHeight, setComposerHeight] = useState(80); // Default fallback
   const headerHeight = useHeaderHeight();
   const { width, height } = useWindowDimensions();
 
@@ -91,7 +91,7 @@ export const AiConversationScreen: ComponentType<Props> = ({
   }
 
   return (
-    <>
+    <ComposerHeightProvider>
       <KeyboardAvoidingView
         style={styles.container}
         behavior="padding"
@@ -100,14 +100,10 @@ export const AiConversationScreen: ComponentType<Props> = ({
         <MessagesList
           messages={messages}
           aiAssistant={conversation.aiAssistant}
-          composerHeight={composerHeight}
         />
       </KeyboardAvoidingView>
-      <MessageComposer
-        onSendMessage={handleSendMessage}
-        onHeightChange={setComposerHeight}
-      />
-    </>
+      <MessageComposer onSendMessage={handleSendMessage} />
+    </ComposerHeightProvider>
   );
 };
 

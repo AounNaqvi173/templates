@@ -7,6 +7,7 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
+import { useComposerHeight } from '../ComposerHeightContext';
 import { ActionButtons } from './ActionButtons';
 import { AttachmentBottomSheet } from './AttachmentBottomSheet';
 import { InputField } from './InputField';
@@ -17,13 +18,13 @@ export const getStickyOffset = (theme: Theme) =>
 
 type Props = {
   onSendMessage?: (content: string) => void;
-  onHeightChange?: (height: number) => void;
 };
 
-export const MessageComposer = ({ onSendMessage, onHeightChange }: Props) => {
+export const MessageComposer = ({ onSendMessage }: Props) => {
   const inputRef = useRef<TextInput>(null);
   const [inputValue, setInputValue] = useState('');
   const { theme } = useUnistyles();
+  const { setComposerHeight } = useComposerHeight();
   const [isAttachmentSheetVisible, setIsAttachmentSheetVisible] =
     useState(false);
   const [isVoiceRecordingSheetVisible, setIsVoiceRecordingSheetVisible] =
@@ -72,7 +73,7 @@ export const MessageComposer = ({ onSendMessage, onHeightChange }: Props) => {
         style={styles.container}
         onLayout={event => {
           const { height } = event.nativeEvent.layout;
-          onHeightChange?.(height);
+          setComposerHeight(height);
         }}
       >
         <InputField
