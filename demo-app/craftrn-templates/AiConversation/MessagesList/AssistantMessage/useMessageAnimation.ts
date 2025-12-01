@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller';
 import {
   Easing,
   useAnimatedStyle,
@@ -16,10 +17,11 @@ export const useMessageAnimation = (
   isNewMessage: boolean,
   availableSpace?: number,
 ) => {
-  const [initialAvailableSpace, setInitialAvailableSpace] = useState<
+  const { progress } = useReanimatedKeyboardAnimation();
+  const [hasKeyboardChanged, setHasKeyboardChanged] = useState(false);
+  const [initialKeyboardProgress, setInitialKeyboardProgress] = useState<
     number | null
   >(null);
-  const [hasSpaceChanged, setHasSpaceChanged] = useState(false);
   const animatedMinHeight = useSharedValue(0);
 
   useEffect(() => {
@@ -35,21 +37,21 @@ export const useMessageAnimation = (
       return;
     }
 
-    if (initialAvailableSpace === null) {
-      setInitialAvailableSpace(availableSpace);
+    if (initialKeyboardProgress === null) {
+      setInitialKeyboardProgress(progress.value);
     }
 
     if (
-      initialAvailableSpace !== null &&
-      Math.abs(availableSpace - initialAvailableSpace) > 10 &&
-      !hasSpaceChanged
+      initialKeyboardProgress !== null &&
+      Math.abs(progress.value - initialKeyboardProgress) > 0.1 &&
+      !hasKeyboardChanged
     ) {
-      setHasSpaceChanged(true);
+      setHasKeyboardChanged(true);
       animatedMinHeight.value = withTiming(0, { duration: 0 });
       return;
     }
 
-    if (hasSpaceChanged) {
+    if (hasKeyboardChanged) {
       return;
     }
 
@@ -64,9 +66,10 @@ export const useMessageAnimation = (
   }, [
     isNewMessage,
     availableSpace,
+    progress.value,
     animatedMinHeight,
-    initialAvailableSpace,
-    hasSpaceChanged,
+    initialKeyboardProgress,
+    hasKeyboardChanged,
   ]);
 
   const animatedStyle = useAnimatedStyle(() => ({
