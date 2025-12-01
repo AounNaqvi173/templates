@@ -10,7 +10,6 @@ type FormattedTextProps = {
 
 export const FormattedText = ({ children, style }: FormattedTextProps) => {
   const parseContent = useCallback(() => {
-    // Split by paragraphs first (double line breaks)
     const paragraphs = children.split('\n\n').filter(p => p.trim());
 
     return paragraphs.map((paragraph, paragraphIndex) => {
@@ -58,7 +57,6 @@ export const FormattedText = ({ children, style }: FormattedTextProps) => {
               </Text>
             );
           } else {
-            // Handle single line breaks within paragraphs
             return segment
               .split('\n')
               .map((line, lineIndex) => (lineIndex > 0 ? '\n' + line : line))

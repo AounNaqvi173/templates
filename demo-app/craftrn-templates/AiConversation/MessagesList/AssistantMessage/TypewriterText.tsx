@@ -28,7 +28,6 @@ export const TypewriterText = ({
     let currentWordIndex = 0;
     setDisplayedText('');
 
-    // Clear any existing interval
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
