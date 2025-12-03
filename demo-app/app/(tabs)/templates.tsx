@@ -46,8 +46,6 @@ import { ComponentType } from 'react';
 import {
   Image,
   ImageSourcePropType,
-  Linking,
-  Platform,
   Pressable,
   Text,
   View,
@@ -77,14 +75,6 @@ export const MenuItem: ComponentType<{
       </Pressable>
     </Card>
   );
-};
-
-const openDeviceSettings = () => {
-  if (Platform.OS === 'ios') {
-    Linking.openURL('App-Prefs:root=DISPLAY');
-  } else if (Platform.OS === 'android') {
-    Linking.sendIntent('android.settings.DISPLAY_SETTINGS', []);
-  }
 };
 
 export default function TemplatesScreen() {

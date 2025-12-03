@@ -9,16 +9,11 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
 
-type BottomSheetVariant = 'primary' | 'secondary';
-
 export default function BottomSheetScreen() {
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
   const [enableSwipeToClose, setEnableSwipeToClose] = useState(false);
   const [enableOverlayTapToClose, setEnableOverlayTapToClose] = useState(false);
   const [showHandleBar, setShowHandleBar] = useState(false);
-  const [variant, setVariant] = useState<BottomSheetVariant>('primary');
-
-  const variants: BottomSheetVariant[] = ['primary', 'secondary'];
 
   return (
     <>
