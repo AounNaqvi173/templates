@@ -212,16 +212,12 @@ export const Slider = ({
     [adjustValue],
   );
 
-  const gesture = Gesture.Pan()
+  const panGesture = Gesture.Pan()
     .minDistance(1)
     .onBegin(() => {
       'worklet';
       prevPosition.value = position.value;
       isDragging.value = true;
-      knobScale.value = withTiming(
-        animationConfig.scale.activeKnobScale,
-        animationConfig.scale.timing,
-      );
     })
     .onUpdate(e => {
       'worklet';
@@ -239,8 +235,18 @@ export const Slider = ({
         finalPosition,
         animationConfig.position.spring,
       );
-      knobScale.value = withTiming(1, animationConfig.scale.timing);
       notifyValueChange();
+    })
+    .onTouchesDown(() => {
+      'worklet';
+      knobScale.value = withTiming(
+        animationConfig.scale.activeKnobScale,
+        animationConfig.scale.timing,
+      );
+    })
+    .onTouchesUp(() => {
+      'worklet';
+      knobScale.value = withTiming(1, animationConfig.scale.timing);
     });
 
   const knobStyle = useAnimatedStyle(() => ({
@@ -264,7 +270,7 @@ export const Slider = ({
           key={`slider-fill-${UnistylesRuntime.themeName}`}
           style={[styles.fill, fillStyle]}
         />
-        <GestureDetector gesture={gesture}>
+        <GestureDetector gesture={panGesture}>
           <Animated.View
             key={`slider-knob-${UnistylesRuntime.themeName}`}
             style={[styles.knob, knobStyle]}

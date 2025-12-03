@@ -310,10 +310,6 @@ export const SliderDual = ({
           'worklet';
           prevPosition.value = position.value;
           isDragging.value = true;
-          scale.value = withTiming(
-            animationConfig.scale.activeKnobScale,
-            animationConfig.scale.timing,
-          );
         })
         .onUpdate(e => {
           'worklet';
@@ -358,8 +354,18 @@ export const SliderDual = ({
             finalPosition,
             animationConfig.position.spring,
           );
-          scale.value = withTiming(1, animationConfig.scale.timing);
           notifyValueChange();
+        })
+        .onTouchesDown(() => {
+          'worklet';
+          scale.value = withTiming(
+            animationConfig.scale.activeKnobScale,
+            animationConfig.scale.timing,
+          );
+        })
+        .onTouchesUp(() => {
+          'worklet';
+          scale.value = withTiming(1, animationConfig.scale.timing);
         }),
     [
       isDragging,
