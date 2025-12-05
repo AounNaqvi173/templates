@@ -9,7 +9,11 @@ import React, {
   useState,
 } from 'react';
 import { View } from 'react-native';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 import { RecordingTimer } from './RecordingTimer';
 import { VoiceWaveAnimation } from './VoiceWaveAnimation';
 
@@ -46,7 +50,6 @@ export const VoiceRecordingBottomSheet: ComponentType<Props> = ({
       onRequestClose={onRequestClose}
       onClose={handleClose}
       visible={visible}
-      variant="secondary"
       showHandleBar={false}
     >
       <View style={styles.container}>
@@ -54,8 +57,9 @@ export const VoiceRecordingBottomSheet: ComponentType<Props> = ({
           renderContent={({ iconSize }) => (
             <Close color={theme.colors.contentSecondary} size={iconSize} />
           )}
+          animationConfig={{ scaleIn: 1.1 }}
           onPress={onRequestClose}
-          intent="primary"
+          variant="neutral"
           size="large"
         />
         <View style={styles.centerSection}>
@@ -66,8 +70,9 @@ export const VoiceRecordingBottomSheet: ComponentType<Props> = ({
           renderContent={({ iconSize }) => (
             <ArrowUp color={theme.colors.contentSecondary} size={iconSize} />
           )}
+          animationConfig={{ scaleIn: 1.1 }}
           onPress={handleSend}
-          intent="primary"
+          variant="neutral"
           size="large"
         />
       </View>
@@ -78,7 +83,7 @@ export const VoiceRecordingBottomSheet: ComponentType<Props> = ({
 const styles = StyleSheet.create(theme => ({
   container: {
     paddingHorizontal: theme.spacing.large,
-    paddingTop: theme.spacing.xlarge,
+    paddingTop: theme.spacing.xxlarge,
     paddingBottom: Math.max(
       UnistylesRuntime.insets.bottom + theme.spacing.medium,
       theme.spacing.xlarge,

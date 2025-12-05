@@ -25,22 +25,25 @@ export const ActionButtons = ({
         renderContent={({ iconSize }) => (
           <Plus color={theme.colors.contentSecondary} size={iconSize} />
         )}
+        animationConfig={{ scaleIn: 1.1 }}
         onPress={onAttachmentPress}
-        intent="secondary"
+        variant="neutral"
       />
       <View style={styles.spacer} />
       <ButtonRound
         renderContent={({ iconSize }) => (
           <Mic color={theme.colors.contentSecondary} size={iconSize} />
         )}
+        animationConfig={{ scaleIn: 1.1 }}
         onPress={onVoiceRecordingPress}
-        intent="secondary"
+        variant="neutral"
       />
       <ButtonRound
         variant="reversed"
         renderContent={({ iconSize, iconColor }) => (
           <ArrowUp color={iconColor} size={iconSize} />
         )}
+        animationConfig={{ scaleIn: 1.1 }}
         onPress={onSendPress}
       />
     </View>

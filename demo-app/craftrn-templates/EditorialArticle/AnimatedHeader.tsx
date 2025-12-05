@@ -1,4 +1,3 @@
-import { buttonRoundConfig } from '@/craftrn-ui/components/ButtonRound';
 import { Text } from '@/craftrn-ui/components/Text';
 import { useHeaderHeight } from '@react-navigation/elements';
 import React, { ComponentType } from 'react';
@@ -7,7 +6,11 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 
 type AnimatedHeaderProps = {
   scrollPosition: SharedValue<number>;
@@ -46,11 +49,10 @@ export const AnimatedHeader: ComponentType<AnimatedHeaderProps> = ({
         styles.header,
         headerAnimatedStyle,
         {
-          paddingLeft:
-            theme.spacing.large * 2 + buttonRoundConfig.medium.buttonSize,
+          paddingLeft: theme.spacing.large * 2 + 32, // Account for back button + spacing
           height: headerHeight,
           paddingTop: UnistylesRuntime.insets.top - theme.spacing.xsmall,
-          shadowColor: theme.colors.shadowPrimary,
+          shadowColor: theme.colors.backgroundNeutral,
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.1,
           shadowRadius: 2,
@@ -72,7 +74,7 @@ const styles = StyleSheet.create(theme => ({
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     zIndex: 10,
     elevation: 5,
   },

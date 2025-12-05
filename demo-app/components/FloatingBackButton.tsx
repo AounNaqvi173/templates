@@ -25,7 +25,7 @@ export const FloatingBackButton = () => {
     opacity.value = withTiming(1, { duration: 300 });
 
     const timer = setTimeout(() => {
-      opacity.value = withTiming(0.5, { duration: 300 });
+      opacity.value = withTiming(0.3, { duration: 300 });
     }, 1000);
 
     return () => clearTimeout(timer);
@@ -80,7 +80,7 @@ export const FloatingBackButton = () => {
       <Animated.View style={[styles.container, animatedStyle]}>
         <View style={styles.button}>
           <ButtonRound
-            variant="accent"
+            variant="primary"
             onPress={handleBack}
             renderContent={({ iconSize, iconColor }) => (
               <Home size={iconSize} color={iconColor} />
@@ -97,12 +97,12 @@ const styles = StyleSheet.create(({ spacing, borderRadius, colors }) => ({
     position: 'absolute',
     left: 8,
     top: '50%',
-    zIndex: 1000,
+    zIndex: 100,
     transform: [{ translateY: -24 }],
   },
   button: {
-    backgroundColor: colors.surfaceTertiary + '80',
+    backgroundColor: colors.interactiveSecondaryContent + '90',
     borderRadius: borderRadius.full,
-    padding: spacing.small,
+    padding: spacing.xsmall,
   },
 }));

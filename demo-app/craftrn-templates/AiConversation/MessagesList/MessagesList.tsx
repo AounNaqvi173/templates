@@ -1,11 +1,18 @@
 import React, { useMemo, useState } from 'react';
-import { LayoutChangeEvent, View } from 'react-native';
+import { LayoutChangeEvent, Platform, View } from 'react-native';
+import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller';
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
+  useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import { StyleSheet } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
+import { useComposerHeight } from '../ComposerHeightContext';
 import { AiAssistant, Message } from '../data/conversations';
 import { BackToBottomButton } from './BackToBottomButton';
 import { MessageItem } from './MessageItem';
@@ -21,9 +28,29 @@ export const MessagesList = ({ messages }: AssistantMessagesListProps) => {
   const [userMessageHeight, setUserMessageHeight] = useState(0);
   const scrollRef = useAnimatedRef<Animated.FlatList<Message>>();
   const scrollPosition = useSharedValue(0);
+  const { progress } = useReanimatedKeyboardAnimation();
+  const { theme } = useUnistyles();
+  const { composerHeight } = useComposerHeight();
+
+  const keyboardPadding =
+    Platform.OS === 'ios'
+      ? composerHeight - UnistylesRuntime.insets.bottom
+      : composerHeight + UnistylesRuntime.insets.bottom - theme.spacing.large;
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     scrollPosition.value = event.contentOffset.y;
+  });
+
+  const flatListAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      paddingTop: progress.value * keyboardPadding,
+    };
+  });
+
+  const backToBottomAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: -progress.value * keyboardPadding }],
+    };
   });
 
   const messagesReversed = useMemo(() => [...messages].reverse(), [messages]);
@@ -57,6 +84,7 @@ export const MessagesList = ({ messages }: AssistantMessagesListProps) => {
       isNewMessage={isNewMessage(message.id)}
       listHeight={listHeight}
       userMessageHeight={userMessageHeight}
+      composerHeight={composerHeight}
       onUserMessageLayout={handleUserMessageLayout}
     />
   );
@@ -70,7 +98,7 @@ export const MessagesList = ({ messages }: AssistantMessagesListProps) => {
     <View style={styles.container} onLayout={handleListLayout}>
       <Animated.FlatList<Message>
         ref={scrollRef}
-        style={styles.flatList}
+        style={[styles.flatList, flatListAnimatedStyle]}
         contentContainerStyle={styles.flatListContentContainer}
         data={messagesReversed}
         keyExtractor={item => item.id}
@@ -81,10 +109,12 @@ export const MessagesList = ({ messages }: AssistantMessagesListProps) => {
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="interactive"
       />
-      <BackToBottomButton
-        scrollPosition={scrollPosition}
-        scrollRef={scrollRef}
-      />
+      <Animated.View style={backToBottomAnimatedStyle}>
+        <BackToBottomButton
+          scrollPosition={scrollPosition}
+          scrollRef={scrollRef}
+        />
+      </Animated.View>
     </View>
   );
 };

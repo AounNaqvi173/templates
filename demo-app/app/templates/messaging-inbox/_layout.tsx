@@ -15,17 +15,16 @@ export default function MessagingInboxLayout() {
           headerTransparent: Platform.OS === 'ios',
           headerShadowVisible: Platform.OS === 'ios',
           headerStyle: {
-            backgroundColor:
-              Platform.OS === 'ios'
-                ? `${theme.colors.backgroundSecondary}55`
-                : theme.colors.backgroundPrimary,
+            backgroundColor: theme.colors.backgroundElevated,
           },
-          contentStyle: { backgroundColor: theme.colors.backgroundPrimary },
+          contentStyle: {
+            backgroundColor: theme.colors.backgroundScreenSecondary,
+          },
           headerTintColor: theme.colors.contentPrimary,
           headerLargeTitle: true,
           headerLargeTitleShadowVisible: false,
           headerLargeStyle: {
-            backgroundColor: theme.colors.backgroundPrimary,
+            backgroundColor: theme.colors.backgroundElevated,
           },
           headerLeft: () => <></>,
         }}

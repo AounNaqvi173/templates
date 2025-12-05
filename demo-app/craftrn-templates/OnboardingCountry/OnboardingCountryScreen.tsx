@@ -4,13 +4,15 @@ import { CheckLarge } from '@/tetrisly-icons/CheckLarge';
 import { Search } from '@/tetrisly-icons/Search';
 import { useHeaderHeight } from '@react-navigation/elements';
 import React, { ComponentType, useCallback, useMemo, useState } from 'react';
-import { FlatList, Image, Platform, View } from 'react-native';
+import { FlatList, Platform, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import {
   StyleSheet,
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
+import { Avatar } from '../../craftrn-ui/components/Avatar';
+import { Divider } from '../../craftrn-ui/components/Divider';
 import { countryCodes } from './data/countryCodes';
 
 const FLAG_SIZE = 24;
@@ -64,13 +66,14 @@ export const OnboardingCountryScreen: ComponentType<Props> = ({
           value={searchQuery}
           onChangeText={setSearchQuery}
           style={styles.searchInput}
-          leftAccessory={
+          itemLeft={
             <View style={styles.searchIconContainer}>
-              <Search color={theme.colors.contentQuaternary} />
+              <Search color={theme.colors.contentTertiary} />
             </View>
           }
         />
       </View>
+      <Divider style={styles.searchDivider} />
       <FlatList
         style={styles.list}
         data={data}
@@ -82,10 +85,9 @@ export const OnboardingCountryScreen: ComponentType<Props> = ({
               onPress={handlePressItem(item)}
               text={item.name}
               itemLeft={
-                <Image
-                  source={{ uri: item.flagUrl }}
-                  style={styles.flagImage}
-                />
+                <View style={styles.flagContainer}>
+                  <Avatar source={{ uri: item.flagUrl }} size="small" />
+                </View>
               }
               itemRight={
                 countryCode === item.code ? (
@@ -94,7 +96,7 @@ export const OnboardingCountryScreen: ComponentType<Props> = ({
               }
               style={styles.listItem}
             />
-            {index !== data.length - 1 && <View style={styles.divider} />}
+            {index !== data.length - 1 && <Divider style={styles.divider} />}
           </>
         )}
       />
@@ -110,8 +112,10 @@ const styles = StyleSheet.create(theme => ({
     paddingHorizontal: theme.spacing.large,
     paddingTop: theme.spacing.medium,
     paddingBottom: theme.spacing.large,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.borderPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
+  },
+  searchDivider: {
+    borderBottomColor: theme.colors.borderNeutralSecondary,
   },
   searchIconContainer: {
     marginRight: theme.spacing.small,
@@ -129,15 +133,12 @@ const styles = StyleSheet.create(theme => ({
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.large,
   },
-  flagImage: {
-    width: FLAG_SIZE,
-    height: FLAG_SIZE,
-    borderRadius: theme.borderRadius.small,
+  flagContainer: {
     marginRight: theme.spacing.medium,
   },
   divider: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.borderPrimary,
+    borderBottomColor: theme.colors.borderNeutralSecondary,
     marginLeft: theme.spacing.large + FLAG_SIZE + theme.spacing.medium,
   },
 }));

@@ -10,7 +10,7 @@ export default function TradingLayout() {
         headerShown: false,
         statusBarTranslucent: true,
         contentStyle: {
-          backgroundColor: theme.colors.backgroundSecondary,
+          backgroundColor: theme.colors.backgroundScreen,
         },
       }}
     >

@@ -1,13 +1,17 @@
 import { BottomSheet } from '@/craftrn-ui/components/BottomSheet';
 import { ButtonRound } from '@/craftrn-ui/components/ButtonRound';
-import { Card } from '@/craftrn-ui/components/Card';
 import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Text } from '@/craftrn-ui/components/Text';
 import { Bell } from '@/tetrisly-icons/Bell';
 import { TimeClock } from '@/tetrisly-icons/TimeClock';
 import React, { ComponentProps, ComponentType } from 'react';
 import { View } from 'react-native';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
+import { Card } from '../../craftrn-ui/components/Card';
 
 type Props = Pick<
   ComponentProps<typeof BottomSheet>,
@@ -34,7 +38,6 @@ export const MoreBottomSheet: ComponentType<Props> = ({
       onRequestClose={onRequestClose}
       onClose={onClose}
       visible={visible}
-      variant="secondary"
       showHandleBar
     >
       <View style={styles.container}>
@@ -45,7 +48,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
                 onPress={onRequestClose}
                 size="large"
                 key={reaction}
-                intent="primary"
+                variant="neutral-secondary"
                 renderContent={() => <Text>{reaction}</Text>}
               />
             ))}
@@ -54,7 +57,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
             <ListItem
               text="Get reply notifications"
               onPress={onRequestClose}
-              itemRight={
+              itemLeft={
                 <View style={styles.icon}>
                   <Bell {...iconProps} />
                 </View>
@@ -65,7 +68,7 @@ export const MoreBottomSheet: ComponentType<Props> = ({
             <ListItem
               text="Remind me"
               onPress={onRequestClose}
-              itemRight={
+              itemLeft={
                 <View style={styles.icon}>
                   <TimeClock {...iconProps} />
                 </View>
@@ -86,20 +89,22 @@ const styles = StyleSheet.create(theme => ({
       UnistylesRuntime.insets.bottom,
       theme.spacing.large,
     ),
+    backgroundColor: theme.colors.backgroundNeutral,
   },
   content: {
-    gap: theme.spacing.large,
+    gap: theme.spacing.xsmall,
   },
   reactionContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: theme.spacing.large,
   },
   name: {
     marginLeft: theme.spacing.medium,
     fontWeight: 'bold',
   },
   item: {
-    padding: theme.spacing.large,
+    padding: theme.spacing.medium,
   },
   icon: {
     marginRight: theme.spacing.small,

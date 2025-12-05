@@ -13,11 +13,13 @@ export default function OnboardingCreatePasscodeLayout() {
         options={{
           headerTitle: '',
           headerShadowVisible: false,
-          headerStyle: { backgroundColor: theme.colors.backgroundSecondary },
-          contentStyle: { backgroundColor: theme.colors.backgroundSecondary },
+          headerStyle: { backgroundColor: theme.colors.backgroundElevated },
+          contentStyle: {
+            backgroundColor: theme.colors.backgroundScreenSecondary,
+          },
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} />
+              <NavigationBackButton variant="neutral" onPress={router.back} />
             ) : undefined,
         }}
       />

@@ -32,11 +32,11 @@ const styles = StyleSheet.create(theme => ({
   },
   statCard: {
     flex: 1,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     borderRadius: theme.borderRadius.medium,
     padding: theme.spacing.medium,
     alignItems: 'center',
-    shadowColor: theme.colors.shadowPrimary,
+    shadowColor: theme.colors.backgroundNeutral,
     shadowOffset: {
       width: 0,
       height: 2,

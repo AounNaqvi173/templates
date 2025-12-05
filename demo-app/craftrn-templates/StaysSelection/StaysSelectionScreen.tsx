@@ -4,7 +4,11 @@ import { Search } from '@/tetrisly-icons/Search';
 import { Slider } from '@/tetrisly-icons/Slider';
 import { ComponentType, default as React } from 'react';
 import { FlatList, View } from 'react-native';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 import { staysData } from './data/stays';
 import { ListingCard } from './ListingCard';
 
@@ -27,12 +31,12 @@ export const StaysSelectionScreen: ComponentType<Props> = ({
         <View style={styles.inputSearchWrapper}>
           <InputSearch
             placeholder="Search for a destination"
-            leftAccessory={
-              <View style={styles.inputSearchLeftAccessory}>
+            itemLeft={
+              <View style={styles.inputSearchItemLeft}>
                 <Search color={theme.colors.contentTertiary} />
               </View>
             }
-            rightAccessory={
+            itemRight={
               <ButtonRound
                 renderContent={({ iconSize }) => (
                   <Slider
@@ -40,7 +44,8 @@ export const StaysSelectionScreen: ComponentType<Props> = ({
                     color={theme.colors.contentTertiary}
                   />
                 )}
-                intent="secondary"
+                animationConfig={{ scaleIn: 1.1 }}
+                variant="neutral"
                 onPress={onPressFilter}
               />
             }
@@ -84,7 +89,7 @@ const styles = StyleSheet.create(theme => ({
     shadowRadius: 1,
     shadowOpacity: 0.05,
   },
-  inputSearchLeftAccessory: {
+  inputSearchItemLeft: {
     paddingHorizontal: theme.spacing.small,
   },
   listingCardContainer: {
@@ -93,7 +98,7 @@ const styles = StyleSheet.create(theme => ({
   textFieldView: {
     borderRadius: theme.borderRadius.full,
     paddingHorizontal: theme.spacing.large,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
   },
   flatListContent: {
     gap: theme.spacing.xlarge,

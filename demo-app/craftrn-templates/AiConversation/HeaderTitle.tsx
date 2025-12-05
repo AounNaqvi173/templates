@@ -1,4 +1,7 @@
-import { ContextMenu } from '@/craftrn-ui/components/ContextMenu';
+import {
+  ContextMenu,
+  ContextMenuElement,
+} from '@/craftrn-ui/components/ContextMenu';
 import { Text } from '@/craftrn-ui/components/Text/Text';
 import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
 import React from 'react';
@@ -15,7 +18,7 @@ export const HeaderTitle = ({
 }) => {
   const { theme } = useUnistyles();
 
-  const contextMenuItems = [
+  const contextMenuItems: ContextMenuElement[] = [
     {
       id: 'o3',
       label: 'OpenAI o3',
@@ -47,7 +50,7 @@ export const HeaderTitle = ({
               <Text variant="body1" style={styles.name}>
                 {title}
               </Text>
-              <ChevronDown color={theme.colors.contentQuaternary} size={16} />
+              <ChevronDown color={theme.colors.contentTertiary} size={16} />
             </View>
             <Text variant="body3" color="contentSecondary" style={styles.model}>
               {aiAssistant.model}

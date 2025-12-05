@@ -1,5 +1,6 @@
 import { Button } from '@/craftrn-ui/components/Button';
 import { Card } from '@/craftrn-ui/components/Card';
+import { Divider } from '@/craftrn-ui/components/Divider';
 import { InputText } from '@/craftrn-ui/components/InputText';
 import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Text } from '@/craftrn-ui/components/Text';
@@ -7,7 +8,6 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 import AccordionItem from './AccordionItem';
-import { Divider } from './Divider';
 import { SectionHeader } from './SectionHeader';
 import { profileData } from './data/profileData';
 
@@ -156,7 +156,6 @@ const styles = StyleSheet.create(theme => ({
   accordionContent: {
     padding: theme.spacing.large,
     paddingTop: theme.spacing.small,
-    backgroundColor: theme.colors.surfacePrimary,
     gap: theme.spacing.medium,
   },
   accordionButton: {

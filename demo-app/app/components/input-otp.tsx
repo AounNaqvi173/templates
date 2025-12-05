@@ -1,5 +1,7 @@
 import { Card } from '@/craftrn-ui/components/Card';
 import { InputOTP } from '@/craftrn-ui/components/InputOTP';
+import { ListItem } from '@/craftrn-ui/components/ListItem';
+import { Switch } from '@/craftrn-ui/components/Switch';
 import { Text } from '@/craftrn-ui/components/Text';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { Stack } from 'expo-router';
@@ -7,11 +9,13 @@ import React, { useCallback, useState } from 'react';
 import { ScrollView, TextInput, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
+import { Divider } from '../../craftrn-ui/components/Divider';
 
 export default function InputOTPScreen() {
   const headerHeight = useHeaderHeight();
 
   const [otp, setOtp] = useState('');
+  const [hasError, setHasError] = useState(false);
 
   const handleOtpChange = useCallback((value: string) => {
     setOtp(value);
@@ -38,39 +42,43 @@ export default function InputOTPScreen() {
         {/* Demo OTP */}
         <View style={styles.demoSection}>
           <Card style={styles.demoContainer}>
-            <InputOTP onChange={handleOtpChange} />
-            {otp && (
-              <Text
-                variant="body3"
-                color="contentSecondary"
-                style={styles.otpValue}
-              >
-                Entered: {otp}
-              </Text>
-            )}
+            <InputOTP
+              onChange={handleOtpChange}
+              error={hasError && otp.length === 6}
+            />
+            <Text
+              variant="body3"
+              color="contentSecondary"
+              style={styles.otpValue({ opacity: otp ? 1 : 0 })}
+            >
+              Entered: {otp}
+            </Text>
           </Card>
         </View>
 
         {/* Controls */}
-        <View style={styles.controlsSection}>
-          <Card style={styles.controlsContainer}>
-            <Text variant="body2" style={styles.controlsLabel}>
-              Copy/Paste
-            </Text>
-            <Text
-              variant="body3"
-              color="contentSecondary"
-              style={styles.controlsDescription}
-            >
-              Copy the text below and paste it into the OTP input above
-            </Text>
+        <Card style={styles.controlsCard}>
+          {/* Error State Switch */}
+          <ListItem
+            text="Error State"
+            textBelow="Show error when OTP is complete"
+            itemRight={<Switch value={hasError} onValueChange={setHasError} />}
+          />
+          <Divider style={styles.divider} />
+
+          {/* Copy/Paste */}
+          <View style={styles.controlSection}>
+            <ListItem
+              text="Copy/Paste Test"
+              textBelow="Copy and paste into OTP input above"
+            />
             <TextInput
               style={styles.controlsInput}
               value="123456"
               selectTextOnFocus
             />
-          </Card>
-        </View>
+          </View>
+        </Card>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -84,7 +92,8 @@ const styles = StyleSheet.create(theme => ({
     paddingBottom: UnistylesRuntime.insets.bottom + theme.spacing.medium,
   },
   demoSection: {
-    flex: 1,
+    height: 300,
+    marginBottom: theme.spacing.large,
   },
   demoContainer: {
     flex: 1,
@@ -93,32 +102,29 @@ const styles = StyleSheet.create(theme => ({
     padding: theme.spacing.large,
     gap: theme.spacing.medium,
   },
-  otpValue: {
+  otpValue: ({ opacity }) => ({
     marginTop: theme.spacing.small,
-  },
-  controlsSection: {
-    marginTop: theme.spacing.medium,
-  },
-  controlsContainer: {
+    opacity,
+  }),
+  controlsCard: {
     padding: theme.spacing.large,
     gap: theme.spacing.small,
   },
-  controlsLabel: {
-    marginBottom: theme.spacing.xsmall,
-    fontWeight: 'bold',
-  },
-  controlsDescription: {
-    marginBottom: theme.spacing.medium,
+  controlSection: {
+    gap: theme.spacing.small,
   },
   controlsInput: {
     borderWidth: 1,
-    borderColor: theme.colors.borderPrimary,
+    borderColor: theme.colors.borderNeutralSecondary,
     borderRadius: theme.borderRadius.medium,
     padding: theme.spacing.medium,
     fontSize: theme.fontSizes.xlarge.fontSize,
     color: theme.colors.contentPrimary,
-    backgroundColor: theme.colors.surfaceSecondary,
+    backgroundColor: theme.colors.interactiveNeutral,
     textAlign: 'center',
+  },
+  divider: {
+    marginVertical: theme.spacing.xsmall,
   },
   keyboardView: {
     flex: 1,

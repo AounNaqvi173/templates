@@ -51,7 +51,7 @@ export const ButtonSelection = ({
     backgroundColor: interpolateColor(
       animationValue.value,
       [0, 1],
-      [theme.colors.backgroundPrimary, theme.colors.accentQuaternary],
+      [theme.colors.backgroundElevated, theme.colors.interactiveSecondary],
     ),
   }));
 
@@ -61,7 +61,7 @@ export const ButtonSelection = ({
         <Animated.View
           style={[
             styles.button,
-            buttonAnimatedStyle,
+            !pressed && buttonAnimatedStyle,
             (pressed || isSelected) && styles.buttonPressed,
           ]}
         >
@@ -96,7 +96,7 @@ const styles = StyleSheet.create(theme => ({
   button: {
     height: 70,
     borderWidth: 1,
-    borderColor: theme.colors.borderPrimary,
+    borderColor: theme.colors.borderNeutral,
     borderRadius: theme.borderRadius.large,
     paddingHorizontal: theme.spacing.large,
     justifyContent: 'space-between',
@@ -105,13 +105,13 @@ const styles = StyleSheet.create(theme => ({
     position: 'relative',
   },
   buttonPressed: {
-    borderColor: theme.colors.accentPrimary,
+    borderColor: theme.colors.interactiveSecondaryContent,
   },
   popularBadge: {
     position: 'absolute',
     top: -10,
     right: 10,
-    backgroundColor: theme.colors.sunshineStrong,
+    backgroundColor: theme.colors.sunshine,
     borderRadius: theme.borderRadius.large,
     paddingHorizontal: theme.spacing.small,
     paddingVertical: theme.spacing.xxsmall,
@@ -141,8 +141,8 @@ const styles = StyleSheet.create(theme => ({
     width: 20,
     height: 20,
     borderRadius: theme.borderRadius.full,
-    borderColor: theme.colors.borderPrimary,
+    borderColor: theme.colors.borderNeutralSecondary,
     borderWidth: 1,
-    backgroundColor: theme.colors.backgroundSecondary,
+    backgroundColor: theme.colors.backgroundElevated,
   },
 }));

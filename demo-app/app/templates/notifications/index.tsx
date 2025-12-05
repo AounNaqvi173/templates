@@ -21,7 +21,8 @@ export default function Notifications() {
             />
           )}
           onPress={() => setIsBottomSheetVisible(true)}
-          intent="secondary"
+          variant="neutral"
+          animationConfig={{ scaleIn: 1.1 }}
         />
       ),
     });

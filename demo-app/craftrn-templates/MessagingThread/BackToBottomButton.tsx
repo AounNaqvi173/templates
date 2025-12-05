@@ -11,6 +11,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
+const ANIMATION_DURATION = 250;
+const SCROLL_POSITION_THRESHOLD = 50;
+
 export const BackToBottomButton = ({
   scrollPosition,
   scrollRef,
@@ -23,9 +26,15 @@ export const BackToBottomButton = ({
   const backToBottomButtonStyle = useAnimatedStyle(() => {
     const { value } = scrollPosition;
     return {
-      opacity: withTiming(value > 100 ? 1 : 0, { duration: 250 }),
+      opacity: withTiming(value > SCROLL_POSITION_THRESHOLD ? 1 : 0, {
+        duration: ANIMATION_DURATION,
+      }),
       transform: [
-        { translateY: withTiming(value > 100 ? 0 : 10, { duration: 250 }) },
+        {
+          translateY: withTiming(value > SCROLL_POSITION_THRESHOLD ? 0 : 10, {
+            duration: ANIMATION_DURATION,
+          }),
+        },
       ],
     };
   });
@@ -39,30 +48,28 @@ export const BackToBottomButton = ({
   return (
     <Animated.View style={backToBottomButtonStyle}>
       <Pressable onPress={handlePressBackToBottomButton}>
-        {({ pressed }) => (
-          <View style={styles.button(pressed)}>
-            <ArrowDown color={theme.colors.contentPrimary} />
-          </View>
-        )}
+        <View style={styles.button}>
+          <ArrowDown color={theme.colors.contentPrimary} />
+        </View>
       </Pressable>
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create(theme => ({
-  button: ({ pressed }) => ({
-    backgroundColor: pressed
-      ? theme.colors.backgroundTertiary
-      : theme.colors.backgroundSecondary,
+  button: {
+    backgroundColor: theme.colors.interactiveNeutralSecondary,
+    borderWidth: 1,
+    borderColor: theme.colors.borderNeutral,
     bottom: theme.spacing.small,
     position: 'absolute',
     padding: theme.spacing.small,
     borderRadius: theme.borderRadius.full,
     alignSelf: 'center',
-    shadowColor: theme.colors.shadowPrimary,
+    shadowColor: theme.colors.backgroundNeutral,
     shadowRadius: 2,
-    shadowOpacity: 0.2,
+    shadowOpacity: 1,
     shadowOffset: { width: 0, height: 2 },
     elevation: 1,
-  }),
+  },
 }));

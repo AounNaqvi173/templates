@@ -12,16 +12,19 @@ export default function SettingsLayout() {
         name="index"
         options={{
           headerStyle: {
-            backgroundColor: theme.colors.backgroundSecondary,
+            backgroundColor: theme.colors.backgroundScreen,
           },
           contentStyle: {
-            backgroundColor: theme.colors.backgroundSecondary,
+            backgroundColor: theme.colors.backgroundScreen,
           },
           headerTintColor: theme.colors.contentPrimary,
           headerShadowVisible: false,
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} />
+              <NavigationBackButton
+                variant="neutral-secondary"
+                onPress={router.back}
+              />
             ) : undefined,
           title: 'Settings',
         }}

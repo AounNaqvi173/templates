@@ -27,7 +27,6 @@ export const MessageContent = ({
     onNewMessageComplete?.();
   };
 
-  // Show loading indicator for new messages
   if (isLoading) {
     return (
       <ThinkingIndicator
@@ -38,7 +37,6 @@ export const MessageContent = ({
     );
   }
 
-  // Show typewriter effect for new messages that aren't loading
   if (isNewMessage && !isTypewritingComplete) {
     return (
       <TypewriterText
@@ -50,7 +48,6 @@ export const MessageContent = ({
     );
   }
 
-  // Show final formatted content with action buttons
   return (
     <View style={styles.messageContent}>
       <FormattedText style={styles.messageText}>

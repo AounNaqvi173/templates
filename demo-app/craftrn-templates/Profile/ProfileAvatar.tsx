@@ -29,10 +29,10 @@ export const ProfileAvatar: ComponentType = () => {
           <ButtonRound
             onPress={() => {}}
             size="medium"
-            intent="secondary"
+            variant="primary"
             accessibilityLabel="Edit profile picture"
-            renderContent={({ iconSize }) => (
-              <UserEdit color={theme.colors.contentPrimary} size={iconSize} />
+            renderContent={({ iconSize, iconColor }) => (
+              <UserEdit color={iconColor} size={iconSize} />
             )}
           />
         </View>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create(theme => ({
     width: config.avatarSize,
     height: config.avatarSize,
     borderRadius: theme.borderRadius.full,
-    shadowColor: theme.colors.shadowPrimary,
+    shadowColor: theme.colors.contentPrimary,
     shadowOffset: {
       width: 0,
       height: 8,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create(theme => ({
     height: 36,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: theme.colors.shadowPrimary,
+    shadowColor: theme.colors.contentPrimary,
     shadowOffset: {
       width: 0,
       height: 2,

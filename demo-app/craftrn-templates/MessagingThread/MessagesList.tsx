@@ -1,14 +1,21 @@
 import { Avatar } from '@/craftrn-ui/components/Avatar/Avatar';
 import { Text } from '@/craftrn-ui/components/Text/Text';
 import React, { useMemo } from 'react';
-import { Keyboard, Pressable, View } from 'react-native';
+import { Keyboard, Platform, Pressable, View } from 'react-native';
+import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller';
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
+  useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import { StyleSheet } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
 import { BackToBottomButton } from './BackToBottomButton';
+import { useComposerHeight } from './ComposerHeightContext';
 import { Message } from './data/discussions';
 import { User } from './data/users';
 import { formatTime } from './utils/date';
@@ -26,9 +33,28 @@ export const MessagesList = ({
 }: MessagesListProps) => {
   const scrollRef = useAnimatedRef<Animated.FlatList<Message>>();
   const scrollPosition = useSharedValue(0);
+  const { progress } = useReanimatedKeyboardAnimation();
+  const { theme } = useUnistyles();
+  const { composerHeight } = useComposerHeight();
+
+  const keyboardPadding =
+    Platform.OS === 'ios'
+      ? composerHeight - UnistylesRuntime.insets.bottom
+      : composerHeight + UnistylesRuntime.insets.bottom - theme.spacing.medium;
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     scrollPosition.value = event.contentOffset.y;
+  });
+
+  const flatListAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      paddingTop: progress.value * keyboardPadding,
+    };
+  });
+  const backToBottomAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: -progress.value * keyboardPadding }],
+    };
   });
 
   const messagesReversed = useMemo(() => [...messages].reverse(), [messages]);
@@ -45,8 +71,7 @@ export const MessagesList = ({
     <>
       <Animated.FlatList<Message>
         ref={scrollRef}
-        style={styles.flatList}
-        contentContainerStyle={styles.flatListContentContainer}
+        style={[styles.flatList, flatListAnimatedStyle]}
         data={messagesReversed}
         keyboardShouldPersistTaps="handled"
         renderItem={({ item }: { item: Message }) => {
@@ -56,62 +81,62 @@ export const MessagesList = ({
               onPress={Keyboard.dismiss}
               onLongPress={onShowMoreBottomSheet}
             >
-              {({ pressed }) => (
-                <View style={styles.itemContainer({ pressed })}>
-                  <Avatar
-                    fallbackInitials={sender.initials}
-                    fallbackColor={sender.avatarColor}
-                    source={{ uri: sender.avatarUri }}
-                  />
-                  <View style={styles.itemContent}>
-                    <View style={styles.itemContentHeading}>
-                      <Text
-                        variant="body2"
-                        style={styles.itemContentHeadingSender}
-                      >
-                        {sender.name}
+              <View style={styles.itemContainer}>
+                <Avatar
+                  fallbackInitials={sender.initials}
+                  fallbackColor={sender.avatarColor}
+                  source={{ uri: sender.avatarUri }}
+                />
+                <View style={styles.itemContent}>
+                  <View style={styles.itemContentHeading}>
+                    <Text
+                      variant="body2"
+                      style={styles.itemContentHeadingSender}
+                    >
+                      {sender.name}
+                    </Text>
+                    <Text variant="body3" color="contentTertiary">
+                      {formatTime(item.date)}
+                    </Text>
+                  </View>
+                  <View style={styles.itemContentMessage}>
+                    {item.content.map(messageContent => (
+                      <Text variant="body2" key={messageContent}>
+                        {messageContent}
                       </Text>
-                      <Text variant="body3" color="contentTertiary">
-                        {formatTime(item.date)}
-                      </Text>
-                    </View>
-                    <View style={styles.itemContentMessage}>
-                      {item.content.map(messageContent => (
-                        <Text variant="body2" key={messageContent}>
-                          {messageContent}
-                        </Text>
+                    ))}
+                  </View>
+                  {item.reactions.length > 0 && (
+                    <View style={styles.reactionsContainer}>
+                      {item.reactions.map(reaction => (
+                        <Pressable key={reaction} onPress={() => null}>
+                          {({ pressed: pressedReaction }) => (
+                            <View
+                              style={styles.reactionItem({
+                                pressed: pressedReaction,
+                              })}
+                            >
+                              <Text variant="body3">{reaction}</Text>
+                            </View>
+                          )}
+                        </Pressable>
                       ))}
                     </View>
-                    {item.reactions.length > 0 && (
-                      <View style={styles.reactionsContainer}>
-                        {item.reactions.map(reaction => (
-                          <Pressable key={reaction} onPress={() => null}>
-                            {({ pressed: pressedReaction }) => (
-                              <View
-                                style={styles.reactionItem({
-                                  pressed: pressedReaction,
-                                })}
-                              >
-                                <Text variant="body3">{reaction}</Text>
-                              </View>
-                            )}
-                          </Pressable>
-                        ))}
-                      </View>
-                    )}
-                  </View>
+                  )}
                 </View>
-              )}
+              </View>
             </Pressable>
           );
         }}
         onScroll={scrollHandler}
         inverted
       />
-      <BackToBottomButton
-        scrollPosition={scrollPosition}
-        scrollRef={scrollRef}
-      />
+      <Animated.View style={backToBottomAnimatedStyle}>
+        <BackToBottomButton
+          scrollPosition={scrollPosition}
+          scrollRef={scrollRef}
+        />
+      </Animated.View>
     </>
   );
 };
@@ -120,18 +145,13 @@ const styles = StyleSheet.create(theme => ({
   flatList: {
     flex: 1,
     position: 'relative',
-    backgroundColor: theme.colors.backgroundPrimary,
   },
-  flatListContentContainer: {
-    paddingTop: theme.spacing.small,
-  },
-  itemContainer: ({ pressed }: { pressed: boolean }) => ({
+  itemContainer: {
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.small,
     flexDirection: 'row',
     gap: theme.spacing.medium,
-    backgroundColor: pressed ? theme.colors.backgroundTertiary : undefined,
-  }),
+  },
   itemContent: {
     flex: 1,
     gap: theme.spacing.xsmall,
@@ -156,11 +176,11 @@ const styles = StyleSheet.create(theme => ({
   },
   reactionItem: ({ pressed }) => ({
     backgroundColor: pressed
-      ? theme.colors.backgroundTertiary
-      : theme.colors.backgroundSecondary,
+      ? theme.colors.interactiveNeutralPress
+      : theme.colors.interactiveNeutral,
     paddingHorizontal: theme.spacing.small,
     paddingVertical: theme.spacing.xsmall,
-    borderRadius: 12,
-    borderColor: theme.colors.borderPrimary,
+    borderRadius: theme.borderRadius.full,
+    borderColor: theme.colors.borderNeutral,
   }),
 }));

@@ -58,15 +58,15 @@ export const BackToBottomButton = ({
 
 const styles = StyleSheet.create(theme => ({
   button: {
-    backgroundColor: theme.colors.surfacePrimary,
+    backgroundColor: theme.colors.interactiveNeutralSecondary,
     bottom: theme.spacing.small,
     position: 'absolute',
     padding: theme.spacing.small,
     borderRadius: theme.borderRadius.full,
     alignSelf: 'center',
-    shadowColor: theme.colors.shadowPrimary,
+    shadowColor: theme.colors.baseDark,
     shadowRadius: 2,
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.3,
     shadowOffset: { width: 0, height: 2 },
     elevation: 1,
   },

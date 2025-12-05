@@ -46,19 +46,16 @@ const styles = StyleSheet.create(theme => ({
     alignItems: 'flex-end',
   },
   userBubble: {
-    backgroundColor: theme.colors.accentPrimary,
+    backgroundColor: theme.colors.backgroundNeutral,
     paddingHorizontal: theme.spacing.medium,
     paddingVertical: theme.spacing.small,
     borderRadius: theme.borderRadius.large,
     borderBottomRightRadius: theme.borderRadius.small,
-    shadowColor: theme.colors.contentPrimary,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
+    borderWidth: 1,
+    borderColor: theme.colors.borderNeutralSecondary,
   },
   userMessageText: {
-    color: theme.colors.white,
+    color: theme.colors.contentPrimary,
     lineHeight: 20,
   },
 }));

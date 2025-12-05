@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { TextStyle } from 'react-native';
 import { FormattedText } from './FormattedText';
 
-const TYPEWRITER_SPEED = 35; // milliseconds between words
+const TYPEWRITER_SPEED = 25; // milliseconds between words
 
 type TypewriterTextProps = {
   children: string;
@@ -28,7 +28,6 @@ export const TypewriterText = ({
     let currentWordIndex = 0;
     setDisplayedText('');
 
-    // Clear any existing interval
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
