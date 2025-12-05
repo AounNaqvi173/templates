@@ -1,4 +1,7 @@
-import { useHeaderHeight } from '@react-navigation/elements';
+import {
+  getDefaultHeaderHeight,
+  useHeaderHeight,
+} from '@react-navigation/elements';
 import React, {
   ComponentType,
   useCallback,
@@ -6,9 +9,10 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { Platform } from 'react-native';
+import { Platform, useWindowDimensions } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native-unistyles';
+import { ComposerHeightProvider } from './ComposerHeightContext';
 import { discussionsData } from './data/discussions';
 import { currentUser, User } from './data/users';
 import { MessageComposer } from './MessageComposer';
@@ -25,17 +29,20 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
   updateNavigationHeader,
 }) => {
   const [moreBottomSheetVisible, setMoreBottomSheetVisible] = useState(false);
-  const { theme } = useUnistyles();
-
   const headerHeight = useHeaderHeight();
+  const { width, height } = useWindowDimensions();
 
-  // Use measured header heights since React Navigation calculations are incorrect
-  const keyboardVerticalOffset =
-    Platform.OS === 'android'
-      ? 64
-      : UnistylesRuntime.insets.bottom
-        ? headerHeight - theme.spacing.large
-        : headerHeight;
+  const keyboardVerticalOffset = useMemo(() => {
+    if (Platform.OS === 'ios') {
+      return headerHeight;
+    }
+    const calculatedHeaderHeight = getDefaultHeaderHeight(
+      { width, height },
+      false,
+      0,
+    );
+    return calculatedHeaderHeight;
+  }, [headerHeight, width, height]);
 
   const chat = useMemo(
     () => discussionsData.find(c => c.id === id) || undefined,
@@ -49,7 +56,7 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
     if (user) {
       updateNavigationHeader(user);
     }
-  }, [chat?.participants, theme.colors.backgroundSecondary]);
+  }, [chat?.participants, updateNavigationHeader]);
 
   const handleShowMoreBottomSheet = useCallback(() => {
     setMoreBottomSheetVisible(true);
@@ -64,10 +71,10 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
   }
 
   return (
-    <>
+    <ComposerHeightProvider>
       <KeyboardAvoidingView
-        behavior="padding"
         style={styles.container}
+        behavior="padding"
         keyboardVerticalOffset={keyboardVerticalOffset}
       >
         <MessagesList
@@ -75,19 +82,18 @@ export const MessagingThreadScreen: ComponentType<Props> = ({
           messages={chat.messages}
           onShowMoreBottomSheet={handleShowMoreBottomSheet}
         />
-        <MessageComposer />
       </KeyboardAvoidingView>
+      <MessageComposer />
       <MoreBottomSheet
         visible={moreBottomSheetVisible}
         onRequestClose={handleMoreBottomSheetRequestClose}
       />
-    </>
+    </ComposerHeightProvider>
   );
 };
 
-const styles = StyleSheet.create(theme => ({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.backgroundSecondary,
   },
-}));
+});

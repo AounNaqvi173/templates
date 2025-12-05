@@ -6,7 +6,7 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
 import { AnimatedHeader } from './AnimatedHeader';
 import { editorialArticlesData } from './data/articles';
 import { usersData } from './data/users';
@@ -24,7 +24,6 @@ type Props = {
 };
 
 export const EditorialArticleScreen: ComponentType<Props> = ({ id }) => {
-  
   const scrollPosition = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler({
@@ -128,7 +127,6 @@ export const EditorialArticleScreen: ComponentType<Props> = ({ id }) => {
 const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.backgroundSecondary,
   },
   headingSection: {
     height: IMAGE_HEIGHT,
@@ -155,7 +153,7 @@ const styles = StyleSheet.create(theme => ({
     paddingHorizontal: theme.spacing.medium,
     paddingVertical: theme.spacing.small,
     borderRadius: theme.borderRadius.full,
-    backgroundColor: theme.colors.imperialBlueStrong,
+    backgroundColor: theme.colors.steel,
     alignSelf: 'flex-start',
   },
   tagText: {
@@ -168,8 +166,8 @@ const styles = StyleSheet.create(theme => ({
     paddingVertical: theme.spacing.small,
     borderRadius: theme.borderRadius.medium,
     borderWidth: 1,
-    borderColor: theme.colors.borderPrimary,
-    backgroundColor: theme.colors.backgroundPrimary,
+    borderColor: theme.colors.borderNeutralSecondary,
+    backgroundColor: theme.colors.backgroundElevated,
     flexDirection: 'row',
     gap: theme.spacing.medium,
     justifyContent: 'space-between',

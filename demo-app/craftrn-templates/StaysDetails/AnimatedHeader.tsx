@@ -47,11 +47,11 @@ const styles = StyleSheet.create(theme => ({
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     zIndex: 1,
     marginTop: -headerHeight,
     height: headerHeight,
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.borderPrimary,
+    borderBottomColor: theme.colors.borderNeutralSecondary,
   }),
 }));

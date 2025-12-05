@@ -9,23 +9,18 @@ import { useMessageLoading } from './useMessageLoading';
 type AssistantMessageProps = {
   message: Message;
   isNewMessage: boolean;
-  listHeight?: number;
-  contentOffset?: number;
+  availableSpace?: number;
   onNewMessageComplete?: () => void;
 };
 
 export const AssistantMessage = ({
   message,
   isNewMessage,
-  listHeight,
-  contentOffset,
+  availableSpace,
   onNewMessageComplete,
 }: AssistantMessageProps) => {
   const { isLoading } = useMessageLoading(isNewMessage);
-  const { animatedStyle } = useMessageAnimation(isNewMessage, {
-    listHeight,
-    contentOffset,
-  });
+  const { animatedStyle } = useMessageAnimation(isNewMessage, availableSpace);
 
   return (
     <Animated.View

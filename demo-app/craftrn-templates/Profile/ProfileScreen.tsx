@@ -1,30 +1,29 @@
 import React, { ComponentType } from 'react';
-import { ScrollView } from 'react-native';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
 import { PersonalInformation } from './PersonalInformation';
 import { ProfileAvatar } from './ProfileAvatar';
 import { ProfileSettings } from './ProfileSettings';
 import { ProfileStats } from './ProfileStats';
 
 export const ProfileScreen: ComponentType = () => {
-
   return (
-    <ScrollView
+    <KeyboardAwareScrollView
       style={styles.container}
       contentContainerStyle={styles.scrollContent}
+      bottomOffset={24}
     >
       <ProfileAvatar />
       <ProfileStats />
       <PersonalInformation />
       <ProfileSettings />
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.backgroundSecondary,
   },
   scrollContent: {
     gap: theme.spacing.large,

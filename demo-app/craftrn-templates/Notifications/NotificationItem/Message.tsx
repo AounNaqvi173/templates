@@ -4,7 +4,7 @@ import React from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
-const BUTTON_SIZE = 40;
+const BUTTON_SIZE = 36;
 
 export const Message = ({
   message,
@@ -22,13 +22,13 @@ export const Message = ({
           <TextInput
             placeholder="Type your reply..."
             placeholderTextColor={theme.colors.contentTertiary}
-            selectionColor={theme.colors.accentPrimary}
+            selectionColor={theme.colors.contentAccentSecondary}
             style={styles.textInput}
           />
           <Pressable onPress={onPressReply}>
             {({ pressed }) => (
               <View style={styles.sendButton(pressed)}>
-                <Paperplane color={theme.colors.white} />
+                <Paperplane color={theme.colors.interactivePrimaryContent} />
               </View>
             )}
           </Pressable>
@@ -40,16 +40,16 @@ export const Message = ({
 
 const styles = StyleSheet.create(theme => ({
   container: {
-    backgroundColor: theme.colors.backgroundSecondary,
+    backgroundColor: theme.colors.backgroundNeutral,
     borderWidth: 1,
-    borderColor: theme.colors.borderPrimary,
+    borderColor: theme.colors.borderNeutral,
     borderRadius: theme.borderRadius.large,
     padding: theme.spacing.small,
     overflow: 'hidden',
     gap: theme.spacing.small,
   },
   replyContainer: {
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     borderRadius: theme.borderRadius.medium,
     padding: theme.spacing.xsmall,
     alignItems: 'center',
@@ -62,8 +62,8 @@ const styles = StyleSheet.create(theme => ({
     justifyContent: 'center',
     borderRadius: theme.borderRadius.medium,
     backgroundColor: pressed
-      ? theme.colors.accentSecondary
-      : theme.colors.accentPrimary,
+      ? theme.colors.interactivePrimaryPress
+      : theme.colors.interactivePrimary,
   }),
   textInput: {
     flexGrow: 1,

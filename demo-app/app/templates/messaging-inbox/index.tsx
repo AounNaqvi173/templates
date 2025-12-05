@@ -21,8 +21,8 @@ export default function MessagingInbox() {
       headerSearchBarOptions: {
         placeholder: 'Search',
         hideWhenScrolling: true,
-        barTintColor: theme.colors.surfacePrimary,
-        tintColor: theme.colors.accentPrimary,
+        barTintColor: theme.colors.backgroundElevated,
+        tintColor: theme.colors.contentAccent,
         textColor: theme.colors.contentSecondary,
         onChangeText: (event: { nativeEvent: { text: string } }) => {
           setSearchText(event.nativeEvent.text);

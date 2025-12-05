@@ -57,11 +57,11 @@ const { data: searchResults } = useFilteredStays(debouncedFilters);
 Consistent filter row component:
 
 ```typescript
-const FilterItem = ({ label, rightAccessory, onPress }) => (
+const FilterItem = ({ label, itemRight, onPress }) => (
   <Pressable onPress={onPress}>
     <View style={styles.container}>
       <Text variant="body2">{label}</Text>
-      {rightAccessory}
+      {itemRight}
     </View>
   </Pressable>
 );

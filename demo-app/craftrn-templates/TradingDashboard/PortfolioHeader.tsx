@@ -29,7 +29,7 @@ export const PortfolioHeader = () => {
           {portfolioData.value}
         </Text>
         <View style={styles.changeContainer}>
-          <ChevronUp size={20} color={theme.colors.positivePrimary} />
+          <ChevronUp size={20} color={theme.colors.sentimentPositive} />
           <Text variant="body2" style={styles.changeText}>
             +{portfolioData.change} (+{portfolioData.changePercentage}%)
           </Text>
@@ -57,6 +57,6 @@ const styles = StyleSheet.create(theme => ({
   },
   changeText: {
     fontWeight: 'bold',
-    color: theme.colors.positivePrimary,
+    color: theme.colors.sentimentPositive,
   },
 }));

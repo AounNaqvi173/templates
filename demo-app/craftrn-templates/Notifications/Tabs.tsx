@@ -56,7 +56,7 @@ const TabItem = ({
         {label}
       </Text>
       {!!notifications && (
-        <View style={styles.notificationsContainer(isActive)}>
+        <View style={styles.notificationsContainer}>
           <Text
             color={isActive ? 'contentPrimary' : 'contentTertiary'}
             variant="body3"
@@ -80,13 +80,11 @@ const styles = StyleSheet.create(theme => ({
   labelText: {
     fontWeight: 'bold',
   },
-  notificationsContainer: (isActive: boolean) => ({
+  notificationsContainer: {
     borderRadius: theme.borderRadius.small,
-    paddingHorizontal: theme.spacing.xxsmall,
-    backgroundColor: isActive
-      ? theme.colors.backgroundTertiary
-      : theme.colors.backgroundSecondary,
-  }),
+    paddingHorizontal: theme.spacing.xsmall,
+    backgroundColor: theme.colors.interactiveNeutral,
+  },
   notificationText: {
     fontWeight: 'bold',
   },
@@ -149,7 +147,7 @@ const useIndicatorAnimated = ({
     const width = interpolate(activeIndexShared.value, from, tabWidths);
 
     return { width, left };
-  }, [activeIndexShared.value, tabWidths]);
+  }, [tabWidths]);
 
   return { indicatorStyle, animateIndicator };
 };
@@ -204,7 +202,8 @@ export const Tabs = ({ initialActive = 0, onPress }: Props) => {
 
 const containerStyles = StyleSheet.create(theme => ({
   flatList: {
-    borderBottomColor: theme.colors.borderPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
+    borderBottomColor: theme.colors.borderNeutral,
     borderBottomWidth: 1,
   },
   flatListContainer: {

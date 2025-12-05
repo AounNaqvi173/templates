@@ -14,12 +14,15 @@ export default function MessageThread() {
     (user: User) => {
       navigation.setOptions({
         headerStyle: {
-          backgroundColor: theme.colors.backgroundSecondary,
+          backgroundColor: theme.colors.backgroundScreen,
+        },
+        contentStyle: {
+          backgroundColor: theme.colors.backgroundScreenSecondary,
         },
         headerTitle: () => <HeaderTitle user={user} />,
       });
     },
-    [navigation, theme.colors.backgroundSecondary],
+    [navigation, theme.colors.backgroundScreen],
   );
 
   return (

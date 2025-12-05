@@ -1,30 +1,46 @@
 import { ButtonRound } from '@/craftrn-ui/components/ButtonRound/ButtonRound';
+import type { Theme } from '@/craftrn-ui/themes/config';
 import { Attachment } from '@/tetrisly-icons/Attachment';
 import { Paperplane } from '@/tetrisly-icons/Paperplane';
 import React, { useRef, useState } from 'react';
 import { Platform, Pressable, TextInput, View } from 'react-native';
+import { KeyboardStickyView } from 'react-native-keyboard-controller';
 import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
+import { useComposerHeight } from './ComposerHeightContext';
 
 const BUTTON_SIZE = 36;
 const TEXT_INPUT_HEIGHT = 36;
-const SEND_BUTTON_ANIMATION_DURATION = 250;
+
+const animConfig = {
+  duration: 250,
+};
+
+export const getStickyOffset = (theme: Theme) =>
+  Math.max(UnistylesRuntime.insets.bottom, theme.spacing.medium);
 
 export const MessageComposer = () => {
   const inputRef = useRef<TextInput>(null);
   const [inputValue, setInputValue] = useState('');
   const { theme } = useUnistyles();
+  const { setComposerHeight } = useComposerHeight();
   const buttonTranslateDistance = theme.spacing.large * 2;
+
+  const stickyOffset = getStickyOffset(theme);
 
   const inputAnimatedStyle = useAnimatedStyle(() => {
     const marginRight =
       inputValue === '' ? 0 : BUTTON_SIZE + theme.spacing.small;
     return {
       marginRight: withTiming(marginRight, {
-        duration: SEND_BUTTON_ANIMATION_DURATION,
+        duration: animConfig.duration,
       }),
     };
   });
@@ -36,65 +52,77 @@ export const MessageComposer = () => {
       transform: [
         {
           translateX: withTiming(translateX, {
-            duration: SEND_BUTTON_ANIMATION_DURATION,
+            duration: animConfig.duration,
           }),
         },
       ],
       opacity: withTiming(opacity, {
-        duration: SEND_BUTTON_ANIMATION_DURATION,
+        duration: animConfig.duration,
       }),
     };
   });
 
   return (
-    <View style={styles.container}>
-      <ButtonRound
-        onPress={() => null}
-        renderContent={({ iconSize }) => (
-          <Attachment color={theme.colors.contentPrimary} size={iconSize} />
-        )}
-        intent="primary"
-      />
-      <Animated.View
-        style={[styles.textInputAnimatedContainer, inputAnimatedStyle]}
+    <KeyboardStickyView
+      offset={{
+        closed: 0,
+        opened: stickyOffset,
+      }}
+    >
+      <View
+        style={styles.container}
+        onLayout={event => {
+          const { height } = event.nativeEvent.layout;
+          setComposerHeight(height);
+        }}
       >
-        <TextInput
-          ref={inputRef}
-          placeholder="Type a message"
-          placeholderTextColor={theme.colors.contentTertiary}
-          value={inputValue}
-          onChangeText={setInputValue}
-          returnKeyType="send"
-          autoCorrect={false}
-          autoComplete="off"
-          style={styles.textInput}
-        />
-      </Animated.View>
-      <Animated.View
-        style={[styles.buttonAnimatedContainer, sendButtonAnimatedStyle]}
-      >
-        <Pressable onPress={() => null}>
-          {({ pressed }) => (
-            <View style={styles.button({ pressed })}>
-              <Paperplane color={theme.colors.white} />
-            </View>
+        <ButtonRound
+          onPress={() => null}
+          renderContent={({ iconSize }) => (
+            <Attachment color={theme.colors.contentPrimary} size={iconSize} />
           )}
-        </Pressable>
-      </Animated.View>
-    </View>
+          variant="neutral-secondary"
+        />
+        <Animated.View
+          style={[styles.textInputAnimatedContainer, inputAnimatedStyle]}
+        >
+          <TextInput
+            ref={inputRef}
+            placeholder="Type a message"
+            placeholderTextColor={theme.colors.contentTertiary}
+            selectionColor={theme.colors.contentAccentSecondary}
+            value={inputValue}
+            onChangeText={setInputValue}
+            returnKeyType="send"
+            autoCorrect={false}
+            autoComplete="off"
+            style={styles.textInput}
+          />
+        </Animated.View>
+        <Animated.View
+          style={[styles.buttonAnimatedContainer, sendButtonAnimatedStyle]}
+        >
+          <Pressable onPress={() => null}>
+            {({ pressed }) => (
+              <View style={styles.button({ pressed })}>
+                <Paperplane color={theme.colors.interactivePrimaryContent} />
+              </View>
+            )}
+          </Pressable>
+        </Animated.View>
+      </View>
+    </KeyboardStickyView>
   );
 };
 
 const styles = StyleSheet.create(theme => ({
   container: {
     borderTopWidth: 1,
-    borderTopColor: theme.colors.borderPrimary,
+    backgroundColor: theme.colors.backgroundScreen,
+    borderTopColor: theme.colors.borderNeutral,
     paddingTop: theme.spacing.medium,
     paddingHorizontal: theme.spacing.large,
-    paddingBottom: Math.max(
-      UnistylesRuntime.insets.bottom,
-      theme.spacing.medium,
-    ),
+    paddingBottom: theme.spacing.medium + UnistylesRuntime.insets.bottom,
     flexDirection: 'row',
     gap: theme.spacing.small,
     position: 'relative',
@@ -103,7 +131,7 @@ const styles = StyleSheet.create(theme => ({
     flex: 1,
     flexDirection: 'row',
     paddingHorizontal: theme.spacing.small,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     borderRadius: theme.borderRadius.medium,
     height: TEXT_INPUT_HEIGHT,
     shadowColor: theme.colors.contentPrimary,
@@ -125,8 +153,8 @@ const styles = StyleSheet.create(theme => ({
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
     backgroundColor: pressed
-      ? theme.colors.accentSecondary
-      : theme.colors.accentPrimary,
+      ? theme.colors.interactivePrimaryPress
+      : theme.colors.interactivePrimary,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: theme.borderRadius.medium,

@@ -19,11 +19,14 @@ export default function StaysDetailsLayout() {
             backgroundColor:
               Platform.OS === 'ios'
                 ? 'transparent'
-                : theme.colors.backgroundPrimary,
+                : theme.colors.backgroundScreenSecondary,
+          },
+          contentStyle: {
+            backgroundColor: theme.colors.backgroundScreenSecondary,
           },
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} intent="secondary" />
+              <NavigationBackButton onPress={router.back} variant="neutral" />
             ) : undefined,
         }}
       />

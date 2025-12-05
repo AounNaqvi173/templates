@@ -13,8 +13,11 @@ export const MarketingBanner = () => {
       <Svg style={styles.gradientBackground} width="100%" height="100%">
         <Defs>
           <LinearGradient id="gradient" x1="0%" y1="0%" x2="8%" y2="100%">
-            <Stop offset="20%" stopColor={theme.colors.accentQuaternary} />
-            <Stop offset="100%" stopColor={theme.colors.accentTertiary} />
+            <Stop offset="20%" stopColor={theme.colors.interactiveSecondary} />
+            <Stop
+              offset="100%"
+              stopColor={theme.colors.interactiveSecondaryPress}
+            />
           </LinearGradient>
         </Defs>
         <Rect width="100%" height="100%" fill="url(#gradient)" />
@@ -28,7 +31,9 @@ export const MarketingBanner = () => {
             Unlock exclusive features and get the most out of your experience.
           </Text>
         </View>
-        <Button onPress={() => {}}>Upgrade Now</Button>
+        <Button variant="neutral-secondary" onPress={() => {}}>
+          Upgrade Now
+        </Button>
       </View>
     </View>
   );
@@ -60,10 +65,10 @@ const styles = StyleSheet.create(theme => ({
     marginRight: theme.spacing.medium,
   },
   title: {
-    color: theme.colors.accentPrimary,
+    color: theme.colors.interactiveSecondaryContent,
     marginBottom: theme.spacing.xsmall,
   },
   subtitle: {
-    color: theme.colors.accentSecondary,
+    color: theme.colors.interactiveSecondaryContent,
   },
 }));

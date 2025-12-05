@@ -14,7 +14,8 @@
       "buildNumber": "4",
       "runtimeVersion": "1.0.0",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIDesignRequiresCompatibility": true
       }
     },
     "updates": {

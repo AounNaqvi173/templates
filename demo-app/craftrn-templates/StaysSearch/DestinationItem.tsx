@@ -44,16 +44,15 @@ const styles = StyleSheet.create(theme => ({
     alignItems: 'center',
     paddingHorizontal: theme.spacing.large,
     paddingVertical: theme.spacing.small,
-    backgroundColor: theme.colors.backgroundPrimary,
   },
   containerPressed: {
-    backgroundColor: theme.colors.backgroundSecondary,
+    backgroundColor: theme.colors.interactiveNeutralPress,
   },
   iconContainer: {
     borderRadius: theme.borderRadius.medium,
     borderWidth: 1,
-    borderColor: theme.colors.borderPrimary,
-    backgroundColor: theme.colors.backgroundPrimary,
+    borderColor: theme.colors.borderNeutralSecondary,
+    backgroundColor: theme.colors.backgroundElevated,
     padding: theme.spacing.small,
   },
   labelContainer: {

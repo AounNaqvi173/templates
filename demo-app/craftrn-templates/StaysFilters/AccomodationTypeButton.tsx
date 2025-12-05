@@ -15,7 +15,7 @@ export const AccomodationTypeButton: React.FC<Props> = ({
   return (
     <Button
       size="small"
-      intent={selected ? undefined : 'secondary'}
+      variant={selected ? 'secondary' : 'neutral'}
       onPress={onPress}
     >
       {children}

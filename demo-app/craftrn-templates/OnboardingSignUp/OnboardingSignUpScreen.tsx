@@ -5,7 +5,12 @@ import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
 import React, { ComponentType, useCallback, useState } from 'react';
 import { ImageBackground, ScrollView, View } from 'react-native';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
+import { Divider } from '../../craftrn-ui/components/Divider';
 import { ButtonApple } from './ButtonApple';
 import { ButtonGoogle } from './ButtonGoogle';
 import { countryCodes } from './data/countryCodes';
@@ -49,17 +54,23 @@ export const OnboardingSignUpScreen: ComponentType<Props> = ({
         style={styles.backgroundImage}
         resizeMode="cover"
       >
+        <View
+          style={[
+            styles.accentOverlay,
+            { backgroundColor: theme.colors.contentAccentSecondary },
+          ]}
+        />
         <Svg style={styles.gradientOverlay}>
           <Defs>
             <LinearGradient id="fadeGradient" x1="0" y1="0" x2="0" y2="1">
               <Stop
                 offset="0"
-                stopColor={theme.colors.backgroundSecondary}
+                stopColor={theme.colors.backgroundElevated}
                 stopOpacity="0"
               />
               <Stop
                 offset="1"
-                stopColor={theme.colors.backgroundSecondary}
+                stopColor={theme.colors.backgroundElevated}
                 stopOpacity="1"
               />
             </LinearGradient>
@@ -85,9 +96,7 @@ export const OnboardingSignUpScreen: ComponentType<Props> = ({
               value={selectedCountryCode.name}
               readOnly={true}
               onPress={handlePressCountry(selectedCountryCode.code)}
-              rightAccessory={
-                <ChevronDown color={theme.colors.contentPrimary} />
-              }
+              itemRight={<ChevronDown color={theme.colors.contentPrimary} />}
             />
             <InputText
               label="Phone number"
@@ -103,7 +112,7 @@ export const OnboardingSignUpScreen: ComponentType<Props> = ({
             </View>
           </View>
           <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
+            <Divider />
             <View style={styles.dividerTextContainer}>
               <Text
                 variant="body3"
@@ -144,7 +153,15 @@ const styles = StyleSheet.create(theme => ({
     top: 0,
     left: 0,
     right: 0,
-    height: 250,
+    height: 350,
+  },
+  accentOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0.5,
   },
   gradientOverlay: {
     position: 'absolute',
@@ -175,13 +192,9 @@ const styles = StyleSheet.create(theme => ({
     marginVertical: theme.spacing.xxlarge,
     position: 'relative',
   },
-  dividerLine: {
-    borderBottomColor: theme.colors.borderPrimary,
-    borderBottomWidth: 1,
-  },
   dividerTextContainer: {
     position: 'absolute',
-    backgroundColor: theme.colors.backgroundSecondary,
+    backgroundColor: theme.colors.backgroundElevated,
     top: -theme.spacing.small,
     paddingHorizontal: theme.spacing.small,
     alignSelf: 'center',

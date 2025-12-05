@@ -3,7 +3,7 @@ import { Button } from '@/craftrn-ui/components/Button';
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentProps, ComponentType } from 'react';
 import { View } from 'react-native';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
 
 type Props = Pick<
   ComponentProps<typeof BottomSheet>,
@@ -14,7 +14,6 @@ export const SignOutBottomSheet: ComponentType<Props> = ({
   visible,
   onRequestClose,
 }) => {
-  
   return (
     <BottomSheet
       enableOverlayTapToClose
@@ -29,10 +28,10 @@ export const SignOutBottomSheet: ComponentType<Props> = ({
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button intent="secondary" onPress={onRequestClose}>
+          <Button variant="neutral" onPress={onRequestClose}>
             Cancel
           </Button>
-          <Button intent="negative" onPress={onRequestClose}>
+          <Button variant="negative" onPress={onRequestClose}>
             Confirm
           </Button>
         </View>

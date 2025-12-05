@@ -1,6 +1,6 @@
 import React from 'react';
-import { LayoutChangeEvent } from 'react-native';
-import { useUnistyles } from 'react-native-unistyles';
+import { LayoutChangeEvent, Platform } from 'react-native';
+import { UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
 import { Message } from '../data/conversations';
 import { AssistantMessage } from './AssistantMessage';
 import { UserMessage } from './UserMessage';
@@ -12,6 +12,7 @@ type MessageItemProps = {
   isNewMessage: boolean;
   listHeight: number;
   userMessageHeight: number;
+  composerHeight: number;
   onUserMessageLayout?: (event: LayoutChangeEvent) => void;
 };
 
@@ -22,6 +23,7 @@ export const MessageItem = ({
   isNewMessage,
   listHeight,
   userMessageHeight,
+  composerHeight,
   onUserMessageLayout,
 }: MessageItemProps) => {
   const { theme } = useUnistyles();
@@ -38,6 +40,14 @@ export const MessageItem = ({
     theme.spacing.large +
     theme.spacing.medium;
 
+  const topToComposerSpacing = Math.max(
+    listHeight -
+      composerHeight +
+      (Platform.OS === 'ios' ? UnistylesRuntime.insets.bottom : 0) -
+      contentOffset,
+    0,
+  );
+
   if (isUser) {
     return (
       <UserMessage
@@ -52,8 +62,7 @@ export const MessageItem = ({
     <AssistantMessage
       message={message}
       isNewMessage={isNewMessage}
-      listHeight={listHeight}
-      contentOffset={contentOffset}
+      availableSpace={topToComposerSpacing}
     />
   );
 };

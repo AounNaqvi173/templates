@@ -13,16 +13,19 @@ export default function ProfileLayout() {
         options={{
           title: 'Profile',
           headerStyle: {
-            backgroundColor: theme.colors.backgroundSecondary,
+            backgroundColor: theme.colors.backgroundScreen,
           },
           contentStyle: {
-            backgroundColor: theme.colors.backgroundSecondary,
+            backgroundColor: theme.colors.backgroundScreen,
           },
           headerTintColor: theme.colors.contentPrimary,
           headerShadowVisible: false,
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} />
+              <NavigationBackButton
+                onPress={router.back}
+                variant="neutral-secondary"
+              />
             ) : undefined,
         }}
       />

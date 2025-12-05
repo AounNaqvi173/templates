@@ -13,16 +13,16 @@ export default function TradingOrderLayout() {
         options={{
           title: '',
           headerStyle: {
-            backgroundColor: theme.colors.backgroundPrimary,
+            backgroundColor: theme.colors.backgroundScreenSecondary,
           },
           contentStyle: {
-            backgroundColor: theme.colors.backgroundPrimary,
+            backgroundColor: theme.colors.backgroundScreenSecondary,
           },
           headerTintColor: theme.colors.contentPrimary,
           headerShadowVisible: false,
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} intent="secondary" />
+              <NavigationBackButton onPress={router.back} variant="neutral" />
             ) : undefined,
         }}
       />

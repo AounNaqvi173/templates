@@ -13,11 +13,13 @@ export default function OnboardingCountryLayout() {
         options={{
           headerTitle: 'Country/region',
           headerShadowVisible: false,
-          headerStyle: { backgroundColor: theme.colors.backgroundPrimary },
-          contentStyle: { backgroundColor: theme.colors.backgroundPrimary },
+          headerStyle: { backgroundColor: theme.colors.backgroundElevated },
+          contentStyle: {
+            backgroundColor: theme.colors.backgroundScreenSecondary,
+          },
           headerLeft: ({ canGoBack }) =>
             canGoBack ? (
-              <NavigationBackButton onPress={router.back} intent="secondary" />
+              <NavigationBackButton onPress={router.back} variant="neutral" />
             ) : undefined,
         }}
       />

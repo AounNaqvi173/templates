@@ -8,6 +8,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles';
+import { Card } from '../../craftrn-ui/components/Card';
 import { AssetGridItem } from './AssetGridItem';
 import { AssetHighlights } from './AssetHighlights';
 import { AssetListItem } from './AssetListItem';
@@ -70,45 +71,47 @@ export const TradingDashboardScreen: ComponentType<Props> = ({
         contentContainerStyle={styles.scrollContent}
       >
         <PortfolioHeader />
-        <SectionHeader title="Highlights" />
-        <AssetHighlights data={sharesAssets} />
-
-        <View style={styles.exchangeRatesContainer}>
-          <SectionHeader title="Top exchange rates" />
-          <View style={styles.exchangeRatesContent}>
-            {currencyAssets.map((asset, index) => (
-              <View style={styles.assetListItemWrapper} key={asset.id}>
-                <AssetListItem
-                  style={styles.listItem}
-                  onPress={onPressAsset(asset.id)}
-                  itemRight={
-                    <ExchangeRate
-                      value={asset.sellPrice}
-                      symbol={asset.toSymbol}
-                      change={asset.change}
-                    />
-                  }
-                  text={asset.name}
-                  textBelow={asset.pairing}
-                  imageURL={asset.imageURL}
-                  divider={index !== currencyAssets.length - 1}
-                />
-              </View>
-            ))}
-          </View>
+        <View style={styles.sectionContainer}>
+          <SectionHeader title="Highlights" />
+          <AssetHighlights data={sharesAssets} />
         </View>
 
-        <SectionHeader title="Top cryptos" />
-        <View style={styles.cryptoContainer}>
-          {cryptoAssets.map(asset => (
-            <AssetGridItem
-              key={asset.id}
-              onPress={onPressAsset(asset.id)}
-              label={asset.name}
-              change={asset.change}
-              imageURL={asset.imageURL}
-            />
-          ))}
+        <View style={styles.sectionContainer}>
+          <SectionHeader title="Top exchange rates" />
+          <Card style={styles.sectionContent}>
+            {currencyAssets.map((asset, index) => (
+              <AssetListItem
+                key={asset.id}
+                onPress={onPressAsset(asset.id)}
+                itemRight={
+                  <ExchangeRate
+                    value={asset.sellPrice}
+                    symbol={asset.toSymbol}
+                    change={asset.change}
+                  />
+                }
+                text={asset.name}
+                textBelow={asset.pairing}
+                imageURL={asset.imageURL}
+                divider={index !== currencyAssets.length - 1}
+              />
+            ))}
+          </Card>
+        </View>
+
+        <View style={styles.sectionContainer}>
+          <SectionHeader title="Top cryptos" />
+          <Card style={[styles.sectionContent, styles.cryptoContainer]}>
+            {cryptoAssets.map(asset => (
+              <AssetGridItem
+                key={asset.id}
+                onPress={onPressAsset(asset.id)}
+                label={asset.name}
+                change={asset.change}
+                imageURL={asset.imageURL}
+              />
+            ))}
+          </Card>
         </View>
       </Animated.ScrollView>
     </>
@@ -118,13 +121,13 @@ export const TradingDashboardScreen: ComponentType<Props> = ({
 const styles = StyleSheet.create(theme => ({
   header: {
     paddingBottom: theme.spacing.medium,
-    borderBottomColor: theme.colors.borderPrimary,
+    borderBottomColor: theme.colors.borderNeutral,
     borderBottomWidth: 1,
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     paddingTop: UnistylesRuntime.insets.top,
     zIndex: 1,
   },
@@ -138,32 +141,20 @@ const styles = StyleSheet.create(theme => ({
   },
   headerChangeText: {
     fontWeight: 'bold',
-    color: theme.colors.positivePrimary,
+    color: theme.colors.sentimentPositive,
   },
   scrollContent: {
-    gap: theme.spacing.small,
+    gap: theme.spacing.xlarge,
     paddingTop: UnistylesRuntime.insets.top + 8,
     paddingBottom: UnistylesRuntime.insets.bottom + theme.spacing.xlarge,
   },
-  exchangeRatesContainer: {
-    gap: theme.spacing.medium,
-    paddingVertical: theme.spacing.medium,
+  sectionContainer: {
+    gap: theme.spacing.small,
   },
-  exchangeRatesContent: {
-    borderRadius: theme.borderRadius.large,
+  sectionContent: {
     marginHorizontal: theme.spacing.large,
-    backgroundColor: theme.colors.backgroundPrimary,
-  },
-  assetListItemWrapper: {
-    paddingHorizontal: theme.spacing.xsmall,
-  },
-  listItem: {
-    paddingHorizontal: theme.spacing.small,
   },
   cryptoContainer: {
-    borderRadius: theme.borderRadius.large,
-    marginHorizontal: theme.spacing.large,
-    backgroundColor: theme.colors.backgroundPrimary,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',

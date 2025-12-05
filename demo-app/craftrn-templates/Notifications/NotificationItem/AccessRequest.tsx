@@ -12,10 +12,10 @@ export const AccessRequest = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Button intent="secondary" size="small" onPress={onPressDeny}>
+      <Button variant="neutral" size="small" onPress={onPressDeny}>
         Deny
       </Button>
-      <Button size="small" onPress={onPressConfirm}>
+      <Button variant="primary" size="small" onPress={onPressConfirm}>
         Confirm
       </Button>
     </View>

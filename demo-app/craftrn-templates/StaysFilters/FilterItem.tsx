@@ -9,12 +9,12 @@ const config = {
 
 type FilterItemProps = {
   label: string;
-  rightAccessory?: React.ReactElement;
+  itemRight?: React.ReactElement;
   onPress?: () => void;
 };
 
 export const FilterItem: ComponentType<FilterItemProps> = ({
-  rightAccessory = null,
+  itemRight = null,
   label,
   onPress,
 }) => {
@@ -26,7 +26,7 @@ export const FilterItem: ComponentType<FilterItemProps> = ({
             {label}
           </Text>
         </View>
-        {rightAccessory}
+        {itemRight}
       </View>
     </Pressable>
   );

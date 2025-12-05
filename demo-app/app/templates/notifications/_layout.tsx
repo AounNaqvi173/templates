@@ -10,8 +10,10 @@ export default function NotificationsLayout() {
         name="index"
         options={{
           title: 'Notifications',
-          contentStyle: { backgroundColor: theme.colors.backgroundPrimary },
-          headerStyle: { backgroundColor: theme.colors.backgroundPrimary },
+          contentStyle: {
+            backgroundColor: theme.colors.backgroundScreenSecondary,
+          },
+          headerStyle: { backgroundColor: theme.colors.backgroundElevated },
           headerTintColor: theme.colors.contentPrimary,
           headerShadowVisible: false,
           headerLeft: () => <></>,

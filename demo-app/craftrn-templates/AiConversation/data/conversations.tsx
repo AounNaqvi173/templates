@@ -28,14 +28,14 @@ export const aiAssistants: AiAssistant[] = [
     name: 'Claude',
     model: 'Claude 4 Sonnet',
     description: 'A helpful, harmless, and honest AI assistant',
-    avatarUri: undefined, // Will use fallback initials 'C'
+    avatarUri: undefined,
   },
   {
     id: '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
     name: 'GPT-4',
     model: 'GPT-4 Turbo',
     description: 'Advanced language model by OpenAI',
-    avatarUri: undefined, // Will use fallback initials 'G'
+    avatarUri: undefined,
   },
 ];
 

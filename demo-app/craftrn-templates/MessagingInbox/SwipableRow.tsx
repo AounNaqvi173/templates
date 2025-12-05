@@ -90,7 +90,7 @@ const rightActionStyles = StyleSheet.create(theme => ({
     gap: theme.spacing.xxsmall,
   },
   text: {
-    color: theme.colors.white,
+    color: theme.colors.interactiveNeutralContent,
     fontWeight: 'semibold',
   },
 }));
@@ -119,8 +119,10 @@ export const SwipeableRow = ({
         <View style={styles.rightAction}>
           <RightAction
             text="More"
-            icon={<MoreHorizontal color={theme.colors.white} />}
-            color={theme.colors.surfaceQuaternary}
+            icon={
+              <MoreHorizontal color={theme.colors.interactiveNeutralContent} />
+            }
+            color={theme.colors.interactiveNeutral}
             x={RIGHT_ACTION_WIDTH * 2}
             progress={progress}
             totalWidth={RIGHT_ACTION_WIDTH * 2}
@@ -129,8 +131,8 @@ export const SwipeableRow = ({
           />
           <RightAction
             text="Archive"
-            icon={<Archive color={theme.colors.white} />}
-            color={theme.colors.accentSecondary}
+            icon={<Archive color={theme.colors.interactiveNeutralContent} />}
+            color={theme.colors.interactiveSecondary}
             x={RIGHT_ACTION_WIDTH}
             progress={progress}
             totalWidth={RIGHT_ACTION_WIDTH * 2}

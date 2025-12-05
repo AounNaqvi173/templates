@@ -1,7 +1,12 @@
 import React, { ComponentType, useMemo, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
+import { Divider } from '../../craftrn-ui/components/Divider';
 import { Notification, notificationsData } from './data/notifications';
 import { MoreOptionsBottomSheet } from './MoreOptionsBottomSheet';
 import { NotificationItem } from './NotificationItem';
@@ -54,7 +59,7 @@ export const NotificationsScreen: ComponentType<Props> = ({
         contentContainerStyle={{
           paddingBottom: UnistylesRuntime.insets.bottom,
         }}
-        ItemSeparatorComponent={() => <View style={styles.divider} />}
+        ItemSeparatorComponent={() => <Divider />}
         scrollIndicatorInsets={{ right: 1 }}
       />
       <MoreOptionsBottomSheet
@@ -71,9 +76,5 @@ const styles = StyleSheet.create(theme => ({
   },
   flatList: {
     flex: 1,
-  },
-  divider: {
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.borderPrimary,
   },
 }));

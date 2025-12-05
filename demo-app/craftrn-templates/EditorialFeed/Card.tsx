@@ -83,9 +83,9 @@ const styles = StyleSheet.create(theme => ({
     flex: 1,
     borderRadius: theme.borderRadius.large,
     borderWidth: 1,
-    borderColor: theme.colors.borderPrimary,
+    borderColor: theme.colors.borderNeutral,
     overflow: 'hidden',
-    backgroundColor: theme.colors.backgroundPrimary,
+    backgroundColor: theme.colors.backgroundElevated,
     padding: theme.spacing.xsmall,
   },
   cardImageContainer: {

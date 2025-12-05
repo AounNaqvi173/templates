@@ -11,7 +11,12 @@ import {
 } from 'react';
 import { Platform, SectionList, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
-import { StyleSheet, UnistylesRuntime, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  UnistylesRuntime,
+  useUnistyles,
+} from 'react-native-unistyles';
+import { Divider } from '../../craftrn-ui/components/Divider';
 import {
   Destination,
   popularDestinations,
@@ -79,7 +84,7 @@ export const StaysSearchScreen: ComponentType = () => {
   const renderSectionFooter = useCallback(
     ({ section }: { section: Section }) =>
       sections.indexOf(section) !== sections.length - 1 ? (
-        <View style={styles.divider} />
+        <Divider style={styles.divider} />
       ) : null,
     [styles.divider, sections],
   );
@@ -94,8 +99,8 @@ export const StaysSearchScreen: ComponentType = () => {
         <View style={styles.inputSearchContainer}>
           <InputSearch
             placeholder="Destination or hotel name"
-            leftAccessory={
-              <View style={styles.inputSearchLeftAccessory}>
+            itemLeft={
+              <View style={styles.inputSearchItemLeft}>
                 <Search color={theme.colors.contentTertiary} />
               </View>
             }
@@ -136,12 +141,10 @@ const styles = StyleSheet.create(theme => ({
     paddingHorizontal: theme.spacing.large,
     marginVertical: theme.spacing.medium,
   },
-  inputSearchLeftAccessory: {
+  inputSearchItemLeft: {
     paddingHorizontal: theme.spacing.small,
   },
   divider: {
-    borderBottomColor: theme.colors.borderPrimary,
-    borderBottomWidth: 1,
     marginHorizontal: theme.spacing.large,
     marginVertical: theme.spacing.large,
   },

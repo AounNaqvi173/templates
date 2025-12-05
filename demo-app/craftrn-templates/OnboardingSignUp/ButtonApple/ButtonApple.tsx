@@ -8,7 +8,7 @@ import {
 } from 'react-native-unistyles';
 import { AppleIcon } from './AppleIcon';
 
-const ICON_SIZE = 40;
+const ICON_SIZE = 48;
 
 const colorWithOpacity = (color: string, opacity: number) => {
   const hex = color.replace('#', '');
@@ -45,13 +45,10 @@ export const ButtonApple = ({ onPress }: { onPress: () => void }) => {
 
 const styles = StyleSheet.create(theme => ({
   button: (pressed: boolean) => ({
-    borderRadius: theme.borderRadius.medium,
+    borderRadius: theme.borderRadius.full,
     padding: theme.spacing.medium,
     flexDirection: 'row',
-    backgroundColor:
-      UnistylesRuntime.colorScheme === 'dark'
-        ? colorWithOpacity(theme.colors.white, pressed ? 0.8 : 1)
-        : colorWithOpacity(theme.colors.black, pressed ? 0.8 : 1),
+    backgroundColor: colorWithOpacity(theme.colors.baseDark, pressed ? 0.8 : 1),
   }),
   appleIcon: {
     position: 'absolute',
@@ -67,8 +64,8 @@ const styles = StyleSheet.create(theme => ({
   buttonText: {
     color:
       UnistylesRuntime.colorScheme === 'dark'
-        ? theme.colors.black
-        : theme.colors.white,
+        ? theme.colors.baseDark
+        : theme.colors.baseLight,
     textAlign: 'center',
     fontWeight: 'bold',
   },
