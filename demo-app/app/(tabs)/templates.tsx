@@ -53,8 +53,14 @@ import {
   View,
 } from 'react-native';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import {
+  StyleSheet,
+  useUnistyles,
+  withUnistyles,
+} from 'react-native-unistyles';
 import { useTheme } from '../../contexts/ThemeContext';
+
+const UniSvg = withUnistyles(Svg);
 
 export const MenuItem: ComponentType<{
   title: string;
@@ -272,7 +278,7 @@ export default function TemplatesScreen() {
 
       <View style={styles.bottomWrapper}>
         <View style={styles.gradientContainer}>
-          <Svg height="24" style={styles.gradient}>
+          <UniSvg height="24" style={styles.gradient}>
             <Defs>
               <LinearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
                 <Stop
@@ -288,7 +294,7 @@ export default function TemplatesScreen() {
               </LinearGradient>
             </Defs>
             <Rect x="0" y="0" width="100%" height="24" fill="url(#grad)" />
-          </Svg>
+          </UniSvg>
         </View>
 
         <View style={styles.fixedBottomContainer}>
