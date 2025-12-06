@@ -28,7 +28,7 @@
     "AiConversationScreen.tsx": "file",
     "HeaderTitle.tsx": "file",
     "info.json": "file",
-    "instructions.md": "file",
+    "AGENTS.md": "file",
     "MessageComposer": {
       "ActionButtons.tsx": "file",
       "AttachmentBottomSheet.tsx": "file",

@@ -10,7 +10,7 @@
   "tetrislyIcons": ["CheckLarge", "Search"],
   "fileStructure": {
     "info.json": "file",
-    "instructions.md": "file",
+    "AGENTS.md": "file",
     "OnboardingCountryScreen.tsx": "file",
     "data": {
       "countryCodes.tsx": "file"

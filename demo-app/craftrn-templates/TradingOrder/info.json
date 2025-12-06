@@ -19,7 +19,7 @@
     "AssetListItem.tsx": "file",
     "ExchangeRate.tsx": "file",
     "info.json": "file",
-    "instructions.md": "file",
+    "AGENTS.md": "file",
     "TradingOrderScreen.tsx": "file",
     "data": {
       "assets.tsx": "file"

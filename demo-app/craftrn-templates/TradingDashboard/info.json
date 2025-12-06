@@ -14,7 +14,7 @@
     "AssetListItem.tsx": "file",
     "ExchangeRate.tsx": "file",
     "info.json": "file",
-    "instructions.md": "file",
+    "AGENTS.md": "file",
     "PortfolioHeader.tsx": "file",
     "SectionHeader.tsx": "file",
     "TradingDashboardScreen.tsx": "file",

@@ -12,7 +12,7 @@
   "fileStructure": {
     "DestinationItem.tsx": "file",
     "info.json": "file",
-    "instructions.md": "file",
+    "AGENTS.md": "file",
     "StaysSearchScreen.tsx": "file",
     "data": {
       "destinations.ts": "file"

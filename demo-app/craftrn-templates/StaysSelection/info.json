@@ -17,7 +17,7 @@
   "fileStructure": {
     "HeartButton.tsx": "file",
     "info.json": "file",
-    "instructions.md": "file",
+    "AGENTS.md": "file",
     "ListingCard.tsx": "file",
     "StaysSelectionScreen.tsx": "file",
     "data": {

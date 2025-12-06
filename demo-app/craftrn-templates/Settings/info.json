@@ -25,7 +25,7 @@
   ],
   "fileStructure": {
     "info.json": "file",
-    "instructions.md": "file",
+    "AGENTS.md": "file",
     "MarketingBanner.tsx": "file",
     "NotificationsFrequency.tsx": "file",
     "PasscodeBottomSheet.tsx": "file",

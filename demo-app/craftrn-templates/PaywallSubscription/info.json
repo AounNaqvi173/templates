@@ -11,7 +11,7 @@
   "fileStructure": {
     "ButtonSelection.tsx": "file",
     "info.json": "file",
-    "instructions.md": "file",
+    "AGENTS.md": "file",
     "PaymentSuccessBottomSheet.tsx": "file",
     "PaywallSubscriptionScreen.tsx": "file"
   }

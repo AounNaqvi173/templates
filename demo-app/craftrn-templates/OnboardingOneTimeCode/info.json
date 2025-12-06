@@ -10,7 +10,7 @@
   "tetrislyIcons": [],
   "fileStructure": {
     "info.json": "file",
-    "instructions.md": "file",
+    "AGENTS.md": "file",
     "OnboardingOneTimeCodeScreen.tsx": "file"
   }
 }

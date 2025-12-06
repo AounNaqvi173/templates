@@ -29,7 +29,7 @@
     "ChatItem.tsx": "file",
     "FilterList.tsx": "file",
     "info.json": "file",
-    "instructions.md": "file",
+    "AGENTS.md": "file",
     "MessagingInboxScreen.tsx": "file",
     "MoreBottomSheet.tsx": "file",
     "SwipableRow.tsx": "file",
