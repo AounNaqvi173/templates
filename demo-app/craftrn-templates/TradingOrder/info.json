@@ -3,24 +3,22 @@
   "description": "Trading order template for asset transactions",
   "externalDependencies": [
     "react-native-keyboard-controller",
-    "react-native-reanimated",
-    "react-native-svg",
     "react-native-unistyles"
   ],
   "craftrnUiComponents": [
     "Button",
-    "ButtonRound",
-    "InputText",
+    "Card",
+    "Divider",
     "ListItem",
-    "Text"
+    "Text",
+    "Avatar"
   ],
-  "tetrislyIcons": ["ChevronDown", "ChevronUp", "Search"],
+  "tetrislyIcons": [],
   "fileStructure": {
-    "AssetListItem.tsx": "file",
-    "ExchangeRate.tsx": "file",
     "info.json": "file",
     "AGENTS.md": "file",
     "TradingOrderScreen.tsx": "file",
+    "AmountRow.tsx": "file",
     "data": {
       "assets.tsx": "file"
     },

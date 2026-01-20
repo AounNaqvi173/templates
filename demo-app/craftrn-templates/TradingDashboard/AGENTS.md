@@ -42,7 +42,8 @@ interface AssetsItem {
   id: string;
   type: 'currency' | 'crypto' | 'shares';
   name: string;
-  pairing: string;
+  fromTicker: string;
+  toTicker: string;
   sellPrice: string;
   fromSymbol: string;
   toSymbol: string;

@@ -2,42 +2,42 @@
 
 ## Template Purpose
 
-Comprehensive order management interface for financial trading with order placement, validation, and execution. Use for trading apps, investment platforms, or financial transaction interfaces.
+Currency and asset conversion interface for financial transactions. Supports bidirectional amount calculation for both currency exchange and stock trading. Use for trading apps, currency exchange platforms, or financial conversion interfaces.
 
 **IMPORTANT:** Always reference `info.json` for exact dependencies and component structure.
 
 ## Template-Specific Rules
 
-**Order Entry Validation:**
+**Conversion Interface:**
 
-- Validate order quantity and price ranges in real-time
-- Implement proper number formatting for financial values
-- Check account balance and available funds before order placement
-- Show calculated order totals including fees
+- Bidirectional amount calculation - users can input either "pay" or "receive" amount
+- Real-time fee calculation and display (3.52% fee applied)
+- Automatic detection of currency vs stock trading based on asset type
+- Support for both currency exchange rates and stock prices
+- Available balance display for the source currency
 
-**Order Types and Controls:**
+**Number Formatting:**
 
-- Support different order types (market, limit, stop)
-- Implement proper UI controls for each order type
-- Show relevant fields based on selected order type
-- Handle order modification and cancellation flows
+- Format numbers with commas for thousands (e.g., "1,234.56")
+- Limit decimal places to 2 digits
+- Handle input validation and cleaning
+- Parse formatted numbers back to raw values for calculations
 
-**Financial Data Display:**
+**Keyboard Handling:**
 
-- Use consistent number formatting for prices and quantities
-- Show real-time price updates during order entry
-- Implement proper color coding for buy/sell actions
-- Display order confirmation with all details before execution
+- Keyboard-aware scrolling with `KeyboardAwareScrollView`
+- Sticky button at bottom using `KeyboardStickyView`
+- Auto-focus on first input field
+- Numeric keyboard type for amount inputs
 
-This Trading Order template provides a sophisticated financial transaction interface with advanced order entry functionality, real-time cost calculations, and keyboard-aware layouts. It follows the **colocation** principle with trading-focused modular components.
+This Trading Order template provides a sophisticated conversion interface with real-time bidirectional calculations, fee transparency, and keyboard-aware layouts. It follows the **colocation** principle with trading-focused modular components.
 
 ### Core Components Structure
 
 ```
 TradingOrder/
-├── TradingOrderScreen.tsx        # Main order entry interface
-├── AssetListItem.tsx             # Asset display component
-├── ExchangeRate.tsx              # Exchange rate display component
+├── TradingOrderScreen.tsx        # Main conversion interface
+├── AmountRow.tsx                 # Amount input/display row component
 ├── data/
 │   └── assets.tsx                # Asset data and types
 └── utils/
@@ -49,203 +49,263 @@ TradingOrder/
 Built with **craftrn-ui** components and **Unistyles** theming:
 
 - Reference the unified theme system at `@demo-app/craftrn-ui/themes/` for all styling decisions
-- `Button`, `ButtonRound`, `InputText`, `ListItem` for order interface
+- `Button`, `Card`, `Divider`, `ListItem`, `Text`, `Avatar` for conversion interface
 - `Text` components with financial formatting support
 - Advanced keyboard handling with `react-native-keyboard-controller`
-- Financial color schemes for order types and calculations
+- Platform-specific input styling (iOS vs Android)
 
 ## Data Structure & API Integration
 
-### Mock Data Model
+### Asset Data Model
 
 ```typescript
-interface TradingOrder {
-  id?: string;
-  assetId: string;
-  orderType: 'buy' | 'sell';
-  quantity: number;
-  orderPrice?: number;
-  orderStyle: 'market' | 'limit' | 'stop';
-  fees: {
-    commission: number;
-    platformFee: number;
-    regulatory: number;
+export type AssetsItem = {
+  id: string;
+  from: {
+    ticker: string;      // Currency/stock ticker (e.g., "USD", "BTC", "AAPL")
+    symbol: string;      // Display symbol (e.g., "$", "€", "BTC")
+    imageURL: string;    // Avatar image URL
   };
-  estimatedTotal: number;
-  status: 'pending' | 'filled' | 'cancelled';
-}
-
-interface OrderValidation {
-  isValid: boolean;
-  errors: string[];
-  warnings: string[];
-  availableBalance: number;
-}
+  to: {
+    ticker: string;
+    symbol: string;
+    imageURL: string;
+  };
+  rate: string;          // Exchange rate or stock price
+  change: string;        // Percentage change (e.g., "+2.15%", "-0.25%")
+};
 ```
 
-### API Integration with React Query
+### Conversion Logic
 
-Recommended pattern for order management:
+The template automatically detects asset type:
+
+- **Stocks**: When `from.ticker === 'USD'` and `to.ticker` is a known stock ticker
+  - Calculation: `receive = (pay * (1 - fee)) / unitPrice`
+  - Unit price represents price per share
+- **Currencies**: All other asset pairs
+  - Calculation: `receive = (pay * (1 - fee)) * exchangeRate`
+  - Exchange rate represents how many "to" units per "from" unit
+
+### Fee Structure
+
+- **Fee Percentage**: 3.52% (0.0352)
+- **Fee Calculation**: Applied to the "pay" amount before conversion
+- **Amount Converted**: `pay * (1 - feePercentage)`
+- **Estimated Fee**: `pay * feePercentage`
+
+### API Integration Pattern
+
+For real-time rate updates:
 
 ```typescript
-// api/useOrderValidation.ts
-export const useOrderValidation = (orderData: Partial<TradingOrder>) => {
+// api/useAssetRate.ts
+export const useAssetRate = (assetId: string) => {
   return useQuery({
-    queryKey: ['order', 'validation', orderData],
+    queryKey: ['asset', 'rate', assetId],
     queryFn: () =>
-      fetch('/api/orders/validate', {
-        method: 'POST',
-        body: JSON.stringify(orderData),
-      }).then(r => r.json()),
-    enabled: !!orderData.assetId && !!orderData.quantity,
-    staleTime: 10000, // 10 seconds
+      fetch(`/api/assets/${assetId}/rate`).then(r => r.json()),
+    refetchInterval: 5000, // Update every 5 seconds
   });
 };
 
-// api/useSubmitOrder.ts
-export const useSubmitOrder = () => {
-  return useMutation({
-    mutationFn: (orderData: TradingOrder) =>
-      fetch('/api/orders/submit', {
-        method: 'POST',
-        body: JSON.stringify(orderData),
-      }),
-    onSuccess: data => {
-      queryClient.invalidateQueries(['portfolio']);
-      showNotification('Order submitted successfully', 'success');
-    },
-    onError: error => {
-      showNotification(`Order failed: ${error.message}`, 'error');
-    },
+// Usage in component
+const { data: assetRate } = useAssetRate(id);
+const unitPrice = assetRate?.rate ?? parseFloat(asset.rate);
+```
+
+For balance checking:
+
+```typescript
+// api/useAccountBalance.ts
+export const useAccountBalance = (currency: string) => {
+  return useQuery({
+    queryKey: ['account', 'balance', currency],
+    queryFn: () =>
+      fetch(`/api/account/balance?currency=${currency}`).then(r => r.json()),
   });
 };
 ```
 
 ## Template Customization Patterns
 
-### Order Entry Form Pattern
+### Bidirectional Calculation Pattern
 
-Real-time order building with validation:
+The core pattern for real-time bidirectional conversion:
 
 ```typescript
-const OrderEntryForm = ({ asset, onSubmit }) => {
-  const [orderType, setOrderType] = useState('buy');
-  const [quantity, setQuantity] = useState('');
-  const [orderStyle, setOrderStyle] = useState('market');
+const [payValueRaw, setPayValueRaw] = useState('');
+const [receiveValueRaw, setReceiveValueRaw] = useState('');
 
-  const { data: validation } = useOrderValidation({
-    assetId: asset.id,
-    orderType,
-    quantity: parseFloat(quantity),
-  });
+const calculateReceiveFromPay = (payValue: number): number => {
+  if (!asset || payValue <= 0 || unitPrice === 0) return 0;
+  const converted = payValue * (1 - FEE_PERCENTAGE);
+  return isStock ? converted / unitPrice : converted * unitPrice;
+};
 
-  const totalCost = useMemo(() => {
-    const cost = parseFloat(quantity) * parseFloat(asset.sellPrice) + FEES;
-    return formatCurrency(cost);
-  }, [quantity, asset]);
+const calculatePayFromReceive = (receiveValue: number): number => {
+  if (!asset || receiveValue <= 0 || unitPrice === 0) return 0;
+  const converted = isStock
+    ? receiveValue * unitPrice
+    : receiveValue / unitPrice;
+  return converted / (1 - FEE_PERCENTAGE);
+};
 
-  return (
-    <KeyboardStickyView>
-      <OrderTypeSelector value={orderType} onChange={setOrderType} />
-      <QuantityInput value={quantity} onChange={setQuantity} />
-      <OrderSummary totalCost={totalCost} fees={FEES} />
-      <Button onPress={onSubmit} disabled={!validation?.isValid}>
-        Place Order
-      </Button>
-    </KeyboardStickyView>
-  );
+const handlePayChange = (text: string) => {
+  const cleaned = parseInputText(text);
+  setPayValueRaw(cleaned);
+
+  if (!cleaned) {
+    setReceiveValueRaw('');
+    return;
+  }
+
+  const value = parseFloat(cleaned) || 0;
+  const received = calculateReceiveFromPay(value);
+  setReceiveValueRaw(roundToTwoDecimals(received));
 };
 ```
 
-### Fee Breakdown Pattern
+### Number Formatting Pattern
 
-Transparent fee calculation and display:
+Proper handling of formatted numbers with commas:
 
 ```typescript
-const FeeBreakdown = ({ orderValue }) => {
-  const fees = useMemo(() => {
-    const commission = orderValue * 0.001; // 0.1%
-    const platformFee = 1.15;
-    const regulatory = orderValue * 0.0001; // 0.01%
+// Display: Format raw value with commas
+const displayValue = formatNumberForDisplay(rawValue);
+// "1234.56" -> "1,234.56"
 
-    return {
-      commission,
-      platformFee,
-      regulatory,
-      total: commission + platformFee + regulatory,
-    };
-  }, [orderValue]);
+// Input: Parse formatted value back to raw
+const rawValue = parseFormattedNumber(formattedValue);
+// "1,234.56" -> "1234.56"
+
+// Clean: Validate and limit decimals
+const cleaned = cleanRawInput(rawValue);
+// "1234.567" -> "1234.56"
+```
+
+### Asset Type Detection Pattern
+
+Automatic detection of stock vs currency:
+
+```typescript
+const isStock = useMemo(() => {
+  if (!asset) return false;
+
+  const stockTickers = [
+    'AAPL', 'MSFT', 'AMZN', 'TSLA', 'META', 'GOOGL', 'FB',
+    'BTC', 'ETH', 'USDT', 'BNB', 'XRP', 'DOGE', 'LTC', 'XLM',
+  ];
 
   return (
-    <View style={styles.feeContainer}>
-      <Text variant="heading4">Fee Breakdown</Text>
-      <FeeRow label="Commission" value={fees.commission} />
-      <FeeRow label="Platform Fee" value={fees.platformFee} />
-      <FeeRow label="Regulatory Fee" value={fees.regulatory} />
-      <FeeRow label="Total Fees" value={fees.total} />
-    </View>
+    asset.from.ticker === 'USD' &&
+    stockTickers.includes(asset.to.ticker)
   );
-};
+}, [asset]);
+```
+
+### Transaction Recap Pattern
+
+Display conversion details:
+
+```typescript
+<Card style={styles.transactionRecap}>
+  <ListItem
+    text="Unit price"
+    itemRight={
+      <Text variant="body2">
+        {isStock
+          ? `1 ${asset.to.ticker} ≈ ${formatCurrency(unitPrice, 4)} ${asset.from.ticker}`
+          : `1 ${asset.from.ticker} ≈ ${formatCurrency(unitPrice, 4)} ${asset.to.ticker}`}
+      </Text>
+    }
+    divider
+  />
+  <ListItem
+    text="Amount converted"
+    itemRight={
+      <Text variant="body2">
+        {formatCurrency(payValue * (1 - FEE_PERCENTAGE))} {asset.from.ticker}
+      </Text>
+    }
+    divider
+  />
+  <ListItem
+    text="Estimated fee"
+    itemRight={
+      <Text variant="body2">
+        {formatCurrency(payValue * FEE_PERCENTAGE)} {asset.from.ticker}
+      </Text>
+    }
+    divider
+  />
+  <ListItem
+    text="Provider"
+    itemRight={<Text variant="body2">{PROVIDER}</Text>}
+  />
+</Card>
 ```
 
 ## Template Extension & Reuse Patterns
 
-### Financial Transaction Variations
+### Conversion Interface Variations
 
-This template can be adapted for different financial transaction types:
+This template can be adapted for different conversion types:
 
-1. **Stock Trading**: Equity orders with market and limit options
-2. **Cryptocurrency Trading**: Digital asset orders with real-time pricing
-3. **Forex Trading**: Currency pair orders with leverage options
-4. **Investment Management**: Portfolio rebalancing and allocation orders
-5. **Options Trading**: Complex derivatives with strike prices and expiration
+1. **Currency Exchange**: Foreign exchange with real-time rates
+2. **Cryptocurrency Trading**: Digital asset conversion with market rates
+3. **Stock Trading**: Equity purchase/sale with share price calculation
+4. **Commodity Trading**: Precious metals, oil, etc. with weight/volume conversion
+5. **Loyalty Points**: Points to currency conversion
 
-### Transaction Flow Adaptations
+### Adding New Asset Types
 
-Different order types require specific implementations:
+To support new asset types:
 
 ```typescript
-// Cryptocurrency trading adaptation
-type CryptoOrder = {
-  pair: string;
-  side: 'buy' | 'sell';
-  amount: number;
-  orderType: 'market' | 'limit' | 'stop-limit';
-  price?: number;
-  stopPrice?: number;
-};
+const isStock = useMemo(() => {
+  // Add detection logic for new asset types
+  return (
+    asset.from.ticker === 'USD' &&
+    (STOCK_TICKERS.includes(asset.to.ticker) ||
+     CRYPTO_TICKERS.includes(asset.to.ticker))
+  );
+}, [asset]);
 
-// Options trading adaptation
-type OptionsOrder = {
-  underlying: string;
-  strike: number;
-  expiration: string;
-  optionType: 'call' | 'put';
-  contracts: number;
-  premium: number;
+// Custom calculation logic
+const calculateReceiveFromPay = (payValue: number): number => {
+  if (isStock) {
+    return (payValue * (1 - FEE_PERCENTAGE)) / unitPrice;
+  } else if (isCrypto) {
+    // Custom crypto calculation
+    return (payValue * (1 - FEE_PERCENTAGE)) * unitPrice;
+  } else {
+    // Currency exchange
+    return (payValue * (1 - FEE_PERCENTAGE)) * unitPrice;
+  }
 };
 ```
 
-### Adding New Features
+### Enhanced Features
 
-- **Advanced Order Types**: Stop-loss, bracket orders, and trailing stops
-- **Portfolio Impact**: Position sizing and diversification analysis
-- **Social Trading**: Copy trading and signal integration
-- **Risk Management**: Real-time risk assessment and warnings
-- **Order Book**: Live market depth and bid/ask spreads
+Potential enhancements:
+
+- **Rate Alerts**: Notify when rates reach target values
+- **Conversion History**: Save and display past conversions
+- **Multiple Providers**: Compare rates across different providers
+- **Scheduled Conversions**: Set up recurring conversions
+- **Balance Validation**: Prevent conversion if insufficient balance
+- **Rate Charts**: Display historical rate trends
+- **Favorite Pairs**: Quick access to frequently used conversions
 
 ### Customization Guidelines
 
-- Follow existing real-time calculation patterns for order totals
+- Follow existing bidirectional calculation patterns for real-time updates
 - Ensure to continue using same file structure with feature based architecture. Meaning colocation of files that are related to be together. Meaning no folders such as `hooks` or `components` unless they are shared across different areas rather than single used
 - Use craftrn-ui components for consistent financial data display
-- Ensure to continue using same file structure with feature based architecture. Meaning colocation of files that are related to be together. Meaning no folders such as `hooks` or `components` unless they are shared across different areas rather than single used
 - Maintain KeyboardStickyView patterns for optimal mobile experience
-- Ensure to continue using same file structure with feature based architecture. Meaning colocation of files that are related to be together. Meaning no folders such as `hooks` or `components` unless they are shared across different areas rather than single used
 - Preserve fee transparency and breakdown patterns
-- Ensure to continue using same file structure with feature based architecture. Meaning colocation of files that are related to be together. Meaning no folders such as `hooks` or `components` unless they are shared across different areas rather than single used
-- Keep validation patterns for order safety and compliance
-- Ensure to continue using same file structure with feature based architecture. Meaning colocation of files that are related to be together. Meaning no folders such as `hooks` or `components` unless they are shared across different areas rather than single used
+- Keep number formatting utilities for proper input/output handling
 - Maintain feature-based file colocation - group related files together rather than separating by type (avoid generic `hooks/`, `components/` folders unless shared across multiple features)
 
 ## TypeScript Rules

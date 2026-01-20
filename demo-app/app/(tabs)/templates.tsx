@@ -32,10 +32,16 @@ import staysSearchDark from '@/assets/images/screens/stays-search-dark.png';
 import staysSearchLight from '@/assets/images/screens/stays-search-light.png';
 import staysSelectionDark from '@/assets/images/screens/stays-selection-dark.png';
 import staysSelectionLight from '@/assets/images/screens/stays-selection-light.png';
-import tradingDashboardDark from '@/assets/images/screens/trading-dashboard-dark.png';
-import tradingDashboardLight from '@/assets/images/screens/trading-dashboard-light.png';
+import {
+  default as tradingDashboardDark,
+} from '@/assets/images/screens/trading-dashboard-dark.png';
+import {
+  default as tradingDashboardLight,
+} from '@/assets/images/screens/trading-dashboard-light.png';
 import tradingOrderDark from '@/assets/images/screens/trading-order-dark.png';
 import tradingOrderLight from '@/assets/images/screens/trading-order-light.png';
+import tradingTrendsDark from '@/assets/images/screens/trading-trends-dark.png';
+import tradingTrendsLight from '@/assets/images/screens/trading-trends-light.png';
 import ParallaxScrollView from '@/components/ParallaxScrollView/ParallaxScrollView';
 import { Card } from '@/craftrn-ui/components/Card/Card';
 import { ListItem } from '@/craftrn-ui/components/ListItem/ListItem';
@@ -241,6 +247,14 @@ export default function TemplatesScreen() {
             href="/templates/trading-order/3e458e61-677c-4d55-b908-507a490a4853"
             imageSource={
               mode === 'light' ? tradingOrderLight : tradingOrderDark
+            }
+          />
+          <MenuItem
+            title="Trading trends"
+            description="View market trends, top gainers, losers, and market sentiment."
+            href="/templates/trading-trends"
+            imageSource={
+              mode === 'light' ? tradingTrendsLight : tradingTrendsDark
             }
           />
         </View>

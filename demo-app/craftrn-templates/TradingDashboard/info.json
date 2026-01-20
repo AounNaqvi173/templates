@@ -4,22 +4,31 @@
   "externalDependencies": [
     "react-native-reanimated",
     "react-native-svg",
+    "react-native-gesture-handler",
     "react-native-unistyles"
   ],
-  "craftrnUiComponents": ["ListItem", "Text"],
-  "tetrislyIcons": ["ChevronDown", "ChevronUp"],
+  "craftrnUiComponents": ["Button", "ButtonRound", "Card", "ListItem", "Text", "Avatar", "ContextMenu"],
+  "tetrislyIcons": ["ChevronDown", "TrendDown", "TrendUp", "Download", "Paperplane", "Plus", "Search", "Help", "Settings", "User"],
   "fileStructure": {
+    "TradingDashboardScreen.tsx": "file",
+    "PortfolioHeader.tsx": "file",
+    "PortfolioChart": {
+      "PortfolioChart.tsx": "file",
+      "chartUtils.ts": "file",
+      "index.ts": "file",
+      "useChartInteraction.ts": "file"
+    },
     "AssetGridItem.tsx": "file",
-    "AssetHighlights.tsx": "file",
     "AssetListItem.tsx": "file",
     "ExchangeRate.tsx": "file",
+    "SectionHeader.tsx": "file",
+    "HeaderTitle.tsx": "file",
+    "HeaderRight.tsx": "file",
     "info.json": "file",
     "AGENTS.md": "file",
-    "PortfolioHeader.tsx": "file",
-    "SectionHeader.tsx": "file",
-    "TradingDashboardScreen.tsx": "file",
     "data": {
-      "assets.tsx": "file"
+      "assets.tsx": "file",
+      "chart.tsx": "file"
     },
     "utils": {
       "numbers.ts": "file"

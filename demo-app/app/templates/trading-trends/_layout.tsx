@@ -2,12 +2,13 @@ import { Stack } from 'expo-router';
 import React from 'react';
 import { useUnistyles } from 'react-native-unistyles';
 
-export default function TradingLayout() {
+export default function TradingTrendsLayout() {
   const { theme } = useUnistyles();
   return (
     <Stack
       screenOptions={{
         headerShown: true,
+        headerTitle: 'Market trends',
         statusBarTranslucent: true,
         contentStyle: {
           backgroundColor: theme.colors.backgroundScreen,

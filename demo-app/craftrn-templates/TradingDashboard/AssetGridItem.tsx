@@ -1,6 +1,6 @@
 import { Text } from '@/craftrn-ui/components/Text/Text';
-import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
-import { ChevronUp } from '@/tetrisly-icons/ChevronUp';
+import { TrendDown } from '@/tetrisly-icons/TrendDown';
+import { TrendUp } from '@/tetrisly-icons/TrendUp';
 import React from 'react';
 import { Image, Pressable, View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
@@ -22,7 +22,7 @@ export const AssetGridItem = ({
   const { theme } = useUnistyles();
   const isNegative = change.startsWith('-');
 
-  const ChevronIcon = isNegative ? ChevronDown : ChevronUp;
+  const TrendIcon = isNegative ? TrendDown : TrendUp;
   const chevronColor = isNegative
     ? theme.colors.sentimentNegative
     : theme.colors.sentimentPositive;
@@ -36,8 +36,8 @@ export const AssetGridItem = ({
             {label}
           </Text>
           <View style={styles.changeContainer}>
-            <ChevronIcon size={16} color={chevronColor} />
-            <Text variant="body2" style={styles.changeText(isNegative)}>
+            <TrendIcon size={14} color={chevronColor} />
+            <Text variant="body3" style={styles.changeText(isNegative)}>
               {change}
             </Text>
           </View>
@@ -72,6 +72,7 @@ const styles = StyleSheet.create(theme => ({
   },
   changeContainer: {
     flexDirection: 'row',
+    gap: theme.spacing.xsmall,
   },
   changeText: (isNegative: boolean) => ({
     color: isNegative

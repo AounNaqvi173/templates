@@ -1,20 +1,31 @@
 import { Button } from '@/craftrn-ui/components/Button';
+import { Card } from '@/craftrn-ui/components/Card';
+import { Divider } from '@/craftrn-ui/components/Divider';
 import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Text } from '@/craftrn-ui/components/Text';
 import React, { ComponentType, useMemo, useState } from 'react';
-import { Platform, TextInput, View } from 'react-native';
-import { KeyboardStickyView } from 'react-native-keyboard-controller';
+import { View } from 'react-native';
+import {
+  KeyboardAwareScrollView,
+  KeyboardStickyView,
+} from 'react-native-keyboard-controller';
 import {
   StyleSheet,
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
-import { AssetListItem } from './AssetListItem';
+import { AmountRow } from './AmountRow';
 import { assets } from './data/assets';
-import { ExchangeRate } from './ExchangeRate';
-import { formatCurrency } from './utils/numbers';
+import {
+  cleanRawInput,
+  formatCurrency,
+  formatNumberForDisplay,
+  parseFormattedNumber,
+} from './utils/numbers';
 
-const INVEST_FEES = 1.15;
+const PROVIDER = 'Market Exchange';
+const AVAILABLE_BALANCE = 15395.32;
+const FEE_PERCENTAGE = 0.0352; // 3.52%
 
 type Props = {
   id: string;
@@ -26,7 +37,8 @@ export const TradingOrderScreen: ComponentType<Props> = ({
   onPressInvest,
 }) => {
   const { theme } = useUnistyles();
-  const [investValue, setInvestValue] = useState('');
+  const [investValueRaw, setInvestValueRaw] = useState('');
+  const [receiveValueRaw, setReceiveValueRaw] = useState('');
 
   const asset = useMemo(() => {
     if (!id) {
@@ -35,13 +47,106 @@ export const TradingOrderScreen: ComponentType<Props> = ({
     return assets.find(a => a.id === id);
   }, [id]);
 
-  const totalCost = useMemo(
-    () =>
-      formatCurrency(
-        parseFloat(investValue) * parseFloat(asset?.sellPrice ?? '') +
-          INVEST_FEES,
-      ),
-    [investValue, asset],
+  const unitPrice = useMemo(() => {
+    if (!asset) {
+      return 0;
+    }
+    return parseFloat(asset.rate) || 0;
+  }, [asset]);
+
+  const isStock = useMemo(() => {
+    if (!asset) {
+      return false;
+    }
+    // Stocks have USD as 'from' and stock ticker as 'to'
+    // Known stock tickers
+    const stockTickers = [
+      'AAPL',
+      'MSFT',
+      'AMZN',
+      'TSLA',
+      'META',
+      'GOOGL',
+      'FB',
+      'BTC',
+      'ETH',
+      'USDT',
+      'BNB',
+      'XRP',
+      'DOGE',
+      'LTC',
+      'XLM',
+    ];
+    return (
+      asset.from.ticker === 'USD' && stockTickers.includes(asset.to.ticker)
+    );
+  }, [asset]);
+
+  const calculateReceiveFromPay = (payValue: number): number => {
+    if (!asset || payValue <= 0 || unitPrice === 0) {
+      return 0;
+    }
+    const converted = payValue * (1 - FEE_PERCENTAGE);
+    // For stocks: divide by unit price (price per share)
+    // For currencies: multiply by exchange rate
+    return isStock ? converted / unitPrice : converted * unitPrice;
+  };
+
+  const calculatePayFromReceive = (receiveValue: number): number => {
+    if (!asset || receiveValue <= 0 || unitPrice === 0) {
+      return 0;
+    }
+    // For stocks: multiply by unit price to get cost, then add fee
+    // For currencies: divide by exchange rate to get base amount, then add fee
+    const converted = isStock
+      ? receiveValue * unitPrice
+      : receiveValue / unitPrice;
+    return converted / (1 - FEE_PERCENTAGE);
+  };
+
+  const parseInputText = (text: string): string => {
+    const rawInput = parseFormattedNumber(text);
+    return cleanRawInput(rawInput);
+  };
+
+  const roundToTwoDecimals = (value: number): string => {
+    return value > 0 ? value.toFixed(2) : '';
+  };
+
+  const handlePayChange = (text: string) => {
+    const cleaned = parseInputText(text);
+    setInvestValueRaw(cleaned);
+
+    if (!cleaned) {
+      setReceiveValueRaw('');
+      return;
+    }
+
+    const value = parseFloat(cleaned) || 0;
+    const received = calculateReceiveFromPay(value);
+    setReceiveValueRaw(roundToTwoDecimals(received));
+  };
+
+  const handleReceiveChange = (text: string) => {
+    const cleaned = parseInputText(text);
+    setReceiveValueRaw(cleaned);
+
+    if (!cleaned) {
+      setInvestValueRaw('');
+      return;
+    }
+
+    const value = parseFloat(cleaned) || 0;
+    const payValue = calculatePayFromReceive(value);
+    setInvestValueRaw(roundToTwoDecimals(payValue));
+  };
+
+  const investValueDisplay = formatNumberForDisplay(investValueRaw);
+  const receiveValueDisplay = formatNumberForDisplay(receiveValueRaw);
+
+  const investValue = useMemo(
+    () => (investValueRaw ? parseFloat(investValueRaw) : 0),
+    [investValueRaw],
   );
 
   if (!asset) {
@@ -50,54 +155,97 @@ export const TradingOrderScreen: ComponentType<Props> = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.upperContent}>
-        <Text variant="heading3">How much would you like to buy?</Text>
-        <View style={styles.inputContainer}>
-          <Text variant="heading3" style={styles.symbolText}>
-            {asset.fromSymbol}
-          </Text>
-          <TextInput
-            value={investValue}
-            onChangeText={text => setInvestValue(text)}
-            autoFocus
-            style={styles.input}
-            selectionColor={theme.colors.contentAccentSecondary}
-            keyboardType="numeric"
-          />
-        </View>
-        <Text variant="body3" style={styles.fees}>
-          ${INVEST_FEES} investment fees
-        </Text>
-      </View>
-      <KeyboardStickyView
-        offset={{ opened: 0, closed: -UnistylesRuntime.insets.bottom }}
+      <KeyboardAwareScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        bottomOffset={UnistylesRuntime.insets.bottom}
+        keyboardShouldPersistTaps="never"
       >
-        <View style={styles.bottomContent}>
-          <AssetListItem
-            text={asset.name}
-            textBelow={asset.pairing}
-            imageURL={asset.imageURL}
-            itemRight={
-              <ExchangeRate
-                value={asset.sellPrice}
-                symbol={asset.toSymbol}
-                change={asset.change}
-              />
-            }
-            divider
+        <View style={styles.upperContent}>
+          <View>
+            <AmountRow
+              label="You pay"
+              value={investValueDisplay}
+              onChangeText={handlePayChange}
+              isInput
+              autoFocus
+              avatarSource={{ uri: asset.from.imageURL }}
+              avatarFallbackInitials={asset.from.symbol}
+              currencyCode={asset.from.ticker}
+            />
+            <Text
+              variant="body2"
+              style={styles.availableText}
+              color="contentTertiary"
+            >
+              Available: {formatCurrency(AVAILABLE_BALANCE)} {asset.from.ticker}
+            </Text>
+          </View>
+
+          <Divider style={styles.divider} />
+
+          <AmountRow
+            label="You receive"
+            value={receiveValueDisplay}
+            onChangeText={handleReceiveChange}
+            isInput
+            avatarSource={{ uri: asset.to.imageURL }}
+            avatarFallbackInitials={asset.to.symbol}
+            currencyCode={asset.to.ticker}
           />
-          <ListItem
-            text="Total purchase cost"
-            textBelow="Including fees"
-            itemRight={
-              <Text variant="body1" style={styles.totalCost}>
-                {`${asset.toSymbol}${totalCost}`}
-              </Text>
-            }
-            style={styles.totalCostItem}
-          />
+
+          <Card style={styles.transactionRecap}>
+            <ListItem
+              text="Unit price"
+              itemRight={
+                <Text variant="body2">
+                  {isStock
+                    ? `1 ${asset.to.ticker} ≈ ${formatCurrency(unitPrice, 4)} ${asset.from.ticker}`
+                    : `1 ${asset.from.ticker} ≈ ${formatCurrency(unitPrice, 4)} ${asset.to.ticker}`}
+                </Text>
+              }
+              style={styles.listItem}
+              divider
+            />
+            <ListItem
+              text="Amount converted"
+              itemRight={
+                <Text variant="body2">
+                  {formatCurrency(investValue * (1 - FEE_PERCENTAGE))}{' '}
+                  {asset.from.ticker}
+                </Text>
+              }
+              style={styles.listItem}
+              divider
+            />
+            <ListItem
+              text="Estimated fee"
+              itemRight={
+                <Text variant="body2">
+                  {formatCurrency(investValue * FEE_PERCENTAGE)}{' '}
+                  {asset.from.ticker}
+                </Text>
+              }
+              style={styles.listItem}
+              divider
+            />
+            <ListItem
+              text="Provider"
+              itemRight={<Text variant="body2">{PROVIDER}</Text>}
+              style={styles.listItem}
+            />
+          </Card>
         </View>
-        <Button onPress={onPressInvest}>Invest</Button>
+      </KeyboardAwareScrollView>
+      <KeyboardStickyView
+        offset={{
+          opened: -theme.spacing.large,
+          closed: -UnistylesRuntime.insets.bottom,
+        }}
+      >
+        <View style={styles.buttonContainer}>
+          <Button onPress={onPressInvest}>Convert</Button>
+        </View>
       </KeyboardStickyView>
     </View>
   );
@@ -105,42 +253,36 @@ export const TradingOrderScreen: ComponentType<Props> = ({
 
 const styles = StyleSheet.create(theme => ({
   container: {
-    gap: theme.spacing.small,
-    paddingHorizontal: theme.spacing.large,
-    paddingVertical: theme.spacing.large,
     flex: 1,
   },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    gap: theme.spacing.small,
+    paddingHorizontal: theme.spacing.large,
+    paddingTop: theme.spacing.large,
+    paddingBottom: theme.spacing.large,
+  },
+  buttonContainer: {
+    paddingHorizontal: theme.spacing.large,
+  },
   upperContent: {
-    flexGrow: 1,
-    gap: theme.spacing.medium,
+    gap: theme.spacing.large,
   },
-  inputContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    gap: theme.spacing.xsmall,
+  divider: {
+    marginVertical: theme.spacing.small,
   },
-  symbolText: {
-    fontWeight: 'bold',
+  listItem: {
+    padding: theme.spacing.small,
   },
-  input: {
-    height: 50,
-    alignSelf: 'center',
-    ...theme.textVariants.heading1,
-    lineHeight: Platform.OS === 'ios' ? 0 : 25,
-    fontWeight: 'bold',
-    color: theme.colors.contentPrimary,
+  transactionRecap: {
+    backgroundColor: theme.colors.backgroundNeutral,
+    marginTop: theme.spacing.medium,
+    paddingHorizontal: theme.spacing.small,
+    paddingVertical: theme.spacing.xsmall,
   },
-  fees: {
-    textAlign: 'center',
-  },
-  bottomContent: {
-    marginBottom: theme.spacing.large,
-  },
-  totalCostItem: {
-    paddingVertical: theme.spacing.small,
-  },
-  totalCost: {
-    fontWeight: 'bold',
+  availableText: {
+    marginTop: theme.spacing.xsmall,
   },
 }));

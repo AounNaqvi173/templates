@@ -1,6 +1,6 @@
 import { Text } from '@/craftrn-ui/components/Text';
-import { ChevronDown } from '@/tetrisly-icons/ChevronDown';
-import { ChevronUp } from '@/tetrisly-icons/ChevronUp';
+import { TrendDown } from '@/tetrisly-icons/TrendDown';
+import { TrendUp } from '@/tetrisly-icons/TrendUp';
 import React, { ComponentType } from 'react';
 import { View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
@@ -27,11 +27,11 @@ export const ExchangeRate: ComponentType<ExchangeRateProps> = ({
       </Text>
       <View style={styles.changeContainer}>
         {isNegative ? (
-          <ChevronDown size={16} color={theme.colors.sentimentNegative} />
+          <TrendDown size={14} color={theme.colors.sentimentNegative} />
         ) : (
-          <ChevronUp size={16} color={theme.colors.sentimentPositive} />
+          <TrendUp size={14} color={theme.colors.sentimentPositive} />
         )}
-        <Text variant="body2" style={styles.change(isNegative)}>
+        <Text variant="body3" style={styles.change(isNegative)}>
           {change}
         </Text>
       </View>
@@ -49,9 +49,9 @@ const styles = StyleSheet.create(theme => ({
   changeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: theme.spacing.xsmall,
   },
   change: (isNegative: boolean) => ({
-    marginLeft: theme.spacing.xsmall,
     color: isNegative
       ? theme.colors.sentimentNegative
       : theme.colors.sentimentPositive,

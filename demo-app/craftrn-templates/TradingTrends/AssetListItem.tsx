@@ -1,5 +1,5 @@
-import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Avatar } from '@/craftrn-ui/components/Avatar';
+import { ListItem } from '@/craftrn-ui/components/ListItem';
 import React, { ComponentProps, ComponentType } from 'react';
 import { View, ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';

@@ -1,0 +1,34 @@
+{
+  "name": "TradingTrends",
+  "description": "Market trends template with search, filters, top gainers/losers, and market sentiment",
+  "externalDependencies": [
+    "react-native-unistyles"
+  ],
+  "craftrnUiComponents": ["Button", "Card", "InputSearch", "ListItem", "Text", "Avatar"],
+  "tetrislyIcons": ["Search", "TrendUp", "TrendDown", "ArrowUp", "Home", "LayerTwo"],
+  "fileStructure": {
+    "TradingTrendsScreen.tsx": "file",
+    "MarketSentiment.tsx": "file",
+    "MarketSentimentSection.tsx": "file",
+    "MarketSentimentSkeleton.tsx": "file",
+    "AssetListItem.tsx": "file",
+    "AssetListItemSkeleton.tsx": "file",
+    "ExchangeRate.tsx": "file",
+    "SectionHeader.tsx": "file",
+    "SectionHeaderSkeleton.tsx": "file",
+    "TopGainers.tsx": "file",
+    "TopLosers.tsx": "file",
+    "TopTraders.tsx": "file",
+    "TraderListItem.tsx": "file",
+    "TraderListItemSkeleton.tsx": "file",
+    "info.json": "file",
+    "AGENTS.md": "file",
+    "data": {
+      "assets.tsx": "file",
+      "traders.tsx": "file"
+    },
+    "utils": {
+      "numbers.ts": "file"
+    }
+  }
+}
