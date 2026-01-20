@@ -28,12 +28,18 @@ export type Props = Pick<ViewProps, 'style'> & {
    * @default 4
    */
   borderRadius?: number;
+  /**
+   * Background color of the skeleton.
+   * @default theme.colors.backgroundNeutral
+   */
+  color?: string;
 };
 
 export const Skeleton = ({
   width = '100%',
   height = 20,
   borderRadius = 8,
+  color,
   style,
   ...viewProps
 }: Props) => {
@@ -55,16 +61,18 @@ export const Skeleton = ({
     opacity: opacity.value,
   }));
 
-  const baseStyle: ViewStyle = {
-    width,
-    height,
-    borderRadius,
-    backgroundColor: theme.colors.backgroundNeutral,
-  };
-
   return (
     <Animated.View
-      style={[baseStyle, animatedStyle, StyleSheet.flatten(style)]}
+      style={[
+        {
+          width,
+          height,
+          borderRadius,
+          backgroundColor: color ?? theme.colors.backgroundNeutral,
+        },
+        animatedStyle,
+        style && StyleSheet.flatten(style),
+      ]}
       {...viewProps}
     />
   );

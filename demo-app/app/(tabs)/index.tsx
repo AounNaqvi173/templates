@@ -110,6 +110,11 @@ export default function ComponentsScreen() {
             href="/components/radio"
           />
           <MenuItem
+            text="Skeleton"
+            textBelow="Animated skeleton component for loading states"
+            href="/components/skeleton"
+          />
+          <MenuItem
             text="Slider"
             textBelow="Renders a slider with a single knob"
             href="/components/slider"

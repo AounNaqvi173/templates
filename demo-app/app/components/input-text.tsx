@@ -1,8 +1,11 @@
 import { Button } from '@/craftrn-ui/components/Button';
 import { Card } from '@/craftrn-ui/components/Card';
+import { Divider } from '@/craftrn-ui/components/Divider';
 import { InputText } from '@/craftrn-ui/components/InputText';
 import { ListItem } from '@/craftrn-ui/components/ListItem';
 import { Switch } from '@/craftrn-ui/components/Switch';
+import { File } from '@/tetrisly-icons/File';
+import { Lock } from '@/tetrisly-icons/Lock';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { Stack } from 'expo-router';
 import React, { useCallback, useState } from 'react';
@@ -13,9 +16,6 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
-import { Divider } from '../../craftrn-ui/components/Divider';
-import { File } from '../../tetrisly-icons/File';
-import { Lock } from '../../tetrisly-icons/Lock';
 
 type InputTextSize = 'small' | 'medium' | 'large';
 

@@ -3,6 +3,10 @@ import {
   ContextMenu,
   ContextMenuElement,
 } from '@/craftrn-ui/components/ContextMenu';
+import { Block } from '@/tetrisly-icons/Block';
+import { Copy } from '@/tetrisly-icons/Copy';
+import { Share } from '@/tetrisly-icons/Share';
+import { UserEdit } from '@/tetrisly-icons/UserEdit';
 import { Stack } from 'expo-router';
 import React from 'react';
 import { Alert, Pressable, View } from 'react-native';
@@ -11,10 +15,6 @@ import {
   UnistylesRuntime,
   useUnistyles,
 } from 'react-native-unistyles';
-import { Block } from '../../tetrisly-icons/Block';
-import { Copy } from '../../tetrisly-icons/Copy';
-import { Share } from '../../tetrisly-icons/Share';
-import { UserEdit } from '../../tetrisly-icons/UserEdit';
 
 export default function ContextMenuScreen() {
   const { theme } = useUnistyles();
