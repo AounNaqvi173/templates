@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "postinstall": "node scripts/copy-craftrn-templates.mjs"
   },
   "jest": {
     "preset": "jest-expo"

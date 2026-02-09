@@ -259,49 +259,6 @@ export default function TemplatesScreen() {
           />
         </View>
       </ParallaxScrollView>
-
-      <View style={styles.bottomWrapper}>
-        <View style={styles.gradientContainer}>
-          <UniSvg height="24" style={styles.gradient}>
-            <Defs>
-              <LinearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-                <Stop
-                  offset="0"
-                  stopColor={theme.colors.backgroundScreen}
-                  stopOpacity="0"
-                />
-                <Stop
-                  offset="1"
-                  stopColor={theme.colors.backgroundScreen}
-                  stopOpacity="1"
-                />
-              </LinearGradient>
-            </Defs>
-            <Rect x="0" y="0" width="100%" height="24" fill="url(#grad)" />
-          </UniSvg>
-        </View>
-
-        <View style={styles.fixedBottomContainer}>
-          <Card>
-            <ListItem
-              text="Get all templates"
-              textBelow="Access GitHub resources now"
-              style={styles.listItem}
-              itemRight={<ChevronRight color={theme.colors.contentPrimary} />}
-              onPress={() =>
-                WebBrowser.openBrowserAsync(
-                  'https://www.craftreactnative.com/pricing',
-                  {
-                    controlsColor: theme.colors.interactivePrimary,
-                    presentationStyle:
-                      WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET,
-                  },
-                )
-              }
-            />
-          </Card>
-        </View>
-      </View>
     </View>
   );
 }
@@ -341,26 +298,6 @@ const styles = StyleSheet.create(theme => ({
   menuItemTextBelow: {
     ...theme.textVariants.body3,
     color: theme.colors.contentTertiary,
-  },
-  bottomWrapper: {
-    position: 'relative',
-  },
-  fixedBottomContainer: {
-    paddingHorizontal: theme.spacing.large,
-    paddingTop: theme.spacing.small,
-    paddingBottom: theme.spacing.large,
-  },
-  gradientContainer: {
-    position: 'absolute',
-    top: -24,
-    left: 0,
-    right: 0,
-    height: 24,
-    pointerEvents: 'none',
-    zIndex: 1,
-  },
-  gradient: {
-    flex: 1,
   },
   themeButtonContainer: {
     marginTop: theme.spacing.small,
