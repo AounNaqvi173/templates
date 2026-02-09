@@ -1,58 +1,62 @@
-# CraftReactNative Paid Templates License
+# CraftReactNative – License
 
-## License Types
+This repository contains **templates** licensed under the CraftReactNative Software License Agreement below. (UI components, when present, are under the MIT License.)
 
-### Individual License
+---
 
-Grants the Licensee the right to use the Assets independently for personal and commercial endeavors, such as mobile applications, websites, or software development.
+## Templates — Software License Agreement
 
-### Team License
+The React Native screen templates and related code in the templates repository (the "templates") are made available by CraftReactNative under the terms below. Using the templates means you accept these terms.
 
-Allows the Licensee and their authorized team members to collaboratively use the Assets for both personal and commercial purposes, including but not limited to developing mobile applications, websites, or software.
+### What you may do
 
-## Permitted Uses
+We grant you a non-exclusive, non-transferable right to use the templates, subject to the restrictions below. You may:
 
-The Licensee is authorized to:
+- Use the templates and screens in your own applications, whether commercial or personal
+- Change and adapt the templates to fit your project
+- Use them across multiple projects and in apps you build for clients
+- Ship applications that include the templates (or adapted versions) to end users
 
-1. Create an unlimited number of End Products using the Assets.
-2. Modify the Assets to produce derivative screens and components, which remain subject to this license.
-3. Use the Assets to develop End Products for an unlimited number of Clients.
-4. Create End Products using the Assets that are sold directly to End Users.
+### What you may not do
 
-## Restrictions
+- Resell, redistribute, or sublicense the templates or derivatives as a product or codebase
+- Build a competing template or component library that is based on or derived from the templates
+- Offer individual templates or components for download or sale on their own
+- Port the templates to another framework (e.g. Flutter) and redistribute that port
+- Use the templates as the main selling point of a product or service (e.g. "template pack" offerings)
+- Remove or change any copyright or attribution notices in the code
 
-The Licensee may not:
+### Ownership
 
-1. Develop End Products using the Assets that are open source or freely available to End Users.
-2. Create End Products designed to enable End Users to build their own End Products using the Assets or their derivatives.
-3. Redistribute the Assets or their derivatives as standalone files, either as code or as design assets, separate from an End Product.
-4. Share your access to the Assets with other individuals.
-5. Use the Assets to create anything deemed by CraftReactNative, at their sole discretion, to compete with or conflict with CraftReactNative's business.
+The templates are licensed, not sold. CraftReactNative keeps full rights and ownership. This agreement only gives you a right to use them within the scope described above.
 
-## Intellectual Property
+### Duration and end of use
 
-CraftReactNative retains all rights, ownership, and intellectual property associated with the Assets. This Agreement grants the Licensee usage rights, but no ownership or intellectual property rights.
+This agreement applies until it is ended. If you break any of these terms, your right to use the templates ends immediately. When that happens, you must stop using the templates and delete any copies you have.
 
-## Maintenance and Support
+### No guarantee
 
-While CraftReactNative aims to provide updates and bug fixes, the Licensee understands that access to these updates depends on the type of license purchased. Updates will be provided at the Licensor's discretion.
+The templates are provided "as is". We do not guarantee that they are error-free, fit for a particular purpose, or non-infringing. You use them at your own risk.
 
-## Termination and Consequences
+### Limitation of liability
 
-This Agreement remains effective until it is terminated. The Licensee may terminate it at any time by ceasing use of the Assets. The Licensor may terminate this Agreement if the Licensee breaches any terms, and the Licensee will be required to discontinue use and destroy any copies of the Assets.
+To the extent allowed by law, CraftReactNative is not liable for any direct, indirect, incidental, or consequential damages (including loss of profit or data) that result from using or being unable to use the templates.
 
-## No Warranty
+### Law and disputes
 
-The Assets are made available on an "as-is" basis. The Licensor does not guarantee the Assets will be error-free or compatible with any particular system, nor does the Licensor offer support or warranty for the Assets. The Licensee assumes all risk and responsibility for use of the Assets.
+These terms are governed by the laws of the United Kingdom. Any dispute about them will be dealt with in the courts of that jurisdiction.
 
-## Liability Limitation
+### Whole agreement
 
-To the fullest extent permitted by law, the Licensor is not liable for any damages arising from the use of the Assets, including but not limited to any direct, indirect, incidental, special, or consequential damages, even if the Licensor has been advised of the possibility of such damages.
+These terms are the full agreement between you and CraftReactNative about use of the templates and replace any earlier discussions or agreements on that subject.
 
-## Governing Law
-
-This Agreement is governed by the laws of the United Kingdom, and any disputes arising out of or in connection with this Agreement will be subject to the exclusive jurisdiction of the courts in that jurisdiction.
+---
 
 ## Credits
 
 This product includes icons created by Tetrisly (https://tetrisly.com), licensed under the Apache License, Version 2.0.
+
+---
+
+_Source: https://www.craftreactnative.com/license_
+_Last updated: 6 Feb, 2025_
